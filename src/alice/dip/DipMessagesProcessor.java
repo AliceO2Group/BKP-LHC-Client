@@ -30,16 +30,12 @@ import java.util.concurrent.BlockingQueue;
 import cern.dip.DipData;
 import cern.dip.DipTimestamp;
 
-public class ProcData implements Runnable {
-
-	// HashMap<String, DipData> DataMap;
-
-	public BKwriter BKDB;
+public class DipMessagesProcessor implements Runnable {
+	public BookkeepingClient BKDB;
 	public int statNoDipMess = 0;
 	public int statNoKafMess = 0;
 	public int statNoNewFills = 0;
 	public int statNoNewRuns = 0;
-	// SimDipEventsRun simRun;
 	public int statNoEndRuns = 0;
 	public int statNoDuplicateEndRuns = 0;
 	public int LastRunNumber = -1;
@@ -50,7 +46,7 @@ public class ProcData implements Runnable {
 	ArrayList<RunInfoObj> ActiveRuns = new ArrayList<RunInfoObj>();
 	private BlockingQueue<MessageItem> outputQueue = new ArrayBlockingQueue<MessageItem>(100);
 
-	public ProcData(BKwriter BKDB) {
+	public DipMessagesProcessor(BookkeepingClient BKDB) {
 
 		this.BKDB = BKDB;
 
@@ -754,7 +750,7 @@ public class ProcData implements Runnable {
 		}
 	}
 
-	public void writeHistFile(String filename, ArrayList<floatTS> A) {
+	public void writeHistFile(String filename, ArrayList<TimestampedFloat> A) {
 
 		String path = getClass().getClassLoader().getResource(".").getPath();
 		String full_file = path + AliDip2BK.STORE_HIST_FILE_DIR + "/" + filename;
@@ -767,7 +763,7 @@ public class ProcData implements Runnable {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(full_file, true));
 
 			for (int i = 0; i < A.size(); i++) {
-				floatTS ts = A.get(i);
+				TimestampedFloat ts = A.get(i);
 
 				writer.write(ts.time + "," + ts.value + "\n");
 			}

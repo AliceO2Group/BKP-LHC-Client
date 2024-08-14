@@ -14,14 +14,10 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 
-public class BKwriter {
-
-	// private static String path;
+public class BookkeepingClient {
 	HttpClient httpClient;
 
-	public BKwriter() {
-		// path = getClass().getClassLoader().getResource(".").getPath();
-
+	public BookkeepingClient() {
 		httpClient = HttpClient.newBuilder()
 			.version(HttpClient.Version.HTTP_2)
 			.connectTimeout(Duration.ofSeconds(10))

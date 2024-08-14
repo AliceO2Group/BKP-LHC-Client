@@ -31,11 +31,11 @@ public class LhcInfoObj implements Serializable {
 	public String LHCFillingSchemeName;
 	public int IP2_NO_COLLISIONS;
 	public int NO_BUNCHES;
-	public ArrayList<floatTS> beamEnergyHist;
-	public ArrayList<floatTS> LHCBetaStarHist;
-	public ArrayList<strTS> beamModeHist;
-	public ArrayList<strTS> FillingSchemeHist;
-	public ArrayList<strTS> ActiveFillingSchemeHist;
+	public ArrayList<TimestampedFloat> beamEnergyHist;
+	public ArrayList<TimestampedFloat> LHCBetaStarHist;
+	public ArrayList<TimestampedString> beamModeHist;
+	public ArrayList<TimestampedString> FillingSchemeHist;
+	public ArrayList<TimestampedString> ActiveFillingSchemeHist;
 	private float beamEnergy;
 	private float LHCBetaStar;
 
@@ -53,11 +53,11 @@ public class LhcInfoObj implements Serializable {
 		IP2_NO_COLLISIONS = p2col;
 		NO_BUNCHES = nob;
 
-		beamModeHist = new ArrayList<strTS>();
-		FillingSchemeHist = new ArrayList<strTS>();
-		beamEnergyHist = new ArrayList<floatTS>();
-		LHCBetaStarHist = new ArrayList<floatTS>();
-		ActiveFillingSchemeHist = new ArrayList<strTS>();
+		beamModeHist = new ArrayList<TimestampedString>();
+		FillingSchemeHist = new ArrayList<TimestampedString>();
+		beamEnergyHist = new ArrayList<TimestampedFloat>();
+		LHCBetaStarHist = new ArrayList<TimestampedFloat>();
+		ActiveFillingSchemeHist = new ArrayList<TimestampedString>();
 
 		endedTime = -1;
 		beamEnergy = -1;
@@ -69,7 +69,7 @@ public class LhcInfoObj implements Serializable {
 		LHCTotalNonInteractingBuchesBeam2 = LHCTotalNonInteractingBuchesBeam1;
 		LHCBetaStar = -1;
 
-		strTS ts1 = new strTS(date, fs + " *");
+		TimestampedString ts1 = new TimestampedString(date, fs + " *");
 		FillingSchemeHist.add(ts1);
 
 	}
@@ -111,7 +111,7 @@ public class LhcInfoObj implements Serializable {
 			ans = ans + " History:: Beam Mode\n";
 
 			for (int i = 0; i < beamModeHist.size(); i++) {
-				strTS a1 = beamModeHist.get(i);
+				TimestampedString a1 = beamModeHist.get(i);
 				ans = ans + " - " + AliDip2BK.myDateFormat.format(a1.time) + "  " + a1.value + "\n";
 			}
 		}
@@ -120,7 +120,7 @@ public class LhcInfoObj implements Serializable {
 			ans = ans + " History:: Filling Scheme \n";
 
 			for (int i = 0; i < FillingSchemeHist.size(); i++) {
-				strTS a1 = FillingSchemeHist.get(i);
+				TimestampedString a1 = FillingSchemeHist.get(i);
 				ans = ans + " - " + AliDip2BK.myDateFormat.format(a1.time) + "  " + a1.value + "\n";
 			}
 		}
@@ -129,7 +129,7 @@ public class LhcInfoObj implements Serializable {
 			ans = ans + " History:: Active Filling Scheme \n";
 
 			for (int i = 0; i < ActiveFillingSchemeHist.size(); i++) {
-				strTS a1 = ActiveFillingSchemeHist.get(i);
+				TimestampedString a1 = ActiveFillingSchemeHist.get(i);
 				ans = ans + " - " + AliDip2BK.myDateFormat.format(a1.time) + "  " + a1.value + "\n";
 			}
 		}
@@ -138,7 +138,7 @@ public class LhcInfoObj implements Serializable {
 			ans = ans + " History:: Beam Energy\n";
 
 			for (int i = 0; i < beamEnergyHist.size(); i++) {
-				floatTS a1 = beamEnergyHist.get(i);
+				TimestampedFloat a1 = beamEnergyHist.get(i);
 				ans = ans + " - " + AliDip2BK.myDateFormat.format(a1.time) + "  " + a1.value + "\n";
 			}
 		}
@@ -147,7 +147,7 @@ public class LhcInfoObj implements Serializable {
 			ans = ans + " History:: LHC Beta Star\n";
 
 			for (int i = 0; i < LHCBetaStarHist.size(); i++) {
-				floatTS a1 = LHCBetaStarHist.get(i);
+				TimestampedFloat a1 = LHCBetaStarHist.get(i);
 				ans = ans + " - " + AliDip2BK.myDateFormat.format(a1.time) + "  " + a1.value + "\n";
 			}
 		}
@@ -160,15 +160,15 @@ public class LhcInfoObj implements Serializable {
 			IP2_NO_COLLISIONS, NO_BUNCHES);
 
 		@SuppressWarnings("unchecked")
-		ArrayList<strTS> bmh = (ArrayList<strTS>) beamModeHist.clone();
+		ArrayList<TimestampedString> bmh = (ArrayList<TimestampedString>) beamModeHist.clone();
 		@SuppressWarnings("unchecked")
-		ArrayList<strTS> fsh = (ArrayList<strTS>) FillingSchemeHist.clone();
+		ArrayList<TimestampedString> fsh = (ArrayList<TimestampedString>) FillingSchemeHist.clone();
 		@SuppressWarnings("unchecked")
-		ArrayList<floatTS> eh = (ArrayList<floatTS>) beamEnergyHist.clone();
+		ArrayList<TimestampedFloat> eh = (ArrayList<TimestampedFloat>) beamEnergyHist.clone();
 		@SuppressWarnings("unchecked")
-		ArrayList<floatTS> bsh = (ArrayList<floatTS>) LHCBetaStarHist.clone();
+		ArrayList<TimestampedFloat> bsh = (ArrayList<TimestampedFloat>) LHCBetaStarHist.clone();
 		@SuppressWarnings("unchecked")
-		ArrayList<strTS> afsh = (ArrayList<strTS>) ActiveFillingSchemeHist.clone();
+		ArrayList<TimestampedString> afsh = (ArrayList<TimestampedString>) ActiveFillingSchemeHist.clone();
 
 		n.beamModeHist = bmh;
 		n.FillingSchemeHist = fsh;
@@ -235,7 +235,7 @@ public class LhcInfoObj implements Serializable {
 
 	public void addNewAFS(long time, String fs) {
 
-		strTS ts2 = new strTS(time, fs);
+		TimestampedString ts2 = new TimestampedString(time, fs);
 		ActiveFillingSchemeHist.add(ts2);
 
 	}
@@ -251,15 +251,14 @@ public class LhcInfoObj implements Serializable {
 		// the same ="+ fs);
 		// } else {
 		String nfs = fs;
-		if (isInPIB)
-			nfs = nfs + " *";
-		strTS ts2 = new strTS(time, nfs);
+		if (isInPIB) nfs = nfs + " *";
+		TimestampedString ts2 = new TimestampedString(time, nfs);
 		FillingSchemeHist.add(ts2);
 		// }
 	}
 
 	public void setBeamMode(long date, String mode) {
-		strTS nv = new strTS(date, mode);
+		TimestampedString nv = new TimestampedString(date, mode);
 		beamModeHist.add(nv);
 		// System.out.println ( " Added beam mode "+ mode);
 	}
@@ -275,7 +274,7 @@ public class LhcInfoObj implements Serializable {
 	public void setEnergy(long date, float v) {
 
 		if (beamEnergyHist.size() == 0) {
-			floatTS v1 = new floatTS(date, v);
+			TimestampedFloat v1 = new TimestampedFloat(date, v);
 			beamEnergyHist.add(v1);
 			beamEnergy = v;
 			return;
@@ -285,7 +284,7 @@ public class LhcInfoObj implements Serializable {
 		if (re < AliDip2BK.DIFF_ENERGY) {
 			return;
 		} else {
-			floatTS v1 = new floatTS(date, v);
+			TimestampedFloat v1 = new TimestampedFloat(date, v);
 			beamEnergyHist.add(v1);
 			beamEnergy = v;
 		}
@@ -293,7 +292,7 @@ public class LhcInfoObj implements Serializable {
 
 	public void setLHCBetaStar(long date, float v) {
 		if (LHCBetaStarHist.size() == 0) {
-			floatTS v1 = new floatTS(date, v);
+			TimestampedFloat v1 = new TimestampedFloat(date, v);
 			LHCBetaStarHist.add(v1);
 			LHCBetaStar = v;
 			return;
@@ -303,7 +302,7 @@ public class LhcInfoObj implements Serializable {
 		if (re < AliDip2BK.DIFF_BETA) {
 			return;
 		} else {
-			floatTS v1 = new floatTS(date, v);
+			TimestampedFloat v1 = new TimestampedFloat(date, v);
 			LHCBetaStarHist.add(v1);
 			LHCBetaStar = v;
 		}
@@ -314,7 +313,7 @@ public class LhcInfoObj implements Serializable {
 		if (beamModeHist.size() == 0) {
 			return null;
 		}
-		strTS last = beamModeHist.get(beamModeHist.size() - 1);
+		TimestampedString last = beamModeHist.get(beamModeHist.size() - 1);
 		return last.value;
 	}
 
@@ -343,7 +342,7 @@ public class LhcInfoObj implements Serializable {
 
 		for (int i = 0; i < beamModeHist.size(); i++) {
 
-			strTS a1 = beamModeHist.get(i);
+			TimestampedString a1 = beamModeHist.get(i);
 
 			if (a1.value.equalsIgnoreCase(stableBeamName)) {
 				ans = a1.time;
@@ -367,7 +366,7 @@ public class LhcInfoObj implements Serializable {
 
 		for (int i = beamModeHist.size() - 1; i >= 0; i--) {
 
-			strTS a1 = beamModeHist.get(i);
+			TimestampedString a1 = beamModeHist.get(i);
 			if (a1.value.equalsIgnoreCase(stableBeamName)) {
 				idx = i;
 				break;
@@ -384,7 +383,7 @@ public class LhcInfoObj implements Serializable {
 				return endedTime;
 			}
 		}
-		strTS a2 = beamModeHist.get(idx + 1);
+		TimestampedString a2 = beamModeHist.get(idx + 1);
 
 		long sbstop = a2.time;
 
@@ -399,7 +398,7 @@ public class LhcInfoObj implements Serializable {
 			return 0;
 
 		if (beamModeHist.size() == 1) {
-			strTS a1 = beamModeHist.get(0);
+			TimestampedString a1 = beamModeHist.get(0);
 			if (a1.value.equalsIgnoreCase(stableBeamName) && (endedTime > 0)) {
 				long dt = endedTime - a1.time;
 				int ans = (int) (dt / 1000);
@@ -417,14 +416,14 @@ public class LhcInfoObj implements Serializable {
 
 		for (int i = 0; i < (beamModeHist.size() - 1); i++) {
 
-			strTS a1 = beamModeHist.get(i);
-			strTS a2 = beamModeHist.get(i + 1);
+			TimestampedString a1 = beamModeHist.get(i);
+			TimestampedString a2 = beamModeHist.get(i + 1);
 			if (a1.value.equalsIgnoreCase(stableBeamName)) {
 				sum = sum + (a2.time - a1.time);
 			}
 		}
 
-		strTS a3 = beamModeHist.get(beamModeHist.size() - 1); // last entry
+		TimestampedString a3 = beamModeHist.get(beamModeHist.size() - 1); // last entry
 
 		if (a3.value.equalsIgnoreCase(stableBeamName) && (endedTime > 0)) {
 
