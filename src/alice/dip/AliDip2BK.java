@@ -19,7 +19,6 @@ import java.util.Date;
 import java.util.Properties;
 
 public class AliDip2BK implements Runnable {
-
 	public static String Version = "2.0  14-Nov-2023";
 	public static String DNSnode = "dipnsdev.cern.ch";
 	public static String[] endFillCases = {"CUCU"};
@@ -27,8 +26,8 @@ public class AliDip2BK implements Runnable {
 	static public String LIST_PARAM_PAT = "*";
 	static public int DEBUG_LEVEL = 1;
 	static public String OUTPUT_FILE = null;
-	public static String BKURL = "http://localhost:4000";
-	public static String BKP_TOKEN = null;
+	public static String bookkeepingUrl = "http://localhost:4000";
+	public static String bookkeepingToken = null;
 	public static boolean SAVE_PARAMETERS_HISTORY_PER_RUN = false;
 	public static String KEEP_RUNS_HISTORY_DIRECTORY = null;
 	public static String KEEP_FILLS_HISTORY_DIRECTORY = null;
@@ -49,14 +48,13 @@ public class AliDip2BK implements Runnable {
 	String confFile = "AliDip2BK.properties";
 	DipClient client;
 	DipMessagesProcessor process;
-	BookkeepingClient dbw;
+	BookkeepingClient bookkeepingClient;
 	StartOfRunKafkaConsumer kcs;
 	EndOfRunKafkaConsumer kce;
 	private long startDate;
 	private long stopDate;
 
 	public AliDip2BK() {
-
 		startDate = (new Date()).getTime();
 
 		ProgPath = getClass().getClassLoader().getResource(".").getPath();
@@ -67,8 +65,8 @@ public class AliDip2BK implements Runnable {
 
 		verifyDirs();
 
-		dbw = new BookkeepingClient();
-		process = new DipMessagesProcessor(dbw);
+		bookkeepingClient = new BookkeepingClient(bookkeepingUrl, bookkeepingToken);
+		process = new DipMessagesProcessor(bookkeepingClient);
 
 		client = new DipClient(DipParametersFile, process);
 
@@ -86,7 +84,6 @@ public class AliDip2BK implements Runnable {
 
 		Thread t = new Thread(this);
 		t.start();
-
 	}
 
 	static public void log(int level, String module, String mess) {
@@ -98,18 +95,14 @@ public class AliDip2BK implements Runnable {
 	}
 
 	public static void main(String[] args) {
-
 		@SuppressWarnings("unused")
 		AliDip2BK service = new AliDip2BK();
-
 	}
 
 	public void run() {
-
 		int stat_count = 0;
 
 		for (; ; ) {
-
 			try {
 				Thread.sleep(10000);
 				stat_count = stat_count + 10;
@@ -139,8 +132,7 @@ public class AliDip2BK implements Runnable {
 							Thread.currentThread().interrupt();
 						}
 
-						if (process.QueueSize() == 0)
-							break;
+						if (process.QueueSize() == 0) break;
 					}
 				}
 
@@ -151,7 +143,6 @@ public class AliDip2BK implements Runnable {
 				}
 				process.saveState();
 				writeStat("AliDip2BK.stat", true);
-				dbw.close();
 			}
 		});
 	}
@@ -164,16 +155,14 @@ public class AliDip2BK implements Runnable {
 		con = con + "* DIP/DIM =" + DNSnode + "\n";
 		con = con + "* KAFKA Server = " + bootstrapServers + "\n";
 		con = con + "* KAFKA Group ID=" + KAFKA_group_id + "\n";
-		con = con + "* Bookkeeping URL =" + BKURL + "\n";
+		con = con + "* Bookkeeping URL =" + bookkeepingUrl + "\n";
 		con = con + "* \n";
 		con = con + "*************************************************\n";
 
 		System.out.println(con);
-
 	}
 
-	public void loadConf(String filename) {
-
+	private void loadConf(String filename) {
 		String input = ProgPath + "/" + filename;
 
 		Properties prop = new Properties();
@@ -195,7 +184,6 @@ public class AliDip2BK implements Runnable {
 				DipParametersFile = ProgPath + para_file_name;
 			} else {
 				log(4, "AliDip2BK.loadConf", " Dip Data Providers Subscription  file name is undefined in the conf file ");
-
 			}
 
 			String list_param = prop.getProperty("ListDataProvidersPattern");
@@ -204,11 +192,8 @@ public class AliDip2BK implements Runnable {
 
 				LIST_PARAM = true;
 				LIST_PARAM_PAT = list_param;
-
 			} else {
-				log(4, "AliDip2BK.loadConf ",
-					"  List DIP Data Providers  Pattern is undefined ! The DIP broswer will not start ");
-
+				log(4, "AliDip2BK.loadConf ", "  List DIP Data Providers  Pattern is undefined ! The DIP broswer will not start ");
 			}
 
 			String debug_n = prop.getProperty("DEBUG_LEVEL");
@@ -227,13 +212,9 @@ public class AliDip2BK implements Runnable {
 			if (keh != null) {
 				keh = keh.trim();
 				SAVE_PARAMETERS_HISTORY_PER_RUN = false;
-				if (keh.equalsIgnoreCase("Y"))
-					SAVE_PARAMETERS_HISTORY_PER_RUN = true;
-				if (keh.equalsIgnoreCase("YES"))
-					SAVE_PARAMETERS_HISTORY_PER_RUN = true;
-				if (keh.equalsIgnoreCase("true"))
-					SAVE_PARAMETERS_HISTORY_PER_RUN = true;
-
+				if (keh.equalsIgnoreCase("Y")) SAVE_PARAMETERS_HISTORY_PER_RUN = true;
+				if (keh.equalsIgnoreCase("YES")) SAVE_PARAMETERS_HISTORY_PER_RUN = true;
+				if (keh.equalsIgnoreCase("true")) SAVE_PARAMETERS_HISTORY_PER_RUN = true;
 			}
 
 			String kfhd = prop.getProperty("KEEP_FILLS_HISTORY_DIRECTORY");
@@ -249,12 +230,9 @@ public class AliDip2BK implements Runnable {
 			String sde = prop.getProperty("SIMULATE_DIP_EVENTS");
 			if (sde != null) {
 
-				if (sde.equalsIgnoreCase("Y"))
-					SIMULATE_DIP_EVENTS = true;
-				if (sde.equalsIgnoreCase("YES"))
-					SIMULATE_DIP_EVENTS = true;
-				if (sde.equalsIgnoreCase("true"))
-					SIMULATE_DIP_EVENTS = true;
+				if (sde.equalsIgnoreCase("Y")) SIMULATE_DIP_EVENTS = true;
+				if (sde.equalsIgnoreCase("YES")) SIMULATE_DIP_EVENTS = true;
+				if (sde.equalsIgnoreCase("true")) SIMULATE_DIP_EVENTS = true;
 			}
 
 			String kgid = prop.getProperty("KAFKA_group_id");
@@ -283,22 +261,18 @@ public class AliDip2BK implements Runnable {
 			String bkurl = prop.getProperty("BookkeepingURL");
 
 			if (bkurl != null) {
-				BKURL = bkurl;
+				bookkeepingUrl = bkurl;
 			}
 			String bkpToken = prop.getProperty(("BKP_TOKEN"));
 			if (bkpToken != null) {
-				BKP_TOKEN = bkpToken;
+				bookkeepingToken = bkpToken;
 			}
-
 		} catch (IOException ex) {
 			log(4, "AliDip2BK.loadCong", "Failed to access properties file " + ex);
-
 		}
-
 	}
 
 	public void writeStat(String file, boolean final_report) {
-
 		String full_file = ProgPath + AliDip2BK.KEEP_STATE_DIR + file;
 
 		stopDate = (new Date()).getTime();
@@ -336,20 +310,16 @@ public class AliDip2BK implements Runnable {
 
 			AliDip2BK.log(4, "ProcData.writeStat", " ERROR writing file=" + full_file + "   ex=" + e);
 		}
-
 	}
 
 	public void verifyDirs() {
-
 		verifyDir(KEEP_RUNS_HISTORY_DIRECTORY);
 		verifyDir(KEEP_FILLS_HISTORY_DIRECTORY);
 		verifyDir(STORE_HIST_FILE_DIR);
 		verifyDir(KEEP_STATE_DIR);
-
 	}
 
 	public void verifyDir(String name) {
-
 		if (name != null) {
 
 			File directory = new File(String.valueOf(ProgPath + "/" + name));
@@ -358,8 +328,6 @@ public class AliDip2BK implements Runnable {
 				directory.mkdir();
 				AliDip2BK.log(2, "AliDip2BK->verifyDir", "created new Directory=" + name);
 			}
-
 		}
 	}
-
 }
