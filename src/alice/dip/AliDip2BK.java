@@ -67,8 +67,10 @@ public class AliDip2BK implements Runnable {
 
 		statisticsManager = new StatisticsManager();
 		var bookkeepingClient = new BookkeepingClient(bookkeepingUrl, bookkeepingToken);
-		dipMessagesProcessor = new DipMessagesProcessor(bookkeepingClient, statisticsManager);
-		if (AliDip2BK.simulateDipEvents) {
+		var runManager = new RunManager(statisticsManager);
+
+		dipMessagesProcessor = new DipMessagesProcessor(bookkeepingClient, runManager, statisticsManager);
+		if (simulateDipEvents) {
 			new SimDipEventsFill(dipMessagesProcessor);
 		}
 
@@ -122,32 +124,30 @@ public class AliDip2BK implements Runnable {
 
 	public void shutdownProc() {
 		Runtime r = Runtime.getRuntime();
-		r.addShutdownHook(new Thread() {
-			public void run() {
-				log(4, "AliDip2BK", " Main class  ENTERS in Shutdown hook");
-				client.closeSubscriptions();
-				dipMessagesProcessor.closeInputQueue();
-				if (dipMessagesProcessor.queueSize() > 0) {
-					for (int i = 0; i < 5; i++) {
-						try {
-							Thread.sleep(1000);
-						} catch (InterruptedException ex) {
-							Thread.currentThread().interrupt();
-						}
-
-						if (dipMessagesProcessor.queueSize() == 0) break;
+		r.addShutdownHook(new Thread(() -> {
+			log(4, "AliDip2BK", "Main class  ENTERS in Shutdown hook");
+			client.closeSubscriptions();
+			dipMessagesProcessor.closeInputQueue();
+			if (dipMessagesProcessor.queueSize() > 0) {
+				for (int i = 0; i < 5; i++) {
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException ex) {
+						Thread.currentThread().interrupt();
 					}
-				}
 
-				if (dipMessagesProcessor.queueSize() != 0) {
-					log(4, "AliDip2BK Shutdown", " Data Proc queue is not EMPTY ! Close it anyway ");
-				} else {
-					log(2, "AliDip2BK Shutdown", " Data Proc queue is EMPTY and it was correctly closed  ");
+					if (dipMessagesProcessor.queueSize() == 0) break;
 				}
-				dipMessagesProcessor.saveState();
-				writeStat("AliDip2BK.stat", true);
 			}
-		});
+
+			if (dipMessagesProcessor.queueSize() != 0) {
+				log(4, "AliDip2BK Shutdown", " Data Proc queue is not EMPTY ! Close it anyway ");
+			} else {
+				log(2, "AliDip2BK Shutdown", " Data Proc queue is EMPTY and it was correctly closed  ");
+			}
+			dipMessagesProcessor.saveState();
+			writeStat("AliDip2BK.stat", true);
+		}));
 	}
 
 	public void showConfig() {
@@ -177,7 +177,7 @@ public class AliDip2BK implements Runnable {
 			if (dns1 != null) {
 				DNSnode = dns1;
 			} else {
-				log(4, "AliDip2BK.loadConf", " DNSnode is undefined in the conf file ! Use defult=" + DNSnode);
+				log(4, "AliDip2BK.loadConf", " DNSNode is undefined in the conf file ! Use default=" + DNSnode);
 			}
 
 			String para_file_name = prop.getProperty("DipDataProvidersSubscritionFile");
@@ -273,6 +273,7 @@ public class AliDip2BK implements Runnable {
 			if (bkurl != null) {
 				bookkeepingUrl = bkurl;
 			}
+
 			String bkpToken = prop.getProperty(("BKP_TOKEN"));
 			if (bkpToken != null) {
 				bookkeepingToken = bkpToken;
@@ -282,7 +283,7 @@ public class AliDip2BK implements Runnable {
 		}
 	}
 
-	public void writeStat(String file, boolean final_report) {
+	public void writeStat(String file, boolean finalReport) {
 		String full_file = ProgPath + AliDip2BK.KEEP_STATE_DIR + file;
 
 		var stopDate = (new Date()).getTime();
@@ -293,7 +294,7 @@ public class AliDip2BK implements Runnable {
 
 		String mess = "\n\n AliDip2BK Statistics \n";
 		mess = mess + " Started :" + AliDip2BK.myDateFormat.format(startDate) + "\n";
-		if (final_report) {
+		if (finalReport) {
 			mess = mess + " Stopped :" + AliDip2BK.myDateFormat.format(stopDate) + "\n";
 		}
 		mess = mess + " Duration [h]=" + dur + "\n";
@@ -341,3 +342,4 @@ public class AliDip2BK implements Runnable {
 		}
 	}
 }
+
