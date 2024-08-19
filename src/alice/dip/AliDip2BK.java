@@ -21,7 +21,6 @@ import java.util.Properties;
 public class AliDip2BK implements Runnable {
 	public static String Version = "2.0  14-Nov-2023";
 	public static String DNSnode = "dipnsdev.cern.ch";
-	public static String[] endFillCases = {"CUCU"};
 	public static boolean LIST_PARAM = false;
 	static public String LIST_PARAM_PAT = "*";
 	static public int DEBUG_LEVEL = 1;
@@ -52,7 +51,8 @@ public class AliDip2BK implements Runnable {
 	StartOfRunKafkaConsumer kcs;
 	EndOfRunKafkaConsumer kce;
 
-	private StatisticsManager statisticsManager;
+	private final StatisticsManager statisticsManager;
+	private final FillManager fillManager;
 
 	public AliDip2BK() {
 		startDate = (new Date()).getTime();
@@ -68,10 +68,12 @@ public class AliDip2BK implements Runnable {
 		statisticsManager = new StatisticsManager();
 		var bookkeepingClient = new BookkeepingClient(bookkeepingUrl, bookkeepingToken);
 		var runManager = new RunManager(statisticsManager);
+		fillManager = new FillManager(bookkeepingClient, statisticsManager);
+		fillManager.loadState();
 
-		dipMessagesProcessor = new DipMessagesProcessor(bookkeepingClient, runManager, statisticsManager);
+		dipMessagesProcessor = new DipMessagesProcessor(bookkeepingClient, runManager, fillManager, statisticsManager);
 		if (simulateDipEvents) {
-			new SimDipEventsFill(dipMessagesProcessor);
+			new SimDipEventsFill(fillManager);
 		}
 
 		client = new DipClient(dipParametersFile, dipMessagesProcessor);
@@ -145,7 +147,7 @@ public class AliDip2BK implements Runnable {
 			} else {
 				log(2, "AliDip2BK Shutdown", " Data Proc queue is EMPTY and it was correctly closed  ");
 			}
-			dipMessagesProcessor.saveState();
+			fillManager.saveState();
 			writeStat("AliDip2BK.stat", true);
 		}));
 	}

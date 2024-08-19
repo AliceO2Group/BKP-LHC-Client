@@ -34,27 +34,32 @@ public class LhcInfoObj implements Serializable {
 	public ArrayList<TimestampedFloat> beamEnergyHist;
 	public ArrayList<TimestampedFloat> LHCBetaStarHist;
 	public ArrayList<TimestampedString> beamModeHist;
-	public ArrayList<TimestampedString> FillingSchemeHist;
+	public ArrayList<TimestampedString> fillingSchemeHist;
 	public ArrayList<TimestampedString> ActiveFillingSchemeHist;
 	private float beamEnergy;
 	private float LHCBetaStar;
 
-	public LhcInfoObj() {
-	}
-
-	public LhcInfoObj(long date, int no, String part1, String part2, String fs, int p2col, int nob) {
+	public LhcInfoObj(
+		long date,
+		int fillNumber,
+		String beam1ParticleType,
+		String beam2ParticleType,
+		String fillingScheme,
+		int ip2CollisionsCount,
+		int bunchesCount
+	) {
 		createdTime = date;
-		fillNo = no;
+		fillNo = fillNumber;
 
-		Beam1ParticleType = part1;
-		Beam2ParticleType = part2;
-		beamType = part1 + " - " + part2;
-		LHCFillingSchemeName = fs;
-		IP2_NO_COLLISIONS = p2col;
-		NO_BUNCHES = nob;
+		Beam1ParticleType = beam1ParticleType;
+		Beam2ParticleType = beam2ParticleType;
+		beamType = beam1ParticleType + " - " + beam2ParticleType;
+		LHCFillingSchemeName = fillingScheme;
+		IP2_NO_COLLISIONS = ip2CollisionsCount;
+		NO_BUNCHES = bunchesCount;
 
 		beamModeHist = new ArrayList<TimestampedString>();
-		FillingSchemeHist = new ArrayList<TimestampedString>();
+		fillingSchemeHist = new ArrayList<TimestampedString>();
 		beamEnergyHist = new ArrayList<TimestampedFloat>();
 		LHCBetaStarHist = new ArrayList<TimestampedFloat>();
 		ActiveFillingSchemeHist = new ArrayList<TimestampedString>();
@@ -69,8 +74,8 @@ public class LhcInfoObj implements Serializable {
 		LHCTotalNonInteractingBuchesBeam2 = LHCTotalNonInteractingBuchesBeam1;
 		LHCBetaStar = -1;
 
-		TimestampedString ts1 = new TimestampedString(date, fs + " *");
-		FillingSchemeHist.add(ts1);
+		TimestampedString ts1 = new TimestampedString(date, fillingScheme + " *");
+		fillingSchemeHist.add(ts1);
 
 	}
 
@@ -116,11 +121,11 @@ public class LhcInfoObj implements Serializable {
 			}
 		}
 
-		if (FillingSchemeHist.size() >= 1) {
+		if (fillingSchemeHist.size() >= 1) {
 			ans = ans + " History:: Filling Scheme \n";
 
-			for (int i = 0; i < FillingSchemeHist.size(); i++) {
-				TimestampedString a1 = FillingSchemeHist.get(i);
+			for (int i = 0; i < fillingSchemeHist.size(); i++) {
+				TimestampedString a1 = fillingSchemeHist.get(i);
 				ans = ans + " - " + AliDip2BK.myDateFormat.format(a1.time) + "  " + a1.value + "\n";
 			}
 		}
@@ -162,7 +167,7 @@ public class LhcInfoObj implements Serializable {
 		@SuppressWarnings("unchecked")
 		ArrayList<TimestampedString> bmh = (ArrayList<TimestampedString>) beamModeHist.clone();
 		@SuppressWarnings("unchecked")
-		ArrayList<TimestampedString> fsh = (ArrayList<TimestampedString>) FillingSchemeHist.clone();
+		ArrayList<TimestampedString> fsh = (ArrayList<TimestampedString>) fillingSchemeHist.clone();
 		@SuppressWarnings("unchecked")
 		ArrayList<TimestampedFloat> eh = (ArrayList<TimestampedFloat>) beamEnergyHist.clone();
 		@SuppressWarnings("unchecked")
@@ -171,7 +176,7 @@ public class LhcInfoObj implements Serializable {
 		ArrayList<TimestampedString> afsh = (ArrayList<TimestampedString>) ActiveFillingSchemeHist.clone();
 
 		n.beamModeHist = bmh;
-		n.FillingSchemeHist = fsh;
+		n.fillingSchemeHist = fsh;
 		n.ActiveFillingSchemeHist = afsh;
 		n.beamEnergyHist = eh;
 		n.LHCBetaStarHist = bsh;
@@ -187,20 +192,20 @@ public class LhcInfoObj implements Serializable {
 		return n;
 	}
 
-	public boolean verifyAndUpdate(long time, int fillNumber, String fs, int ip2c, int nob) {
-
-		boolean isInPIB = false;
+	// Todo : this function should be in FillManager, its return is very case-specific (whether or not we notify bkp)
+	public boolean verifyAndUpdate(long time, String fillingScheme, int ip2c, int nob) {
+		boolean isBeamPhysicsInjection = false;
 		boolean update = false;
 
-		if (!fs.contentEquals(LHCFillingSchemeName)) {
+		if (!fillingScheme.contentEquals(LHCFillingSchemeName)) {
 			AliDip2BK.log(4, "LHCInfo.verify",
-				"FILL=" + fillNo + "  Filling Scheme is different OLD=" + LHCFillingSchemeName + " NEW=" + fs);
+				"FILL=" + fillNo + "  Filling Scheme is different OLD=" + LHCFillingSchemeName + " NEW=" + fillingScheme);
 
-			String bm = getBeamMode();
-			if (bm != null) {
-				if (bm.contains("INJECTION") && bm.contains("PHYSICS")) {
-					isInPIB = true;
-					LHCFillingSchemeName = fs;
+			String beamMode = getBeamMode();
+			if (beamMode != null) {
+				if (beamMode.contains("INJECTION") && beamMode.contains("PHYSICS")) {
+					isBeamPhysicsInjection = true;
+					LHCFillingSchemeName = fillingScheme;
 					IP2_NO_COLLISIONS = ip2c;
 					NO_BUNCHES = nob;
 					update = true;
@@ -212,7 +217,8 @@ public class LhcInfoObj implements Serializable {
 				}
 
 			}
-			addNewFS(time, fs, isInPIB);
+
+			saveFillingSchemeInHistory(time, fillingScheme, isBeamPhysicsInjection);
 		}
 
 		if (ip2c != IP2_NO_COLLISIONS) {
@@ -230,7 +236,6 @@ public class LhcInfoObj implements Serializable {
 		}
 
 		return update;
-
 	}
 
 	public void addNewAFS(long time, String fs) {
@@ -240,27 +245,14 @@ public class LhcInfoObj implements Serializable {
 
 	}
 
-	public void addNewFS(long time, String fs, boolean isInPIB) {
-
-		// strTS ts1 = FillingSchemeHist.get(FillingSchemeHist.size()-1);
-
-		// String lfs = ts1.value ;
-		// if ( fs.contentEquals(lfs)) {
-		// last one is the same
-		// AliDip2BK.log(2,"LHCInfo.addNewFS"," FILL="+fillNo + " last Filling Scheme is
-		// the same ="+ fs);
-		// } else {
-		String nfs = fs;
-		if (isInPIB) nfs = nfs + " *";
-		TimestampedString ts2 = new TimestampedString(time, nfs);
-		FillingSchemeHist.add(ts2);
-		// }
+	private void saveFillingSchemeInHistory(long time, String fillingScheme, boolean isBeamPhysicsInjection) {
+		TimestampedString ts2 = new TimestampedString(time, isBeamPhysicsInjection ? fillingScheme + " *" : fillingScheme);
+		fillingSchemeHist.add(ts2);
 	}
 
 	public void setBeamMode(long date, String mode) {
 		TimestampedString nv = new TimestampedString(date, mode);
 		beamModeHist.add(nv);
-		// System.out.println ( " Added beam mode "+ mode);
 	}
 
 	public float getEnergy() {

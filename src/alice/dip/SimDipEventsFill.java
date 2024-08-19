@@ -12,7 +12,7 @@ import java.util.Date;
 
 public class SimDipEventsFill implements Runnable {
 
-	DipMessagesProcessor myProcData;
+	FillManager fillManager;
 
 	// String [] BeamModeList = {"NOMODE","SETUP","INJECTION PROBE BEAM","INJECTION
 	// SETUP BEAM","INJECTION PHYSICS BEAM","PREPARE RAMP","RAMP","FLAT
@@ -48,8 +48,8 @@ public class SimDipEventsFill implements Runnable {
 	int NT = 10;
 	int NM = 10;
 
-	public SimDipEventsFill(DipMessagesProcessor proc) {
-		myProcData = proc;
+	public SimDipEventsFill(FillManager fillManager) {
+		this.fillManager = fillManager;
 
 		Thread t = new Thread(this);
 		t.start();
@@ -67,26 +67,25 @@ public class SimDipEventsFill implements Runnable {
 
 				Thread.sleep((int) (1000));
 
-				myProcData.newFillNo((new Date()).getTime(), "" + RN, "p", "p", "Cucu", "10", "5");
+				fillManager.handleFillConfigurationChanged((new Date()).getTime(), RN, "p", "p", "Cucu", 10, 5);
 				RN = RN + 1;
 
 				Thread.sleep((int) (60 * 1000));
 
 				for (int j = 1; j < 5; j++) {
-					myProcData.newBeamMode((new Date()).getTime(), BeamModeList[1]);
+					fillManager.setBeamMode((new Date()).getTime(), BeamModeList[1]);
 
 					Thread.sleep((int) (30 * 1000));
 
-					myProcData.newBeamMode((new Date()).getTime(), BeamModeList[0]);
+					fillManager.setBeamMode((new Date()).getTime(), BeamModeList[0]);
 					Thread.sleep((int) (30 * 1000));
 				}
 
 				Thread.sleep((int) (20 * 1000));
 
-				myProcData.newBeamMode((new Date()).getTime(), "NO BEAM");
+				fillManager.setBeamMode((new Date()).getTime(), "NO BEAM");
 
 				Thread.sleep((int) (60 * 1000));
-
 			} catch (InterruptedException ex) {
 				Thread.currentThread().interrupt();
 			}
