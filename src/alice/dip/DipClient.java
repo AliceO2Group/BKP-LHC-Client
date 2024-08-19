@@ -1,6 +1,6 @@
 /*************
-* cil 
-**************/
+ * cil
+ **************/
 
 // Dip Client 
 // Subscribe to  Dip data providers defined in the DipParametersFile
@@ -24,15 +24,12 @@ import cern.dip.*;
 
 public class DipClient implements Runnable {
 
+	public int NoMess = 0;
+	public boolean status = true;
 	DipFactory dip;
 	DipBrowser dipBrowser;
 	long MAX_TIME_TO_UPDATE = 60;// in s
-
 	int NP = 0;
-
-	public int NoMess = 0;
-	public boolean status = true;
-
 	ProcData procData;
 	HashMap<String, DipSubscription> SubscriptionMap = new HashMap<>();
 	HashMap<String, DipData> DataMap = new HashMap<>();
@@ -52,7 +49,7 @@ public class DipClient implements Runnable {
 	}
 
 	public void run() {
-		for (;;) {
+		for (; ; ) {
 			try {
 				Thread.sleep(10000);
 				// verifyData();
@@ -114,56 +111,6 @@ public class DipClient implements Runnable {
 		}
 		SubscriptionMap.clear();
 		AliDip2BK.log(1, "DipClient.CloseSubscriptions", " Succesfuly closed all DIP Subscriptions");
-	}
-
-	/**
-	 * handler for connect/disconnect/data reception events
-	 */
-	class GeneralDataListener implements DipSubscriptionListener {
-		/**
-		 * handle changes to subscribed to publications
-		 */
-		public void handleMessage(DipSubscription subscription, DipData message) {
-
-			String p_name = subscription.getTopicName();
-			String ans = Util.parseDipMess(p_name, message);
-
-			AliDip2BK.log(0, "DipClient", " new Dip mess from " + p_name + " " + ans);
-
-			NoMess = NoMess + 1;
-
-			procData.addData(p_name, ans, message);
-
-		}
-
-		/**
-		 * called when a publication subscribed to is available.
-		 * 
-		 * @param arg0 - the subsctiption who's publication is available.
-		 */
-		public void connected(DipSubscription arg0) {
-			// AliDip2BK.log(3, "DpiClient.GeneralDataListener.connect", "Publication source
-			// available "+arg0);
-		}
-
-		/**
-		 * called when a publication subscribed to is unavailable.
-		 * 
-		 * @param arg0 - the subsctiption who's publication is unavailable.
-		 * @param arg1 - string providing more information about why the publication is
-		 *             unavailable.
-		 */
-		public void disconnected(DipSubscription arg0, String arg1) {
-			AliDip2BK.log(4, "DipClient.GeneralDataListener.disconnect",
-					"Publication source unavailable " + arg0 + "  " + arg1);
-			status = false;
-		}
-
-		@Override
-		public void handleException(DipSubscription arg0, Exception arg1) {
-			AliDip2BK.log(4, "DipClient.GeneralDataListener.Exception ", "Exception= " + arg0 + " arg1=" + arg1);
-
-		}
 	}
 
 	public void list() {
@@ -237,6 +184,56 @@ public class DipClient implements Runnable {
 		}
 		AliDip2BK.log(1, "DipClient.readParam", " Configuration:  number of parameters NP=" + NP);
 
+	}
+
+	/**
+	 * handler for connect/disconnect/data reception events
+	 */
+	class GeneralDataListener implements DipSubscriptionListener {
+		/**
+		 * handle changes to subscribed to publications
+		 */
+		public void handleMessage(DipSubscription subscription, DipData message) {
+
+			String p_name = subscription.getTopicName();
+			String ans = Util.parseDipMess(p_name, message);
+
+			AliDip2BK.log(0, "DipClient", " new Dip mess from " + p_name + " " + ans);
+
+			NoMess = NoMess + 1;
+
+			procData.addData(p_name, ans, message);
+
+		}
+
+		/**
+		 * called when a publication subscribed to is available.
+		 *
+		 * @param arg0 - the subsctiption who's publication is available.
+		 */
+		public void connected(DipSubscription arg0) {
+			// AliDip2BK.log(3, "DpiClient.GeneralDataListener.connect", "Publication source
+			// available "+arg0);
+		}
+
+		/**
+		 * called when a publication subscribed to is unavailable.
+		 *
+		 * @param arg0 - the subsctiption who's publication is unavailable.
+		 * @param arg1 - string providing more information about why the publication is
+		 *             unavailable.
+		 */
+		public void disconnected(DipSubscription arg0, String arg1) {
+			AliDip2BK.log(4, "DipClient.GeneralDataListener.disconnect",
+				"Publication source unavailable " + arg0 + "  " + arg1);
+			status = false;
+		}
+
+		@Override
+		public void handleException(DipSubscription arg0, Exception arg1) {
+			AliDip2BK.log(4, "DipClient.GeneralDataListener.Exception ", "Exception= " + arg0 + " arg1=" + arg1);
+
+		}
 	}
 
 }

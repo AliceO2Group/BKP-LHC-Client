@@ -1,8 +1,8 @@
 /*************
-* cil 
-**************/
+ * cil
+ **************/
 /*
- * Keeps ALICE specific information 
+ * Keeps ALICE specific information
  */
 package alice.dip;
 

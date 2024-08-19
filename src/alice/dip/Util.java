@@ -1,9 +1,9 @@
 /*************
-* cil 
-**************/
+ * cil
+ **************/
 /*
- *  Utility methods to process DipData structures  
- *  
+ *  Utility methods to process DipData structures
+ *
  */
 package alice.dip;
 
@@ -99,7 +99,7 @@ public class Util {
 					ans = ans + value;
 				} else {
 					AliDip2BK.log(4, "Util.parseDipMess",
-							" ERROR primitive type param=" + parameter + " DIIFERENT data TYPE=" + data.getValueType());
+						" ERROR primitive type param=" + parameter + " DIIFERENT data TYPE=" + data.getValueType());
 					ok = false;
 				}
 			} catch (TypeMismatch e) {
@@ -184,7 +184,7 @@ public class Util {
 					} else {
 						ok = false;
 						AliDip2BK.log(4, "Util.parseDipMess",
-								" ERROR NonPrimitive type param=" + parameter + " DIIFERENT data TYPE=" + data.getValueType());
+							" ERROR NonPrimitive type param=" + parameter + " DIIFERENT data TYPE=" + data.getValueType());
 
 					}
 				}

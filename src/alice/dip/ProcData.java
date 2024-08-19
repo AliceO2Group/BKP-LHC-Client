@@ -1,14 +1,13 @@
-
 /*************
-* cil 
-**************/
+ * cil
+ **************/
 
 /*
- * 
- * Process dip messages received from the DipClient 
- * Receives DiPdata messages in a blocking Queue and than process them asynchronously 
+ *
+ * Process dip messages received from the DipClient
+ * Receives DiPdata messages in a blocking Queue and than process them asynchronously
  * Creates Fill and Run data structures  to be stored in Alice bookkeeping systm
- * 
+ *
  */
 
 package alice.dip;
@@ -35,29 +34,21 @@ public class ProcData implements Runnable {
 
 	// HashMap<String, DipData> DataMap;
 
-	boolean acceptData = true;
-
-	LhcInfoObj currentFill = null;
-
-	AliceInfoObj currentAlice = null;
-
 	public BKwriter BKDB;
-
-	SimDipEventsFill simFill;
-	// SimDipEventsRun simRun;
-
-	ArrayList<RunInfoObj> ActiveRuns = new ArrayList<RunInfoObj>();
-
-	private BlockingQueue<MessageItem> outputQueue = new ArrayBlockingQueue<MessageItem>(100);
-
 	public int statNoDipMess = 0;
 	public int statNoKafMess = 0;
 	public int statNoNewFills = 0;
 	public int statNoNewRuns = 0;
+	// SimDipEventsRun simRun;
 	public int statNoEndRuns = 0;
 	public int statNoDuplicateEndRuns = 0;
-
 	public int LastRunNumber = -1;
+	boolean acceptData = true;
+	LhcInfoObj currentFill = null;
+	AliceInfoObj currentAlice = null;
+	SimDipEventsFill simFill;
+	ArrayList<RunInfoObj> ActiveRuns = new ArrayList<RunInfoObj>();
+	private BlockingQueue<MessageItem> outputQueue = new ArrayBlockingQueue<MessageItem>(100);
 
 	public ProcData(BKwriter BKDB) {
 
@@ -179,13 +170,13 @@ public class ProcData implements Runnable {
 				String strNO_BUNCHES = mes.data.extractString("NO_BUNCHES");
 
 				AliDip2BK.log(1, "ProcData.dispach",
-						" RunConfigurttion  FILL No = " + fillno + "  AIS=" + ais + " IP2_COLL=" + strIP2_NO_COLLISIONS);
+					" RunConfigurttion  FILL No = " + fillno + "  AIS=" + ais + " IP2_COLL=" + strIP2_NO_COLLISIONS);
 
 				newFillNo(time, fillno, par1, par2, ais, strIP2_NO_COLLISIONS, strNO_BUNCHES);
 
 			} catch (Exception e) {
 				AliDip2BK.log(4, "ProcData.dispach",
-						" ERROR in RunConfiguration P=" + mes.param_name + "  Ans=" + ans + " ex=" + e);
+					" ERROR in RunConfiguration P=" + mes.param_name + "  Ans=" + ans + " ex=" + e);
 
 			}
 			// SafeBeam
@@ -423,12 +414,12 @@ public class ProcData implements Runnable {
 			}
 
 			AliDip2BK.log(2, "ProcData.EndRun",
-					" Correctly closed  runNo=" + r1.RunNo + "  ActiveRuns size=" + ActiveRuns.size() + " " + runList1);
+				" Correctly closed  runNo=" + r1.RunNo + "  ActiveRuns size=" + ActiveRuns.size() + " " + runList1);
 
 			if (r1.LHC_info_start.fillNo != r1.LHC_info_stop.fillNo) {
 
 				AliDip2BK.log(5, "ProcData.EndRun", " !!!! RUN =" + r1.RunNo + "  Statred FillNo=" + r1.LHC_info_start.fillNo
-						+ " and STOPED with FillNo=" + r1.LHC_info_stop.fillNo);
+					+ " and STOPED with FillNo=" + r1.LHC_info_stop.fillNo);
 			}
 
 		}
@@ -462,7 +453,7 @@ public class ProcData implements Runnable {
 						llist = llist + ">>";
 
 						AliDip2BK.log(7, "ProcData.newRunSignal",
-								" LOST RUN No Signal! " + llist + "  New RUN NO =" + RunNo + " Last Run No=" + LastRunNumber);
+							" LOST RUN No Signal! " + llist + "  New RUN NO =" + RunNo + " Last Run No=" + LastRunNumber);
 						LastRunNumber = RunNo;
 					}
 				}
@@ -548,7 +539,7 @@ public class ProcData implements Runnable {
 			return;
 		} else {
 			AliDip2BK.log(3, "ProcData.newFillNo", " Received new FILL no=" + no + "  BUT is an active FILL ="
-					+ currentFill.fillNo + " Close the old one and created the new one");
+				+ currentFill.fillNo + " Close the old one and created the new one");
 			currentFill.endedTime = (new Date()).getTime();
 			if (AliDip2BK.KEEP_FILLS_HISTORY_DIRECTORY != null) {
 				writeFillHistFile(currentFill);
@@ -586,7 +577,7 @@ public class ProcData implements Runnable {
 					writeFillHistFile(currentFill);
 				}
 				AliDip2BK.log(3, "ProcData.newBeamMode",
-						"CLOSE Fill_NO=" + currentFill.fillNo + " Based on new  beam mode=" + BeamMode);
+					"CLOSE Fill_NO=" + currentFill.fillNo + " Based on new  beam mode=" + BeamMode);
 				currentFill = null;
 			}
 

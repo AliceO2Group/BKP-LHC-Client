@@ -1,8 +1,8 @@
 /*************
-* cil 
-**************/
+ * cil
+ **************/
 /*
- * Keeps the required LHC information 
+ * Keeps the required LHC information
  */
 package alice.dip;
 
@@ -13,35 +13,32 @@ import java.util.Date;
 public class LhcInfoObj implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
 	static String stableBeamName = "STABLE BEAMS";
 
 	public int fillNo;
-	public long createdTime = -1;;
+	public long createdTime = -1;
+	;
 	public long endedTime = -1;
 	public String Beam1ParticleType;
 	public String Beam2ParticleType;
-
-	private float beamEnergy;
 	public String beamType;
 	public int LHCTotalInteractingBunches;
 	public int LHCTotalNonInteractingBuchesBeam1;
 	public int LHCTotalNonInteractingBuchesBeam2;
-	private float LHCBetaStar;
 	public String LHCFillingSchemeName;
-
 	public int IP2_NO_COLLISIONS;
 	public int NO_BUNCHES;
-
 	public ArrayList<floatTS> beamEnergyHist;
 	public ArrayList<floatTS> LHCBetaStarHist;
-
 	public ArrayList<strTS> beamModeHist;
 	public ArrayList<strTS> FillingSchemeHist;
 	public ArrayList<strTS> ActiveFillingSchemeHist;
+	private float beamEnergy;
+	private float LHCBetaStar;
 
 	public LhcInfoObj() {
 	}
@@ -90,7 +87,7 @@ public class LhcInfoObj implements Serializable {
 		ans = ans + " LHC Filling Scheme =" + LHCFillingSchemeName;
 		ans = ans + " Beam  Energy=" + beamEnergy + " Beta Star=" + LHCBetaStar;
 		ans = ans + " LHCTotalInteractingBunches =" + LHCTotalInteractingBunches + " LHCTotalNonInteractingBuchesBeam1="
-				+ LHCTotalNonInteractingBuchesBeam1;
+			+ LHCTotalNonInteractingBuchesBeam1;
 		ans = ans + " Stable Beam Duration=" + getStableBeamDuration();
 		return ans;
 	}
@@ -106,7 +103,7 @@ public class LhcInfoObj implements Serializable {
 		ans = ans + " Beam Energy=" + beamEnergy + " Beta Star=" + LHCBetaStar + "\n";
 		ans = ans + " No_BUNCHES=" + NO_BUNCHES + "\n";
 		ans = ans + " LHCTotalInteractingBunches =" + LHCTotalInteractingBunches + " LHCTotalNonInteractingBuchesBeam1="
-				+ LHCTotalNonInteractingBuchesBeam1 + "\n";
+			+ LHCTotalNonInteractingBuchesBeam1 + "\n";
 		ans = ans + " Start Stable Beams =" + getStableBeamStartStr();
 		ans = ans + " Stop Stable Beams =" + getStableBeamStopStr() + "\n";
 		ans = ans + " Stable Beam Duration [s] =" + getStableBeamDuration() + "\n";
@@ -161,7 +158,7 @@ public class LhcInfoObj implements Serializable {
 
 	public LhcInfoObj clone() {
 		LhcInfoObj n = new LhcInfoObj(createdTime, fillNo, Beam1ParticleType, Beam2ParticleType, LHCFillingSchemeName,
-				IP2_NO_COLLISIONS, NO_BUNCHES);
+			IP2_NO_COLLISIONS, NO_BUNCHES);
 
 		@SuppressWarnings("unchecked")
 		ArrayList<strTS> bmh = (ArrayList<strTS>) beamModeHist.clone();
@@ -198,7 +195,7 @@ public class LhcInfoObj implements Serializable {
 
 		if (!fs.contentEquals(LHCFillingSchemeName)) {
 			AliDip2BK.log(4, "LHCInfo.verify",
-					"FILL=" + fillNo + "  Filling Scheme is different OLD=" + LHCFillingSchemeName + " NEW=" + fs);
+				"FILL=" + fillNo + "  Filling Scheme is different OLD=" + LHCFillingSchemeName + " NEW=" + fs);
 
 			String bm = getBeamMode();
 			if (bm != null) {
@@ -209,10 +206,10 @@ public class LhcInfoObj implements Serializable {
 					NO_BUNCHES = nob;
 					update = true;
 					AliDip2BK.log(5, "LHCInfo.verify",
-							"FILL=" + fillNo + " is IPB-> Changed Filling Scheme to :" + LHCFillingSchemeName);
+						"FILL=" + fillNo + " is IPB-> Changed Filling Scheme to :" + LHCFillingSchemeName);
 				} else {
 					AliDip2BK.log(4, "LHCInfo.verify",
-							"FILL=" + fillNo + " is NOT in IPB keepFilling scheme to: " + LHCFillingSchemeName);
+						"FILL=" + fillNo + " is NOT in IPB keepFilling scheme to: " + LHCFillingSchemeName);
 				}
 
 			}
@@ -221,14 +218,14 @@ public class LhcInfoObj implements Serializable {
 
 		if (ip2c != IP2_NO_COLLISIONS) {
 			AliDip2BK.log(4, "LHCInfo.verify",
-					" FILL=" + fillNo + " IP2 COLLis different OLD=" + IP2_NO_COLLISIONS + " new=" + ip2c);
+				" FILL=" + fillNo + " IP2 COLLis different OLD=" + IP2_NO_COLLISIONS + " new=" + ip2c);
 			IP2_NO_COLLISIONS = ip2c;
 
 		}
 
 		if (nob != NO_BUNCHES) {
 			AliDip2BK.log(4, "LHCInfo.verify",
-					" FILL=" + fillNo + " INO_BUNCHES is different OLD=" + NO_BUNCHES + " new=" + nob);
+				" FILL=" + fillNo + " INO_BUNCHES is different OLD=" + NO_BUNCHES + " new=" + nob);
 			NO_BUNCHES = nob;
 
 		}

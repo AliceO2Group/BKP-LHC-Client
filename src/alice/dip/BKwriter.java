@@ -1,10 +1,10 @@
 /*************
-* cil 
-**************/
+ * cil
+ **************/
 
 /*
- * This class is used to write the Dip information into the 
- * Bookkeeping Data Base 
+ * This class is used to write the Dip information into the
+ * Bookkeeping Data Base
  */
 package alice.dip;
 
@@ -23,9 +23,9 @@ public class BKwriter {
 		// path = getClass().getClassLoader().getResource(".").getPath();
 
 		httpClient = HttpClient.newBuilder()
-				.version(HttpClient.Version.HTTP_2)
-				.connectTimeout(Duration.ofSeconds(10))
-				.build();
+			.version(HttpClient.Version.HTTP_2)
+			.connectTimeout(Duration.ofSeconds(10))
+			.build();
 
 	}
 
@@ -35,7 +35,7 @@ public class BKwriter {
 
 		if (ok) {
 			AliDip2BK.log(3, "BKwriter.InserFill",
-					"INSERT FILL ... BUT Fill No=" + lhc.fillNo + " is in BK ... trying to update record");
+				"INSERT FILL ... BUT Fill No=" + lhc.fillNo + " is in BK ... trying to update record");
 			XUpdateFill(lhc);
 			return;
 		}
@@ -58,10 +58,10 @@ public class BKwriter {
 			furl += "?token=" + AliDip2BK.BKP_TOKEN;
 		}
 		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create(furl))
-				.header("Content-Type", "application/json")
-				.method("POST", HttpRequest.BodyPublishers.ofString(mydata))
-				.build();
+			.uri(URI.create(furl))
+			.header("Content-Type", "application/json")
+			.method("POST", HttpRequest.BodyPublishers.ofString(mydata))
+			.build();
 
 		HttpResponse<String> response;
 
@@ -86,9 +86,9 @@ public class BKwriter {
 		}
 
 		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create(furl))
-				.GET() // default
-				.build();
+			.uri(URI.create(furl))
+			.GET() // default
+			.build();
 
 		HttpResponse<String> response;
 		try {
@@ -127,9 +127,9 @@ public class BKwriter {
 		}
 
 		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create(furl))
-				.GET() // default
-				.build();
+			.uri(URI.create(furl))
+			.GET() // default
+			.build();
 
 		HttpResponse<String> response;
 		try {
@@ -147,7 +147,7 @@ public class BKwriter {
 
 			} else {
 				AliDip2BK.log(3, "BKwriter.TestRunNo",
-						" Reguest error =" + response.statusCode() + " Mesage=" + response.body());
+					" Reguest error =" + response.statusCode() + " Mesage=" + response.body());
 				return false;
 			}
 		} catch (Exception e) {
@@ -257,10 +257,10 @@ public class BKwriter {
 		}
 
 		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create(furl))
-				.header("Content-Type", "application/json")
-				.method("PATCH", HttpRequest.BodyPublishers.ofString(mydata))
-				.build();
+			.uri(URI.create(furl))
+			.header("Content-Type", "application/json")
+			.method("PATCH", HttpRequest.BodyPublishers.ofString(mydata))
+			.build();
 
 		HttpResponse<String> response;
 		try {
@@ -270,7 +270,7 @@ public class BKwriter {
 				AliDip2BK.log(2, "BKwriter.UpdateRun", "Succesful Update for RUN=" + runObj.RunNo);
 			} else {
 				AliDip2BK.log(3, "BKwriter.UpdateRun",
-						"ERROR for RUN=" + runObj.RunNo + " Code=" + +response.statusCode() + " Message=" + response.body());
+					"ERROR for RUN=" + runObj.RunNo + " Code=" + +response.statusCode() + " Message=" + response.body());
 			}
 
 		} catch (Exception e) {
@@ -340,10 +340,10 @@ public class BKwriter {
 		}
 
 		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create(furl))
-				.header("Content-Type", "application/json")
-				.method("PATCH", HttpRequest.BodyPublishers.ofString(mydata))
-				.build();
+			.uri(URI.create(furl))
+			.header("Content-Type", "application/json")
+			.method("PATCH", HttpRequest.BodyPublishers.ofString(mydata))
+			.build();
 
 		HttpResponse<String> response;
 		try {
@@ -353,7 +353,7 @@ public class BKwriter {
 				AliDip2BK.log(2, "BKwriter.UpdateFILL", "Succesful Update for FILL=" + cfill.fillNo);
 			} else {
 				AliDip2BK.log(3, "BKwriter.UpdateFILL",
-						"ERROR for FILL=" + cfill.fillNo + " Code=" + +response.statusCode() + " Message=" + response.body());
+					"ERROR for FILL=" + cfill.fillNo + " Code=" + +response.statusCode() + " Message=" + response.body());
 			}
 
 		} catch (Exception e) {

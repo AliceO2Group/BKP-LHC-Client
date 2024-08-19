@@ -1,10 +1,10 @@
 /*************
-* cil 
-**************/
+ * cil
+ **************/
 
 /*
- *  Main Class 
- *  
+ *  Main Class
+ *
  */
 
 package alice.dip;
@@ -21,57 +21,39 @@ import java.util.Properties;
 public class AliDip2BK implements Runnable {
 
 	public static String Version = "2.0  14-Nov-2023";
-	String confFile = "AliDip2BK.properties";
-
-	public static String DNSnode = "dipnsgpn1,dipnsgpn2";
-
-	public static String[] endFillCases = { "CUCU" };
-
+	public static String DNSnode = "dipnsdev.cern.ch";
+	public static String[] endFillCases = {"CUCU"};
 	public static boolean LIST_PARAM = false;
 	static public String LIST_PARAM_PAT = "*";
-
 	static public int DEBUG_LEVEL = 1;
-
 	static public String OUTPUT_FILE = null;
-
-	public static String BKURL = "http://aliecs-kafka-1.cern.ch:4000";
+	public static String BKURL = "http://localhost:4000";
 	public static String BKP_TOKEN = null;
-
 	public static boolean SAVE_PARAMETERS_HISTORY_PER_RUN = false;
-
 	public static String KEEP_RUNS_HISTORY_DIRECTORY = null;
 	public static String KEEP_FILLS_HISTORY_DIRECTORY = null;
-
 	public static String KEEP_STATE_DIR = "STATE/";
-
 	public static String bootstrapServers = "127.0.0.1:9092";
 	public static String KAFKAtopic_SOR = "aliecs.env_state.RUNNING";
 	public static String KAFKAtopic_EOR = "aliecs.env_leave_state.RUNNING";
-
 	public static String KAFKA_group_id = "AliDip";
-
 	public static String STORE_HIST_FILE_DIR = "HistFiles";
-	public String DipParametersFile = null;
-
 	public static boolean SIMULATE_DIP_EVENTS = false;
-
 	public static SimpleDateFormat myDateFormat = new SimpleDateFormat("dd-MM-yy HH:mm");
 	public static SimpleDateFormat logDateFormat = new SimpleDateFormat("dd-MM HH:mm:ss");
-
 	public static double DIFF_ENERGY = 5;
 	public static double DIFF_BETA = 0.001;
 	public static double DIFF_CURRENT = 5;
-
+	public static String ProgPath;
+	public String DipParametersFile = null;
+	String confFile = "AliDip2BK.properties";
 	DipClient client;
 	ProcData process;
 	BKwriter dbw;
 	KC_SOR kcs;
 	KC_EOR kce;
-
 	private long startDate;
 	private long stopDate;
-
-	public static String ProgPath;
 
 	public AliDip2BK() {
 
@@ -107,11 +89,26 @@ public class AliDip2BK implements Runnable {
 
 	}
 
+	static public void log(int level, String module, String mess) {
+		if (level >= DEBUG_LEVEL) {
+			String date = logDateFormat.format((new Date()).getTime());
+
+			System.out.println("#" + level + " [" + date + "] " + module + " =>" + mess);
+		}
+	}
+
+	public static void main(String[] args) {
+
+		@SuppressWarnings("unused")
+		AliDip2BK service = new AliDip2BK();
+
+	}
+
 	public void run() {
 
 		int stat_count = 0;
 
-		for (;;) {
+		for (; ; ) {
 
 			try {
 				Thread.sleep(10000);
@@ -210,7 +207,7 @@ public class AliDip2BK implements Runnable {
 
 			} else {
 				log(4, "AliDip2BK.loadConf ",
-						"  List DIP Data Providers  Pattern is undefined ! The DIP broswer will not start ");
+					"  List DIP Data Providers  Pattern is undefined ! The DIP broswer will not start ");
 
 			}
 
@@ -300,14 +297,6 @@ public class AliDip2BK implements Runnable {
 
 	}
 
-	static public void log(int level, String module, String mess) {
-		if (level >= DEBUG_LEVEL) {
-			String date = logDateFormat.format((new Date()).getTime());
-
-			System.out.println("#" + level + " [" + date + "] " + module + " =>" + mess);
-		}
-	}
-
 	public void writeStat(String file, boolean final_report) {
 
 		String full_file = ProgPath + AliDip2BK.KEEP_STATE_DIR + file;
@@ -371,13 +360,6 @@ public class AliDip2BK implements Runnable {
 			}
 
 		}
-	}
-
-	public static void main(String[] args) {
-
-		@SuppressWarnings("unused")
-		AliDip2BK service = new AliDip2BK();
-
 	}
 
 }

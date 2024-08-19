@@ -1,6 +1,6 @@
 /*************
-* cil 
-**************/
+ * cil
+ **************/
 
 package alice.dip;
 
@@ -21,11 +21,10 @@ import java.util.Arrays;
 import java.util.Properties;
 
 public class KC_EOR implements Runnable {
-	Properties properties;
-	ProcData process;
-
 	public int NoMess = 0;
 	public boolean state = true;
+	Properties properties;
+	ProcData process;
 
 	public KC_EOR(ProcData process) {
 
@@ -54,7 +53,7 @@ public class KC_EOR implements Runnable {
 	public void run() {
 
 		try (// creating consumer
-				KafkaConsumer<String, byte[]> consumer = new KafkaConsumer<String, byte[]>(properties)) {
+			 KafkaConsumer<String, byte[]> consumer = new KafkaConsumer<String, byte[]>(properties)) {
 			// Subscribing
 			consumer.subscribe(Arrays.asList(AliDip2BK.KAFKAtopic_EOR));
 
@@ -73,9 +72,9 @@ public class KC_EOR implements Runnable {
 					try {
 						NewStateNotification info = NewStateNotification.parseFrom(cucu);
 						AliDip2BK.log(1, "KC_EOR.run",
-								"New Kafka mess; partition=" + record.partition() + " offset=" + record.offset() + " L=" + cucu.length
-										+ " RUN=" + info.getEnvInfo().getRunNumber() + "  " + info.getEnvInfo().getState() + " ENVID = "
-										+ info.getEnvInfo().getEnvironmentId());
+							"New Kafka mess; partition=" + record.partition() + " offset=" + record.offset() + " L=" + cucu.length
+								+ " RUN=" + info.getEnvInfo().getRunNumber() + "  " + info.getEnvInfo().getState() + " ENVID = "
+								+ info.getEnvInfo().getEnvironmentId());
 
 						long time = info.getTimestamp();
 						int rno = info.getEnvInfo().getRunNumber();
