@@ -21,10 +21,10 @@ public class RunInfoObj {
 	public long SOR_time;
 	public long EOR_time;
 
-	public RunInfoObj(long sor_time, int RunNo, LhcInfoObj start, AliceInfoObj alice_start) {
+	public RunInfoObj(long sor_time, int RunNo, LhcInfoObj fillAtStart, AliceInfoObj alice_start) {
 		this.RunNo = RunNo;
 		SOR_time = sor_time;
-		this.LHC_info_start = start;
+		this.LHC_info_start = fillAtStart;
 		this.alice_info_start = alice_start;
 		energyHist = new ArrayList<TimestampedFloat>();
 		l3_magnetHist = new ArrayList<TimestampedFloat>();
