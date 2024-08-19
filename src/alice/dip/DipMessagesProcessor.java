@@ -13,9 +13,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.Date;
-
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -29,19 +27,21 @@ import cern.dip.TypeMismatch;
  * Creates Fill and Run data structures  to be stored in Alice bookkeeping system
  */
 public class DipMessagesProcessor implements Runnable {
-	private BlockingQueue<MessageItem> outputQueue = new ArrayBlockingQueue<>(100);
+	private final BlockingQueue<MessageItem> outputQueue = new ArrayBlockingQueue<>(100);
 	private final BookkeepingClient bookkeepingClient;
+	private final RunManager runManager;
 	private final StatisticsManager statisticsManager;
 
-	public int LastRunNumber = -1;
-	boolean acceptData = true;
-	LhcInfoObj currentFill = null;
-	AliceInfoObj currentAlice = null;
-	SimDipEventsFill simFill;
-	ArrayList<RunInfoObj> ActiveRuns = new ArrayList<>();
+	private boolean acceptData = true;
 
-	public DipMessagesProcessor(BookkeepingClient bookkeepingClient, StatisticsManager statisticsManager) {
+	private LhcInfoObj currentFill = null;
+	private final AliceInfoObj currentAlice;
+
+	public DipMessagesProcessor(
+		BookkeepingClient bookkeepingClient, RunManager runManager, StatisticsManager statisticsManager
+	) {
 		this.bookkeepingClient = bookkeepingClient;
+		this.runManager = runManager;
 		this.statisticsManager = statisticsManager;
 
 		Thread t = new Thread(this);
@@ -111,53 +111,52 @@ public class DipMessagesProcessor implements Runnable {
 	}
 
 	public synchronized void newRunSignal(long date, int runNumber) {
-
-		RunInfoObj rio = getRunNo(runNumber);
 		statisticsManager.incrementNewRunsCount();
 		statisticsManager.incrementKafkaMessagesCount();
 
-		if (rio == null) {
+		if (!runManager.hasRunByRunNumber(runNumber)) {
 			if (currentFill != null) {
-				RunInfoObj newrun = new RunInfoObj(date, runNumber, currentFill.clone(), currentAlice.clone());
-				ActiveRuns.add(newrun);
+				RunInfoObj newRun = new RunInfoObj(date, runNumber, currentFill.clone(), currentAlice.clone());
+				runManager.addRun(newRun);
 				AliDip2BK.log(
 					2,
 					"ProcData.newRunSignal",
 					" NEW RUN NO =" + runNumber + "  with FillNo=" + currentFill.fillNo
 				);
-				bookkeepingClient.updateRun(newrun);
+				bookkeepingClient.updateRun(newRun);
 
-				if (LastRunNumber == -1) {
-					LastRunNumber = runNumber;
-				} else {
-					int drun = runNumber - LastRunNumber;
-					if (drun == 1) {
-						LastRunNumber = runNumber;
-					} else {
-						String llist = "<<";
-						for (int ij = (LastRunNumber + 1); ij < runNumber; ij++) {
-							llist = llist + ij + " ";
-						}
-						llist = llist + ">>";
+				var lastRunNumber = runManager.getLastRunNumber();
 
-						AliDip2BK.log(
-							7,
-							"ProcData.newRunSignal",
-							" LOST RUN No Signal! " + llist + "  New RUN NO =" + runNumber + " Last Run No="
-								+ LastRunNumber
-						);
-						LastRunNumber = runNumber;
+				// Check if there is the new run is right after the last one
+				if (lastRunNumber.isPresent() && runNumber - lastRunNumber.getAsInt() != 1) {
+					StringBuilder missingRunsList = new StringBuilder("<<");
+					for (
+						int missingRunNumber = (lastRunNumber.getAsInt() + 1);
+						missingRunNumber < runNumber;
+						missingRunNumber++
+					) {
+						missingRunsList.append(missingRunNumber).append(" ");
 					}
+					missingRunsList.append(">>");
+
+					AliDip2BK.log(
+						7,
+						"ProcData.newRunSignal",
+						" LOST RUN No Signal! " + missingRunsList + "  New RUN NO =" + runNumber + " Last Run No="
+							+ lastRunNumber
+					);
 				}
+
+				runManager.setLastRunNumber(runNumber);
 			} else {
-				RunInfoObj newrun = new RunInfoObj(date, runNumber, null, currentAlice.clone());
-				ActiveRuns.add(newrun);
+				RunInfoObj newRun = new RunInfoObj(date, runNumber, null, currentAlice.clone());
+				runManager.addRun(newRun);
 				AliDip2BK.log(
 					2,
 					"ProcData.newRunSignal",
 					" NEW RUN NO =" + runNumber + " currentFILL is NULL Perhaps Cosmics Run"
 				);
-				bookkeepingClient.updateRun(newrun);
+				bookkeepingClient.updateRun(newRun);
 			}
 		} else {
 			AliDip2BK.log(6, "ProcData.newRunSignal", " Duplicate new  RUN signal =" + runNumber + " IGNORE it");
@@ -167,19 +166,18 @@ public class DipMessagesProcessor implements Runnable {
 	public synchronized void stopRunSignal(long time, int runNumber) {
 		statisticsManager.incrementKafkaMessagesCount();
 
-		RunInfoObj rio = getRunNo(runNumber);
+		var currentRun = runManager.getRunByRunNumber(runNumber);
 
-		if (rio != null) {
+		currentRun.ifPresentOrElse(run -> {
+			run.setEORtime(time);
+			if (currentFill != null) run.LHC_info_stop = currentFill.clone();
+			run.alice_info_stop = currentAlice.clone();
 
-			rio.setEORtime(time);
-			if (currentFill != null) rio.LHC_info_stop = currentFill.clone();
-			rio.alice_info_stop = currentAlice.clone();
-
-			EndRun(rio);
-		} else {
+			runManager.endRun(run.RunNo);
+		}, () -> {
 			statisticsManager.incrementDuplicatedRunsEndCount();
 			AliDip2BK.log(4, "ProcData.stopRunSignal", " NO ACTIVE RUN having runNo=" + runNumber);
-		}
+		});
 	}
 
 	/*
@@ -260,24 +258,25 @@ public class DipMessagesProcessor implements Runnable {
 	}
 
 	private void handleSafeBeamMessage(DipData dipData) throws BadParameter, TypeMismatch {
-		var safeBeamPayload = dipData.extractInt("payload");
+		var safeModePayload = dipData.extractInt("payload");
 
 		var time = dipData.extractDipTime().getAsMillis();
 
-		var isBeam1 = BigInteger.valueOf(safeBeamPayload).testBit(0);
-		var isBeam2 = BigInteger.valueOf(safeBeamPayload).testBit(4);
-		var isStableBeams = BigInteger.valueOf(safeBeamPayload).testBit(2);
+		var isBeam1 = BigInteger.valueOf(safeModePayload).testBit(0);
+		var isBeam2 = BigInteger.valueOf(safeModePayload).testBit(4);
+		var isStableBeams = BigInteger.valueOf(safeModePayload).testBit(2);
 
 		if (currentFill == null) return;
+
+		AliDip2BK.log(
+			0,
+			"ProcData.newSafeBeams",
+			" VAL=" + safeModePayload + " isB1=" + isBeam1 + " isB2=" + isBeam2 + " isSB=" + isStableBeams
+		);
 
 		String bm = currentFill.getBeamMode();
 
 		if (bm.contentEquals("STABLE BEAMS")) {
-			AliDip2BK.log(
-				0,
-				"ProcData.newSafeBeams",
-				" VAL=" + safeBeamPayload + " isB1=" + isBeam1 + " isB2=" + isBeam2 + " isSB=" + isStableBeams
-			);
 
 			if (!isBeam1 || !isBeam2) {
 				currentFill.setBeamMode(time, "LOST BEAMS");
@@ -297,7 +296,7 @@ public class DipMessagesProcessor implements Runnable {
 		var energyPayload = dipData.extractInt("payload");
 		// Per documentation, value has to be multiplied by 120 go get MeV
 		// https://confluence.cern.ch/display/expcomm/Energy
-		var energy = 0.12f * energyPayload;
+		var energy = (float) (0.12 * (float) energyPayload); // We use energy in keV
 
 		var time = dipData.extractDipTime().getAsMillis();
 
@@ -306,17 +305,13 @@ public class DipMessagesProcessor implements Runnable {
 		}
 
 		if (AliDip2BK.SAVE_PARAMETERS_HISTORY_PER_RUN) {
-			if (ActiveRuns.isEmpty()) return;
-
-			for (int i = 0; i < ActiveRuns.size(); i++) {
-				RunInfoObj r1 = ActiveRuns.get(i);
-				r1.addEnergy(time, energy);
-			}
+			runManager.registerNewEnergy(time, energy);
 		}
 	}
 
 	private void handleBeamModeMessage(DipData dipData) throws BadParameter, TypeMismatch {
 		var beamMode = dipData.extractString("value");
+
 		var time = dipData.extractDipTime().getAsMillis();
 
 		AliDip2BK.log(1, "ProcData.dispach", " New Beam MOde = " + beamMode);
@@ -345,11 +340,7 @@ public class DipMessagesProcessor implements Runnable {
 		}
 
 		if (AliDip2BK.SAVE_PARAMETERS_HISTORY_PER_RUN) {
-			if (ActiveRuns.isEmpty()) return;
-
-			for (RunInfoObj r1 : ActiveRuns) {
-				r1.addL3_magnet(time, current);
-			}
+			runManager.registerNewL3MagnetCurrent(time, current);
 		}
 	}
 
@@ -363,12 +354,7 @@ public class DipMessagesProcessor implements Runnable {
 		}
 
 		if (AliDip2BK.SAVE_PARAMETERS_HISTORY_PER_RUN) {
-			if (ActiveRuns.isEmpty()) return;
-
-			for (int i = 0; i < ActiveRuns.size(); i++) {
-				RunInfoObj r1 = ActiveRuns.get(i);
-				r1.addDipoleMagnet(time, current);
-			}
+			runManager.registerNewDipoleCurrent(time, current);
 		}
 	}
 
@@ -394,85 +380,6 @@ public class DipMessagesProcessor implements Runnable {
 		}
 
 		AliDip2BK.log(2, "ProcData.dispach", " Dipole Polarity=" + currentAlice.Dipole_polarity);
-	}
-
-	public RunInfoObj getRunNo(int runno) {
-		if (ActiveRuns.isEmpty()) {
-			return null;
-		}
-
-		int k = -1;
-		for (int i = 0; i < ActiveRuns.size(); i++) {
-			RunInfoObj rio = ActiveRuns.get(i);
-			if (rio.RunNo == runno) {
-				k = i;
-				break;
-			}
-		}
-
-		if (k == -1) return null;
-
-		return ActiveRuns.get(k);
-	}
-
-	public void EndRun(RunInfoObj r1) {
-
-		int k = -1;
-		for (int i = 0; i < ActiveRuns.size(); i++) {
-			RunInfoObj rio = ActiveRuns.get(i);
-			if (rio.RunNo == r1.RunNo) {
-				k = i;
-				break;
-			}
-		}
-		if (k == -1) {
-			AliDip2BK.log(4, "ProcData.EndRun", " ERROR RunNo=" + r1.RunNo + " is not in the ACTIVE LIST ");
-			statisticsManager.incrementDuplicatedRunsEndCount();
-		} else {
-			statisticsManager.incrementEndedRunsCount();
-
-			if (AliDip2BK.KEEP_RUNS_HISTORY_DIRECTORY != null) writeRunHistFile(r1);
-
-			if (AliDip2BK.SAVE_PARAMETERS_HISTORY_PER_RUN) {
-
-				if (r1.energyHist.size() >= 1) {
-					String fn = "Energy_" + r1.RunNo + ".txt";
-					writeHistFile(fn, r1.energyHist);
-				}
-
-				if (r1.l3_magnetHist.size() >= 1) {
-					String fn = "L3magnet_" + r1.RunNo + ".txt";
-					writeHistFile(fn, r1.l3_magnetHist);
-				}
-			}
-
-			ActiveRuns.remove(k);
-			String runList1 = "";
-			if (ActiveRuns.size() > 0) {
-				String runList = "[";
-				for (int l = 0; l < ActiveRuns.size(); l++) {
-					RunInfoObj rr = ActiveRuns.get(l);
-					runList = runList + " " + rr.RunNo + ",";
-				}
-				runList1 = runList.substring(0, runList.length() - 1) + " ]";
-			}
-
-			AliDip2BK.log(
-				2,
-				"ProcData.EndRun",
-				" Correctly closed  runNo=" + r1.RunNo + "  ActiveRuns size=" + ActiveRuns.size() + " " + runList1
-			);
-
-			if (r1.LHC_info_start.fillNo != r1.LHC_info_stop.fillNo) {
-
-				AliDip2BK.log(
-					5,
-					"ProcData.EndRun",
-					" !!!! RUN =" + r1.RunNo + "  Statred FillNo=" + r1.LHC_info_start.fillNo
-						+ " and STOPED with FillNo=" + r1.LHC_info_stop.fillNo
-				);
-			}
-		}
 	}
 
 	public void newFillNo(long date, String strFno, String par1, String par2, String ais, String strIP2, String strNB) {
@@ -522,8 +429,8 @@ public class DipMessagesProcessor implements Runnable {
 			AliDip2BK.log(
 				3,
 				"ProcData.newFillNo",
-				" Received new FILL no=" + no + "  BUT is an active FILL =" + currentFill.fillNo
-					+ " Close the old one and created the new one"
+				" Received new FILL no=" + no + "  BUT is an active FILL =" + currentFill.fillNo + " Close the old "
+					+ "one" + " and created the new one"
 			);
 			currentFill.endedTime = (new Date()).getTime();
 			if (AliDip2BK.KEEP_FILLS_HISTORY_DIRECTORY != null) {
@@ -539,21 +446,20 @@ public class DipMessagesProcessor implements Runnable {
 		}
 	}
 
-	public void newBeamMode(long date, String BeamMode) {
-
+	public void newBeamMode(long date, String beamMode) {
 		if (currentFill != null) {
-			currentFill.setBeamMode(date, BeamMode);
+			currentFill.setBeamMode(date, beamMode);
 
 			int mc = -1;
 			for (int i = 0; i < AliDip2BK.endFillCases.length; i++) {
-				if (AliDip2BK.endFillCases[i].equalsIgnoreCase(BeamMode)) mc = i;
+				if (AliDip2BK.endFillCases[i].equalsIgnoreCase(beamMode)) mc = i;
 			}
 			if (mc < 0) {
 
 				AliDip2BK.log(
 					2,
 					"ProcData.newBeamMode",
-					"New beam mode=" + BeamMode + "  for FILL_NO=" + currentFill.fillNo
+					"New beam mode=" + beamMode + "  for FILL_NO=" + currentFill.fillNo
 				);
 				bookkeepingClient.updateLhcFill(currentFill);
 				saveState();
@@ -566,12 +472,12 @@ public class DipMessagesProcessor implements Runnable {
 				AliDip2BK.log(
 					3,
 					"ProcData.newBeamMode",
-					"CLOSE Fill_NO=" + currentFill.fillNo + " Based on new  beam mode=" + BeamMode
+					"CLOSE Fill_NO=" + currentFill.fillNo + " Based on new  beam mode=" + beamMode
 				);
 				currentFill = null;
 			}
 		} else {
-			AliDip2BK.log(4, "ProcData.newBeamMode", " ERROR new beam mode=" + BeamMode + " NO FILL NO for it");
+			AliDip2BK.log(4, "ProcData.newBeamMode", " ERROR new beam mode=" + beamMode + " NO FILL NO for it");
 		}
 	}
 
@@ -642,25 +548,6 @@ public class DipMessagesProcessor implements Runnable {
 		}
 	}
 
-	public void writeRunHistFile(RunInfoObj run) {
-		String path = getClass().getClassLoader().getResource(".").getPath();
-		String full_file = path + AliDip2BK.KEEP_RUNS_HISTORY_DIRECTORY + "/run_" + run.RunNo + ".txt";
-
-		try {
-			File of = new File(full_file);
-			if (!of.exists()) {
-				of.createNewFile();
-			}
-			BufferedWriter writer = new BufferedWriter(new FileWriter(full_file, true));
-			String ans = run.toString();
-			writer.write(ans);
-			writer.close();
-		} catch (IOException e) {
-
-			AliDip2BK.log(4, "ProcData.writeRunHistFile", " ERROR writing file=" + full_file + "   ex=" + e);
-		}
-	}
-
 	public void writeFillHistFile(LhcInfoObj lhc) {
 		String path = getClass().getClassLoader().getResource(".").getPath();
 
@@ -678,30 +565,6 @@ public class DipMessagesProcessor implements Runnable {
 		} catch (IOException e) {
 
 			AliDip2BK.log(4, "ProcData.writeFillHistFile", " ERROR writing file=" + full_file + "   ex=" + e);
-		}
-	}
-
-	public void writeHistFile(String filename, ArrayList<TimestampedFloat> A) {
-
-		String path = getClass().getClassLoader().getResource(".").getPath();
-		String full_file = path + AliDip2BK.STORE_HIST_FILE_DIR + "/" + filename;
-
-		try {
-			File of = new File(full_file);
-			if (!of.exists()) {
-				of.createNewFile();
-			}
-			BufferedWriter writer = new BufferedWriter(new FileWriter(full_file, true));
-
-			for (int i = 0; i < A.size(); i++) {
-				TimestampedFloat ts = A.get(i);
-
-				writer.write(ts.time + "," + ts.value + "\n");
-			}
-			writer.close();
-		} catch (IOException e) {
-
-			AliDip2BK.log(4, "ProcData.writeHistFile", " ERROR writing file=" + filename + "   ex=" + e);
 		}
 	}
 }
