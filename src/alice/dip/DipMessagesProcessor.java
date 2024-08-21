@@ -19,8 +19,9 @@ import java.util.Date;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+import cern.dip.BadParameter;
 import cern.dip.DipData;
-import cern.dip.DipTimestamp;
+import cern.dip.TypeMismatch;
 
 /*
  * Process dip messages received from the DipClient
@@ -40,8 +41,8 @@ public class DipMessagesProcessor implements Runnable {
 	LhcInfoObj currentFill = null;
 	AliceInfoObj currentAlice = null;
 	SimDipEventsFill simFill;
-	ArrayList<RunInfoObj> ActiveRuns = new ArrayList<RunInfoObj>();
-	private BlockingQueue<MessageItem> outputQueue = new ArrayBlockingQueue<MessageItem>(100);
+	ArrayList<RunInfoObj> ActiveRuns = new ArrayList<>();
+	private BlockingQueue<MessageItem> outputQueue = new ArrayBlockingQueue<>(100);
 
 	public DipMessagesProcessor(BookkeepingClient bookkeepingClient) {
 
@@ -146,7 +147,8 @@ public class DipMessagesProcessor implements Runnable {
 						AliDip2BK.log(
 							7,
 							"ProcData.newRunSignal",
-							" LOST RUN No Signal! " + llist + "  New RUN NO =" + runNumber + " Last Run No=" + LastRunNumber
+							" LOST RUN No Signal! " + llist + "  New RUN NO =" + runNumber + " Last Run No="
+								+ LastRunNumber
 						);
 						LastRunNumber = runNumber;
 					}
@@ -189,183 +191,100 @@ public class DipMessagesProcessor implements Runnable {
 	 * This method is used to take appropriate action based on the Dip Data messages
 	 */
 	public void processNextInQueue(MessageItem messageItem) {
-		if (messageItem.param_name.contentEquals("dip/acc/LHC/RunControl/RunConfiguration")) {
-			String ans = Util.parseDipMess(messageItem.param_name, messageItem.data);
-			try {
-				String fillno = messageItem.data.extractString("FILL_NO");
-				DipTimestamp dptime = messageItem.data.extractDipTime();
-				long time = dptime.getAsMillis();
-
-				String par1 = messageItem.data.extractString("PARTICLE_TYPE_B1");
-				String par2 = messageItem.data.extractString("PARTICLE_TYPE_B2");
-				String ais = messageItem.data.extractString("ACTIVE_INJECTION_SCHEME");
-				String strIP2_NO_COLLISIONS = messageItem.data.extractString("IP2-NO-COLLISIONS");
-				String strNO_BUNCHES = messageItem.data.extractString("NO_BUNCHES");
-
-				AliDip2BK.log(
-					1,
-					"ProcData.dispach",
-					" RunConfigurttion  FILL No = " + fillno + "  AIS=" + ais + " IP2_COLL=" + strIP2_NO_COLLISIONS
-				);
-
-				newFillNo(time, fillno, par1, par2, ais, strIP2_NO_COLLISIONS, strNO_BUNCHES);
-			} catch (Exception e) {
-				AliDip2BK.log(
-					4,
-					"ProcData.dispach",
-					" ERROR in RunConfiguration P=" + messageItem.param_name + "  Ans=" + ans + " ex=" + e
-				);
+		try {
+			switch ((messageItem.param_name)) {
+				case "dip/acc/LHC/RunControl/RunConfiguration":
+					handleRunConfigurationMessage(messageItem.data);
+					break;
+				case "dip/acc/LHC/RunControl/SafeBeam":
+					handleSafeBeamMessage(messageItem.data);
+					break;
+				case "dip/acc/LHC/Beam/Energy":
+					handleEnergyMessage(messageItem.data);
+					break;
+				case "dip/acc/LHC/RunControl/BeamMode":
+					handleBeamModeMessage(messageItem.data);
+					break;
+				case "dip/acc/LHC/Beam/BetaStar/Bstar2":
+					handleBetaStarMessage(messageItem.data);
+					break;
+				case "dip/ALICE/MCS/Solenoid/Current":
+					handleL3CurrentMessage(messageItem.data);
+					break;
+				case "dip/ALICE/MCS/Dipole/Current":
+					handleDipoleCurrentMessage(messageItem.data);
+					break;
+				case "dip/ALICE/MCS/Solenoid/Polarity":
+					handleL3PolarityMessage(messageItem.data);
+					break;
+				case "dip/ALICE/MCS/Dipole/Polarity":
+					handleDipolePolarityMessage(messageItem.data);
+					break;
+				default:
+					AliDip2BK.log(
+						4,
+						"ProcData.dispach",
+						"!!!!!!!!!! Unimplemented Data Process for P=" + messageItem.param_name
+					);
 			}
-			// SafeBeam
-		} else if (messageItem.param_name.contentEquals("dip/acc/LHC/RunControl/SafeBeam")) {
-
-			try {
-				int v = messageItem.data.extractInt("payload");
-				DipTimestamp dptime = messageItem.data.extractDipTime();
-				long time = dptime.getAsMillis();
-
-				newSafeMode(time, v);
-			} catch (Exception e) {
-				// AliDip2BK.log(1, "ProcData.dispach" ," ERROR on SafeBeam P="+ mes.param_name + " ex=" +e );
-
-			}
-
-			// Energy
-		} else if (messageItem.param_name.contentEquals("dip/acc/LHC/Beam/Energy")) {
-			try {
-				int v = messageItem.data.extractInt("payload");
-				DipTimestamp dptime = messageItem.data.extractDipTime();
-				long time = dptime.getAsMillis();
-
-				newEnergy(time, (float) (0.12 * (float) v));
-			} catch (Exception e) {
-				AliDip2BK.log(1, "ProcData.dispach", " ERROR on Energy P=" + messageItem.param_name + " ex=" + e);
-			}
-			// Beam Mode
-		} else if (messageItem.param_name.contentEquals("dip/acc/LHC/RunControl/BeamMode")) {
-
-			try {
-				String v = messageItem.data.extractString("value");
-				DipTimestamp dptime = messageItem.data.extractDipTime();
-				long time = dptime.getAsMillis();
-
-				AliDip2BK.log(1, "ProcData.dispach", " New Beam MOde = " + v);
-				newBeamMode(time, v);
-			} catch (Exception e) {
-				AliDip2BK.log(3, "ProcData.dispach", " ERROR on Beam MOde on P=" + messageItem.param_name + " ex=" + e);
-				// e.printStackTrace();
-			}
-		} else if (messageItem.param_name.contentEquals("dip/acc/LHC/Beam/BetaStar/Bstar2")) {
-			try {
-				int v = messageItem.data.extractInt("payload");
-				DipTimestamp dptime = messageItem.data.extractDipTime();
-				long time = dptime.getAsMillis();
-
-				double v1 = (double) v;
-
-				double v2 = v1 / 1000.0; // in m
-
-				newBetaStar(time, (float) v2);
-			} catch (Exception e) {
-				AliDip2BK.log(1, "ProcData.dispach", " ERROR on BetaStar  P=" + messageItem.param_name + " ex=" + e);
-				// e.printStackTrace();
-			}
-		} else if (messageItem.param_name.contentEquals("dip/ALICE/MCS/Solenoid/Current")) {
-
-			try {
-				float v = messageItem.data.extractFloat();
-				DipTimestamp dptime = messageItem.data.extractDipTime();
-				long time = dptime.getAsMillis();
-				newL3magnetCurrent(time, v);
-			} catch (Exception e) {
-				AliDip2BK.log(
-					2,
-					"ProcData.dispach",
-					" ERROR on Solenoid Curr P=" + messageItem.param_name + " ex=" + e
-				);
-			}
-		} else if (messageItem.param_name.contentEquals("dip/ALICE/MCS/Dipole/Current")) {
-
-			try {
-				float v = messageItem.data.extractFloat();
-				DipTimestamp dptime = messageItem.data.extractDipTime();
-				long time = dptime.getAsMillis();
-				newDipoleCurrent(time, v);
-			} catch (Exception e) {
-				AliDip2BK.log(
-					2,
-					"ProcData.dispach",
-					" ERROR on Dipole Curr on P=" + messageItem.param_name + " ex=" + e
-				);
-			}
-		} else if (messageItem.param_name.contentEquals("dip/ALICE/MCS/Solenoid/Polarity")) {
-
-			try {
-				boolean v = messageItem.data.extractBoolean();
-				// DipTimestamp dptime =mes.data.extractDipTime();
-				// long time =dptime.getAsMillis();
-
-				if (v) {
-					currentAlice.L3_polarity = "Negative";
-				} else {
-					currentAlice.L3_polarity = "Positive";
-				}
-
-				AliDip2BK.log(2, "ProcData.dispach", " L3 Polarity=" + currentAlice.L3_polarity);
-			} catch (Exception e) {
-				AliDip2BK.log(2, "ProcData.dispach", " ERROR on L3 polarity P=" + messageItem.param_name + " ex=" + e);
-			}
-		} else if (messageItem.param_name.contentEquals("dip/ALICE/MCS/Dipole/Polarity")) {
-
-			try {
-				boolean v = messageItem.data.extractBoolean();
-				// DipTimestamp dptime =mes.data.extractDipTime();
-				// long time =dptime.getAsMillis();
-				if (v) currentAlice.Dipole_polarity = "Negative";
-
-				else {
-					currentAlice.Dipole_polarity = "Positive";
-				}
-
-				AliDip2BK.log(2, "ProcData.dispach", " Dipole Polarity=" + currentAlice.Dipole_polarity);
-			} catch (Exception e) {
-				AliDip2BK.log(
-					2,
-					"ProcData.dispach",
-					" ERROR on Dipole Polarity P=" + messageItem.param_name + " ex=" + e
-				);
-				// e.printStackTrace();
-			}
-		} else {
+		} catch (Exception e) {
 			AliDip2BK.log(
-				4,
+				2,
 				"ProcData.dispach",
-				"!!!!!!!!!! Unimplemented Data Process for P=" + messageItem.param_name
+				" ERROR processing DIP message P=" + messageItem.param_name + " ex=" + e
 			);
 		}
 	}
 
-	public void newSafeMode(long time, int val) {
+	private void handleRunConfigurationMessage(DipData dipData) throws BadParameter, TypeMismatch {
+		var fillNumberStr = dipData.extractString("FILL_NO");
+		var beam1ParticleType = dipData.extractString("PARTICLE_TYPE_B1");
+		var beam2ParticleType = dipData.extractString("PARTICLE_TYPE_B2");
+		var activeInjectionScheme = dipData.extractString("ACTIVE_INJECTION_SCHEME");
+		var ip2CollisionsCountStr = dipData.extractString("IP2-NO-COLLISIONS");
+		var bunchesCountStr = dipData.extractString("NO_BUNCHES");
+
+		var time = dipData.extractDipTime().getAsMillis();
+
+		AliDip2BK.log(
+			1,
+			"ProcData.dispach",
+			" RunConfigurttion  FILL No = " + fillNumberStr + "  AIS=" + activeInjectionScheme + " IP2_COLL="
+				+ ip2CollisionsCountStr
+		);
+
+		newFillNo(
+			time,
+			fillNumberStr,
+			beam1ParticleType,
+			beam2ParticleType,
+			activeInjectionScheme,
+			ip2CollisionsCountStr,
+			bunchesCountStr
+		);
+	}
+
+	private void handleSafeBeamMessage(DipData dipData) throws BadParameter, TypeMismatch {
+		var safeBeamPayload = dipData.extractInt("payload");
+
+		var time = dipData.extractDipTime().getAsMillis();
+
+		var isBeam1 = BigInteger.valueOf(safeBeamPayload).testBit(0);
+		var isBeam2 = BigInteger.valueOf(safeBeamPayload).testBit(4);
+		var isStableBeams = BigInteger.valueOf(safeBeamPayload).testBit(2);
 
 		if (currentFill == null) return;
 
 		String bm = currentFill.getBeamMode();
 
 		if (bm.contentEquals("STABLE BEAMS")) {
-
-			boolean isB1 = BigInteger.valueOf(val).testBit(0);
-			boolean isB2 = BigInteger.valueOf(val).testBit(4);
-			boolean isSB = BigInteger.valueOf(val).testBit(2);
-
 			AliDip2BK.log(
 				0,
 				"ProcData.newSafeBeams",
-				" VAL=" + val + " isB1=" + isB1 + " isB2=" + isB2 + " isSB=" + isSB
+				" VAL=" + safeBeamPayload + " isB1=" + isBeam1 + " isB2=" + isBeam2 + " isSB=" + isStableBeams
 			);
-			if (isB1 && isB2) {
-				return;
-			} else {
 
+			if (!isBeam1 || !isBeam2) {
 				currentFill.setBeamMode(time, "LOST BEAMS");
 				AliDip2BK.log(5, "ProcData.newSafeBeams", " CHANGE BEAM MODE TO LOST BEAMS !!! ");
 			}
@@ -373,21 +292,117 @@ public class DipMessagesProcessor implements Runnable {
 			return;
 		}
 
-		if (bm.contentEquals("LOST BEAMS")) {
+		if (bm.contentEquals("LOST BEAMS") && isBeam1 && isBeam2) {
+			currentFill.setBeamMode(time, "STABLE BEAMS");
+			AliDip2BK.log(5, "ProcData.newSafeBeams", " RECOVER FROM BEAM LOST TO STABLE BEAMS ");
+		}
+	}
 
-			boolean isB1 = BigInteger.valueOf(val).testBit(0);
-			boolean isB2 = BigInteger.valueOf(val).testBit(4);
-			// boolean isSB = BigInteger.valueOf(val).testBit(2);
+	private void handleEnergyMessage(DipData dipData) throws BadParameter, TypeMismatch {
+		var energyPayload = dipData.extractInt("payload");
+		// Per documentation, value has to be multiplied by 120 go get MeV
+		// https://confluence.cern.ch/display/expcomm/Energy
+		var energy = 0.12f * energyPayload;
 
-			if (isB1 && isB2) {
-				currentFill.setBeamMode(time, "STABLE BEAMS");
-				AliDip2BK.log(5, "ProcData.newSafeBeams", " RECOVER FROM BEAM LOST TO STABLE BEAMS ");
+		var time = dipData.extractDipTime().getAsMillis();
+
+		if (currentFill != null) {
+			currentFill.setEnergy(time, energy);
+		}
+
+		if (AliDip2BK.SAVE_PARAMETERS_HISTORY_PER_RUN) {
+			if (ActiveRuns.isEmpty()) return;
+
+			for (int i = 0; i < ActiveRuns.size(); i++) {
+				RunInfoObj r1 = ActiveRuns.get(i);
+				r1.addEnergy(time, energy);
 			}
 		}
 	}
 
+	private void handleBeamModeMessage(DipData dipData) throws BadParameter, TypeMismatch {
+		var beamMode = dipData.extractString("value");
+		var time = dipData.extractDipTime().getAsMillis();
+
+		AliDip2BK.log(1, "ProcData.dispach", " New Beam MOde = " + beamMode);
+		newBeamMode(time, beamMode);
+	}
+
+	private void handleBetaStarMessage(DipData dipData) throws BadParameter, TypeMismatch {
+		var betaStarPayload = dipData.extractInt("payload");
+		// Per documentation, value is in cm, we convert it to m
+		var betaStar = betaStarPayload / 1000.f; // in m
+
+		var time = dipData.extractDipTime().getAsMillis();
+
+		if (currentFill != null) {
+			currentFill.setLHCBetaStar(time, betaStar);
+		}
+	}
+
+	private void handleL3CurrentMessage(DipData dipData) throws TypeMismatch {
+		var current = dipData.extractFloat();
+
+		var time = dipData.extractDipTime().getAsMillis();
+
+		if (currentAlice != null) {
+			currentAlice.L3_magnetCurrent = current;
+		}
+
+		if (AliDip2BK.SAVE_PARAMETERS_HISTORY_PER_RUN) {
+			if (ActiveRuns.isEmpty()) return;
+
+			for (RunInfoObj r1 : ActiveRuns) {
+				r1.addL3_magnet(time, current);
+			}
+		}
+	}
+
+	private void handleDipoleCurrentMessage(DipData dipData) throws TypeMismatch {
+		var current = dipData.extractFloat();
+
+		var time = dipData.extractDipTime().getAsMillis();
+
+		if (currentAlice != null) {
+			currentAlice.Dipole_magnetCurrent = current;
+		}
+
+		if (AliDip2BK.SAVE_PARAMETERS_HISTORY_PER_RUN) {
+			if (ActiveRuns.isEmpty()) return;
+
+			for (int i = 0; i < ActiveRuns.size(); i++) {
+				RunInfoObj r1 = ActiveRuns.get(i);
+				r1.addDipoleMagnet(time, current);
+			}
+		}
+	}
+
+	private void handleL3PolarityMessage(DipData dipData) throws TypeMismatch {
+		var isNegative = dipData.extractBoolean();
+
+		if (isNegative) {
+			currentAlice.L3_polarity = "Negative";
+		} else {
+			currentAlice.L3_polarity = "Positive";
+		}
+
+		AliDip2BK.log(2, "ProcData.dispach", " L3 Polarity=" + currentAlice.L3_polarity);
+	}
+
+	private void handleDipolePolarityMessage(DipData dipData) throws TypeMismatch {
+		var isNegative = dipData.extractBoolean();
+
+		if (isNegative) {
+			currentAlice.Dipole_polarity = "Negative";
+		} else {
+			currentAlice.Dipole_polarity = "Positive";
+		}
+
+		AliDip2BK.log(2, "ProcData.dispach", " Dipole Polarity=" + currentAlice.Dipole_polarity);
+	}
+
 	public RunInfoObj getRunNo(int runno) {
-		if (ActiveRuns.size() == 0) {
+		if (ActiveRuns.isEmpty()) {
 			return null;
 		}
 
@@ -399,9 +414,10 @@ public class DipMessagesProcessor implements Runnable {
 				break;
 			}
 		}
+
 		if (k == -1) return null;
-		RunInfoObj rio = ActiveRuns.get(k);
-		return rio;
+
+		return ActiveRuns.get(k);
 	}
 
 	public void EndRun(RunInfoObj r1) {
@@ -417,7 +433,6 @@ public class DipMessagesProcessor implements Runnable {
 		if (k == -1) {
 			AliDip2BK.log(4, "ProcData.EndRun", " ERROR RunNo=" + r1.RunNo + " is not in the ACTIVE LIST ");
 			statNoDuplicateEndRuns = statNoDuplicateEndRuns + 1;
-			return;
 		} else {
 
 			statNoEndRuns = statNoEndRuns + 1;
@@ -563,61 +578,6 @@ public class DipMessagesProcessor implements Runnable {
 			}
 		} else {
 			AliDip2BK.log(4, "ProcData.newBeamMode", " ERROR new beam mode=" + BeamMode + " NO FILL NO for it");
-		}
-	}
-
-	public void newEnergy(long time, float v) {
-
-		if (currentFill != null) {
-			currentFill.setEnergy(time, v);
-		}
-
-		if (AliDip2BK.SAVE_PARAMETERS_HISTORY_PER_RUN) {
-			if (ActiveRuns.size() == 0) return;
-
-			for (int i = 0; i < ActiveRuns.size(); i++) {
-				RunInfoObj r1 = ActiveRuns.get(i);
-				r1.addEnergy(time, v);
-			}
-		}
-	}
-
-	public void newL3magnetCurrent(long time, float v) {
-
-		if (currentAlice != null) {
-			currentAlice.L3_magnetCurrent = v;
-		}
-
-		if (AliDip2BK.SAVE_PARAMETERS_HISTORY_PER_RUN) {
-			if (ActiveRuns.size() == 0) return;
-
-			for (int i = 0; i < ActiveRuns.size(); i++) {
-				RunInfoObj r1 = ActiveRuns.get(i);
-				r1.addL3_magnet(time, v);
-			}
-		}
-	}
-
-	public void newDipoleCurrent(long time, float v) {
-
-		if (currentAlice != null) {
-			currentAlice.Dipole_magnetCurrent = v;
-		}
-
-		if (AliDip2BK.SAVE_PARAMETERS_HISTORY_PER_RUN) {
-			if (ActiveRuns.size() == 0) return;
-
-			for (int i = 0; i < ActiveRuns.size(); i++) {
-				RunInfoObj r1 = ActiveRuns.get(i);
-				r1.addDipoleMagnet(time, v);
-			}
-		}
-	}
-
-	public void newBetaStar(long t, float v) {
-
-		if (currentFill != null) {
-			currentFill.setLHCBetaStar(t, v);
 		}
 	}
 
