@@ -105,7 +105,11 @@ public class DipClient implements Runnable {
 				dip.destroyDipSubscription(subx);
 			} catch (DipException e) {
 				// e.printStackTrace();
-				AliDip2BK.log(4, "DipClient.CloseSubscriptions", " error closing subscription for param=" + k + " e=" + e);
+				AliDip2BK.log(
+					4,
+					"DipClient.CloseSubscriptions",
+					" error closing subscription for param=" + k + " e=" + e
+				);
 			}
 
 		}
@@ -190,6 +194,7 @@ public class DipClient implements Runnable {
 	 * handler for connect/disconnect/data reception events
 	 */
 	class GeneralDataListener implements DipSubscriptionListener {
+
 		/**
 		 * handle changes to subscribed to publications
 		 */
@@ -224,8 +229,11 @@ public class DipClient implements Runnable {
 		 *             unavailable.
 		 */
 		public void disconnected(DipSubscription arg0, String arg1) {
-			AliDip2BK.log(4, "DipClient.GeneralDataListener.disconnect",
-				"Publication source unavailable " + arg0 + "  " + arg1);
+			AliDip2BK.log(
+				4,
+				"DipClient.GeneralDataListener.disconnect",
+				"Publication source unavailable " + arg0 + "  " + arg1
+			);
 			status = false;
 		}
 
@@ -235,5 +243,4 @@ public class DipClient implements Runnable {
 
 		}
 	}
-
 }

@@ -21,7 +21,6 @@ public class LhcInfoObj implements Serializable {
 
 	public int fillNo;
 	public long createdTime = -1;
-	;
 	public long endedTime = -1;
 	public String Beam1ParticleType;
 	public String Beam2ParticleType;
