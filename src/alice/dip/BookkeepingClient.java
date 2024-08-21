@@ -6,6 +6,7 @@
  * This class is used to write the Dip information into the
  * Bookkeeping Data Base
  */
+
 package alice.dip;
 
 import java.net.URI;
