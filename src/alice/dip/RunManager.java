@@ -55,14 +55,14 @@ public class RunManager {
 				if (AliDip2BK.KEEP_RUNS_HISTORY_DIRECTORY != null) writeRunHistFile(run);
 
 				if (AliDip2BK.SAVE_PARAMETERS_HISTORY_PER_RUN) {
-					if (!run.energyHist.isEmpty()) {
+					if (!run.energyHistory.isEmpty()) {
 						String fn = "Energy_" + run.RunNo + ".txt";
-						writeHistFile(fn, run.energyHist);
+						writeHistoryToFile(fn, run.energyHistory);
 					}
 
-					if (!run.l3_magnetHist.isEmpty()) {
+					if (!run.l3CurrentHistory.isEmpty()) {
 						String fn = "L3magnet_" + run.RunNo + ".txt";
-						writeHistFile(fn, run.l3_magnetHist);
+						writeHistoryToFile(fn, run.l3CurrentHistory);
 					}
 				}
 
@@ -100,7 +100,7 @@ public class RunManager {
 
 	public void registerNewL3MagnetCurrent(long time, float current) {
 		for (RunInfoObj run : activeRuns) {
-			run.addL3_magnet(time, current);
+			run.addL3Current(time, current);
 		}
 	}
 
@@ -129,7 +129,7 @@ public class RunManager {
 		}
 	}
 
-	private void writeHistFile(String filename, ArrayList<TimestampedFloat> A) {
+	private void writeHistoryToFile(String filename, TimestampedFloatHistory history) {
 		String path = getClass().getClassLoader().getResource(".").getPath();
 		String full_file = path + AliDip2BK.STORE_HIST_FILE_DIR + "/" + filename;
 
@@ -140,14 +140,12 @@ public class RunManager {
 			}
 			BufferedWriter writer = new BufferedWriter(new FileWriter(full_file, true));
 
-			for (int i = 0; i < A.size(); i++) {
-				TimestampedFloat ts = A.get(i);
-
-				writer.write(ts.time + "," + ts.value + "\n");
+			for (var historyItem: history) {
+				writer.write(historyItem.time() + "," + historyItem.value() + "\n");
 			}
+
 			writer.close();
 		} catch (IOException e) {
-
 			AliDip2BK.log(4, "ProcData.writeHistFile", " ERROR writing file=" + filename + "   ex=" + e);
 		}
 	}

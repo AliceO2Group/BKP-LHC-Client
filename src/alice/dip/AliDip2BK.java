@@ -39,9 +39,9 @@ public class AliDip2BK implements Runnable {
 	private static boolean simulateDipEvents = false;
 	public static SimpleDateFormat myDateFormat = new SimpleDateFormat("dd-MM-yy HH:mm");
 	public static SimpleDateFormat logDateFormat = new SimpleDateFormat("dd-MM HH:mm:ss");
-	public static double DIFF_ENERGY = 5;
-	public static double DIFF_BETA = 0.001;
-	public static double DIFF_CURRENT = 5;
+	public static float DIFF_ENERGY = 5f;
+	public static float DIFF_BETA = 0.001f;
+	public static float DIFF_CURRENT = 5f;
 	public static String ProgPath;
 	private final long startDate;
 	public String dipParametersFile = null;
@@ -70,8 +70,14 @@ public class AliDip2BK implements Runnable {
 		var runManager = new RunManager(statisticsManager);
 		fillManager = new FillManager(bookkeepingClient, statisticsManager);
 		fillManager.loadState();
+		var aliceMagnetsManager = new AliceMagnetsManager();
 
-		dipMessagesProcessor = new DipMessagesProcessor(bookkeepingClient, runManager, fillManager, statisticsManager);
+		dipMessagesProcessor = new DipMessagesProcessor(bookkeepingClient,
+			runManager,
+			fillManager,
+			aliceMagnetsManager,
+			statisticsManager
+		);
 		if (simulateDipEvents) {
 			new SimDipEventsFill(fillManager);
 		}

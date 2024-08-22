@@ -144,7 +144,7 @@ public class LhcInfoObj implements Serializable {
 
 			for (int i = 0; i < beamEnergyHist.size(); i++) {
 				TimestampedFloat a1 = beamEnergyHist.get(i);
-				ans = ans + " - " + AliDip2BK.myDateFormat.format(a1.time) + "  " + a1.value + "\n";
+				ans = ans + " - " + AliDip2BK.myDateFormat.format(a1.time()) + "  " + a1.value() + "\n";
 			}
 		}
 
@@ -153,7 +153,7 @@ public class LhcInfoObj implements Serializable {
 
 			for (int i = 0; i < LHCBetaStarHist.size(); i++) {
 				TimestampedFloat a1 = LHCBetaStarHist.get(i);
-				ans = ans + " - " + AliDip2BK.myDateFormat.format(a1.time) + "  " + a1.value + "\n";
+				ans = ans + " - " + AliDip2BK.myDateFormat.format(a1.time()) + "  " + a1.value() + "\n";
 			}
 		}
 
