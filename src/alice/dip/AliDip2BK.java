@@ -45,13 +45,14 @@ public class AliDip2BK implements Runnable {
 	public static double DIFF_CURRENT = 5;
 	public static String ProgPath;
 	private final long startDate;
-	public String DipParametersFile = null;
+	public String dipParametersFile = null;
 	String confFile = "AliDip2BK.properties";
 	DipClient client;
 	DipMessagesProcessor dipMessagesProcessor;
-	BookkeepingClient bookkeepingClient;
 	StartOfRunKafkaConsumer kcs;
 	EndOfRunKafkaConsumer kce;
+
+	private StatisticsManager statisticsManager;
 
 	public AliDip2BK() {
 		startDate = (new Date()).getTime();
@@ -64,13 +65,14 @@ public class AliDip2BK implements Runnable {
 
 		verifyDirs();
 
-		bookkeepingClient = new BookkeepingClient(bookkeepingUrl, bookkeepingToken);
-		dipMessagesProcessor = new DipMessagesProcessor(bookkeepingClient);
+		statisticsManager = new StatisticsManager();
+		var bookkeepingClient = new BookkeepingClient(bookkeepingUrl, bookkeepingToken);
+		dipMessagesProcessor = new DipMessagesProcessor(bookkeepingClient, statisticsManager);
 		if (AliDip2BK.simulateDipEvents) {
 			new SimDipEventsFill(dipMessagesProcessor);
 		}
 
-		client = new DipClient(DipParametersFile, dipMessagesProcessor);
+		client = new DipClient(dipParametersFile, dipMessagesProcessor);
 
 		try {
 			Thread.sleep(5000);
@@ -182,7 +184,7 @@ public class AliDip2BK implements Runnable {
 
 			if (para_file_name != null) {
 
-				DipParametersFile = ProgPath + para_file_name;
+				dipParametersFile = ProgPath + para_file_name;
 			} else {
 				log(
 					4,
@@ -296,14 +298,14 @@ public class AliDip2BK implements Runnable {
 		}
 		mess = mess + " Duration [h]=" + dur + "\n";
 		mess = mess + " Memory Used [MB]=" + usedMB + "\n";
-		mess = mess + " No of DIP messages=" + dipMessagesProcessor.statNoDipMess + "\n";
-		mess = mess + " No of KAFKA  messages=" + dipMessagesProcessor.statNoKafMess + "\n";
+		mess = mess + " No of DIP messages=" + statisticsManager.getDipMessagesCount() + "\n";
+		mess = mess + " No of KAFKA  messages=" + statisticsManager.getKafkaMessagesCount() + "\n";
 		mess = mess + " No of KAFKA SOR messages=" + kcs.NoMess + "\n";
 		mess = mess + " No of KAFKA EOR messages=" + kce.NoMess + "\n";
-		mess = mess + " No of new Fill messgaes =" + dipMessagesProcessor.statNoNewFills + "\n";
-		mess = mess + " No of new Run messgaes =" + dipMessagesProcessor.statNoNewRuns + "\n";
-		mess = mess + " No of end Run messages =" + dipMessagesProcessor.statNoEndRuns + "\n";
-		mess = mess + " No of Duplicated end Run messages =" + dipMessagesProcessor.statNoDuplicateEndRuns + "\n";
+		mess = mess + " No of new Fill messgaes =" + statisticsManager.getNewFillsCount() + "\n";
+		mess = mess + " No of new Run messgaes =" + statisticsManager.getNewRunsCount() + "\n";
+		mess = mess + " No of end Run messages =" + statisticsManager.getEndedRunsCount() + "\n";
+		mess = mess + " No of Duplicated end Run messages =" + statisticsManager.getDuplicatedRunsEndCount() + "\n";
 
 		try {
 			File of = new File(full_file);
