@@ -1,10 +1,10 @@
 /*************
-* cil 
-**************/
+ * cil
+ **************/
 
 /*
- *  Simulates a set of DIP events for testing ONLY 
- *  
+ *  Simulates a set of DIP events for testing ONLY
+ *
  */
 package alice.dip;
 
@@ -20,7 +20,7 @@ public class SimDipEventsFill implements Runnable {
 	// DOWN","RECOVERY","INJECT AND DUMP","CIRCULATE AND
 	// DUMP","ABORT","CYCLING","WARNING BEAM DUMP","NO BEAM" };
 
-	String[] BeamModeList = { "SETUP", "STABLE BEAMS", "ADJUST" };
+	String[] BeamModeList = {"SETUP", "STABLE BEAMS", "ADJUST"};
 	/*
 	 * BMode[0]="NOMODE";
 	 * BMode[1]="SETUP";

@@ -1,8 +1,8 @@
 /*************
-* cil 
-**************/
+ * cil
+ **************/
 /*
- *  Keeps the RUN Information 
+ *  Keeps the RUN Information
  */
 package alice.dip;
 
