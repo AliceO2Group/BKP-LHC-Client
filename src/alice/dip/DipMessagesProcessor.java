@@ -29,24 +29,20 @@ import cern.dip.TypeMismatch;
  * Creates Fill and Run data structures  to be stored in Alice bookkeeping system
  */
 public class DipMessagesProcessor implements Runnable {
-	public BookkeepingClient bookkeepingClient;
-	public int statNoDipMess = 0;
-	public int statNoKafMess = 0;
-	public int statNoNewFills = 0;
-	public int statNoNewRuns = 0;
-	public int statNoEndRuns = 0;
-	public int statNoDuplicateEndRuns = 0;
+	private BlockingQueue<MessageItem> outputQueue = new ArrayBlockingQueue<>(100);
+	private final BookkeepingClient bookkeepingClient;
+	private final StatisticsManager statisticsManager;
+
 	public int LastRunNumber = -1;
 	boolean acceptData = true;
 	LhcInfoObj currentFill = null;
 	AliceInfoObj currentAlice = null;
 	SimDipEventsFill simFill;
 	ArrayList<RunInfoObj> ActiveRuns = new ArrayList<>();
-	private BlockingQueue<MessageItem> outputQueue = new ArrayBlockingQueue<>(100);
 
-	public DipMessagesProcessor(BookkeepingClient bookkeepingClient) {
-
+	public DipMessagesProcessor(BookkeepingClient bookkeepingClient, StatisticsManager statisticsManager) {
 		this.bookkeepingClient = bookkeepingClient;
+		this.statisticsManager = statisticsManager;
 
 		Thread t = new Thread(this);
 		t.start();
@@ -65,7 +61,7 @@ public class DipMessagesProcessor implements Runnable {
 		}
 
 		MessageItem messageItem = new MessageItem(parameter, message, data);
-		statNoDipMess = statNoDipMess + 1;
+		statisticsManager.incrementDipMessagesCount();
 
 		try {
 			outputQueue.put(messageItem);
@@ -117,8 +113,8 @@ public class DipMessagesProcessor implements Runnable {
 	public synchronized void newRunSignal(long date, int runNumber) {
 
 		RunInfoObj rio = getRunNo(runNumber);
-		statNoNewRuns = statNoNewRuns + 1;
-		statNoKafMess = statNoKafMess + 1;
+		statisticsManager.incrementNewRunsCount();
+		statisticsManager.incrementKafkaMessagesCount();
 
 		if (rio == null) {
 			if (currentFill != null) {
@@ -169,8 +165,7 @@ public class DipMessagesProcessor implements Runnable {
 	}
 
 	public synchronized void stopRunSignal(long time, int runNumber) {
-
-		statNoKafMess = statNoKafMess + 1;
+		statisticsManager.incrementKafkaMessagesCount();
 
 		RunInfoObj rio = getRunNo(runNumber);
 
@@ -182,7 +177,7 @@ public class DipMessagesProcessor implements Runnable {
 
 			EndRun(rio);
 		} else {
-			statNoDuplicateEndRuns = statNoDuplicateEndRuns + 1;
+			statisticsManager.incrementDuplicatedRunsEndCount();
 			AliDip2BK.log(4, "ProcData.stopRunSignal", " NO ACTIVE RUN having runNo=" + runNumber);
 		}
 	}
@@ -432,10 +427,9 @@ public class DipMessagesProcessor implements Runnable {
 		}
 		if (k == -1) {
 			AliDip2BK.log(4, "ProcData.EndRun", " ERROR RunNo=" + r1.RunNo + " is not in the ACTIVE LIST ");
-			statNoDuplicateEndRuns = statNoDuplicateEndRuns + 1;
+			statisticsManager.incrementDuplicatedRunsEndCount();
 		} else {
-
-			statNoEndRuns = statNoEndRuns + 1;
+			statisticsManager.incrementEndedRunsCount();
 
 			if (AliDip2BK.KEEP_RUNS_HISTORY_DIRECTORY != null) writeRunHistFile(r1);
 
@@ -510,7 +504,7 @@ public class DipMessagesProcessor implements Runnable {
 			bookkeepingClient.createLhcFill(currentFill);
 			saveState();
 			AliDip2BK.log(2, "ProcData.newFillNo", " **CREATED new FILL no=" + no);
-			statNoNewFills = statNoNewFills + 1;
+			statisticsManager.incrementNewFillsCount();
 			return;
 		}
 		if (currentFill.fillNo == no) { // the same fill no ;
@@ -540,7 +534,7 @@ public class DipMessagesProcessor implements Runnable {
 			currentFill = null;
 			currentFill = new LhcInfoObj(date, no, par1, par2, ais, ip2Col, nob);
 			bookkeepingClient.createLhcFill(currentFill);
-			statNoNewFills = statNoNewFills + 1;
+			statisticsManager.incrementNewFillsCount();
 			saveState();
 		}
 	}
