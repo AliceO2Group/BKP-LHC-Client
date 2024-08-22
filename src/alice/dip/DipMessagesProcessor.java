@@ -26,27 +26,26 @@ public class DipMessagesProcessor implements Runnable {
 	private final BookkeepingClient bookkeepingClient;
 	private final RunManager runManager;
 	private final FillManager fillManager;
+	private final AliceMagnetsManager aliceMagnetsManager;
 	private final StatisticsManager statisticsManager;
 
 	private boolean acceptData = true;
-
-	private final AliceInfoObj currentAlice;
 
 	public DipMessagesProcessor(
 		BookkeepingClient bookkeepingClient,
 		RunManager runManager,
 		FillManager fillManager,
+		AliceMagnetsManager aliceMagnetsManager,
 		StatisticsManager statisticsManager
 	) {
 		this.bookkeepingClient = bookkeepingClient;
 		this.runManager = runManager;
 		this.fillManager = fillManager;
+		this.aliceMagnetsManager = aliceMagnetsManager;
 		this.statisticsManager = statisticsManager;
 
 		Thread t = new Thread(this);
 		t.start();
-
-		currentAlice = new AliceInfoObj();
 	}
 
 	/*
@@ -118,7 +117,7 @@ public class DipMessagesProcessor implements Runnable {
 				date,
 				runNumber,
 				currentFill.map(LhcInfoObj::clone).orElse(null),
-				currentAlice.clone()
+				aliceMagnetsManager.getView()
 			);
 			var fillLogMessage = currentFill.map(lhcInfoObj -> "with FillNo=" + lhcInfoObj.fillNo)
 				.orElse("currentFILL is NULL Perhaps Cosmics Run");
@@ -165,7 +164,7 @@ public class DipMessagesProcessor implements Runnable {
 		currentRun.ifPresentOrElse(run -> {
 			run.setEORtime(time);
 			fillManager.getCurrentFill().ifPresent(fill -> run.LHC_info_stop = fill.clone());
-			run.alice_info_stop = currentAlice.clone();
+			run.alice_info_stop = aliceMagnetsManager.getView();
 
 			runManager.endRun(run.RunNo);
 		}, () -> {
@@ -289,6 +288,7 @@ public class DipMessagesProcessor implements Runnable {
 			"ProcData.newSafeBeams",
 			" VAL=" + safeModePayload + " isB1=" + isBeam1 + " isB2=" + isBeam2 + " isSB=" + isStableBeams
 		);
+
 		fillManager.setSafeMode(time, isBeam1, isBeam2);
 	}
 
@@ -296,7 +296,7 @@ public class DipMessagesProcessor implements Runnable {
 		var energyPayload = dipData.extractInt("payload");
 		// Per documentation, value has to be multiplied by 120 go get MeV
 		// https://confluence.cern.ch/display/expcomm/Energy
-		var energy = (float) (0.12 * (float) energyPayload); // We use energy in keV
+		var energy = 0.12f * energyPayload; // We use energy in keV
 
 		var time = dipData.extractDipTime().getAsMillis();
 
@@ -331,9 +331,7 @@ public class DipMessagesProcessor implements Runnable {
 
 		var time = dipData.extractDipTime().getAsMillis();
 
-		if (currentAlice != null) {
-			currentAlice.L3_magnetCurrent = current;
-		}
+		aliceMagnetsManager.setL3Current(current);
 
 		if (AliDip2BK.SAVE_PARAMETERS_HISTORY_PER_RUN) {
 			runManager.registerNewL3MagnetCurrent(time, current);
@@ -345,9 +343,7 @@ public class DipMessagesProcessor implements Runnable {
 
 		var time = dipData.extractDipTime().getAsMillis();
 
-		if (currentAlice != null) {
-			currentAlice.Dipole_magnetCurrent = current;
-		}
+		aliceMagnetsManager.setDipoleCurrent(current);
 
 		if (AliDip2BK.SAVE_PARAMETERS_HISTORY_PER_RUN) {
 			runManager.registerNewDipoleCurrent(time, current);
@@ -356,25 +352,19 @@ public class DipMessagesProcessor implements Runnable {
 
 	private void handleL3PolarityMessage(DipData dipData) throws TypeMismatch {
 		var isNegative = dipData.extractBoolean();
+		var polarity = isNegative ? Polarity.NEGATIVE : Polarity.POSITIVE;
 
-		if (isNegative) {
-			currentAlice.L3_polarity = "Negative";
-		} else {
-			currentAlice.L3_polarity = "Positive";
-		}
+		aliceMagnetsManager.setL3Polarity(polarity);
 
-		AliDip2BK.log(2, "ProcData.dispach", " L3 Polarity=" + currentAlice.L3_polarity);
+		AliDip2BK.log(2, "ProcData.dispach", " L3 Polarity=" + polarity);
 	}
 
 	private void handleDipolePolarityMessage(DipData dipData) throws TypeMismatch {
 		var isNegative = dipData.extractBoolean();
+		var polarity = isNegative ? Polarity.NEGATIVE : Polarity.POSITIVE;
 
-		if (isNegative) {
-			currentAlice.Dipole_polarity = "Negative";
-		} else {
-			currentAlice.Dipole_polarity = "Positive";
-		}
+		aliceMagnetsManager.setDipolePolarity(polarity);
 
-		AliDip2BK.log(2, "ProcData.dispach", " Dipole Polarity=" + currentAlice.Dipole_polarity);
+		AliDip2BK.log(2, "ProcData.dispach", " Dipole Polarity=" + polarity);
 	}
 }

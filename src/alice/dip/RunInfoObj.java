@@ -6,33 +6,38 @@
  */
 package alice.dip;
 
-import java.util.ArrayList;
+import java.util.Optional;
+import java.util.OptionalDouble;
 
 public class RunInfoObj {
 
 	public int RunNo;
 	public LhcInfoObj LHC_info_start;
 	public LhcInfoObj LHC_info_stop;
-	public AliceInfoObj alice_info_start;
-	public AliceInfoObj alice_info_stop;
-	public ArrayList<TimestampedFloat> energyHist;
-	public ArrayList<TimestampedFloat> l3_magnetHist;
-	public ArrayList<TimestampedFloat> DipoleMagnetHist;
+	public final AliceMagnetsConfigurationView magnetsConfigurationAtStart;
+	public AliceMagnetsConfigurationView alice_info_stop;
+	public TimestampedFloatHistory energyHistory;
+	public TimestampedFloatHistory l3CurrentHistory;
+	public TimestampedFloatHistory dipoleHistory;
 	public long SOR_time;
 	public long EOR_time;
 
-	public RunInfoObj(long sor_time, int RunNo, LhcInfoObj fillAtStart, AliceInfoObj alice_start) {
+	public RunInfoObj(
+		long sor_time,
+		int RunNo,
+		LhcInfoObj fillAtStart,
+		AliceMagnetsConfigurationView magnetsConfigurationAtStart
+	) {
 		this.RunNo = RunNo;
 		SOR_time = sor_time;
 		this.LHC_info_start = fillAtStart;
-		this.alice_info_start = alice_start;
-		energyHist = new ArrayList<TimestampedFloat>();
-		l3_magnetHist = new ArrayList<TimestampedFloat>();
-		DipoleMagnetHist = new ArrayList<TimestampedFloat>();
+		this.magnetsConfigurationAtStart = magnetsConfigurationAtStart;
+		energyHistory = new TimestampedFloatHistory(AliDip2BK.DIFF_ENERGY);
+		l3CurrentHistory = new TimestampedFloatHistory(AliDip2BK.DIFF_CURRENT);
+		dipoleHistory = new TimestampedFloatHistory(AliDip2BK.DIFF_CURRENT);
 	}
 
 	public String toString() {
-
 		String ans = "RUN=" + RunNo + "\n";
 		ans = ans + "SOR=" + AliDip2BK.myDateFormat.format(SOR_time) + "\n";
 		if (LHC_info_start != null) {
@@ -40,8 +45,8 @@ public class RunInfoObj {
 		} else {
 			ans = ans + "LHC:: No DATA \n";
 		}
-		if (alice_info_start != null) {
-			ans = ans + "ALICE:: " + alice_info_start.toString() + "\n";
+		if (magnetsConfigurationAtStart != null) {
+			ans = ans + "ALICE:: " + magnetsConfigurationAtStart.toString() + "\n";
 		} else {
 			ans = ans + "ALICE:: No DATA \n";
 		}
@@ -59,94 +64,47 @@ public class RunInfoObj {
 			ans = ans + "ALICE:: No DATA \n";
 		}
 
-		if (energyHist.size() > 1) {
+		if (!energyHistory.isEmpty()) {
 			ans = ans + " History:: Energy\n";
 
-			for (int i = 0; i < energyHist.size(); i++) {
-				TimestampedFloat a1 = energyHist.get(i);
-				ans = ans + " - " + AliDip2BK.myDateFormat.format(a1.time) + "  " + a1.value + "\n";
+			for (var energy: energyHistory) {
+				ans = ans + " - " + AliDip2BK.myDateFormat.format(energy.time()) + "  " + energy.value() + "\n";
 			}
 		}
 
-		if (l3_magnetHist.size() > 1) {
+		if (!l3CurrentHistory.isEmpty()) {
 			ans = ans + " History:: L3 Magnet\n";
 
-			for (int i = 0; i < l3_magnetHist.size(); i++) {
-				TimestampedFloat a1 = l3_magnetHist.get(i);
-				ans = ans + " - " + AliDip2BK.myDateFormat.format(a1.time) + "  " + a1.value + "\n";
+			for (var current: l3CurrentHistory) {
+				ans = ans + " - " + AliDip2BK.myDateFormat.format(current.time()) + "  " + current.value() + "\n";
 			}
 		}
 
-		if (DipoleMagnetHist.size() > 1) {
+		if (!dipoleHistory.isEmpty()) {
 			ans = ans + " History:: Dipole Magnet\n";
 
-			for (int i = 0; i < DipoleMagnetHist.size(); i++) {
-				TimestampedFloat a1 = DipoleMagnetHist.get(i);
-				ans = ans + " - " + AliDip2BK.myDateFormat.format(a1.time) + "  " + a1.value + "\n";
+			for (var current: dipoleHistory) {
+				ans = ans + " - " + AliDip2BK.myDateFormat.format(current.time()) + "  " + current.value() + "\n";
 			}
 		}
 
 		return ans;
-
 	}
 
 	public void setEORtime(long time) {
 		EOR_time = time;
 	}
 
-	public void addEnergy(long time, float v) {
-
-		if (energyHist.size() == 0) {
-			TimestampedFloat t1 = new TimestampedFloat(time, v);
-			energyHist.add(t1);
-			return;
-		}
-		TimestampedFloat v1 = energyHist.get(energyHist.size() - 1);
-
-		double dif = Math.abs(v - v1.value) / v;
-
-		if (dif < AliDip2BK.DIFF_ENERGY) {
-			return;
-		}
-		TimestampedFloat t1 = new TimestampedFloat(time, v);
-		energyHist.add(t1);
-
+	public void addEnergy(long time, float energy) {
+		this.energyHistory.push(time, energy);
 	}
 
-	public void addL3_magnet(long time, float v) {
-		if (l3_magnetHist.size() == 0) {
-			TimestampedFloat t2 = new TimestampedFloat(time, v);
-			l3_magnetHist.add(t2);
-			return;
-		}
-		TimestampedFloat v2 = l3_magnetHist.get(l3_magnetHist.size() - 1);
-		double dif = Math.abs(v - v2.value);
-		if (dif < AliDip2BK.DIFF_CURRENT) {
-			return;
-		} else {
-			TimestampedFloat v4 = new TimestampedFloat(time, v);
-			l3_magnetHist.add(v4);
-		}
-
+	public void addL3Current(long time, float current) {
+		this.l3CurrentHistory.push(time, current);
 	}
 
-	public void addDipoleMagnet(long time, float v) {
-		if (DipoleMagnetHist.size() == 0) {
-			TimestampedFloat t2 = new TimestampedFloat(time, v);
-			DipoleMagnetHist.add(t2);
-			return;
-		}
-
-		TimestampedFloat v2 = DipoleMagnetHist.get(DipoleMagnetHist.size() - 1);
-		double dif = Math.abs(v - v2.value);
-
-		if (dif < AliDip2BK.DIFF_CURRENT) {
-			return;
-		} else {
-			TimestampedFloat v4 = new TimestampedFloat(time, v);
-			DipoleMagnetHist.add(v4);
-		}
-
+	public void addDipoleMagnet(long time, float current) {
+		this.dipoleHistory.push(time, current);
 	}
 
 	public float getBeamEnergy() {
@@ -154,14 +112,6 @@ public class RunInfoObj {
 			return LHC_info_start.getEnergy();
 		} else {
 			return -1;
-		}
-	}
-
-	public String getBeamType() {
-		if (LHC_info_start != null) {
-			return LHC_info_start.beamType;
-		} else {
-			return null;
 		}
 	}
 
@@ -181,30 +131,6 @@ public class RunInfoObj {
 		}
 	}
 
-	public int getLHCTotalIneractingBunches() {
-		if (LHC_info_start != null) {
-			return LHC_info_start.LHCTotalInteractingBunches;
-		} else {
-			return -1;
-		}
-	}
-
-	public int getLHCTotalNonInteractingBunchesBeam1() {
-		if (LHC_info_start != null) {
-			return LHC_info_start.LHCTotalNonInteractingBuchesBeam1;
-		} else {
-			return -1;
-		}
-	}
-
-	public int getLHCTotalNonInteractingBunchesBeam2() {
-		if (LHC_info_start != null) {
-			return LHC_info_start.LHCTotalNonInteractingBuchesBeam2;
-		} else {
-			return -1;
-		}
-	}
-
 	public float getLHCBetaStar() {
 		if (LHC_info_start != null) {
 			return LHC_info_start.getLHCBetaStar();
@@ -213,27 +139,19 @@ public class RunInfoObj {
 		}
 	}
 
-	public String getLHCFillingSchemeName() {
-		if (LHC_info_start != null) {
-			return LHC_info_start.LHCFillingSchemeName;
-		} else {
-			return null;
-		}
+	public Optional<Polarity> getL3Polarity() {
+		return magnetsConfigurationAtStart.l3Polarity();
 	}
 
-	public String getL3_magnetPolarity() {
-		return alice_info_start.L3_polarity;
+	public Optional<Polarity> getDipolePolarity() {
+		return magnetsConfigurationAtStart.dipolePolarity();
 	}
 
-	public String getDipole_magnetPolarity() {
-		return alice_info_start.Dipole_polarity;
+	public OptionalDouble getL3Current() {
+		return magnetsConfigurationAtStart.l3Current();
 	}
 
-	public float getL3_magnetCurrent() {
-		return alice_info_start.L3_magnetCurrent;
-	}
-
-	public float getDipole_magnetCurrent() {
-		return alice_info_start.Dipole_magnetCurrent;
+	public OptionalDouble getDipoleCurrent() {
+		return magnetsConfigurationAtStart.dipoleCurrent();
 	}
 }

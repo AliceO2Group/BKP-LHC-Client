@@ -14,7 +14,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
-import java.util.Map;
 
 public class BookkeepingClient {
 	private final HttpClient httpClient;
@@ -235,27 +234,31 @@ public class BookkeepingClient {
 			hasModifications = true;
 		}
 
-		float l3MagnetCurrent = runObj.getL3_magnetCurrent();
-		if (l3MagnetCurrent < 0) l3MagnetCurrent = 0;
-		if (l3MagnetCurrent >= 0) {
-			requestBody += "\n\"aliceL3Current\":" + l3MagnetCurrent + ",";
+		var l3MagnetCurrent = runObj.getL3Current();
+		if(l3MagnetCurrent.isPresent()) {
+			var current = l3MagnetCurrent.getAsDouble();
+			requestBody += "\n\"aliceL3Current\":" + current + ",";
 
-			String l3MagnetPolarity = runObj.getL3_magnetPolarity();
-			if ((l3MagnetPolarity.length() > 2) && (l3MagnetCurrent > 0)) {
-				requestBody += "\n\"aliceL3Polarity\":\"" + l3MagnetPolarity + "\",";
+			var l3MagnetPolarity = runObj.getL3Polarity();
+			if (l3MagnetPolarity.isPresent() && current > 0) {
+				requestBody += "\n\"aliceL3Polarity\":\""
+					+ l3MagnetPolarity.get()
+					+ ",";
 			}
 
 			hasModifications = true;
 		}
 
-		float dipoleMagnetCurrent = runObj.getDipole_magnetCurrent();
-		if (dipoleMagnetCurrent < 0) dipoleMagnetCurrent = 0;
-		if (dipoleMagnetCurrent >= 0) {
-			requestBody += "\n\"aliceDipoleCurrent\":" + dipoleMagnetCurrent + ",";
+		var dipoleMagnetCurrent = runObj.getDipoleCurrent();
+		if (dipoleMagnetCurrent.isPresent()) {
+			var current = dipoleMagnetCurrent.getAsDouble();
+			requestBody += "\n\"aliceDipoleCurrent\":" + current + ",";
 
-			String dipoleMagnetPolarity = runObj.getDipole_magnetPolarity();
-			if ((dipoleMagnetPolarity.length() > 2) && (dipoleMagnetCurrent > 0)) {
-				requestBody += "\n\"aliceDipolePolarity\":\"" + dipoleMagnetPolarity + "\",";
+			var dipoleMagnetPolarity = runObj.getDipolePolarity();
+			if (dipoleMagnetPolarity.isPresent() && current > 0) {
+				requestBody += "\n\"aliceDipolePolarity\":\""
+					+ dipoleMagnetPolarity.get()
+					+ "\",";
 			}
 
 			hasModifications = true;

@@ -41,19 +41,19 @@ public class Util {
 			ans = -1;
 		} else if (N == 1) {
 			TimestampedFloat t = tsa.get(0);
-			ans = t.value;
+			ans = t.value();
 		} else {
 			double sum = 0.0;
 
 			for (int i = 0; i < (tsa.size() - 1); i++) {
 				TimestampedFloat t1 = tsa.get(i);
 				TimestampedFloat t2 = tsa.get(i + 1);
-				sum = sum + (t1.value + t2.value) * ((double) (t2.time - t1.time));
+				sum = sum + (t1.value() + t2.value()) * ((double) (t2.time() - t1.time()));
 			}
 			TimestampedFloat ts = tsa.get(0);
 			TimestampedFloat te = tsa.get(tsa.size() - 1);
 
-			double x = sum * 0.5 / ((double) (te.time - ts.time));
+			double x = sum * 0.5 / ((double) (te.time() - ts.time()));
 			ans = (float) x;
 		}
 
