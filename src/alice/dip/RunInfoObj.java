@@ -6,6 +6,10 @@
  */
 package alice.dip;
 
+import alice.dip.configuration.PersistenceConfiguration;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.OptionalDouble;
 
@@ -16,9 +20,9 @@ public class RunInfoObj {
 	public LhcInfoObj LHC_info_stop;
 	public final AliceMagnetsConfigurationView magnetsConfigurationAtStart;
 	public AliceMagnetsConfigurationView alice_info_stop;
-	public TimestampedFloatHistory energyHistory;
-	public TimestampedFloatHistory l3CurrentHistory;
-	public TimestampedFloatHistory dipoleHistory;
+	public List<TimestampedFloat> energyHistory;
+	public List<TimestampedFloat> l3CurrentHistory;
+	public List<TimestampedFloat> dipoleHistory;
 	public long SOR_time;
 	public long EOR_time;
 
@@ -32,14 +36,14 @@ public class RunInfoObj {
 		SOR_time = sor_time;
 		this.LHC_info_start = fillAtStart;
 		this.magnetsConfigurationAtStart = magnetsConfigurationAtStart;
-		energyHistory = new TimestampedFloatHistory(AliDip2BK.DIFF_ENERGY);
-		l3CurrentHistory = new TimestampedFloatHistory(AliDip2BK.DIFF_CURRENT);
-		dipoleHistory = new TimestampedFloatHistory(AliDip2BK.DIFF_CURRENT);
+		energyHistory = new ArrayList<>();
+		l3CurrentHistory = new ArrayList<>();
+		dipoleHistory = new ArrayList<>();
 	}
 
 	public String toString() {
 		String ans = "RUN=" + RunNo + "\n";
-		ans = ans + "SOR=" + AliDip2BK.myDateFormat.format(SOR_time) + "\n";
+		ans = ans + "SOR=" + AliDip2BK.PERSISTENCE_DATE_FORMAT.format(SOR_time) + "\n";
 		if (LHC_info_start != null) {
 			ans = ans + "LHC:: " + LHC_info_start.toString() + "\n";
 		} else {
@@ -51,7 +55,7 @@ public class RunInfoObj {
 			ans = ans + "ALICE:: No DATA \n";
 		}
 		ans = ans + "\n";
-		ans = ans + "EOR=" + AliDip2BK.myDateFormat.format(EOR_time) + "\n";
+		ans = ans + "EOR=" + AliDip2BK.PERSISTENCE_DATE_FORMAT.format(EOR_time) + "\n";
 
 		if (LHC_info_stop != null) {
 			ans = ans + "LHC:: " + LHC_info_stop.toString() + "\n";
@@ -68,7 +72,7 @@ public class RunInfoObj {
 			ans = ans + " History:: Energy\n";
 
 			for (var energy: energyHistory) {
-				ans = ans + " - " + AliDip2BK.myDateFormat.format(energy.time()) + "  " + energy.value() + "\n";
+				ans = ans + " - " + AliDip2BK.PERSISTENCE_DATE_FORMAT.format(energy.time()) + "  " + energy.value() + "\n";
 			}
 		}
 
@@ -76,7 +80,7 @@ public class RunInfoObj {
 			ans = ans + " History:: L3 Magnet\n";
 
 			for (var current: l3CurrentHistory) {
-				ans = ans + " - " + AliDip2BK.myDateFormat.format(current.time()) + "  " + current.value() + "\n";
+				ans = ans + " - " + AliDip2BK.PERSISTENCE_DATE_FORMAT.format(current.time()) + "  " + current.value() + "\n";
 			}
 		}
 
@@ -84,7 +88,7 @@ public class RunInfoObj {
 			ans = ans + " History:: Dipole Magnet\n";
 
 			for (var current: dipoleHistory) {
-				ans = ans + " - " + AliDip2BK.myDateFormat.format(current.time()) + "  " + current.value() + "\n";
+				ans = ans + " - " + AliDip2BK.PERSISTENCE_DATE_FORMAT.format(current.time()) + "  " + current.value() + "\n";
 			}
 		}
 
@@ -96,15 +100,15 @@ public class RunInfoObj {
 	}
 
 	public void addEnergy(long time, float energy) {
-		this.energyHistory.push(time, energy);
+		this.energyHistory.add(new TimestampedFloat(time, energy));
 	}
 
 	public void addL3Current(long time, float current) {
-		this.l3CurrentHistory.push(time, current);
+		this.l3CurrentHistory.add(new TimestampedFloat(time, current));
 	}
 
 	public void addDipoleMagnet(long time, float current) {
-		this.dipoleHistory.push(time, current);
+		this.dipoleHistory.add(new TimestampedFloat(time, current));
 	}
 
 	public float getBeamEnergy() {

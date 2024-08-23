@@ -1,5 +1,7 @@
 package alice.dip;
 
+import alice.dip.configuration.PersistenceConfiguration;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -11,12 +13,14 @@ import java.util.OptionalInt;
 import java.util.stream.Collectors;
 
 public class RunManager {
-	private StatisticsManager statisticsManager;
+	private final PersistenceConfiguration persistenceConfiguration;
+	private final StatisticsManager statisticsManager;
 
 	private OptionalInt lastRunNumber = OptionalInt.empty();
 	private final List<RunInfoObj> activeRuns = new ArrayList<>();
 
-	public RunManager(StatisticsManager statisticsManager) {
+	public RunManager(PersistenceConfiguration persistenceConfiguration, StatisticsManager statisticsManager) {
+		this.persistenceConfiguration = persistenceConfiguration;
 		this.statisticsManager = statisticsManager;
 	}
 
@@ -52,9 +56,9 @@ public class RunManager {
 			run -> {
 				statisticsManager.incrementEndedRunsCount();
 
-				if (AliDip2BK.KEEP_RUNS_HISTORY_DIRECTORY != null) writeRunHistFile(run);
+				if (persistenceConfiguration.runsHistoryDirectory() != null) writeRunHistFile(run);
 
-				if (AliDip2BK.SAVE_PARAMETERS_HISTORY_PER_RUN) {
+				if (this.persistenceConfiguration.saveParametersHistoryPerRun()) {
 					if (!run.energyHistory.isEmpty()) {
 						String fn = "Energy_" + run.RunNo + ".txt";
 						writeHistoryToFile(fn, run.energyHistory);
@@ -112,7 +116,7 @@ public class RunManager {
 
 	private void writeRunHistFile(RunInfoObj run) {
 		String path = getClass().getClassLoader().getResource(".").getPath();
-		String full_file = path + AliDip2BK.KEEP_RUNS_HISTORY_DIRECTORY + "/run_" + run.RunNo + ".txt";
+		String full_file = path + persistenceConfiguration.runsHistoryDirectory() + "/run_" + run.RunNo + ".txt";
 
 		try {
 			File of = new File(full_file);
@@ -129,9 +133,9 @@ public class RunManager {
 		}
 	}
 
-	private void writeHistoryToFile(String filename, TimestampedFloatHistory history) {
+	private void writeHistoryToFile(String filename, List<TimestampedFloat> history) {
 		String path = getClass().getClassLoader().getResource(".").getPath();
-		String full_file = path + AliDip2BK.STORE_HIST_FILE_DIR + "/" + filename;
+		String full_file = path + persistenceConfiguration.parametersHistoryDirectory() + "/" + filename;
 
 		try {
 			File of = new File(full_file);

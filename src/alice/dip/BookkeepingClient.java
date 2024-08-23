@@ -9,6 +9,8 @@
 
 package alice.dip;
 
+import alice.dip.configuration.BookkeepingClientConfiguration;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -20,14 +22,14 @@ public class BookkeepingClient {
 	private final String bookkeepingUrl;
 	private final String bookkeepingToken;
 
-	public BookkeepingClient(String bookkeepingUrl, String bookkeepingToken) {
+	public BookkeepingClient(BookkeepingClientConfiguration bookkeepingClientConfiguration) {
 		httpClient = HttpClient.newBuilder()
 			.version(HttpClient.Version.HTTP_2)
 			.connectTimeout(Duration.ofSeconds(10))
 			.build();
 
-		this.bookkeepingUrl = bookkeepingUrl;
-		this.bookkeepingToken = bookkeepingToken;
+		this.bookkeepingUrl = bookkeepingClientConfiguration.url();
+		this.bookkeepingToken = bookkeepingClientConfiguration.token();
 	}
 
 	public boolean doesFillExists(int fillNumber) {
