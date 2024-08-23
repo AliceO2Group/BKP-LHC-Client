@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import alice.dip.configuration.DipClientConfiguration;
 import cern.dip.*;
 //import cern.dip.dim.Dip;
 
@@ -27,18 +28,17 @@ public class DipClient implements Runnable {
 	public int NoMess = 0;
 	public boolean status = true;
 	DipFactory dip;
-	DipBrowser dipBrowser;
 	long MAX_TIME_TO_UPDATE = 60;// in s
 	int NP = 0;
 	DipMessagesProcessor procData;
 	HashMap<String, DipSubscription> SubscriptionMap = new HashMap<>();
 	HashMap<String, DipData> DataMap = new HashMap<>();
 
-	public DipClient(String DipParametersFile, DipMessagesProcessor procData) {
+	public DipClient(DipClientConfiguration configuration, DipMessagesProcessor procData) {
 
-		readParamFile(DipParametersFile);
+		readParamFile(configuration.parametersFileName());
 
-		initDIP();
+		initDIP(configuration.dnsNode());
 
 		this.procData = procData;
 
@@ -59,21 +59,12 @@ public class DipClient implements Runnable {
 		}
 	}
 
-	public void initDIP() {
+	public void initDIP(String dnsNode) {
 		// initialize the DIP client
 
 		dip = Dip.create();
-		dip.setDNSNode(AliDip2BK.DNSnode);
+		dip.setDNSNode(dnsNode);
 
-		// *
-		// if configured to LIST data providers create a browser an list available data
-		// providers
-		// *
-		if (AliDip2BK.LIST_PARAM) {
-			AliDip2BK.log(1, "DipClient.initDP", " START DIP BROWSER patt=" + AliDip2BK.LIST_PARAM_PAT);
-			dipBrowser = dip.createDipBrowser();
-			list();
-		}
 		// Handles all data subscriptions
 		GeneralDataListener handler = new GeneralDataListener();
 
@@ -117,27 +108,6 @@ public class DipClient implements Runnable {
 		AliDip2BK.log(1, "DipClient.CloseSubscriptions", " Succesfuly closed all DIP Subscriptions");
 	}
 
-	public void list() {
-		String[] list = dipBrowser.getPublications(AliDip2BK.LIST_PARAM_PAT);
-		AliDip2BK.log(1, "DipClient.list", " Size of the Data Providers =" + list.length);
-		for (int i = 0; i < list.length; i++) {
-			// System.out.println ( " i="+i + " PROVIDER="+ list[i] );
-			System.out.println(list[i]);
-			try {
-				String[] tags = dipBrowser.getTags(list[i]);
-				if (tags.length > 1) {
-					for (int j = 0; j < tags.length; j++) {
-						System.out.println("   * j=" + j + " TAG=" + tags[j]);
-					}
-				}
-			} catch (DipException e) {
-
-				e.printStackTrace();
-			}
-
-		}
-	}
-
 	public void verifyData() {
 
 		for (Map.Entry<String, DipData> m : DataMap.entrySet()) {
@@ -160,8 +130,9 @@ public class DipClient implements Runnable {
 	}
 
 	public void readParamFile(String file_name) {
+		var programPath = getClass().getClassLoader().getResource(".").getPath();
 
-		File file = new File(file_name);
+		File file = new File(programPath + file_name);
 		BufferedReader br;
 		String st;
 		NP = 0;

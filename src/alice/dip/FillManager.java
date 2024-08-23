@@ -1,24 +1,31 @@
 package alice.dip;
 
+import alice.dip.configuration.PersistenceConfiguration;
+
 import java.io.*;
 import java.util.Date;
 import java.util.Optional;
 
 public class FillManager {
-
+	private final PersistenceConfiguration persistenceConfiguration;
 	private final BookkeepingClient bookkeepingClient;
 	private final StatisticsManager statisticsManager;
 
 	private Optional<LhcInfoObj> currentFill = Optional.empty();
 
-	FillManager(BookkeepingClient bookkeepingClient, StatisticsManager statisticsManager) {
+	FillManager(
+		PersistenceConfiguration persistenceConfiguration,
+		BookkeepingClient bookkeepingClient,
+		StatisticsManager statisticsManager
+	) {
+		this.persistenceConfiguration = persistenceConfiguration;
 		this.bookkeepingClient = bookkeepingClient;
 		this.statisticsManager = statisticsManager;
 	}
 
 	public void loadState() {
 		String classPath = getClass().getClassLoader().getResource(".").getPath();
-		String savedStatePath = classPath + AliDip2BK.KEEP_STATE_DIR + "/save_fill.jso";
+		String savedStatePath = classPath + persistenceConfiguration.applicationStateDirectory() + "/save_fill.jso";
 
 		File savedStateFile = new File(savedStatePath);
 		if (!savedStateFile.exists()) {
@@ -85,16 +92,16 @@ public class FillManager {
 				AliDip2BK.log(
 					3,
 					"ProcData.newFillNo",
-					" Received new FILL no=" + fillNumber + "  BUT is an active FILL =" + fill.fillNo + " Close the " +
-						"old one and created the new one"
+					" Received new FILL no=" + fillNumber + "  BUT is an active FILL =" + fill.fillNo + " Close the " + "old one and created the new one"
 				);
 				fill.endedTime = (new Date()).getTime();
-				if (AliDip2BK.KEEP_FILLS_HISTORY_DIRECTORY != null) {
+				if (persistenceConfiguration.fillsHistoryDirectory() != null) {
 					writeFillHistFile(fill);
 				}
 				bookkeepingClient.updateLhcFill(fill);
 
 				setCurrentFill(new LhcInfoObj(
+					persistenceConfiguration,
 					date,
 					fillNumber,
 					beam1ParticleType,
@@ -106,6 +113,7 @@ public class FillManager {
 			}
 		} else {
 			setCurrentFill(new LhcInfoObj(
+				persistenceConfiguration,
 				date,
 				fillNumber,
 				beam1ParticleType,
@@ -164,7 +172,7 @@ public class FillManager {
 	public void saveState() {
 		currentFill.ifPresent(fill -> {
 			String path = getClass().getClassLoader().getResource(".").getPath();
-			String full_file = path + AliDip2BK.KEEP_STATE_DIR + "/save_fill.jso";
+			String full_file = path + persistenceConfiguration.applicationStateDirectory() + "/save_fill.jso";
 
 			ObjectOutputStream oos;
 			FileOutputStream fout;
@@ -183,7 +191,7 @@ public class FillManager {
 				ex.printStackTrace();
 			}
 
-			String full_filetxt = path + AliDip2BK.KEEP_STATE_DIR + "/save_fill.txt";
+			String full_filetxt = path + persistenceConfiguration.applicationStateDirectory() + "/save_fill.txt";
 
 			try {
 				File of = new File(full_filetxt);
@@ -205,7 +213,7 @@ public class FillManager {
 	public void writeFillHistFile(LhcInfoObj lhc) {
 		String path = getClass().getClassLoader().getResource(".").getPath();
 
-		String full_file = path + AliDip2BK.KEEP_FILLS_HISTORY_DIRECTORY + "/fill_" + lhc.fillNo + ".txt";
+		String full_file = path + persistenceConfiguration.fillsHistoryDirectory() + "/fill_" + lhc.fillNo + ".txt";
 
 		try {
 			File of = new File(full_file);

@@ -12,6 +12,7 @@ import java.math.BigInteger;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+import alice.dip.configuration.PersistenceConfiguration;
 import cern.dip.BadParameter;
 import cern.dip.DipData;
 import cern.dip.TypeMismatch;
@@ -23,6 +24,9 @@ import cern.dip.TypeMismatch;
  */
 public class DipMessagesProcessor implements Runnable {
 	private final BlockingQueue<MessageItem> outputQueue = new ArrayBlockingQueue<>(100);
+
+	private final PersistenceConfiguration persistenceConfiguration;
+
 	private final BookkeepingClient bookkeepingClient;
 	private final RunManager runManager;
 	private final FillManager fillManager;
@@ -32,12 +36,15 @@ public class DipMessagesProcessor implements Runnable {
 	private boolean acceptData = true;
 
 	public DipMessagesProcessor(
+		PersistenceConfiguration persistenceConfiguration,
 		BookkeepingClient bookkeepingClient,
 		RunManager runManager,
 		FillManager fillManager,
 		AliceMagnetsManager aliceMagnetsManager,
 		StatisticsManager statisticsManager
 	) {
+		this.persistenceConfiguration = persistenceConfiguration;
+
 		this.bookkeepingClient = bookkeepingClient;
 		this.runManager = runManager;
 		this.fillManager = fillManager;
@@ -65,22 +72,6 @@ public class DipMessagesProcessor implements Runnable {
 		} catch (InterruptedException e) {
 			AliDip2BK.log(4, "ProcData.addData", "ERROR adding new data ex= " + e);
 			e.printStackTrace();
-		}
-
-		if (AliDip2BK.OUTPUT_FILE != null) {
-			String file = AliDip2BK.ProgPath + AliDip2BK.OUTPUT_FILE;
-			try {
-				File of = new File(file);
-				if (!of.exists()) {
-					of.createNewFile();
-				}
-				BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
-
-				writer.write("=>" + messageItem.format_message + "\n");
-				writer.close();
-			} catch (IOException e) {
-				AliDip2BK.log(1, "ProcData.addData", "ERROR write data to dip output log  data ex= " + e);
-			}
 		}
 	}
 
@@ -302,7 +293,7 @@ public class DipMessagesProcessor implements Runnable {
 
 		fillManager.setEnergy(time, energy);
 
-		if (AliDip2BK.SAVE_PARAMETERS_HISTORY_PER_RUN) {
+		if (persistenceConfiguration.saveParametersHistoryPerRun()) {
 			runManager.registerNewEnergy(time, energy);
 		}
 	}
@@ -333,7 +324,7 @@ public class DipMessagesProcessor implements Runnable {
 
 		aliceMagnetsManager.setL3Current(current);
 
-		if (AliDip2BK.SAVE_PARAMETERS_HISTORY_PER_RUN) {
+		if (persistenceConfiguration.saveParametersHistoryPerRun()) {
 			runManager.registerNewL3MagnetCurrent(time, current);
 		}
 	}
@@ -345,7 +336,7 @@ public class DipMessagesProcessor implements Runnable {
 
 		aliceMagnetsManager.setDipoleCurrent(current);
 
-		if (AliDip2BK.SAVE_PARAMETERS_HISTORY_PER_RUN) {
+		if (persistenceConfiguration.saveParametersHistoryPerRun()) {
 			runManager.registerNewDipoleCurrent(time, current);
 		}
 	}
