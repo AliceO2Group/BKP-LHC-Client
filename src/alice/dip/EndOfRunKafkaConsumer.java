@@ -20,13 +20,13 @@ import java.util.Arrays;
 
 import java.util.Properties;
 
-public class KC_EOR implements Runnable {
+public class EndOfRunKafkaConsumer implements Runnable {
 	public int NoMess = 0;
 	public boolean state = true;
 	Properties properties;
-	ProcData process;
+	DipMessagesProcessor process;
 
-	public KC_EOR(ProcData process) {
+	public EndOfRunKafkaConsumer(DipMessagesProcessor process) {
 
 		String grp_id = AliDip2BK.KAFKA_group_id;
 		this.process = process;
