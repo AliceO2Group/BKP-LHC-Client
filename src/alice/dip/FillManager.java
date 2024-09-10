@@ -3,10 +3,15 @@ package alice.dip;
 import alice.dip.configuration.PersistenceConfiguration;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.util.Date;
 import java.util.Optional;
 
 public class FillManager {
+	private static final String SAVE_STATE_FILE = "save_fill.jso";
+	private static final String SAVE_TEXT_STATE_FILE = "save_fill.txt";
+
 	private final PersistenceConfiguration persistenceConfiguration;
 	private final BookkeepingClient bookkeepingClient;
 	private final StatisticsManager statisticsManager;
@@ -21,32 +26,6 @@ public class FillManager {
 		this.persistenceConfiguration = persistenceConfiguration;
 		this.bookkeepingClient = bookkeepingClient;
 		this.statisticsManager = statisticsManager;
-	}
-
-	public void loadState() {
-		String classPath = getClass().getClassLoader().getResource(".").getPath();
-		String savedStatePath = classPath + persistenceConfiguration.applicationStateDirectory() + "/save_fill.jso";
-
-		File savedStateFile = new File(savedStatePath);
-		if (!savedStateFile.exists()) {
-			AliDip2BK.log(2, "ProcData.loadState", " No Fill State file=" + savedStatePath);
-			return;
-		}
-
-		try {
-			var streamIn = new FileInputStream(savedStatePath);
-			var objectinputstream = new ObjectInputStream(streamIn);
-			LhcInfoObj savedLhcInfo = (LhcInfoObj) objectinputstream.readObject();
-			objectinputstream.close();
-
-			if (savedLhcInfo != null) {
-				AliDip2BK.log(3, "ProcData.loadState", " Loaded sate for Fill =" + savedLhcInfo.fillNo);
-				currentFill = Optional.of(savedLhcInfo);
-			}
-		} catch (Exception e) {
-			AliDip2BK.log(4, "ProcData.loadState", " ERROR Loaded sate from file=" + savedStatePath);
-			e.printStackTrace();
-		}
 	}
 
 	public Optional<LhcInfoObj> getCurrentFill() {
@@ -92,12 +71,11 @@ public class FillManager {
 				AliDip2BK.log(
 					3,
 					"ProcData.newFillNo",
-					" Received new FILL no=" + fillNumber + "  BUT is an active FILL =" + fill.fillNo + " Close the " + "old one and created the new one"
+					" Received new FILL no=" + fillNumber + "  BUT is an active FILL =" + fill.fillNo + " Close the "
+						+ "old one and created the new one"
 				);
 				fill.endedTime = (new Date()).getTime();
-				if (persistenceConfiguration.fillsHistoryDirectory() != null) {
-					writeFillHistFile(fill);
-				}
+				writeFillHistFile(fill);
 				bookkeepingClient.updateLhcFill(fill);
 
 				setCurrentFill(new LhcInfoObj(
@@ -169,64 +147,81 @@ public class FillManager {
 		this.currentFill.ifPresent(fill -> fill.setEnergy(time, energy));
 	}
 
+	public void loadState() {
+		var savedStatePath = persistenceConfiguration.applicationStatePath().resolve(SAVE_STATE_FILE);
+		if (!savedStatePath.toFile().exists()) {
+			AliDip2BK.log(2, "ProcData.loadState", " No Fill State file=" + savedStatePath);
+			return;
+		}
+
+		LhcInfoObj savedLhcInfo = null;
+
+		try (var savedStateInputStream = Files.newInputStream(savedStatePath)) {
+			var savedStateObjectInputStream = new ObjectInputStream(savedStateInputStream);
+			savedLhcInfo = (LhcInfoObj) savedStateObjectInputStream.readObject();
+		} catch (Exception e) {
+			AliDip2BK.log(4, "ProcData.loadState", " ERROR loading sate from file=" + savedStatePath);
+			e.printStackTrace();
+		}
+
+		if (savedLhcInfo != null) {
+			AliDip2BK.log(3, "ProcData.loadState", " Loaded sate for Fill =" + savedLhcInfo.fillNo);
+			currentFill = Optional.of(savedLhcInfo);
+		}
+	}
+
 	public void saveState() {
 		currentFill.ifPresent(fill -> {
-			String path = getClass().getClassLoader().getResource(".").getPath();
-			String full_file = path + persistenceConfiguration.applicationStateDirectory() + "/save_fill.jso";
+			var savedStatePath = persistenceConfiguration.applicationStatePath().resolve(SAVE_STATE_FILE);
 
-			ObjectOutputStream oos;
-			FileOutputStream fout;
-			try {
-				File of = new File(full_file);
-				if (!of.exists()) {
-					of.createNewFile();
-				}
-				fout = new FileOutputStream(full_file, false);
-				oos = new ObjectOutputStream(fout);
-				oos.writeObject(fill);
-				oos.flush();
-				oos.close();
-			} catch (Exception ex) {
-				AliDip2BK.log(4, "ProcData.saveState", " ERROR writing file=" + full_file + "   ex=" + ex);
-				ex.printStackTrace();
-			}
-
-			String full_filetxt = path + persistenceConfiguration.applicationStateDirectory() + "/save_fill.txt";
-
-			try {
-				File of = new File(full_filetxt);
-				if (!of.exists()) {
-					of.createNewFile();
-				}
-				BufferedWriter writer = new BufferedWriter(new FileWriter(full_filetxt, false));
-				String ans = fill.history();
-				writer.write(ans);
-				writer.close();
+			try (
+				var savedStateOutputStream = Files.newOutputStream(
+					savedStatePath,
+					StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING
+				)
+			) {
+				var savedStateObjectOutputStream = new ObjectOutputStream(savedStateOutputStream);
+				savedStateObjectOutputStream.writeObject(fill);
+				savedStateObjectOutputStream.flush();
 			} catch (IOException e) {
-
-				AliDip2BK.log(4, "ProcData.saveState", " ERROR writing file=" + full_filetxt + "   ex=" + e);
+				AliDip2BK.log(4, "ProcData.saveState", " ERROR writing file=" + savedStatePath + "   ex=" + e);
+				e.printStackTrace();
 			}
-			AliDip2BK.log(2, "ProcData.saveState", " saved state for fill=" + fill.fillNo);
+
+			var textSavedStatePath = persistenceConfiguration.applicationStatePath().resolve(SAVE_TEXT_STATE_FILE);
+
+			try (
+				var textSavedStateWriter = Files.newBufferedWriter(
+					textSavedStatePath,
+					StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING
+				)
+			) {
+				textSavedStateWriter.write(fill.history());
+				AliDip2BK.log(2, "ProcData.saveState", " saved state for fill=" + fill.fillNo);
+			} catch (IOException e) {
+				AliDip2BK.log(4, "ProcData.saveState", " ERROR writing file=" + textSavedStatePath + "   ex=" + e);
+			}
 		});
 	}
 
 	public void writeFillHistFile(LhcInfoObj lhc) {
-		String path = getClass().getClassLoader().getResource(".").getPath();
+		persistenceConfiguration.fillsHistoryPath().ifPresent(path -> {
+			var fillsHistoryPath = path.resolve("fill_" + lhc.fillNo + ".txt");
 
-		String full_file = path + persistenceConfiguration.fillsHistoryDirectory() + "/fill_" + lhc.fillNo + ".txt";
-
-		try {
-			File of = new File(full_file);
-			if (!of.exists()) {
-				of.createNewFile();
+			try (
+				var fillsHistoryWriter = Files.newBufferedWriter(
+					fillsHistoryPath,
+					StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING
+				)
+			) {
+				fillsHistoryWriter.write(lhc.history());
+			} catch (IOException e) {
+				AliDip2BK.log(
+					4,
+					"ProcData.writeFillHistFile",
+					" ERROR writing file=" + fillsHistoryPath + "   ex=" + e
+				);
 			}
-			BufferedWriter writer = new BufferedWriter(new FileWriter(full_file, true));
-			String ans = lhc.history();
-			writer.write(ans);
-			writer.close();
-		} catch (IOException e) {
-
-			AliDip2BK.log(4, "ProcData.writeFillHistFile", " ERROR writing file=" + full_file + "   ex=" + e);
-		}
+		});
 	}
 }

@@ -1,5 +1,8 @@
 package alice.dip.configuration;
 
+import javax.swing.text.html.Option;
+import java.nio.file.Path;
+import java.util.Optional;
 import java.util.Properties;
 
 public record ApplicationConfiguration(
@@ -13,8 +16,10 @@ public record ApplicationConfiguration(
 	// Default configuration
 	private static final int DEFAULT_DEBUG_LEVEL = 1;
 
-	private static final String DEFAULT_APPLICATION_STATE_PERSISTENCE_DIRECTORY = "STATE/";
-	private static final String DEFAULT_HISTORY_DIRECTORY = "HistFiles";
+	private static final Path DEFAULT_PERSISTENCE_PATH = Path.of(System.getProperty("user.dir"), "data");
+
+	private static final String DEFAULT_APPLICATION_STATE_PERSISTENCE_DIRECTORY = "STATE";
+	private static final String DEFAULT_HISTORY_PERSISTENCE_DIRECTORY = "HistFiles";
 
 	// Minimum variation in energy required for new values to be logged
 	private static final float DEFAULT_LOGGED_ENERGY_DELTA = 5f;
@@ -24,6 +29,8 @@ public record ApplicationConfiguration(
 	private static final float DEFAULT_LOGGED_CURRENT_DELTA = 5f;
 
 	private static final String DEFAULT_DIP_DNS = "dipnsdev.cern.ch";
+	private static final String DEFAULT_DIP_SUBSCRIPTION_FILE_NAME = "TselectLHC.txt";
+
 	private static final String DEFAULT_BOOKKEEPING_URL = "http://localhost:4000";
 	private static final String DEFAULT_KAFKA_BOOTSTRAP_SERVERS = "127.0.0.1:9092";
 	private static final String DEFAULT_KAFKA_START_OF_RUN_TOPIC = "aliecs.env_state.RUNNING";
@@ -47,23 +54,31 @@ public record ApplicationConfiguration(
 			|| saveParametersHistoryPerRunProperty.equalsIgnoreCase("true");
 
 		var runsHistoryDirectoryProperty = properties.getProperty("KEEP_RUNS_HISTORY_DIRECTORY");
-		String runsHistoryDirectory = null;
+		Optional<String> runsHistoryDirectory = Optional.empty();
 		if (runsHistoryDirectoryProperty != null) {
-			runsHistoryDirectory = runsHistoryDirectoryProperty.trim();
+			runsHistoryDirectory = Optional.of(runsHistoryDirectoryProperty.trim());
 		}
 
 		var fillsHistoryDirectoryProperty = properties.getProperty("KEEP_FILLS_HISTORY_DIRECTORY");
-		String fillsHistoryDirectory = null;
+		Optional<String> fillsHistoryDirectory = Optional.empty();
 		if (fillsHistoryDirectoryProperty != null) {
-			fillsHistoryDirectory = fillsHistoryDirectoryProperty.trim();
+			fillsHistoryDirectory = Optional.of(fillsHistoryDirectoryProperty.trim());
 		}
 
+		// Not overridable for now
+		var persistencePath = DEFAULT_PERSISTENCE_PATH;
 		var persistenceConfiguration = new PersistenceConfiguration(
-			DEFAULT_APPLICATION_STATE_PERSISTENCE_DIRECTORY,
+			persistencePath,
+
+			persistencePath.resolve(DEFAULT_APPLICATION_STATE_PERSISTENCE_DIRECTORY),
+
+			runsHistoryDirectory.map(persistencePath::resolve),
+
+			fillsHistoryDirectory.map(persistencePath::resolve),
+
 			saveParametersHistoryPerRun,
-			runsHistoryDirectory,
-			fillsHistoryDirectory,
-			DEFAULT_HISTORY_DIRECTORY,
+			persistencePath.resolve(DEFAULT_HISTORY_PERSISTENCE_DIRECTORY),
+
 			DEFAULT_LOGGED_ENERGY_DELTA,
 			DEFAULT_LOGGED_BETA_DELTA,
 			DEFAULT_LOGGED_CURRENT_DELTA
@@ -72,7 +87,7 @@ public record ApplicationConfiguration(
 		// DIP Client
 
 		var dnsNode = properties.getProperty("DNSnode", DEFAULT_DIP_DNS);
-		var dipParametersFileName = properties.getProperty("DipDataProvidersSubscritionFile");
+		var dipParametersFileName = properties.getProperty("DipDataProvidersSubscritionFile", DEFAULT_DIP_SUBSCRIPTION_FILE_NAME);
 
 		var dipClientConfiguration = new DipClientConfiguration(
 			dnsNode,

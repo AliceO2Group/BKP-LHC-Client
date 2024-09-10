@@ -6,6 +6,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -56,7 +58,7 @@ public class RunManager {
 			run -> {
 				statisticsManager.incrementEndedRunsCount();
 
-				if (persistenceConfiguration.runsHistoryDirectory() != null) writeRunHistFile(run);
+				writeRunHistFile(run);
 
 				if (this.persistenceConfiguration.saveParametersHistoryPerRun()) {
 					if (!run.energyHistory.isEmpty()) {
@@ -78,7 +80,12 @@ public class RunManager {
 					+ "  ActiveRuns size=" + activeRuns.size() + " " + activeRunsString);
 
 				if (run.LHC_info_start.fillNo != run.LHC_info_stop.fillNo) {
-					AliDip2BK.log(5, logModule, " !!!! RUN =" + run.RunNo + "  Statred FillNo=" + run.LHC_info_start.fillNo + " and STOPED with FillNo=" + run.LHC_info_stop.fillNo);
+					AliDip2BK.log(
+						5,
+						logModule,
+						" !!!! RUN =" + run.RunNo + "  Statred FillNo=" + run.LHC_info_start.fillNo
+							+ " and STOPED with FillNo=" + run.LHC_info_stop.fillNo
+					);
 				}
 			},
 			() -> {
@@ -115,40 +122,34 @@ public class RunManager {
 	}
 
 	private void writeRunHistFile(RunInfoObj run) {
-		String path = getClass().getClassLoader().getResource(".").getPath();
-		String full_file = path + persistenceConfiguration.runsHistoryDirectory() + "/run_" + run.RunNo + ".txt";
+		persistenceConfiguration.runsHistoryPath().ifPresent((runsHistoryPath) -> {
+			var runHistoryPath = runsHistoryPath.resolve("run_" + run.RunNo + ".txt");
 
-		try {
-			File of = new File(full_file);
-			if (!of.exists()) {
-				of.createNewFile();
+			try (
+				var writer = Files.newBufferedWriter(
+					runHistoryPath,
+					StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.APPEND
+				)
+			) {
+				writer.write(run.toString());
+			} catch (IOException e) {
+				AliDip2BK.log(4, "ProcData.writeRunHistFile", " ERROR writing file=" + runsHistoryPath + "   ex=" + e);
 			}
-			BufferedWriter writer = new BufferedWriter(new FileWriter(full_file, true));
-			String ans = run.toString();
-			writer.write(ans);
-			writer.close();
-		} catch (IOException e) {
-
-			AliDip2BK.log(4, "ProcData.writeRunHistFile", " ERROR writing file=" + full_file + "   ex=" + e);
-		}
+		});
 	}
 
 	private void writeHistoryToFile(String filename, List<TimestampedFloat> history) {
-		String path = getClass().getClassLoader().getResource(".").getPath();
-		String full_file = path + persistenceConfiguration.parametersHistoryDirectory() + "/" + filename;
+		var historyPath = persistenceConfiguration.parametersHistoryPath().resolve(filename);
 
-		try {
-			File of = new File(full_file);
-			if (!of.exists()) {
-				of.createNewFile();
-			}
-			BufferedWriter writer = new BufferedWriter(new FileWriter(full_file, true));
-
-			for (var historyItem: history) {
+		try (
+			var writer = Files.newBufferedWriter(
+				historyPath,
+				StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.APPEND
+			)
+		) {
+			for (var historyItem : history) {
 				writer.write(historyItem.time() + "," + historyItem.value() + "\n");
 			}
-
-			writer.close();
 		} catch (IOException e) {
 			AliDip2BK.log(4, "ProcData.writeHistFile", " ERROR writing file=" + filename + "   ex=" + e);
 		}

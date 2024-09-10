@@ -11,11 +11,9 @@ package alice.dip;
 
 import alice.dip.configuration.ApplicationConfiguration;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
@@ -30,7 +28,6 @@ public class AliDip2BK implements Runnable {
 	private static final String VERSION = "2.0  14-Nov-2023";
 	private static final String CONFIGURATION_FILE = "AliDip2BK.properties";
 
-	private final String programPath;
 	private final long startDate;
 
 	// Configuration and managers
@@ -45,7 +42,6 @@ public class AliDip2BK implements Runnable {
 	private final FillManager fillManager;
 
 	public AliDip2BK() {
-		programPath = getClass().getClassLoader().getResource(".").getPath();
 		startDate = (new Date()).getTime();
 
 		this.configuration = parseConfigurationFile();
@@ -165,12 +161,14 @@ public class AliDip2BK implements Runnable {
 	}
 
 	private ApplicationConfiguration parseConfigurationFile() {
-		String input = programPath + "/" + CONFIGURATION_FILE;
-
 		Properties properties = new Properties();
 
-		try {
-			properties.load(new FileInputStream(input));
+		try (var propertiesStream = getClass().getClassLoader().getResourceAsStream(CONFIGURATION_FILE)) {
+			if (propertiesStream != null) {
+				properties.load(propertiesStream);
+			} else {
+				log(2, "AliDip2BK.loadConfig", "Properties file not found " + CONFIGURATION_FILE);
+			}
 		} catch (IOException ex) {
 			log(4, "AliDip2BK.loadCong", "Failed to access properties file " + ex);
 		}
@@ -178,8 +176,27 @@ public class AliDip2BK implements Runnable {
 		return ApplicationConfiguration.parseProperties(properties);
 	}
 
+	public void verifyDirs() {
+		try {
+			var runsHistoryPath = configuration.persistence().runsHistoryPath();
+			if (runsHistoryPath.isPresent()) {
+				Files.createDirectories(runsHistoryPath.get());
+			}
+
+			var fillsHistoryPath = configuration.persistence().fillsHistoryPath();
+			if (fillsHistoryPath.isPresent()) {
+				Files.createDirectories(fillsHistoryPath.get());
+			}
+
+			Files.createDirectories(configuration.persistence().parametersHistoryPath());
+			Files.createDirectories(configuration.persistence().applicationStatePath());
+		} catch (IOException e) {
+			AliDip2BK.log(4, "ProcData.verifyDirs", " ERROR preparing data directories ex=" + e);
+		}
+	}
+
 	public void writeStat(String file, boolean finalReport) {
-		String full_file = programPath + configuration.persistence().applicationStateDirectory() + file;
+		var destinationPath = configuration.persistence().applicationStatePath().resolve(file);
 
 		var stopDate = (new Date()).getTime();
 		double dur = (double) (stopDate - startDate) / (1000 * 60 * 60);
@@ -203,37 +220,15 @@ public class AliDip2BK implements Runnable {
 		mess = mess + " No of end Run messages =" + statisticsManager.getEndedRunsCount() + "\n";
 		mess = mess + " No of Duplicated end Run messages =" + statisticsManager.getDuplicatedRunsEndCount() + "\n";
 
-		try {
-			File of = new File(full_file);
-			if (!of.exists()) {
-				of.createNewFile();
-			}
-			BufferedWriter writer = new BufferedWriter(new FileWriter(full_file, true));
-
+		try (
+			var writer = Files.newBufferedWriter(
+				destinationPath,
+				StandardOpenOption.WRITE, StandardOpenOption.APPEND, StandardOpenOption.CREATE
+			)
+		) {
 			writer.write(mess);
-			writer.close();
 		} catch (IOException e) {
-
-			AliDip2BK.log(4, "ProcData.writeStat", " ERROR writing file=" + full_file + "   ex=" + e);
-		}
-	}
-
-	public void verifyDirs() {
-		verifyDir(configuration.persistence().runsHistoryDirectory());
-		verifyDir(configuration.persistence().fillsHistoryDirectory());
-		verifyDir(configuration.persistence().parametersHistoryDirectory());
-		verifyDir(configuration.persistence().applicationStateDirectory());
-	}
-
-	public void verifyDir(String name) {
-		if (name != null) {
-
-			File directory = new File(programPath + "/" + name);
-
-			if (!directory.exists()) {
-				directory.mkdir();
-				AliDip2BK.log(2, "AliDip2BK->verifyDir", "created new Directory=" + name);
-			}
+			AliDip2BK.log(4, "ProcData.writeStat", " ERROR writing file=" + destinationPath + "   ex=" + e);
 		}
 	}
 }
