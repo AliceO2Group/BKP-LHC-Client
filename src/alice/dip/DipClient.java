@@ -9,11 +9,7 @@
 
 package alice.dip;
 
-import java.io.BufferedReader;
-import java.io.File;
-
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -29,7 +25,6 @@ public class DipClient implements Runnable {
 	public boolean status = true;
 	DipFactory dip;
 	long MAX_TIME_TO_UPDATE = 60;// in s
-	int NP = 0;
 	DipMessagesProcessor procData;
 	HashMap<String, DipSubscription> SubscriptionMap = new HashMap<>();
 	HashMap<String, DipData> DataMap = new HashMap<>();
@@ -42,8 +37,6 @@ public class DipClient implements Runnable {
 
 		this.procData = procData;
 
-		// verifyData();
-
 		Thread t = new Thread(this);
 		t.start();
 	}
@@ -52,7 +45,6 @@ public class DipClient implements Runnable {
 		for (; ; ) {
 			try {
 				Thread.sleep(10000);
-				// verifyData();
 			} catch (InterruptedException ex) {
 				Thread.currentThread().interrupt();
 			}
@@ -69,16 +61,14 @@ public class DipClient implements Runnable {
 		GeneralDataListener handler = new GeneralDataListener();
 
 		for (Map.Entry<String, DipSubscription> m : SubscriptionMap.entrySet()) {
-			String k = (String) m.getKey();
+			String k = m.getKey();
 
 			try {
 				DipSubscription subx = dip.createDipSubscription(k, handler);
 				SubscriptionMap.put(k, subx);
 			} catch (DipException e) {
-				// e.printStackTrace();
 				AliDip2BK.log(4, "DipClient.initDP", " error creating new subscription for param=" + k + " e=" + e);
 			}
-
 		}
 
 		AliDip2BK.log(1, "DipClient.initDP", " Subscribed to " + SubscriptionMap.size() + " data provides");
@@ -89,20 +79,18 @@ public class DipClient implements Runnable {
 	public void closeSubscriptions() {
 
 		for (Map.Entry<String, DipSubscription> m : SubscriptionMap.entrySet()) {
-			String k = (String) m.getKey();
-			DipSubscription subx = (DipSubscription) m.getValue();
+			String k = m.getKey();
+			DipSubscription subx = m.getValue();
 
 			try {
 				dip.destroyDipSubscription(subx);
 			} catch (DipException e) {
-				// e.printStackTrace();
 				AliDip2BK.log(
 					4,
 					"DipClient.CloseSubscriptions",
 					" error closing subscription for param=" + k + " e=" + e
 				);
 			}
-
 		}
 		SubscriptionMap.clear();
 		AliDip2BK.log(1, "DipClient.CloseSubscriptions", " Succesfuly closed all DIP Subscriptions");
@@ -130,35 +118,28 @@ public class DipClient implements Runnable {
 	}
 
 	public void readParamFile(String file_name) {
-		var programPath = getClass().getClassLoader().getResource(".").getPath();
-
-		File file = new File(programPath + file_name);
-		BufferedReader br;
-		String st;
-		NP = 0;
-		try {
-			br = new BufferedReader(new FileReader(file));
-
-			while ((st = br.readLine()) != null) {
-
-				String pi = st.trim();
-				if (!pi.startsWith("#")) {
-
-					if (!SubscriptionMap.containsKey(pi)) {
-						SubscriptionMap.put(pi, null);
-						NP = NP + 1;
-					} else {
-						AliDip2BK.log(3, "DipClient.readParam", " DUPLICATE Parameter =" + pi);
-
+		try (var paramFileInputStream = getClass().getClassLoader().getResourceAsStream(file_name)) {
+			var subscriptionsCount = 0;
+			if (paramFileInputStream != null) {
+				var reader = new BufferedReader(new InputStreamReader(paramFileInputStream));
+				String line;
+				while ((line = reader.readLine()) != null) {
+					String dipSubscription = line.trim();
+					if (!dipSubscription.startsWith("#")) {
+						if (!SubscriptionMap.containsKey(dipSubscription)) {
+							SubscriptionMap.put(dipSubscription, null);
+							subscriptionsCount++;
+						} else {
+							AliDip2BK.log(3, "DipClient.readParam", " DUPLICATE Parameter =" + dipSubscription);
+						}
 					}
 				}
 			}
-		} catch (IOException e) {
-			AliDip2BK.log(4, "DipClient.readParam", " ERROR reading paramter file=" + file + "ex=" + e);
-			// e.printStackTrace();
-		}
-		AliDip2BK.log(1, "DipClient.readParam", " Configuration:  number of parameters NP=" + NP);
 
+			AliDip2BK.log(1, "DipClient.readParam", " Configuration:  number of parameters NP=" + subscriptionsCount);
+		} catch (IOException e) {
+			AliDip2BK.log(4, "DipClient.readParam", " ERROR reading parameter file=" + file_name + "ex=" + e);
+		}
 	}
 
 	/**
@@ -179,7 +160,6 @@ public class DipClient implements Runnable {
 			NoMess = NoMess + 1;
 
 			procData.handleMessage(p_name, ans, message);
-
 		}
 
 		/**
@@ -211,7 +191,6 @@ public class DipClient implements Runnable {
 		@Override
 		public void handleException(DipSubscription arg0, Exception arg1) {
 			AliDip2BK.log(4, "DipClient.GeneralDataListener.Exception ", "Exception= " + arg0 + " arg1=" + arg1);
-
 		}
 	}
 }
