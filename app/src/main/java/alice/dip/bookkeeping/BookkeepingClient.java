@@ -7,9 +7,14 @@
  * Bookkeeping Data Base
  */
 
-package alice.dip;
+package alice.dip.bookkeeping;
 
+import alice.dip.AliDip2BK;
+import alice.dip.LhcInfoObj;
 import alice.dip.configuration.BookkeepingClientConfiguration;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -65,7 +70,11 @@ public class BookkeepingClient {
 		boolean fillExists = doesFillExists(lhc.fillNo);
 
 		if (fillExists) {
-			AliDip2BK.log(3, "BKwriter.InserFill", "INSERT FILL ... BUT Fill No=" + lhc.fillNo + " is in BK ... trying to update record");
+			AliDip2BK.log(
+				3,
+				"BKwriter.InserFill",
+				"INSERT FILL ... BUT Fill No=" + lhc.fillNo + " is in BK ... trying to update record"
+			);
 			updateLhcFill(lhc);
 			return;
 		}
@@ -82,7 +91,6 @@ public class BookkeepingClient {
 
 		if (requestBody.endsWith(",")) {
 			requestBody = requestBody.substring(0, requestBody.length() - 1);
-
 		}
 		requestBody = requestBody + "\n}";
 
@@ -98,7 +106,11 @@ public class BookkeepingClient {
 
 		try {
 			response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-			AliDip2BK.log(2, "BKwriter.InserFill", " INSERT new FILL No=" + lhc.fillNo + "  Code=" + response.statusCode());
+			AliDip2BK.log(
+				2,
+				"BKwriter.InserFill",
+				" INSERT new FILL No=" + lhc.fillNo + "  Code=" + response.statusCode()
+			);
 		} catch (Exception e) {
 			AliDip2BK.log(4, "BKwriter.InserFill", "HTTP ERROR=" + e);
 			e.printStackTrace();
@@ -137,11 +149,14 @@ public class BookkeepingClient {
 
 		if (updateFillRequestBody.endsWith(",")) {
 			updateFillRequestBody = updateFillRequestBody.substring(0, updateFillRequestBody.length() - 1);
-
 		}
 		updateFillRequestBody = updateFillRequestBody + "\n}";
 
-		AliDip2BK.log(1, "BKwriter.UpdateFILL", "UPDATE FILL=" + lhcFill.fillNo + " JSON request=\n" + updateFillRequestBody);
+		AliDip2BK.log(
+			1,
+			"BKwriter.UpdateFILL",
+			"UPDATE FILL=" + lhcFill.fillNo + " JSON request=\n" + updateFillRequestBody
+		);
 
 		String updateFillUrl = bookkeepingUrl + "/api/lhcFills/" + lhcFill.fillNo;
 		if (bookkeepingToken != null) {
@@ -161,7 +176,12 @@ public class BookkeepingClient {
 			if ((response.statusCode() == 201)) {
 				AliDip2BK.log(2, "BKwriter.UpdateFILL", "Succesful Update for FILL=" + lhcFill.fillNo);
 			} else {
-				AliDip2BK.log(3, "BKwriter.UpdateFILL", "ERROR for FILL=" + lhcFill.fillNo + " Code=" + +response.statusCode() + " Message=" + response.body());
+				AliDip2BK.log(
+					3,
+					"BKwriter.UpdateFILL",
+					"ERROR for FILL=" + lhcFill.fillNo + " Code=" + +response.statusCode() + " Message="
+						+ response.body()
+				);
 			}
 		} catch (Exception e) {
 			AliDip2BK.log(4, "BKwriter.UpdateFILL", "ERROR Update for FILL=" + lhcFill.fillNo + "\n Exception=" + e);
@@ -193,7 +213,11 @@ public class BookkeepingClient {
 				return body.contains(prob);
 			}
 
-			AliDip2BK.log(3, "BKwriter.TestRunNo", " Reguest error =" + response.statusCode() + " Mesage=" + response.body());
+			AliDip2BK.log(
+				3,
+				"BKwriter.TestRunNo",
+				" Reguest error =" + response.statusCode() + " Mesage=" + response.body()
+			);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -204,11 +228,11 @@ public class BookkeepingClient {
 	/*
 	 *  This method is used to update the RUN info entry
 	 */
-	public void updateRun(RunInfoObj runObj) {
+	public void updateRun(BookkeepingRunUpdatePayload runUpdatePayload) {
 		boolean runExists;
 		int retriesCounter = 0;
 		do {
-			runExists = doesRunExists(runObj.RunNo);
+			runExists = doesRunExists(runUpdatePayload.getRunNumber());
 			if (!runExists) {
 				try {
 					Thread.sleep(1000);
@@ -220,78 +244,24 @@ public class BookkeepingClient {
 
 		if (retriesCounter > 0) AliDip2BK.log(1, "BKwriter.UpdateRun", "DELAY Loop Count=" + (retriesCounter));
 
-		boolean hasModifications = false;
-
-		String requestBody = "{";
-
-		float beamEnergy = runObj.getBeamEnergy();
-		if (beamEnergy > 0) {
-			requestBody += "\n\"lhcBeamEnergy\":" + beamEnergy + ",";
-			hasModifications = true;
-		}
-
-		String beamMode = runObj.getBeamMode();
-		if (beamMode != null) {
-			requestBody = requestBody + "\n\"lhcBeamMode\":\"" + beamMode + "\",";
-			hasModifications = true;
-		}
-
-		var l3MagnetCurrent = runObj.getL3Current();
-		if(l3MagnetCurrent.isPresent()) {
-			var current = l3MagnetCurrent.getAsDouble();
-			requestBody += "\n\"aliceL3Current\":" + current + ",";
-
-			var l3MagnetPolarity = runObj.getL3Polarity();
-			if (l3MagnetPolarity.isPresent() && current > 0) {
-				requestBody += "\n\"aliceL3Polarity\":\""
-					+ l3MagnetPolarity.get()
-					+ ",";
-			}
-
-			hasModifications = true;
-		}
-
-		var dipoleMagnetCurrent = runObj.getDipoleCurrent();
-		if (dipoleMagnetCurrent.isPresent()) {
-			var current = dipoleMagnetCurrent.getAsDouble();
-			requestBody += "\n\"aliceDipoleCurrent\":" + current + ",";
-
-			var dipoleMagnetPolarity = runObj.getDipolePolarity();
-			if (dipoleMagnetPolarity.isPresent() && current > 0) {
-				requestBody += "\n\"aliceDipolePolarity\":\""
-					+ dipoleMagnetPolarity.get()
-					+ "\",";
-			}
-
-			hasModifications = true;
-		}
-
-		int fillNumber = runObj.getFillNo();
-		if (fillNumber > 0) {
-			requestBody += "\n\"fillNumber\":" + fillNumber + ",";
-		}
-
-		float betaStar = runObj.getLHCBetaStar();
-		if (betaStar >= 0) {
-			requestBody += "\n\"lhcBetaStar\":" + betaStar + ",";
-			hasModifications = true;
-		}
-
-		if (!hasModifications) {  // no updates to be done !
-			AliDip2BK.log(3, "BKwriter.UpdateRun", "No data to update for Run=" + runObj.RunNo);
+		if (runUpdatePayload.isEmpty()) {  // no updates to be done !
+			AliDip2BK.log(3, "BKwriter.UpdateRun", "No data to update for Run=" + runUpdatePayload.getRunNumber());
 			return;
 		}
 
-		if (requestBody.endsWith(",")) {
-			requestBody = requestBody.substring(0, requestBody.length() - 1);
-
+		String requestBody;
+		try {
+			requestBody = new ObjectMapper()
+				.registerModule(new Jdk8Module())
+				.writeValueAsString(runUpdatePayload);
+		} catch (JsonProcessingException e) {
+			AliDip2BK.log(4, "BKwriter.UpdateRun", "Error in serializing request body");
+			return;
 		}
 
-		requestBody += "\n}";
+		AliDip2BK.log(1, "BKwriter.UpdateRun", "RUN =" + runUpdatePayload.getRunNumber() + " UPDATE JSON request=\n" + requestBody);
 
-		AliDip2BK.log(1, "BKwriter.UpdateRun", "RUN =" + runObj.RunNo + " UPDATE JSON request=\n" + requestBody);
-
-		String patchRunRequest = bookkeepingUrl + "/api/runs?runNumber=" + runObj.RunNo;
+		String patchRunRequest = bookkeepingUrl + "/api/runs?runNumber=" + runUpdatePayload.getRunNumber();
 
 		if (bookkeepingToken != null) {
 			patchRunRequest += bookkeepingToken;
@@ -308,13 +278,16 @@ public class BookkeepingClient {
 			response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
 			if (response.statusCode() == 200) {
-				AliDip2BK.log(2, "BKwriter.UpdateRun", "Succesful Update for RUN=" + runObj.RunNo);
+				AliDip2BK.log(2, "BKwriter.UpdateRun", "Succesful Update for RUN=" + runUpdatePayload.getRunNumber());
 			} else {
-				AliDip2BK.log(3, "BKwriter.UpdateRun", "ERROR for RUN=" + runObj.RunNo + " Code=" + +response.statusCode() + " Message=" + response.body());
+				AliDip2BK.log(
+					3,
+					"BKwriter.UpdateRun",
+					"ERROR for RUN=" + runUpdatePayload.getRunNumber() + " Code=" + +response.statusCode() + " Message=" + response.body()
+				);
 			}
-
 		} catch (Exception e) {
-			AliDip2BK.log(4, "BKwriter.UpdateRun", "ERROR Update for RUN=" + runObj.RunNo + "\n Exception=" + e);
+			AliDip2BK.log(4, "BKwriter.UpdateRun", "ERROR Update for RUN=" + runUpdatePayload.getRunNumber() + "\n Exception=" + e);
 			e.printStackTrace();
 		}
 	}

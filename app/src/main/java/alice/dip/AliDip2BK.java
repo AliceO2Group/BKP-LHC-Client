@@ -9,6 +9,7 @@
 
 package alice.dip;
 
+import alice.dip.bookkeeping.BookkeepingClient;
 import alice.dip.configuration.ApplicationConfiguration;
 
 import java.io.IOException;
