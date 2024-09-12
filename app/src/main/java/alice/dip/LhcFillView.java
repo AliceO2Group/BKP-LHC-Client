@@ -21,15 +21,15 @@ public record LhcFillView(
     public String toString() {
         String ans = " FILL No=" + fillNumber + " StartTime=" + AliDip2BK.PERSISTENCE_DATE_FORMAT.format(startTime);
         if (endTime > 0) {
-            ans = ans + " EndTime=" + AliDip2BK.PERSISTENCE_DATE_FORMAT.format(endTime);
+            ans += " EndTime=" + AliDip2BK.PERSISTENCE_DATE_FORMAT.format(endTime);
         }
-        ans = ans + " Beam Mode=" + beamMode;
-        ans = ans + " Beam Type=" + beamType;
-        ans = ans + " LHC Filling Scheme =" + fillingSchemeName;
-        ans = ans + " Beam  Energy=" + beamEnergy + " Beta Star=" + betaStar;
-        ans = ans + " LHCTotalInteractingBunches =" + totalInteractingBunches
+        ans += " Beam Mode=" + beamMode;
+        ans += " Beam Type=" + beamType;
+        ans += " LHC Filling Scheme =" + fillingSchemeName;
+        ans += " Beam  Energy=" + beamEnergy + " Beta Star=" + betaStar;
+        ans += " LHCTotalInteractingBunches =" + totalInteractingBunches
             + " LHCTotalNonInteractingBunchesBeam1=" + interactingBunchesBeam1;
-        ans = ans + " Stable Beam Duration=" + stableBeamsDuration;
+        ans += " Stable Beam Duration=" + stableBeamsDuration;
         return ans;
     }
 }

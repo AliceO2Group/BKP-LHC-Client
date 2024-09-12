@@ -26,6 +26,7 @@ public class RunManager {
 		long date,
 		int runNumber,
 		LhcFillView fillAtStart,
+		LuminosityView luminosityAtStart,
 		AliceMagnetsConfigurationView magnetsConfigurationAtStart
 	) {
 		statisticsManager.incrementNewRunsCount();
@@ -45,6 +46,7 @@ public class RunManager {
 			date,
 			runNumber,
 			fillAtStart,
+			luminosityAtStart,
 			magnetsConfigurationAtStart
 		);
 
@@ -81,14 +83,15 @@ public class RunManager {
 		long date,
 		int runNumber,
 		LhcFillView fillAtEnd,
-		AliceMagnetsConfigurationView magnetsConfigurationAtEnd
+		AliceMagnetsConfigurationView magnetsConfigurationAtEnd,
+		LuminosityView luminosityAtEnd
 	) {
 		RunInfoObj activeRun;
 		for (var activeRunIndex = 0; activeRunIndex < activeRuns.size(); activeRunIndex++) {
 			activeRun = activeRuns.get(activeRunIndex);
 
 			if (activeRun.RunNo == runNumber) {
-				endActiveRun(date, activeRun, fillAtEnd, magnetsConfigurationAtEnd);
+				endActiveRun(date, activeRun, fillAtEnd, magnetsConfigurationAtEnd, luminosityAtEnd);
 				activeRuns.remove(activeRunIndex);
 				return;
 			}
@@ -125,13 +128,15 @@ public class RunManager {
 		long date,
 		RunInfoObj run,
 		LhcFillView fillAtEnd,
-		AliceMagnetsConfigurationView magnetsConfigurationAtEnd
+		AliceMagnetsConfigurationView magnetsConfigurationAtEnd,
+		LuminosityView luminosityAtEnd
 	) {
 		statisticsManager.incrementEndedRunsCount();
 
 		run.setEORTime(date);
 		run.LHC_info_stop = fillAtEnd;
-		run.alice_info_stop = magnetsConfigurationAtEnd;
+		run.magnetsConfigurationAtStop = magnetsConfigurationAtEnd;
+		run.setLuminosityAtStop(luminosityAtEnd);
 
 		writeRunHistFile(run);
 

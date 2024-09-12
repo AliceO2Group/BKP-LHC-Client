@@ -16,30 +16,34 @@ public class RunInfoObj {
 	public LhcFillView LHC_info_start;
 	public LhcFillView LHC_info_stop;
 	public final AliceMagnetsConfigurationView magnetsConfigurationAtStart;
-	public AliceMagnetsConfigurationView alice_info_stop;
+	public AliceMagnetsConfigurationView magnetsConfigurationAtStop;
 	public List<TimestampedFloat> energyHistory;
 	public List<TimestampedFloat> l3CurrentHistory;
 	public List<TimestampedFloat> dipoleHistory;
 	public long SOR_time;
 	public long EOR_time;
+	private final LuminosityView luminosityAtStart;
+	private Optional<LuminosityView> luminosityAtStop = Optional.empty();
 
 	public RunInfoObj(
-		long sor_time,
-		int RunNo,
+		long startOfRunTime,
+		int runNumber,
 		LhcFillView fillAtStart,
+		LuminosityView luminosityAtStart,
 		AliceMagnetsConfigurationView magnetsConfigurationAtStart
 	) {
-		this.RunNo = RunNo;
-		SOR_time = sor_time;
+		this.RunNo = runNumber;
+		SOR_time = startOfRunTime;
 		this.LHC_info_start = fillAtStart;
 		this.magnetsConfigurationAtStart = magnetsConfigurationAtStart;
 		energyHistory = new ArrayList<>();
 		l3CurrentHistory = new ArrayList<>();
 		dipoleHistory = new ArrayList<>();
+		this.luminosityAtStart = luminosityAtStart;
 	}
 
 	public String toString() {
-		StringBuilder ans = new StringBuilder("RUN=" + RunNo + "\n");
+		final StringBuilder ans = new StringBuilder("RUN=" + RunNo + "\n");
 		ans.append("SOR=").append(AliDip2BK.PERSISTENCE_DATE_FORMAT.format(SOR_time)).append("\n");
 
 		ans.append("LHC:: ")
@@ -54,8 +58,19 @@ public class RunInfoObj {
 		ans.append("LHC:: ")
 			.append(LHC_info_stop != null ? LHC_info_stop : "No DATA").append("\n")
 			.append("ALICE:: ")
-			.append(alice_info_stop != null ? alice_info_stop : "No DATA").append("\n")
+			.append(magnetsConfigurationAtStop != null ? magnetsConfigurationAtStop : "No DATA").append("\n")
 		;
+
+		luminosityAtStart.crossSection()
+            .ifPresent(crossSection -> ans.append(" Cross-section:: ").append(crossSection));
+        luminosityAtStart.triggerEfficiency()
+            .ifPresent(efficiency -> ans.append(" Trigger efficiency:: ").append(efficiency));
+        luminosityAtStart.triggerAcceptance()
+            .ifPresent(acceptance -> ans.append(" Trigger acceptance:: ").append(acceptance));
+		luminosityAtStart.phaseShift()
+			.ifPresent(phaseShift -> ans.append(" Phase shift at start:: ").append(phaseShift));
+
+		getPhaseShiftAtStop().ifPresent(phaseShift -> ans.append(" Phase shift at end:: ").append(phaseShift));
 
 		if (!energyHistory.isEmpty()) {
 			ans.append(" History:: Energy\n");
@@ -82,6 +97,10 @@ public class RunInfoObj {
 		}
 
 		return ans.toString();
+	}
+
+	public void setLuminosityAtStop(LuminosityView luminosityAtStop) {
+		this.luminosityAtStop = Optional.of(luminosityAtStop);
 	}
 
 	public void setEORTime(long time) {
@@ -142,5 +161,25 @@ public class RunInfoObj {
 
 	public OptionalDouble getDipoleCurrent() {
 		return magnetsConfigurationAtStart.dipoleCurrent();
+	}
+
+    public Optional<Float> getTriggerEfficiency() {
+        return luminosityAtStart.triggerEfficiency();
+    }
+
+    public Optional<Float> getTriggerAcceptance() {
+        return luminosityAtStart.triggerAcceptance();
+    }
+
+    public Optional<Float> getCrossSection() {
+        return luminosityAtStart.crossSection();
+    }
+
+	public Optional<PhaseShift> getPhaseShiftAtStart() {
+		return this.luminosityAtStart.phaseShift();
+	}
+
+	public Optional<PhaseShift> getPhaseShiftAtStop() {
+		return this.luminosityAtStop.flatMap(LuminosityView::phaseShift);
 	}
 }

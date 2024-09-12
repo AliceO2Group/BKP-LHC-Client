@@ -29,6 +29,7 @@ public class DipMessagesProcessor implements Runnable {
 	private final FillManager fillManager;
 	private final AliceMagnetsManager aliceMagnetsManager;
 	private final StatisticsManager statisticsManager;
+	private final LuminosityManager luminosityManager;
 
 	private boolean acceptData = true;
 
@@ -37,7 +38,8 @@ public class DipMessagesProcessor implements Runnable {
 		RunManager runManager,
 		FillManager fillManager,
 		AliceMagnetsManager aliceMagnetsManager,
-		StatisticsManager statisticsManager
+		StatisticsManager statisticsManager,
+		LuminosityManager luminosityManager
 	) {
 		this.persistenceConfiguration = persistenceConfiguration;
 
@@ -45,6 +47,7 @@ public class DipMessagesProcessor implements Runnable {
 		this.fillManager = fillManager;
 		this.aliceMagnetsManager = aliceMagnetsManager;
 		this.statisticsManager = statisticsManager;
+		this.luminosityManager = luminosityManager;
 
 		Thread t = new Thread(this);
 		t.start();
@@ -125,6 +128,12 @@ public class DipMessagesProcessor implements Runnable {
 					break;
 				case "dip/ALICE/MCS/Dipole/Polarity":
 					handleDipolePolarityMessage(messageItem.data);
+					break;
+				case "dip/ALICE/LHC/Bookkeeping/Source":
+					handleBookkeepingSourceMessage(messageItem.data);
+					break;
+				case "dip/ALICE/LHC/Bookkeeping/CTPClock":
+					handleBookkeepingCtpClockMessage(messageItem.data);
 					break;
 				default:
 					AliDip2BK.log(
@@ -286,5 +295,22 @@ public class DipMessagesProcessor implements Runnable {
 		aliceMagnetsManager.setDipolePolarity(polarity);
 
 		AliDip2BK.log(2, "ProcData.dispach", " Dipole Polarity=" + polarity);
+	}
+
+	private void handleBookkeepingSourceMessage(DipData dipData) throws BadParameter, TypeMismatch {
+		var acceptance = dipData.extractFloat("Acceptance");
+		var crossSection = dipData.extractFloat("CrossSection");
+		var efficiency = dipData.extractFloat("Efficiency");
+
+		luminosityManager.setTriggerEfficiency(efficiency);
+		luminosityManager.setTriggerAcceptance(acceptance);
+		luminosityManager.setCrossSection(crossSection);
+	}
+
+	private void handleBookkeepingCtpClockMessage(DipData dipData) throws BadParameter, TypeMismatch {
+		var phaseShiftBeam1 = dipData.extractFloat("PhaseShift_Beam1");
+		var phaseShiftBeam2 = dipData.extractFloat("PhaseShift_Beam2");
+
+		luminosityManager.setPhaseShift(new PhaseShift(phaseShiftBeam1, phaseShiftBeam2));
 	}
 }

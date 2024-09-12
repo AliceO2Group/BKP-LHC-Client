@@ -231,6 +231,11 @@ public class BookkeepingClient {
 	 *  This method is used to update the RUN info entry
 	 */
 	public void updateRun(BookkeepingRunUpdatePayload runUpdatePayload) {
+		if (runUpdatePayload.isEmpty()) {  // no updates to be done !
+			AliDip2BK.log(3, "BKwriter.UpdateRun", "No data to update for Run=" + runUpdatePayload.getRunNumber());
+			return;
+		}
+
 		boolean runExists;
 		int retriesCounter = 0;
 		do {
@@ -245,11 +250,6 @@ public class BookkeepingClient {
 		} while (++retriesCounter <= 10 && !runExists);
 
 		if (retriesCounter > 0) AliDip2BK.log(1, "BKwriter.UpdateRun", "DELAY Loop Count=" + (retriesCounter));
-
-		if (runUpdatePayload.isEmpty()) {  // no updates to be done !
-			AliDip2BK.log(3, "BKwriter.UpdateRun", "No data to update for Run=" + runUpdatePayload.getRunNumber());
-			return;
-		}
 
 		String requestBody;
 		try {
