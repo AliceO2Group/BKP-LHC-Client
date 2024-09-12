@@ -2,8 +2,11 @@
  * cil
  **************/
 
-package alice.dip;
+package alice.dip.kafka;
 
+import alice.dip.AliDip2BK;
+import alice.dip.DipMessagesProcessor;
+import alice.dip.StatisticsManager;
 import alice.dip.configuration.KafkaClientConfiguration;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -17,22 +20,24 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import alice.dip.AlicePB.NewStateNotification;
 
 import java.time.Duration;
-import java.util.Arrays;
 
 import java.util.List;
 import java.util.Properties;
 
-public class StartOfRunKafkaConsumer implements Runnable {
-	public int NoMess = 0;
-	public boolean status = true;
-	Properties properties;
-	DipMessagesProcessor process;
-
+public class EndOfRunKafkaConsumer implements Runnable {
 	private final KafkaClientConfiguration configuration;
+	private final EndOfRunListener endOfRunListener;
 
-	public StartOfRunKafkaConsumer(KafkaClientConfiguration configuration, DipMessagesProcessor process) {
+	private final Properties properties;
+
+	public int NoMess = 0;
+
+	public EndOfRunKafkaConsumer(
+		KafkaClientConfiguration configuration,
+		EndOfRunListener endOfRunListener
+	) {
 		this.configuration = configuration;
-		this.process = process;
+		this.endOfRunListener = endOfRunListener;
 
 		properties = new Properties();
 		properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, configuration.bootstrapServers());
@@ -47,36 +52,41 @@ public class StartOfRunKafkaConsumer implements Runnable {
 	}
 
 	public void run() {
+
 		try (// creating consumer
-			 KafkaConsumer<String, byte[]> consumer = new KafkaConsumer<>(properties)) {
+			KafkaConsumer<String, byte[]> consumer = new KafkaConsumer<>(properties)
+		) {
 			// Subscribing
-			consumer.subscribe(List.of(configuration.topics().startOfRun()));
+			consumer.subscribe(List.of(configuration.topics().endOfRun()));
 
 			while (true) {
 				ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofMillis(100));
 				for (ConsumerRecord<String, byte[]> record : records) {
-					byte[] cucu = record.value();
-
 					NoMess = NoMess + 1;
+
+					byte[] cucu = record.value();
 
 					try {
 						NewStateNotification info = NewStateNotification.parseFrom(cucu);
-						AliDip2BK.log(1, "KC_SOR.run",
-							"New Kafka mess; partition=" + record.partition() + " offset=" + record.offset() + " L=" + cucu.length
-								+ " RUN=" + info.getEnvInfo().getRunNumber() + "  " + info.getEnvInfo().getState() + " ENVID = "
-								+ info.getEnvInfo().getEnvironmentId());
+						AliDip2BK.log(1, "KC_EOR.run",
+							"New Kafka mess; partition=" + record.partition() + " offset=" + record.offset() + " L="
+								+ cucu.length
+								+ " RUN=" + info.getEnvInfo().getRunNumber() + "  " + info.getEnvInfo().getState()
+								+ " ENVID = "
+								+ info.getEnvInfo().getEnvironmentId()
+						);
 
 						long time = info.getTimestamp();
 						int rno = info.getEnvInfo().getRunNumber();
 
-						process.newRunSignal(time, rno);
+						endOfRunListener.onEndOfRun(time, rno);
 					} catch (InvalidProtocolBufferException e) {
-						AliDip2BK.log(4, "KC_SOR.run", "ERROR pasing data into obj e=" + e);
-						status = false;
+						AliDip2BK.log(4, "KC_EOR.run", "ERROR pasing data into obj e=" + e);
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
+				// consumer.commitAsync();
 			}
 		}
 	}
