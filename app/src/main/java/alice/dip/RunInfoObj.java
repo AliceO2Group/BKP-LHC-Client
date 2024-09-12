@@ -6,15 +6,12 @@
  */
 package alice.dip;
 
-import alice.dip.configuration.PersistenceConfiguration;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalDouble;
 
 public class RunInfoObj {
-
 	public int RunNo;
 	public LhcInfoObj LHC_info_start;
 	public LhcInfoObj LHC_info_stop;

@@ -15,6 +15,9 @@ dependencies {
     implementation(libs.kafka.clients)
     implementation(libs.slf4j.api)
     implementation(libs.slf4j.jdk)
+    implementation(libs.jackson.databind)
+    implementation(libs.jackson.annotations)
+    implementation(libs.jackson.jdk8)
 }
 
 java {

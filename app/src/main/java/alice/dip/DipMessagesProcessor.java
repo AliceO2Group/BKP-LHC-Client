@@ -12,6 +12,8 @@ import java.math.BigInteger;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+import alice.dip.bookkeeping.BookkeepingClient;
+import alice.dip.bookkeeping.BookkeepingRunUpdatePayload;
 import alice.dip.configuration.PersistenceConfiguration;
 import cern.dip.BadParameter;
 import cern.dip.DipData;
@@ -115,7 +117,7 @@ public class DipMessagesProcessor implements Runnable {
 			AliDip2BK.log(2, "ProcData.newRunSignal", " NEW RUN NO =" + runNumber + fillLogMessage);
 
 			runManager.addRun(newRun);
-			bookkeepingClient.updateRun(newRun);
+			bookkeepingClient.updateRun(BookkeepingRunUpdatePayload.of(newRun));
 
 			if (currentFill.isPresent()) {
 				var lastRunNumber = runManager.getLastRunNumber();
