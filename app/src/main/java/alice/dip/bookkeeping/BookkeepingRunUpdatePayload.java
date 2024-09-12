@@ -1,5 +1,6 @@
 package alice.dip.bookkeeping;
 
+import alice.dip.PhaseShift;
 import alice.dip.Polarity;
 import alice.dip.RunInfoObj;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -42,6 +43,21 @@ public class BookkeepingRunUpdatePayload {
 	@JsonInclude(JsonInclude.Include.NON_ABSENT)
 	private OptionalInt fillNumber = OptionalInt.empty();
 
+	@JsonInclude(JsonInclude.Include.NON_ABSENT)
+	private Optional<Float> crossSection = Optional.empty();
+
+	@JsonInclude(JsonInclude.Include.NON_ABSENT)
+	private Optional<Float> triggerEfficiency = Optional.empty();
+
+	@JsonInclude(JsonInclude.Include.NON_ABSENT)
+	private Optional<Float> triggerAcceptance = Optional.empty();
+
+	@JsonInclude(JsonInclude.Include.NON_ABSENT)
+	private Optional<PhaseShift> phaseShiftAtStart = Optional.empty();
+
+	@JsonInclude(JsonInclude.Include.NON_ABSENT)
+	private Optional<PhaseShift> phaseShiftAtEnd = Optional.empty();
+
 	public BookkeepingRunUpdatePayload(int runNumber) {
 		this.runNumber = runNumber;
 		this.isEmpty = true;
@@ -52,44 +68,64 @@ public class BookkeepingRunUpdatePayload {
 
 		float beamEnergy = runInfoObj.getBeamEnergy();
 		if (beamEnergy > 0) {
-			updateRunRequest.beamEnergy(beamEnergy);
+			updateRunRequest.setBeamEnergy(beamEnergy);
 		}
 
 		String beamMode = runInfoObj.getBeamMode();
 		if (beamMode != null) {
-			updateRunRequest.beamMode(beamMode);
+			updateRunRequest.setBeamMode(beamMode);
 		}
 
 		var l3MagnetCurrent = runInfoObj.getL3Current();
 		if(l3MagnetCurrent.isPresent()) {
 			var current = l3MagnetCurrent.getAsDouble();
-			updateRunRequest.l3MagnetCurrent(current);
+			updateRunRequest.setL3MagnetCurrent(current);
 
 			var l3MagnetPolarity = runInfoObj.getL3Polarity();
 			if (l3MagnetPolarity.isPresent() && current > 0) {
-				updateRunRequest.l3MagnetPolarity(l3MagnetPolarity.get());
+				updateRunRequest.setL3MagnetPolarity(l3MagnetPolarity.get());
 			}
 		}
 
 		var dipoleMagnetCurrent = runInfoObj.getDipoleCurrent();
 		if (dipoleMagnetCurrent.isPresent()) {
 			var current = dipoleMagnetCurrent.getAsDouble();
-			updateRunRequest.dipoleMagnetCurrent(current);
+			updateRunRequest.setDipoleMagnetCurrent(current);
 
-			var dipoleMagnetPolarity = runInfoObj.getDipolePolarity();
+			var dipoleMagnetPolarity= runInfoObj.getDipolePolarity();
 			if (dipoleMagnetPolarity.isPresent() && current > 0) {
-				updateRunRequest.dipoleMagnetPolarity(dipoleMagnetPolarity.get());
+				updateRunRequest.setDipoleMagnetPolarity(dipoleMagnetPolarity.get());
 			}
 		}
 
 		int fillNumber = runInfoObj.getFillNo();
 		if (fillNumber > 0) {
-			updateRunRequest.fillNumber(fillNumber);
+			updateRunRequest.setFillNumber(fillNumber);
 		}
 
 		float betaStar = runInfoObj.getLHCBetaStar();
 		if (betaStar >= 0) {
-			updateRunRequest.betaStar(betaStar);
+			updateRunRequest.setBetaStar(betaStar);
+		}
+
+		if (runInfoObj.getTriggerEfficiency().isPresent()) {
+			updateRunRequest.setTriggerEfficiency(runInfoObj.getTriggerEfficiency().get());
+		}
+
+		if (runInfoObj.getTriggerAcceptance().isPresent()) {
+			updateRunRequest.setTriggerAcceptance(runInfoObj.getTriggerAcceptance().get());
+		}
+
+		if (runInfoObj.getCrossSection().isPresent()) {
+			updateRunRequest.setCrossSection(runInfoObj.getCrossSection().get());
+		}
+
+		if (runInfoObj.getPhaseShiftAtStart().isPresent()) {
+			updateRunRequest.setPhaseShiftAtStart(runInfoObj.getPhaseShiftAtStart().get());
+		}
+
+		if (runInfoObj.getPhaseShiftAtStop().isPresent()) {
+			updateRunRequest.setPhaseShiftAtEnd(runInfoObj.getPhaseShiftAtStop().get());
 		}
 
 		return updateRunRequest;
@@ -103,43 +139,68 @@ public class BookkeepingRunUpdatePayload {
 		return runNumber;
 	}
 
-	public void beamEnergy(double lhcBeamEnergy) {
-		this.lhcBeamEnergy = OptionalDouble.of(lhcBeamEnergy);
+	private void setBeamEnergy(double beamEnergy) {
+		this.lhcBeamEnergy = OptionalDouble.of(beamEnergy);
 		this.isEmpty = false;
 	}
 
-	public void beamMode(String lhcBeamMode) {
-		this.lhcBeamMode = Optional.of(lhcBeamMode);
+	private void setBeamMode(String beamMode) {
+		this.lhcBeamMode = Optional.of(beamMode);
 		this.isEmpty = false;
 	}
 
-	public void betaStar(double lhcBetaStar) {
-		this.lhcBetaStar = OptionalDouble.of(lhcBetaStar);
-		this.isEmpty = false;
-	}
-
-	public void l3MagnetCurrent(double current) {
+	private void setL3MagnetCurrent(double current) {
 		this.l3MagnetCurrent = OptionalDouble.of(current);
 		this.isEmpty = false;
 	}
 
-	public void l3MagnetPolarity(Polarity polarity) {
+	private void setL3MagnetPolarity(Polarity polarity) {
 		this.l3MagnetPolarity = Optional.of(polarity);
 		this.isEmpty = false;
 	}
 
-	public void dipoleMagnetCurrent(double current) {
+	private void setDipoleMagnetCurrent(double current) {
 		this.dipoleMagnetCurrent = OptionalDouble.of(current);
 		this.isEmpty = false;
 	}
 
-	public void dipoleMagnetPolarity(Polarity polarity) {
+	private void setDipoleMagnetPolarity(Polarity polarity) {
 		this.dipoleMagnetPolarity = Optional.of(polarity);
 		this.isEmpty = false;
 	}
 
-	public void fillNumber(int fillNumber) {
+	private void setFillNumber(int fillNumber) {
 		this.fillNumber = OptionalInt.of(fillNumber);
+		this.isEmpty = false;
+	}
+
+	private void setBetaStar(double betaStar) {
+		this.lhcBetaStar = OptionalDouble.of(betaStar);
+		this.isEmpty = false;
+	}
+
+	private void setTriggerEfficiency(float triggerEfficiency) {
+		this.triggerEfficiency = Optional.of(triggerEfficiency);
+		this.isEmpty = false;
+	}
+
+	private void setTriggerAcceptance(float triggerAcceptance) {
+		this.triggerAcceptance = Optional.of(triggerAcceptance);
+		this.isEmpty = false;
+	}
+
+	private void setCrossSection(float crossSection) {
+		this.crossSection = Optional.of(crossSection);
+		this.isEmpty = false;
+	}
+
+	private void setPhaseShiftAtStart(PhaseShift phaseShift) {
+		this.phaseShiftAtStart = Optional.of(phaseShift);
+		this.isEmpty = false;
+	}
+
+	public void setPhaseShiftAtEnd(PhaseShift phaseShift) {
+		this.phaseShiftAtEnd = Optional.of(phaseShift);
 		this.isEmpty = false;
 	}
 
@@ -175,5 +236,25 @@ public class BookkeepingRunUpdatePayload {
 
 	public OptionalInt getFillNumber() {
 		return fillNumber;
+	}
+
+	public Optional<Float> getTriggerEfficiency() {
+		return triggerEfficiency;
+	}
+
+	public Optional<Float> getTriggerAcceptance() {
+		return triggerAcceptance;
+	}
+
+	public Optional<Float> getCrossSection() {
+		return crossSection;
+	}
+
+	public Optional<PhaseShift> getPhaseShiftAtStart() {
+		return phaseShiftAtStart;
+	}
+
+	public Optional<PhaseShift> getPhaseShiftAtEnd() {
+		return phaseShiftAtEnd;
 	}
 }

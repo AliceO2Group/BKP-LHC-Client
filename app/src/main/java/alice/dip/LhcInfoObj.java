@@ -205,20 +205,6 @@ public class LhcInfoObj implements Serializable {
         return Optional.empty();
     }
 
-    private String getStableBeamStartStr() {
-        var stableBeamStart = getStableBeamStart();
-
-        return stableBeamStart.map(AliDip2BK.PERSISTENCE_DATE_FORMAT::format).orElse("No Stable Beam");
-    }
-
-    public String getStableBeamStopStr() {
-        if (getStableBeamStart().isEmpty()) {
-            return "No Stable Beam";
-        }
-
-        return getStableBeamStop().map(AliDip2BK.PERSISTENCE_DATE_FORMAT::format).orElse("-");
-    }
-
     /**
      * Return the stable beams duration (in ms)
      *
@@ -254,5 +240,19 @@ public class LhcInfoObj implements Serializable {
 
     public void setEnd(long date) {
         endedTime = date;
+    }
+
+    private String getStableBeamStartStr() {
+        var stableBeamStart = getStableBeamStart();
+
+        return stableBeamStart.map(AliDip2BK.PERSISTENCE_DATE_FORMAT::format).orElse("No Stable Beam");
+    }
+
+    private String getStableBeamStopStr() {
+        if (getStableBeamStart().isEmpty()) {
+            return "No Stable Beam";
+        }
+
+        return getStableBeamStop().map(AliDip2BK.PERSISTENCE_DATE_FORMAT::format).orElse("-");
     }
 }

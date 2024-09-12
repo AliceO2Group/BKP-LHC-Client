@@ -60,13 +60,15 @@ public class AliDip2BK implements Runnable {
 		fillManager = new FillManager(configuration.persistence(), bookkeepingClient, statisticsManager);
 		fillManager.loadState();
 		var aliceMagnetsManager = new AliceMagnetsManager();
+		var luminosityManager = new LuminosityManager();
 
 		dipMessagesProcessor = new DipMessagesProcessor(
 			configuration.persistence(),
 			runManager,
 			fillManager,
 			aliceMagnetsManager,
-			statisticsManager
+			statisticsManager,
+			luminosityManager
 		);
 		if (configuration.simulation().enabled()) {
 			new SimDipEventsFill(fillManager);
@@ -88,6 +90,7 @@ public class AliDip2BK implements Runnable {
 					date,
 					runNumber,
 					fillManager.getCurrentFill().map(LhcInfoObj::getView).orElse(null),
+					luminosityManager.getView(),
 					aliceMagnetsManager.getView()
 				);
 				bookkeepingClient.updateRun(BookkeepingRunUpdatePayload.of(newRun));
@@ -98,12 +101,19 @@ public class AliDip2BK implements Runnable {
 			configuration.kafkaClient(),
 			(date, runNumber) -> {
 				statisticsManager.incrementKafkaMessagesCount();
+				var luminosityAtEnd = luminosityManager.getView();
 				runManager.handleRunEnd(
 					date,
 					runNumber,
 					fillManager.getCurrentFill().map(LhcInfoObj::getView).orElse(null),
-					aliceMagnetsManager.getView()
+					aliceMagnetsManager.getView(),
+					luminosityAtEnd
 				);
+				var updateRunPayload = new BookkeepingRunUpdatePayload(runNumber);
+				if (luminosityAtEnd.phaseShift().isPresent()) {
+					updateRunPayload.setPhaseShiftAtEnd(luminosityAtEnd.phaseShift().get());
+				}
+				bookkeepingClient.updateRun(updateRunPayload);
 			}
 		);
 
