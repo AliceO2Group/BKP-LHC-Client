@@ -2,9 +2,6 @@ package alice.dip;
 
 import alice.dip.configuration.PersistenceConfiguration;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
@@ -26,81 +23,81 @@ public class RunManager {
 		this.statisticsManager = statisticsManager;
 	}
 
-	public Optional<RunInfoObj> getRunByRunNumber(int runNumber) {
-		return activeRuns.stream()
-			.filter(run -> run.RunNo == runNumber)
-			.findFirst();
+	public synchronized RunInfoObj handleNewRun(
+		long date,
+		int runNumber,
+		LhcInfoObj fillAtStart,
+		AliceMagnetsConfigurationView magnetsConfigurationAtStart
+	) {
+		statisticsManager.incrementNewRunsCount();
+
+		var fillLogMessage = fillAtStart != null
+			? " with FillNo=" + fillAtStart.fillNo
+			: " but currentFILL is NULL Perhaps Cosmics Run";
+
+		AliDip2BK.log(2, "ProcData.newRunSignal", " NEW RUN NO =" + runNumber + fillLogMessage);
+
+
+		if (this.hasRunByRunNumber(runNumber)) {
+			AliDip2BK.log(6, "ProcData.newRunSignal", " Duplicate new  RUN signal =" + runNumber + " IGNORE it");
+			return null;
+		}
+
+		var newRun = new RunInfoObj(
+			date,
+			runNumber,
+			fillAtStart,
+			magnetsConfigurationAtStart
+		);
+
+		if (fillAtStart != null) {
+			// Check if there is the new run is right after the last one
+			if (this.lastRunNumber.isPresent() && runNumber - lastRunNumber.getAsInt() != 1) {
+				StringBuilder missingRunsList = new StringBuilder("<<");
+				for (
+					int missingRunNumber = (lastRunNumber.getAsInt() + 1);
+					missingRunNumber < runNumber;
+					missingRunNumber++
+				) {
+					missingRunsList.append(missingRunNumber).append(" ");
+				}
+				missingRunsList.append(">>");
+
+				AliDip2BK.log(
+					7,
+					"ProcData.newRunSignal",
+					" LOST RUN No Signal! " + missingRunsList + "  New RUN NO =" + runNumber
+						+ " Last Run No=" + lastRunNumber
+				);
+			}
+
+			this.lastRunNumber = OptionalInt.of(runNumber);
+		}
+
+		activeRuns.add(newRun);
+
+		return newRun;
 	}
 
-	public boolean hasRunByRunNumber(int runNumber) {
-		return activeRuns.stream()
-			.anyMatch(run -> run.RunNo == runNumber);
-	}
-
-	public void addRun(RunInfoObj run) {
-		activeRuns.add(run);
-	}
-
-	public void endRun(int runNumber) {
-		Optional<RunInfoObj> deletedRun = Optional.empty();
-
+	public synchronized void handleRunEnd(
+		long date,
+		int runNumber,
+		LhcInfoObj fillAtEnd,
+		AliceMagnetsConfigurationView magnetsConfigurationAtEnd
+	) {
+		RunInfoObj activeRun;
 		for (var activeRunIndex = 0; activeRunIndex < activeRuns.size(); activeRunIndex++) {
-			if (activeRuns.get(activeRunIndex).RunNo == runNumber) {
-				deletedRun = Optional.of(activeRuns.get(activeRunIndex));
+			activeRun = activeRuns.get(activeRunIndex);
+
+			if (activeRun.RunNo == runNumber) {
+				endActiveRun(date, activeRun, fillAtEnd, magnetsConfigurationAtEnd);
 				activeRuns.remove(activeRunIndex);
-				break;
+				return;
 			}
 		}
 
-		var logModule = "ProcData.EndRun";
-
-		deletedRun.ifPresentOrElse(
-			run -> {
-				statisticsManager.incrementEndedRunsCount();
-
-				writeRunHistFile(run);
-
-				if (this.persistenceConfiguration.saveParametersHistoryPerRun()) {
-					if (!run.energyHistory.isEmpty()) {
-						String fn = "Energy_" + run.RunNo + ".txt";
-						writeHistoryToFile(fn, run.energyHistory);
-					}
-
-					if (!run.l3CurrentHistory.isEmpty()) {
-						String fn = "L3magnet_" + run.RunNo + ".txt";
-						writeHistoryToFile(fn, run.l3CurrentHistory);
-					}
-				}
-
-				var activeRunsString = activeRuns.stream()
-					.map(activeRun -> String.valueOf(activeRun.RunNo))
-					.collect(Collectors.joining(", "));
-
-				AliDip2BK.log(2, logModule, " Correctly closed  runNo=" + run.RunNo
-					+ "  ActiveRuns size=" + activeRuns.size() + " " + activeRunsString);
-
-				if (run.LHC_info_start.fillNo != run.LHC_info_stop.fillNo) {
-					AliDip2BK.log(
-						5,
-						logModule,
-						" !!!! RUN =" + run.RunNo + "  Statred FillNo=" + run.LHC_info_start.fillNo
-							+ " and STOPED with FillNo=" + run.LHC_info_stop.fillNo
-					);
-				}
-			},
-			() -> {
-				AliDip2BK.log(4, logModule, " ERROR RunNo=" + runNumber + " is not in the ACTIVE LIST ");
-				statisticsManager.incrementDuplicatedRunsEndCount();
-			}
-		);
-	}
-
-	public OptionalInt getLastRunNumber() {
-		return lastRunNumber;
-	}
-
-	public void setLastRunNumber(int runNumber) {
-		lastRunNumber = OptionalInt.of(runNumber);
+		AliDip2BK.log(4, "ProcData.EndRun", " ERROR RunNo=" + runNumber + " is not in the ACTIVE LIST ");
+		statisticsManager.incrementDuplicatedRunsEndCount();
 	}
 
 	public void registerNewEnergy(long time, float energy) {
@@ -118,6 +115,56 @@ public class RunManager {
 	public void registerNewDipoleCurrent(long time, float current) {
 		for (RunInfoObj run : activeRuns) {
 			run.addDipoleMagnet(time, current);
+		}
+	}
+
+	private boolean hasRunByRunNumber(int runNumber) {
+		return activeRuns.stream()
+			.anyMatch(run -> run.RunNo == runNumber);
+	}
+
+	private void endActiveRun(
+		long date,
+		RunInfoObj run,
+		LhcInfoObj fillAtEnd,
+		AliceMagnetsConfigurationView magnetsConfigurationAtEnd
+	) {
+		statisticsManager.incrementEndedRunsCount();
+
+		run.setEORtime(date);
+		run.LHC_info_stop = fillAtEnd;
+		run.alice_info_stop = magnetsConfigurationAtEnd;
+
+		writeRunHistFile(run);
+
+		if (this.persistenceConfiguration.saveParametersHistoryPerRun()) {
+			if (!run.energyHistory.isEmpty()) {
+				String fn = "Energy_" + run.RunNo + ".txt";
+				writeHistoryToFile(fn, run.energyHistory);
+			}
+
+			if (!run.l3CurrentHistory.isEmpty()) {
+				String fn = "L3magnet_" + run.RunNo + ".txt";
+				writeHistoryToFile(fn, run.l3CurrentHistory);
+			}
+		}
+
+		var activeRunsString = activeRuns.stream()
+			.map(activeRun -> String.valueOf(activeRun.RunNo))
+			.collect(Collectors.joining(", "));
+
+		var logModule = "ProcData.EndRun";
+
+		AliDip2BK.log(2, logModule, " Correctly closed  runNo=" + run.RunNo
+			+ "  ActiveRuns size=" + activeRuns.size() + " " + activeRunsString);
+
+		if (run.LHC_info_start.fillNo != run.LHC_info_stop.fillNo) {
+			AliDip2BK.log(
+				5,
+				logModule,
+				" !!!! RUN =" + run.RunNo + "  Statred FillNo=" + run.LHC_info_start.fillNo
+					+ " and STOPED with FillNo=" + run.LHC_info_stop.fillNo
+			);
 		}
 	}
 

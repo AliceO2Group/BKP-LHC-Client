@@ -4,10 +4,6 @@
 
 package alice.dip;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.math.BigInteger;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -29,7 +25,6 @@ public class DipMessagesProcessor implements Runnable {
 
 	private final PersistenceConfiguration persistenceConfiguration;
 
-	private final BookkeepingClient bookkeepingClient;
 	private final RunManager runManager;
 	private final FillManager fillManager;
 	private final AliceMagnetsManager aliceMagnetsManager;
@@ -39,7 +34,6 @@ public class DipMessagesProcessor implements Runnable {
 
 	public DipMessagesProcessor(
 		PersistenceConfiguration persistenceConfiguration,
-		BookkeepingClient bookkeepingClient,
 		RunManager runManager,
 		FillManager fillManager,
 		AliceMagnetsManager aliceMagnetsManager,
@@ -47,7 +41,6 @@ public class DipMessagesProcessor implements Runnable {
 	) {
 		this.persistenceConfiguration = persistenceConfiguration;
 
-		this.bookkeepingClient = bookkeepingClient;
 		this.runManager = runManager;
 		this.fillManager = fillManager;
 		this.aliceMagnetsManager = aliceMagnetsManager;
@@ -98,72 +91,6 @@ public class DipMessagesProcessor implements Runnable {
 				e.printStackTrace();
 			}
 		}
-	}
-
-	public synchronized void newRunSignal(long date, int runNumber) {
-		statisticsManager.incrementNewRunsCount();
-		statisticsManager.incrementKafkaMessagesCount();
-
-		if (!runManager.hasRunByRunNumber(runNumber)) {
-			var currentFill = fillManager.getCurrentFill();
-			var newRun = new RunInfoObj(
-				date,
-				runNumber,
-				currentFill.map(LhcInfoObj::clone).orElse(null),
-				aliceMagnetsManager.getView()
-			);
-			var fillLogMessage = currentFill.map(lhcInfoObj -> "with FillNo=" + lhcInfoObj.fillNo)
-				.orElse("currentFILL is NULL Perhaps Cosmics Run");
-			AliDip2BK.log(2, "ProcData.newRunSignal", " NEW RUN NO =" + runNumber + fillLogMessage);
-
-			runManager.addRun(newRun);
-			bookkeepingClient.updateRun(BookkeepingRunUpdatePayload.of(newRun));
-
-			if (currentFill.isPresent()) {
-				var lastRunNumber = runManager.getLastRunNumber();
-
-				// Check if there is the new run is right after the last one
-				if (lastRunNumber.isPresent() && runNumber - lastRunNumber.getAsInt() != 1) {
-					StringBuilder missingRunsList = new StringBuilder("<<");
-					for (
-						int missingRunNumber = (lastRunNumber.getAsInt() + 1);
-						missingRunNumber < runNumber;
-						missingRunNumber++
-					) {
-						missingRunsList.append(missingRunNumber).append(" ");
-					}
-					missingRunsList.append(">>");
-
-					AliDip2BK.log(
-						7,
-						"ProcData.newRunSignal",
-						" LOST RUN No Signal! " + missingRunsList + "  New RUN NO =" + runNumber
-							+ " Last Run No=" + lastRunNumber
-					);
-				}
-
-				runManager.setLastRunNumber(runNumber);
-			}
-		} else {
-			AliDip2BK.log(6, "ProcData.newRunSignal", " Duplicate new  RUN signal =" + runNumber + " IGNORE it");
-		}
-	}
-
-	public synchronized void stopRunSignal(long time, int runNumber) {
-		statisticsManager.incrementKafkaMessagesCount();
-
-		var currentRun = runManager.getRunByRunNumber(runNumber);
-
-		currentRun.ifPresentOrElse(run -> {
-			run.setEORtime(time);
-			fillManager.getCurrentFill().ifPresent(fill -> run.LHC_info_stop = fill.clone());
-			run.alice_info_stop = aliceMagnetsManager.getView();
-
-			runManager.endRun(run.RunNo);
-		}, () -> {
-			statisticsManager.incrementDuplicatedRunsEndCount();
-			AliDip2BK.log(4, "ProcData.stopRunSignal", " NO ACTIVE RUN having runNo=" + runNumber);
-		});
 	}
 
 	/*

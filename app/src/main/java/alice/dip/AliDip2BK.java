@@ -10,7 +10,10 @@
 package alice.dip;
 
 import alice.dip.bookkeeping.BookkeepingClient;
+import alice.dip.bookkeeping.BookkeepingRunUpdatePayload;
 import alice.dip.configuration.ApplicationConfiguration;
+import alice.dip.kafka.EndOfRunKafkaConsumer;
+import alice.dip.kafka.StartOfRunKafkaConsumer;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -60,7 +63,6 @@ public class AliDip2BK implements Runnable {
 
 		dipMessagesProcessor = new DipMessagesProcessor(
 			configuration.persistence(),
-			bookkeepingClient,
 			runManager,
 			fillManager,
 			aliceMagnetsManager,
@@ -78,9 +80,32 @@ public class AliDip2BK implements Runnable {
 			Thread.currentThread().interrupt();
 		}
 
-		kcs = new StartOfRunKafkaConsumer(configuration.kafkaClient(), dipMessagesProcessor);
+		kcs = new StartOfRunKafkaConsumer(
+			configuration.kafkaClient(),
+			(date, runNumber) -> {
+				statisticsManager.incrementKafkaMessagesCount();
+				var newRun = runManager.handleNewRun(
+					date,
+					runNumber,
+					fillManager.getCurrentFill().map(LhcInfoObj::clone).orElse(null),
+					aliceMagnetsManager.getView()
+				);
+				bookkeepingClient.updateRun(BookkeepingRunUpdatePayload.of(newRun));
+			}
+		);
 
-		kce = new EndOfRunKafkaConsumer(configuration.kafkaClient(), dipMessagesProcessor);
+		kce = new EndOfRunKafkaConsumer(
+			configuration.kafkaClient(),
+			(date, runNumber) -> {
+				statisticsManager.incrementKafkaMessagesCount();
+				runManager.handleRunEnd(
+					date,
+					runNumber,
+					fillManager.getCurrentFill().map(LhcInfoObj::clone).orElse(null),
+					aliceMagnetsManager.getView()
+				);
+			}
+		);
 
 		shutdownProc();
 
