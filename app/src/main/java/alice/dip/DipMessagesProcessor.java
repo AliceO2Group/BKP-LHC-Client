@@ -53,7 +53,7 @@ public class DipMessagesProcessor implements Runnable {
 	/*
 	 * This method is used for receiving DipData messages from the Dip Client
 	 */
-	synchronized public void handleMessage(String parameter, String message, DipData data) {
+	public synchronized void handleMessage(String parameter, String message, DipData data) {
 		if (!acceptData) {
 			AliDip2BK.log(4, "ProcData.addData", " Queue is closed ! Data from " + parameter + " is NOT ACCEPTED");
 			return;

@@ -10,6 +10,7 @@
 package alice.dip.bookkeeping;
 
 import alice.dip.AliDip2BK;
+import alice.dip.LhcFillView;
 import alice.dip.LhcInfoObj;
 import alice.dip.configuration.BookkeepingClientConfiguration;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -66,16 +67,16 @@ public class BookkeepingClient {
 		return false;
 	}
 
-	public void createLhcFill(LhcInfoObj lhc) {
-		boolean fillExists = doesFillExists(lhc.fillNo);
+	public void createLhcFill(LhcFillView lhcFillView) {
+		boolean fillExists = doesFillExists(lhcFillView.fillNumber());
 
 		if (fillExists) {
 			AliDip2BK.log(
 				3,
 				"BKwriter.InserFill",
-				"INSERT FILL ... BUT Fill No=" + lhc.fillNo + " is in BK ... trying to update record"
+				"INSERT FILL ... BUT Fill No=" + lhcFillView.fillNumber() + " is in BK ... trying to update record"
 			);
-			updateLhcFill(lhc);
+			updateLhcFill(lhcFillView);
 			return;
 		}
 
@@ -85,9 +86,9 @@ public class BookkeepingClient {
 		}
 
 		String requestBody = "{";
-		requestBody = requestBody + "\n\"fillingSchemeName\":\"" + lhc.LHCFillingSchemeName + "\",";
-		requestBody = requestBody + "\n\"beamType\":\"" + lhc.beamType + "\",";
-		requestBody = requestBody + "\n\"fillNumber\":" + lhc.fillNo + ",";
+		requestBody = requestBody + "\n\"fillingSchemeName\":\"" + lhcFillView.fillingSchemeName() + "\",";
+		requestBody = requestBody + "\n\"beamType\":\"" + lhcFillView.beamType() + "\",";
+		requestBody = requestBody + "\n\"fillNumber\":" + lhcFillView.fillNumber() + ",";
 
 		if (requestBody.endsWith(",")) {
 			requestBody = requestBody.substring(0, requestBody.length() - 1);
@@ -109,7 +110,7 @@ public class BookkeepingClient {
 			AliDip2BK.log(
 				2,
 				"BKwriter.InserFill",
-				" INSERT new FILL No=" + lhc.fillNo + "  Code=" + response.statusCode()
+				" INSERT new FILL No=" + lhcFillView.fillNumber() + "  Code=" + response.statusCode()
 			);
 		} catch (Exception e) {
 			AliDip2BK.log(4, "BKwriter.InserFill", "HTTP ERROR=" + e);
@@ -121,31 +122,32 @@ public class BookkeepingClient {
 	 *  This method is used when new updates are received on the current Fill
 	 *  The modified values are updated in the DB
 	 */
-	public void updateLhcFill(LhcInfoObj lhcFill) {
-		boolean fillExists = doesFillExists(lhcFill.fillNo);
+	public void updateLhcFill(LhcFillView lhcFillView) {
+		boolean fillExists = doesFillExists(lhcFillView.fillNumber());
 
 		if (!fillExists) {
-			AliDip2BK.log(4, "BKwriter.UPdate FILL", "Fill No=" + lhcFill.fillNo + " is NOT in BK ");
+			AliDip2BK.log(4, "BKwriter.UPdate FILL", "Fill No=" + lhcFillView.fillNumber() + " is NOT in BK ");
 			return;
 		}
 
 		String updateFillRequestBody = "{";
-		updateFillRequestBody += "\n\"fillingSchemeName\":\"" + lhcFill.LHCFillingSchemeName + "\",";
 
-		long stableBeamStart = lhcFill.getStableBeamStart();
-		if (stableBeamStart > 0) {
-			updateFillRequestBody += "\n\"stableBeamsStart\":" + stableBeamStart + ",";
+		var stableBeamStart = lhcFillView.stableBeamStart();
+		if (stableBeamStart.isPresent()) {
+			updateFillRequestBody += "\n\"stableBeamsStart\":" + stableBeamStart.get() + ",";
 		}
 
-		long stableBeamStop = lhcFill.getStableBeamStop();
-		if (stableBeamStop > 0) {
-			updateFillRequestBody += "\n\"stableBeamsEnd\":" + stableBeamStop + ",";
+		var stableBeamStop = lhcFillView.stableBeamStop();
+		if (stableBeamStart.isPresent() && stableBeamStop.isPresent()) {
+			updateFillRequestBody += "\n\"stableBeamsEnd\":" + stableBeamStop.get() + ",";
 		}
 
-		int stableBeamDuration = lhcFill.getStableBeamDuration();
+		int stableBeamDuration = lhcFillView.stableBeamsDuration();
 		if (stableBeamDuration > 0) {
 			updateFillRequestBody += "\n\"stableBeamsDuration\":" + stableBeamDuration + ",";
 		}
+
+		updateFillRequestBody += "\n\"fillingSchemeName\":\"" + lhcFillView.fillingSchemeName() + "\",";
 
 		if (updateFillRequestBody.endsWith(",")) {
 			updateFillRequestBody = updateFillRequestBody.substring(0, updateFillRequestBody.length() - 1);
@@ -155,10 +157,10 @@ public class BookkeepingClient {
 		AliDip2BK.log(
 			1,
 			"BKwriter.UpdateFILL",
-			"UPDATE FILL=" + lhcFill.fillNo + " JSON request=\n" + updateFillRequestBody
+			"UPDATE FILL=" + lhcFillView.fillNumber() + " JSON request=\n" + updateFillRequestBody
 		);
 
-		String updateFillUrl = bookkeepingUrl + "/api/lhcFills/" + lhcFill.fillNo;
+		String updateFillUrl = bookkeepingUrl + "/api/lhcFills/" + lhcFillView.fillNumber();
 		if (bookkeepingToken != null) {
 			updateFillUrl += "?token=" + bookkeepingToken;
 		}
@@ -174,17 +176,17 @@ public class BookkeepingClient {
 			response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
 			if ((response.statusCode() == 201)) {
-				AliDip2BK.log(2, "BKwriter.UpdateFILL", "Succesful Update for FILL=" + lhcFill.fillNo);
+				AliDip2BK.log(2, "BKwriter.UpdateFILL", "Succesful Update for FILL=" + lhcFillView.fillNumber());
 			} else {
 				AliDip2BK.log(
 					3,
 					"BKwriter.UpdateFILL",
-					"ERROR for FILL=" + lhcFill.fillNo + " Code=" + +response.statusCode() + " Message="
+					"ERROR for FILL=" + lhcFillView.fillNumber() + " Code=" + +response.statusCode() + " Message="
 						+ response.body()
 				);
 			}
 		} catch (Exception e) {
-			AliDip2BK.log(4, "BKwriter.UpdateFILL", "ERROR Update for FILL=" + lhcFill.fillNo + "\n Exception=" + e);
+			AliDip2BK.log(4, "BKwriter.UpdateFILL", "ERROR Update for FILL=" + lhcFillView.fillNumber() + "\n Exception=" + e);
 			e.printStackTrace();
 		}
 	}

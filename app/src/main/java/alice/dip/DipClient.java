@@ -96,27 +96,6 @@ public class DipClient implements Runnable {
 		AliDip2BK.log(1, "DipClient.CloseSubscriptions", " Succesfuly closed all DIP Subscriptions");
 	}
 
-	public void verifyData() {
-
-		for (Map.Entry<String, DipData> m : DataMap.entrySet()) {
-			String k = (String) m.getKey();
-
-			DipData d1 = m.getValue();
-
-			if (d1 == null) {
-				DipSubscription ds = SubscriptionMap.get(k);
-				ds.requestUpdate();
-			} else {
-				DipTimestamp ts = d1.extractDipTime();
-				long tf = (new Date().getTime() - ts.getAsMillis());
-				if (tf > MAX_TIME_TO_UPDATE * 1000) {
-					DipSubscription ds = SubscriptionMap.get(k);
-					ds.requestUpdate();
-				}
-			}
-		}
-	}
-
 	public void readParamFile(String file_name) {
 		try (var paramFileInputStream = getClass().getClassLoader().getResourceAsStream(file_name)) {
 			var subscriptionsCount = 0;

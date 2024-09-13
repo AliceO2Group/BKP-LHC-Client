@@ -13,8 +13,8 @@ import java.util.OptionalDouble;
 
 public class RunInfoObj {
 	public int RunNo;
-	public LhcInfoObj LHC_info_start;
-	public LhcInfoObj LHC_info_stop;
+	public LhcFillView LHC_info_start;
+	public LhcFillView LHC_info_stop;
 	public final AliceMagnetsConfigurationView magnetsConfigurationAtStart;
 	public AliceMagnetsConfigurationView alice_info_stop;
 	public List<TimestampedFloat> energyHistory;
@@ -26,7 +26,7 @@ public class RunInfoObj {
 	public RunInfoObj(
 		long sor_time,
 		int RunNo,
-		LhcInfoObj fillAtStart,
+		LhcFillView fillAtStart,
 		AliceMagnetsConfigurationView magnetsConfigurationAtStart
 	) {
 		this.RunNo = RunNo;
@@ -39,60 +39,52 @@ public class RunInfoObj {
 	}
 
 	public String toString() {
-		String ans = "RUN=" + RunNo + "\n";
-		ans = ans + "SOR=" + AliDip2BK.PERSISTENCE_DATE_FORMAT.format(SOR_time) + "\n";
-		if (LHC_info_start != null) {
-			ans = ans + "LHC:: " + LHC_info_start.toString() + "\n";
-		} else {
-			ans = ans + "LHC:: No DATA \n";
-		}
-		if (magnetsConfigurationAtStart != null) {
-			ans = ans + "ALICE:: " + magnetsConfigurationAtStart.toString() + "\n";
-		} else {
-			ans = ans + "ALICE:: No DATA \n";
-		}
-		ans = ans + "\n";
-		ans = ans + "EOR=" + AliDip2BK.PERSISTENCE_DATE_FORMAT.format(EOR_time) + "\n";
+		StringBuilder ans = new StringBuilder("RUN=" + RunNo + "\n");
+		ans.append("SOR=").append(AliDip2BK.PERSISTENCE_DATE_FORMAT.format(SOR_time)).append("\n");
 
-		if (LHC_info_stop != null) {
-			ans = ans + "LHC:: " + LHC_info_stop.toString() + "\n";
-		} else {
-			ans = ans + "LHC:: No DATA \n";
-		}
-		if (alice_info_stop != null) {
-			ans = ans + "ALICE:: " + alice_info_stop.toString() + "\n";
-		} else {
-			ans = ans + "ALICE:: No DATA \n";
-		}
+		ans.append("LHC:: ")
+			.append(LHC_info_start != null ? LHC_info_start : "No DATA").append("\n")
+			.append("ALICE:: ")
+			.append(magnetsConfigurationAtStart != null ? magnetsConfigurationAtStart : "No DATA").append("\n")
+			.append("\n")
+		;
+
+		ans.append("EOR=").append(AliDip2BK.PERSISTENCE_DATE_FORMAT.format(EOR_time)).append("\n");
+
+		ans.append("LHC:: ")
+			.append(LHC_info_stop != null ? LHC_info_stop : "No DATA").append("\n")
+			.append("ALICE:: ")
+			.append(alice_info_stop != null ? alice_info_stop : "No DATA").append("\n")
+		;
 
 		if (!energyHistory.isEmpty()) {
-			ans = ans + " History:: Energy\n";
+			ans.append(" History:: Energy\n");
 
 			for (var energy: energyHistory) {
-				ans = ans + " - " + AliDip2BK.PERSISTENCE_DATE_FORMAT.format(energy.time()) + "  " + energy.value() + "\n";
+				ans.append(" - ").append(AliDip2BK.PERSISTENCE_DATE_FORMAT.format(energy.time())).append("  ").append(energy.value()).append("\n");
 			}
 		}
 
 		if (!l3CurrentHistory.isEmpty()) {
-			ans = ans + " History:: L3 Magnet\n";
+			ans.append(" History:: L3 Magnet\n");
 
 			for (var current: l3CurrentHistory) {
-				ans = ans + " - " + AliDip2BK.PERSISTENCE_DATE_FORMAT.format(current.time()) + "  " + current.value() + "\n";
+				ans.append(" - ").append(AliDip2BK.PERSISTENCE_DATE_FORMAT.format(current.time())).append("  ").append(current.value()).append("\n");
 			}
 		}
 
 		if (!dipoleHistory.isEmpty()) {
-			ans = ans + " History:: Dipole Magnet\n";
+			ans.append(" History:: Dipole Magnet\n");
 
 			for (var current: dipoleHistory) {
-				ans = ans + " - " + AliDip2BK.PERSISTENCE_DATE_FORMAT.format(current.time()) + "  " + current.value() + "\n";
+				ans.append(" - ").append(AliDip2BK.PERSISTENCE_DATE_FORMAT.format(current.time())).append("  ").append(current.value()).append("\n");
 			}
 		}
 
-		return ans;
+		return ans.toString();
 	}
 
-	public void setEORtime(long time) {
+	public void setEORTime(long time) {
 		EOR_time = time;
 	}
 
@@ -110,7 +102,7 @@ public class RunInfoObj {
 
 	public float getBeamEnergy() {
 		if (LHC_info_start != null) {
-			return LHC_info_start.getEnergy();
+			return LHC_info_start.beamEnergy();
 		} else {
 			return -1;
 		}
@@ -118,7 +110,7 @@ public class RunInfoObj {
 
 	public String getBeamMode() {
 		if (LHC_info_start != null) {
-			return LHC_info_start.getBeamMode();
+			return LHC_info_start.beamMode();
 		} else {
 			return null;
 		}
@@ -126,18 +118,14 @@ public class RunInfoObj {
 
 	public int getFillNo() {
 		if (LHC_info_start != null) {
-			return LHC_info_start.fillNo;
+			return LHC_info_start.fillNumber();
 		} else {
 			return -1;
 		}
 	}
 
 	public float getLHCBetaStar() {
-		if (LHC_info_start != null) {
-			return LHC_info_start.getLHCBetaStar();
-		} else {
-			return -1;
-		}
+		return LHC_info_start != null ? LHC_info_start.betaStar() :  -1;
 	}
 
 	public Optional<Polarity> getL3Polarity() {

@@ -7,7 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.stream.Collectors;
 
@@ -26,17 +25,16 @@ public class RunManager {
 	public synchronized RunInfoObj handleNewRun(
 		long date,
 		int runNumber,
-		LhcInfoObj fillAtStart,
+		LhcFillView fillAtStart,
 		AliceMagnetsConfigurationView magnetsConfigurationAtStart
 	) {
 		statisticsManager.incrementNewRunsCount();
 
 		var fillLogMessage = fillAtStart != null
-			? " with FillNo=" + fillAtStart.fillNo
+			? " with FillNo=" + fillAtStart.fillNumber()
 			: " but currentFILL is NULL Perhaps Cosmics Run";
 
 		AliDip2BK.log(2, "ProcData.newRunSignal", " NEW RUN NO =" + runNumber + fillLogMessage);
-
 
 		if (this.hasRunByRunNumber(runNumber)) {
 			AliDip2BK.log(6, "ProcData.newRunSignal", " Duplicate new  RUN signal =" + runNumber + " IGNORE it");
@@ -50,8 +48,8 @@ public class RunManager {
 			magnetsConfigurationAtStart
 		);
 
+		// Check if there is the new run is right after the last one
 		if (fillAtStart != null) {
-			// Check if there is the new run is right after the last one
 			if (this.lastRunNumber.isPresent() && runNumber - lastRunNumber.getAsInt() != 1) {
 				StringBuilder missingRunsList = new StringBuilder("<<");
 				for (
@@ -82,7 +80,7 @@ public class RunManager {
 	public synchronized void handleRunEnd(
 		long date,
 		int runNumber,
-		LhcInfoObj fillAtEnd,
+		LhcFillView fillAtEnd,
 		AliceMagnetsConfigurationView magnetsConfigurationAtEnd
 	) {
 		RunInfoObj activeRun;
@@ -126,12 +124,12 @@ public class RunManager {
 	private void endActiveRun(
 		long date,
 		RunInfoObj run,
-		LhcInfoObj fillAtEnd,
+		LhcFillView fillAtEnd,
 		AliceMagnetsConfigurationView magnetsConfigurationAtEnd
 	) {
 		statisticsManager.incrementEndedRunsCount();
 
-		run.setEORtime(date);
+		run.setEORTime(date);
 		run.LHC_info_stop = fillAtEnd;
 		run.alice_info_stop = magnetsConfigurationAtEnd;
 
@@ -158,12 +156,12 @@ public class RunManager {
 		AliDip2BK.log(2, logModule, " Correctly closed  runNo=" + run.RunNo
 			+ "  ActiveRuns size=" + activeRuns.size() + " " + activeRunsString);
 
-		if (run.LHC_info_start.fillNo != run.LHC_info_stop.fillNo) {
+		if (run.LHC_info_start.fillNumber() != run.LHC_info_stop.fillNumber()) {
 			AliDip2BK.log(
 				5,
 				logModule,
-				" !!!! RUN =" + run.RunNo + "  Statred FillNo=" + run.LHC_info_start.fillNo
-					+ " and STOPED with FillNo=" + run.LHC_info_stop.fillNo
+				" !!!! RUN =" + run.RunNo + "  Statred FillNo=" + run.LHC_info_start.fillNumber()
+					+ " and STOPED with FillNo=" + run.LHC_info_stop.fillNumber()
 			);
 		}
 	}
