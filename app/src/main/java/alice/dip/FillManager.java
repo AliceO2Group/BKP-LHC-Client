@@ -36,7 +36,7 @@ public class FillManager {
 	public void setCurrentFill(LhcInfoObj currentFill) {
 		this.currentFill = Optional.of(currentFill);
 		AliDip2BK.log(2, "ProcData.newFillNo", " **CREATED new FILL no=" + currentFill.fillNo);
-		bookkeepingClient.createLhcFill(currentFill);
+		bookkeepingClient.createLhcFill(currentFill.getView());
 		statisticsManager.incrementNewFillsCount();
 		saveState();
 	}
@@ -55,9 +55,9 @@ public class FillManager {
 
 			if (fill.fillNo == fillNumber) { // the same fill no ;
 				if (!activeInjectionScheme.contains("no_value")) {
-					boolean modi = fill.verifyAndUpdate(date, activeInjectionScheme, ip2CollisionsCount, bunchesCount);
-					if (modi) {
-						bookkeepingClient.updateLhcFill(fill);
+					boolean modification = verifyAndUpdate(fill, date, activeInjectionScheme, ip2CollisionsCount, bunchesCount);
+					if (modification) {
+						bookkeepingClient.updateLhcFill(fill.getView());
 						saveState();
 						AliDip2BK.log(2, "ProcData.newFillNo", " * Update FILL no=" + fillNumber);
 					}
@@ -75,9 +75,9 @@ public class FillManager {
 					" Received new FILL no=" + fillNumber + "  BUT is an active FILL =" + fill.fillNo + " Close the "
 						+ "old one and created the new one"
 				);
-				fill.endedTime = (new Date()).getTime();
+				fill.setEnd(new Date().getTime());
 				writeFillHistFile(fill);
-				bookkeepingClient.updateLhcFill(fill);
+				bookkeepingClient.updateLhcFill(fill.getView());
 
 				setCurrentFill(new LhcInfoObj(
 					persistenceConfiguration,
@@ -108,7 +108,7 @@ public class FillManager {
 		currentFill.ifPresentOrElse(fill -> {
 			fill.setBeamMode(date, beamMode);
 			AliDip2BK.log(2, "ProcData.newBeamMode", "New beam mode=" + beamMode + "  for FILL_NO=" + fill.fillNo);
-			bookkeepingClient.updateLhcFill(fill);
+			bookkeepingClient.updateLhcFill(fill.getView());
 			saveState();
 		}, () -> AliDip2BK.log(4, "ProcData.newBeamMode", " ERROR new beam mode=" + beamMode + " NO FILL NO for it"));
 	}
@@ -224,5 +224,54 @@ public class FillManager {
 				);
 			}
 		});
+	}
+
+	private boolean verifyAndUpdate(LhcInfoObj fill, long time, String fillingScheme, int ip2c, int nob) {
+		boolean isBeamPhysicsInjection = false;
+		boolean update = false;
+
+		if (!fillingScheme.contentEquals(fill.lhcFillingSchemeName)) {
+			AliDip2BK.log(
+				4,
+				"LHCInfo.verify",
+				"FILL=" + fill.fillNo + "  Filling Scheme is different OLD=" + fill.lhcFillingSchemeName + " NEW=" + fillingScheme
+			);
+
+			String beamMode = fill.getBeamMode();
+			if (beamMode != null) {
+				if (beamMode.contains("INJECTION") && beamMode.contains("PHYSICS")) {
+					isBeamPhysicsInjection = true;
+					fill.lhcFillingSchemeName = fillingScheme;
+					fill.ip2CollisionsCount = ip2c;
+					fill.bunchesCount = nob;
+					update = true;
+					AliDip2BK.log(5, "LHCInfo.verify",
+						"FILL=" + fill.fillNo + " is IPB-> Changed Filling Scheme to :" + fill.lhcFillingSchemeName
+					);
+				} else {
+					AliDip2BK.log(4, "LHCInfo.verify",
+						"FILL=" + fill.fillNo + " is NOT in IPB keepFilling scheme to: " + fill.lhcFillingSchemeName
+					);
+				}
+			}
+
+			fill.saveFillingSchemeInHistory(time, fillingScheme, isBeamPhysicsInjection);
+		}
+
+		if (ip2c != fill.ip2CollisionsCount) {
+			AliDip2BK.log(4, "LHCInfo.verify",
+				" FILL=" + fill.fillNo + " IP2 COLLis different OLD=" + fill.ip2CollisionsCount + " new=" + ip2c
+			);
+			fill.ip2CollisionsCount = ip2c;
+		}
+
+		if (nob != fill.bunchesCount) {
+			AliDip2BK.log(4, "LHCInfo.verify",
+				" FILL=" + fill.fillNo + " INO_BUNCHES is different OLD=" + fill.bunchesCount + " new=" + nob
+			);
+			fill.bunchesCount = nob;
+		}
+
+		return update;
 	}
 }

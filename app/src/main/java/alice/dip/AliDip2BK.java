@@ -87,7 +87,7 @@ public class AliDip2BK implements Runnable {
 				var newRun = runManager.handleNewRun(
 					date,
 					runNumber,
-					fillManager.getCurrentFill().map(LhcInfoObj::clone).orElse(null),
+					fillManager.getCurrentFill().map(LhcInfoObj::getView).orElse(null),
 					aliceMagnetsManager.getView()
 				);
 				bookkeepingClient.updateRun(BookkeepingRunUpdatePayload.of(newRun));
@@ -101,7 +101,7 @@ public class AliDip2BK implements Runnable {
 				runManager.handleRunEnd(
 					date,
 					runNumber,
-					fillManager.getCurrentFill().map(LhcInfoObj::clone).orElse(null),
+					fillManager.getCurrentFill().map(LhcInfoObj::getView).orElse(null),
 					aliceMagnetsManager.getView()
 				);
 			}
