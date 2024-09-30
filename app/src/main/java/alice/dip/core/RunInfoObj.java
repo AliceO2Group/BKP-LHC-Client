@@ -46,7 +46,7 @@ public class RunInfoObj {
 
 	public String toString() {
 		final StringBuilder ans = new StringBuilder("RUN=" + RunNo + "\n");
-		ans.append("SOR=").append(AliDip2BK.PERSISTENCE_DATE_FORMAT.format(SOR_time)).append("\n");
+		ans.append("SOR=").append(new SerializableDate(SOR_time)).append("\n");
 
 		ans.append("LHC:: ")
 			.append(LHC_info_start != null ? LHC_info_start : "No DATA").append("\n")
@@ -55,7 +55,7 @@ public class RunInfoObj {
 			.append("\n")
 		;
 
-		ans.append("EOR=").append(AliDip2BK.PERSISTENCE_DATE_FORMAT.format(EOR_time)).append("\n");
+		ans.append("EOR=").append(new SerializableDate(EOR_time)).append("\n");
 
 		ans.append("LHC:: ")
 			.append(LHC_info_stop != null ? LHC_info_stop : "No DATA").append("\n")
@@ -78,7 +78,7 @@ public class RunInfoObj {
 			ans.append(" History:: Energy\n");
 
 			for (var energy: energyHistory) {
-				ans.append(" - ").append(AliDip2BK.PERSISTENCE_DATE_FORMAT.format(energy.time())).append("  ").append(energy.value()).append("\n");
+				ans.append(" - ").append(new SerializableDate(energy.time())).append("  ").append(energy.value()).append("\n");
 			}
 		}
 
@@ -86,7 +86,7 @@ public class RunInfoObj {
 			ans.append(" History:: L3 Magnet\n");
 
 			for (var current: l3CurrentHistory) {
-				ans.append(" - ").append(AliDip2BK.PERSISTENCE_DATE_FORMAT.format(current.time())).append("  ").append(current.value()).append("\n");
+				ans.append(" - ").append(new SerializableDate(current.time())).append("  ").append(current.value()).append("\n");
 			}
 		}
 
@@ -94,7 +94,7 @@ public class RunInfoObj {
 			ans.append(" History:: Dipole Magnet\n");
 
 			for (var current: dipoleHistory) {
-				ans.append(" - ").append(AliDip2BK.PERSISTENCE_DATE_FORMAT.format(current.time())).append("  ").append(current.value()).append("\n");
+				ans.append(" - ").append(new SerializableDate(current.time())).append("  ").append(current.value()).append("\n");
 			}
 		}
 

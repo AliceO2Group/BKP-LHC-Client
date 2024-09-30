@@ -24,13 +24,10 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 
 public class AliDip2BK implements Runnable {
-	public static final SimpleDateFormat PERSISTENCE_DATE_FORMAT = new SimpleDateFormat("dd-MM-yy HH:mm");
-
 	private static final String VERSION = "2.0  14-Nov-2023";
 	private static final String CONFIGURATION_FILE = "AliDip2BK.properties";
 
@@ -237,9 +234,9 @@ public class AliDip2BK implements Runnable {
 		long usedMB = (rt.totalMemory() - rt.freeMemory()) / 1024 / 1024;
 
 		String mess = "\n\n AliDip2BK Statistics \n";
-		mess = mess + " Started :" + PERSISTENCE_DATE_FORMAT.format(startDate) + "\n";
+		mess = mess + " Started :" + new SerializableDate(startDate) + "\n";
 		if (finalReport) {
-			mess = mess + " Stopped :" + PERSISTENCE_DATE_FORMAT.format(stopDate) + "\n";
+			mess = mess + " Stopped :" + new SerializableDate(stopDate) + "\n";
 		}
 		mess = mess + " Duration [h]=" + dur + "\n";
 		mess = mess + " Memory Used [MB]=" + usedMB + "\n";
