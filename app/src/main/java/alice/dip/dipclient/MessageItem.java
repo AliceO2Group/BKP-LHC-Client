@@ -2,7 +2,7 @@
  * cil
  **************/
 
-package alice.dip;
+package alice.dip.dipclient;
 
 import cern.dip.DipData;
 

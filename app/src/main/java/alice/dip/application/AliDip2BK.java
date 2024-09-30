@@ -7,11 +7,15 @@
  *
  */
 
-package alice.dip;
+package alice.dip.application;
 
+import alice.dip.dipclient.DipClient;
+import alice.dip.dipclient.DipMessagesProcessor;
+import alice.dip.simulation.SimDipEventsFill;
 import alice.dip.bookkeeping.BookkeepingClient;
 import alice.dip.bookkeeping.BookkeepingRunUpdatePayload;
 import alice.dip.configuration.ApplicationConfiguration;
+import alice.dip.core.*;
 import alice.dip.kafka.EndOfRunKafkaConsumer;
 import alice.dip.kafka.StartOfRunKafkaConsumer;
 

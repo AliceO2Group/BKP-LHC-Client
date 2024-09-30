@@ -1,4 +1,4 @@
-package alice.dip;
+package alice.dip.core;
 
 import java.util.*;
 

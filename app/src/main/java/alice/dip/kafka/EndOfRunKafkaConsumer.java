@@ -4,9 +4,8 @@
 
 package alice.dip.kafka;
 
-import alice.dip.AliDip2BK;
-import alice.dip.DipMessagesProcessor;
-import alice.dip.StatisticsManager;
+import alice.dip.application.AliDip2BK;
+import alice.dip.core.StatisticsManager;
 import alice.dip.configuration.KafkaClientConfiguration;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -17,7 +16,7 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
-import alice.dip.AlicePB.NewStateNotification;
+import alice.dip.kafka.AlicePB.NewStateNotification;
 
 import java.time.Duration;
 

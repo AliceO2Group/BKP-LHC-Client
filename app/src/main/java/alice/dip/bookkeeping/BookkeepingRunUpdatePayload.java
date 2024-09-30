@@ -1,8 +1,8 @@
 package alice.dip.bookkeeping;
 
-import alice.dip.PhaseShift;
-import alice.dip.Polarity;
-import alice.dip.RunInfoObj;
+import alice.dip.core.PhaseShift;
+import alice.dip.core.Polarity;
+import alice.dip.core.RunInfoObj;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

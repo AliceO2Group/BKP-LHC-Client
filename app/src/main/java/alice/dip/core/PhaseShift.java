@@ -1,4 +1,4 @@
-package alice.dip;
+package alice.dip.core;
 
 public record PhaseShift(
 	float beam1,

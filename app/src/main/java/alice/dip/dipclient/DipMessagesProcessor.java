@@ -2,15 +2,15 @@
  * cil
  **************/
 
-package alice.dip;
+package alice.dip.dipclient;
 
 import java.math.BigInteger;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-import alice.dip.bookkeeping.BookkeepingClient;
-import alice.dip.bookkeeping.BookkeepingRunUpdatePayload;
 import alice.dip.configuration.PersistenceConfiguration;
+import alice.dip.core.*;
+import alice.dip.application.AliDip2BK;
 import cern.dip.BadParameter;
 import cern.dip.DipData;
 import cern.dip.TypeMismatch;

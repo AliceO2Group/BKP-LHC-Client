@@ -27,7 +27,7 @@ java {
 }
 
 application {
-    mainClass = "alice.dip.AliDip2BK"
+    mainClass = "alice.dip.application.AliDip2BK"
 }
 
 tasks.named<JavaExec>("run") {

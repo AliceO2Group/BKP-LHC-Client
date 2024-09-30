@@ -4,8 +4,9 @@
 /*
  * Keeps the required LHC information
  */
-package alice.dip;
+package alice.dip.core;
 
+import alice.dip.application.AliDip2BK;
 import alice.dip.configuration.PersistenceConfiguration;
 
 import java.io.Serial;
