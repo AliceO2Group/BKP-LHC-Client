@@ -17,6 +17,8 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import alice.dip.kafka.AlicePB.NewStateNotification;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 
@@ -28,6 +30,8 @@ public class StartOfRunKafkaConsumer implements Runnable {
 	private final StartOfRunListener startOfRunListener;
 
 	private final Properties properties;
+
+	private final Logger logger = LoggerFactory.getLogger(StartOfRunKafkaConsumer.class);
 
 	public int NoMess = 0;
 
@@ -57,27 +61,29 @@ public class StartOfRunKafkaConsumer implements Runnable {
 			consumer.subscribe(List.of(configuration.topics().startOfRun()));
 
 			while (true) {
-				ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofMillis(100));
-				for (ConsumerRecord<String, byte[]> record : records) {
-					byte[] cucu = record.value();
+				ConsumerRecords<String, byte[]> consumerRecords = consumer.poll(Duration.ofMillis(100));
+				for (ConsumerRecord<String, byte[]> consumerRecord : consumerRecords) {
+					byte[] rawValue = consumerRecord.value();
 
 					NoMess = NoMess + 1;
 
 					try {
-						NewStateNotification info = NewStateNotification.parseFrom(cucu);
-						AliDip2BK.log(1, "KC_SOR.run",
-							"New Kafka mess; partition=" + record.partition() + " offset=" + record.offset() + " L=" + cucu.length
-								+ " RUN=" + info.getEnvInfo().getRunNumber() + "  " + info.getEnvInfo().getState() + " ENVID = "
-								+ info.getEnvInfo().getEnvironmentId());
+						NewStateNotification info = NewStateNotification.parseFrom(rawValue);
+						logger.debug("New Kafka mess sor; partition={} offset={} L={} RUN={} {} ENVID={}",
+							consumerRecord.partition(),
+							consumerRecord.offset(),
+							rawValue.length,
+							info.getEnvInfo().getRunNumber(),
+							info.getEnvInfo().getState(),
+							info.getEnvInfo().getEnvironmentId()
+						);
 
 						long time = info.getTimestamp();
 						int rno = info.getEnvInfo().getRunNumber();
 
 						startOfRunListener.onNewRun(time, rno);
 					} catch (InvalidProtocolBufferException e) {
-						AliDip2BK.log(4, "KC_SOR.run", "ERROR pasing data into obj e=" + e);
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						logger.error("ERROR parsing data into obj", e);
 					}
 				}
 			}

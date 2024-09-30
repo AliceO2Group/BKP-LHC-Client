@@ -17,11 +17,14 @@ import alice.dip.application.AliDip2BK;
 import cern.dip.DipData;
 import cern.dip.DipTimestamp;
 import cern.dip.TypeMismatch;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Util {
-
 	public static NumberFormat nf = NumberFormat.getInstance();
 	public static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ssZ");
+
+	private final static Logger logger = LoggerFactory.getLogger(Util.class);
 
 	// DIP DATA TYPES
 	// TYPE_NULL 0
@@ -34,38 +37,7 @@ public class Util {
 	// TYPE_DOUBLE 7 TYPE_DOUBLE_ARRAY 70
 	// TYPE_STRING 8 TYPE_STRING_ARRAY 80
 
-	public static float meanTS(ArrayList<TimestampedFloat> tsa) {
-
-		int N = tsa.size();
-		float ans = -1;
-
-		if (N == 0) {
-			ans = -1;
-		} else if (N == 1) {
-			TimestampedFloat t = tsa.get(0);
-			ans = t.value();
-		} else {
-			double sum = 0.0;
-
-			for (int i = 0; i < (tsa.size() - 1); i++) {
-				TimestampedFloat t1 = tsa.get(i);
-				TimestampedFloat t2 = tsa.get(i + 1);
-				sum = sum + (t1.value() + t2.value()) * ((double) (t2.time() - t1.time()));
-			}
-			TimestampedFloat ts = tsa.get(0);
-			TimestampedFloat te = tsa.get(tsa.size() - 1);
-
-			double x = sum * 0.5 / ((double) (te.time() - ts.time()));
-			ans = (float) x;
-		}
-
-		AliDip2BK.log(1, "Util.meanTS", " N=" + N + " mean value =" + ans);
-		return ans;
-
-	}
-
 	public static String parseDipMess(String parameter, DipData data) {
-
 		nf.setMinimumFractionDigits(0);
 		nf.setMaximumFractionDigits(2);
 		boolean ok = true;
@@ -100,17 +72,16 @@ public class Util {
 					long value = data.extractLong();
 					ans = ans + value;
 				} else {
-					AliDip2BK.log(4, "Util.parseDipMess",
-						" ERROR primitive type param=" + parameter + " DIIFERENT data TYPE=" + data.getValueType());
+					logger.error(
+						"ERROR primitive type param={} DIIFERENT data TYPE={}",
+						parameter,
+						data.getValueType());
 					ok = false;
 				}
 			} catch (TypeMismatch e) {
 
-				AliDip2BK.log(4, "Util.parseDipMess", " ERROR primitive type param=" + parameter + " TYPE_MISMATCH=" + e);
-
-				// e.printStackTrace();
+				logger.error("ERROR primitive type param={} TYPE_MISMATCH", parameter, e);
 				ok = false;
-
 			}
 		} else {
 
@@ -185,16 +156,16 @@ public class Util {
 						System.out.println(" TYPE LONG_ARRAY NO IMPLENET");
 					} else {
 						ok = false;
-						AliDip2BK.log(4, "Util.parseDipMess",
-							" ERROR NonPrimitive type param=" + parameter + " DIIFERENT data TYPE=" + data.getValueType());
-
+						logger.error(
+							"ERROR NonPrimitive type param={} DIIFERENT data TYPE=",
+							parameter,
+							data.getValueType()
+						);
 					}
 				}
 
 			} catch (Exception e) {
-				AliDip2BK.log(4, "Util.parseDipMess", " ERROR NonPrimitive type param=" + parameter + " TYPE_MISMATCH=" + e);
-				// TODO Auto-generated catch block
-				// e.printStackTrace();
+				logger.error("ERROR NonPrimitive type param={} TYPE_MISMATCH=", parameter, e);
 				ok = false;
 			}
 		}

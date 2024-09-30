@@ -14,6 +14,8 @@ import alice.dip.application.AliDip2BK;
 import cern.dip.BadParameter;
 import cern.dip.DipData;
 import cern.dip.TypeMismatch;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /*
  * Process dip messages received from the DipClient
@@ -30,6 +32,8 @@ public class DipMessagesProcessor implements Runnable {
 	private final AliceMagnetsManager aliceMagnetsManager;
 	private final StatisticsManager statisticsManager;
 	private final LuminosityManager luminosityManager;
+
+	private final Logger logger = LoggerFactory.getLogger(DipMessagesProcessor.class);
 
 	private boolean acceptData = true;
 
@@ -58,7 +62,7 @@ public class DipMessagesProcessor implements Runnable {
 	 */
 	public synchronized void handleMessage(String parameter, String message, DipData data) {
 		if (!acceptData) {
-			AliDip2BK.log(4, "ProcData.addData", " Queue is closed ! Data from " + parameter + " is NOT ACCEPTED");
+			logger.error(" Queue is closed ! Data from {} is NOT ACCEPTED", parameter);
 			return;
 		}
 
@@ -68,8 +72,7 @@ public class DipMessagesProcessor implements Runnable {
 		try {
 			outputQueue.put(messageItem);
 		} catch (InterruptedException e) {
-			AliDip2BK.log(4, "ProcData.addData", "ERROR adding new data ex= " + e);
-			e.printStackTrace();
+			logger.error("ERROR adding new data", e);
 		}
 	}
 
@@ -90,8 +93,7 @@ public class DipMessagesProcessor implements Runnable {
 				MessageItem messageItem = outputQueue.take();
 				processNextInQueue(messageItem);
 			} catch (InterruptedException e) {
-				AliDip2BK.log(4, "ProcData.run", " Interrupt Error=" + e);
-				e.printStackTrace();
+				logger.error(" Interrupt Error", e);
 			}
 		}
 	}
@@ -136,18 +138,10 @@ public class DipMessagesProcessor implements Runnable {
 					handleBookkeepingCtpClockMessage(messageItem.data);
 					break;
 				default:
-					AliDip2BK.log(
-						4,
-						"ProcData.dispach",
-						"!!!!!!!!!! Unimplemented Data Process for P=" + messageItem.param_name
-					);
+					logger.error("!!!!!!!!!! Unimplemented Data Process for P={}", messageItem.param_name);
 			}
 		} catch (Exception e) {
-			AliDip2BK.log(
-				2,
-				"ProcData.dispach",
-				" ERROR processing DIP message P=" + messageItem.param_name + " ex=" + e
-			);
+			logger.error("ERROR processing DIP message P={}", messageItem.param_name, e);
 		}
 	}
 
@@ -161,34 +155,34 @@ public class DipMessagesProcessor implements Runnable {
 
 		var time = dipData.extractDipTime().getAsMillis();
 
-		AliDip2BK.log(
-			1,
-			"ProcData.dispach",
-			" RunConfigurttion  FILL No = " + fillNumberStr + "  AIS=" + activeInjectionScheme + " IP2_COLL="
-				+ ip2CollisionsCountStr
+		logger.debug(
+			"Handle run configuration FILL={} AIS={} IP2_COLL={}",
+			fillNumberStr,
+			activeInjectionScheme,
+			ip2CollisionsCountStr
 		);
 
 		int fillNumber;
 		try {
 			fillNumber = Integer.parseInt(fillNumberStr);
-		} catch (NumberFormatException e1) {
-			AliDip2BK.log(4, "ProcData.newFILL", "ERROR parse INT for fillNo= " + fillNumberStr);
+		} catch (NumberFormatException e) {
+			logger.error("ERROR parse INT for fillNo={}", fillNumberStr, e);
 			return;
 		}
 
 		int ip2CollisionsCount;
 		try {
 			ip2CollisionsCount = Integer.parseInt(ip2CollisionsCountStr);
-		} catch (NumberFormatException e1) {
-			AliDip2BK.log(3, "ProcData.newFILL", "ERROR parse INT for IP2_COLLISIONS= " + ip2CollisionsCountStr);
+		} catch (NumberFormatException e) {
+			logger.error("ERROR parse INT for IP2_COLLISIONS={}", ip2CollisionsCountStr, e);
 			return;
 		}
 
 		int bunchesCount;
 		try {
 			bunchesCount = Integer.parseInt(bunchesCountStr);
-		} catch (NumberFormatException e1) {
-			AliDip2BK.log(3, "ProcData.newFILL", "ERROR parse INT for NO_BUNCHES= " + bunchesCountStr);
+		} catch (NumberFormatException e) {
+			logger.error("ERROR parse INT for NO_BUNCHES={}", bunchesCountStr, e);
 			return;
 		}
 
@@ -212,10 +206,12 @@ public class DipMessagesProcessor implements Runnable {
 		var isBeam2 = BigInteger.valueOf(safeModePayload).testBit(4);
 		var isStableBeams = BigInteger.valueOf(safeModePayload).testBit(2);
 
-		AliDip2BK.log(
-			0,
-			"ProcData.newSafeBeams",
-			" VAL=" + safeModePayload + " isB1=" + isBeam1 + " isB2=" + isBeam2 + " isSB=" + isStableBeams
+		logger.debug(
+			"New safeBeam message VAL={} isB1={} isB2={} isSB={}",
+			safeModePayload,
+			isBeam1,
+			isBeam2,
+			isStableBeams
 		);
 
 		fillManager.setSafeMode(time, isBeam1, isBeam2);
@@ -241,7 +237,7 @@ public class DipMessagesProcessor implements Runnable {
 
 		var time = dipData.extractDipTime().getAsMillis();
 
-		AliDip2BK.log(1, "ProcData.dispach", " New Beam MOde = " + beamMode);
+		logger.debug("New Beam Mode={}", beamMode);
 		fillManager.setBeamMode(time, beamMode);
 	}
 
@@ -285,7 +281,7 @@ public class DipMessagesProcessor implements Runnable {
 
 		aliceMagnetsManager.setL3Polarity(polarity);
 
-		AliDip2BK.log(2, "ProcData.dispach", " L3 Polarity=" + polarity);
+		logger.info("L3 Polarity={}", polarity);
 	}
 
 	private void handleDipolePolarityMessage(DipData dipData) throws TypeMismatch {
@@ -294,7 +290,7 @@ public class DipMessagesProcessor implements Runnable {
 
 		aliceMagnetsManager.setDipolePolarity(polarity);
 
-		AliDip2BK.log(2, "ProcData.dispach", " Dipole Polarity=" + polarity);
+		logger.info("Dipole Polarity={}", polarity);
 	}
 
 	private void handleBookkeepingSourceMessage(DipData dipData) throws BadParameter, TypeMismatch {

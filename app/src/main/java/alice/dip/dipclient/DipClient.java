@@ -17,17 +17,18 @@ import java.util.Map;
 import alice.dip.configuration.DipClientConfiguration;
 import alice.dip.application.AliDip2BK;
 import cern.dip.*;
-//import cern.dip.dim.Dip;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DipClient implements Runnable {
 
 	public int NoMess = 0;
 	public boolean status = true;
 	DipFactory dip;
-	long MAX_TIME_TO_UPDATE = 60;// in s
 	DipMessagesProcessor procData;
 	HashMap<String, DipSubscription> SubscriptionMap = new HashMap<>();
-	HashMap<String, DipData> DataMap = new HashMap<>();
+
+	private final Logger logger = LoggerFactory.getLogger(DipClient.class);
 
 	public DipClient(DipClientConfiguration configuration, DipMessagesProcessor procData) {
 
@@ -67,11 +68,11 @@ public class DipClient implements Runnable {
 				DipSubscription subx = dip.createDipSubscription(k, handler);
 				SubscriptionMap.put(k, subx);
 			} catch (DipException e) {
-				AliDip2BK.log(4, "DipClient.initDP", " error creating new subscription for param=" + k + " e=" + e);
+				logger.error("Error creating new subscription for param={}", k, e);
 			}
 		}
 
-		AliDip2BK.log(1, "DipClient.initDP", " Subscribed to " + SubscriptionMap.size() + " data provides");
+		logger.debug("Subscribed to {} data providers", SubscriptionMap.size());
 		status = true;
 	}
 
@@ -85,15 +86,11 @@ public class DipClient implements Runnable {
 			try {
 				dip.destroyDipSubscription(subx);
 			} catch (DipException e) {
-				AliDip2BK.log(
-					4,
-					"DipClient.CloseSubscriptions",
-					" error closing subscription for param=" + k + " e=" + e
-				);
+				logger.error("Error closing subscription for param={}", k, e);
 			}
 		}
 		SubscriptionMap.clear();
-		AliDip2BK.log(1, "DipClient.CloseSubscriptions", " Succesfuly closed all DIP Subscriptions");
+		logger.debug("Successfully closed all DIP Subscriptions");
 	}
 
 	public void readParamFile(String file_name) {
@@ -109,15 +106,15 @@ public class DipClient implements Runnable {
 							SubscriptionMap.put(dipSubscription, null);
 							subscriptionsCount++;
 						} else {
-							AliDip2BK.log(3, "DipClient.readParam", " DUPLICATE Parameter =" + dipSubscription);
+							logger.warn(" DUPLICATE Parameter ={}", dipSubscription);
 						}
 					}
 				}
 			}
 
-			AliDip2BK.log(1, "DipClient.readParam", " Configuration:  number of parameters NP=" + subscriptionsCount);
+			logger.debug("Read configuration: number of parameters NP={}", subscriptionsCount);
 		} catch (IOException e) {
-			AliDip2BK.log(4, "DipClient.readParam", " ERROR reading parameter file=" + file_name + "ex=" + e);
+			logger.error("ERROR reading parameter file={}", file_name, e);
 		}
 	}
 
@@ -125,6 +122,7 @@ public class DipClient implements Runnable {
 	 * handler for connect/disconnect/data reception events
 	 */
 	class GeneralDataListener implements DipSubscriptionListener {
+		private final Logger logger = LoggerFactory.getLogger(GeneralDataListener.class);
 
 		/**
 		 * handle changes to subscribed to publications
@@ -134,7 +132,7 @@ public class DipClient implements Runnable {
 			String p_name = subscription.getTopicName();
 			String ans = Util.parseDipMess(p_name, message);
 
-			AliDip2BK.log(0, "DipClient", " new Dip mess from " + p_name + " " + ans);
+			logger.debug("New Dip mess from {} {}", p_name, ans);
 
 			NoMess = NoMess + 1;
 
@@ -147,29 +145,24 @@ public class DipClient implements Runnable {
 		 * @param arg0 - the subsctiption who's publication is available.
 		 */
 		public void connected(DipSubscription arg0) {
-			// AliDip2BK.log(3, "DpiClient.GeneralDataListener.connect", "Publication source
-			// available "+arg0);
+			logger.info("Connected to {}", arg0.getTopicName());
 		}
 
 		/**
 		 * called when a publication subscribed to is unavailable.
 		 *
-		 * @param arg0 - the subsctiption who's publication is unavailable.
-		 * @param arg1 - string providing more information about why the publication is
-		 *             unavailable.
+		 * @param dipSubscription - the subscription whose publication is unavailable.
+		 * @param reason          - string providing more information about why the publication is
+		 *                        unavailable.
 		 */
-		public void disconnected(DipSubscription arg0, String arg1) {
-			AliDip2BK.log(
-				4,
-				"DipClient.GeneralDataListener.disconnect",
-				"Publication source unavailable " + arg0 + "  " + arg1
-			);
+		public void disconnected(DipSubscription dipSubscription, String reason) {
+			logger.info("Disconnected from {} {}", dipSubscription.getTopicName(), reason);
 			status = false;
 		}
 
 		@Override
-		public void handleException(DipSubscription arg0, Exception arg1) {
-			AliDip2BK.log(4, "DipClient.GeneralDataListener.Exception ", "Exception= " + arg0 + " arg1=" + arg1);
+		public void handleException(DipSubscription dipSubscription, Exception e) {
+			logger.error("ERROR subscription={}", dipSubscription.getTopicName(), e);
 		}
 	}
 }

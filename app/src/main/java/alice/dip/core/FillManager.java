@@ -1,8 +1,9 @@
 package alice.dip.core;
 
-import alice.dip.application.AliDip2BK;
 import alice.dip.bookkeeping.BookkeepingClient;
 import alice.dip.configuration.PersistenceConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -17,6 +18,8 @@ public class FillManager {
 	private final PersistenceConfiguration persistenceConfiguration;
 	private final BookkeepingClient bookkeepingClient;
 	private final StatisticsManager statisticsManager;
+
+	private final Logger logger = LoggerFactory.getLogger(FillManager.class);
 
 	private Optional<LhcInfoObj> currentFill = Optional.empty();
 
@@ -36,7 +39,7 @@ public class FillManager {
 
 	public void setCurrentFill(LhcInfoObj currentFill) {
 		this.currentFill = Optional.of(currentFill);
-		AliDip2BK.log(2, "ProcData.newFillNo", " **CREATED new FILL no=" + currentFill.fillNo);
+		logger.info("**CREATED new FILL NO={}", currentFill.fillNo);
 		bookkeepingClient.createLhcFill(currentFill.getView());
 		statisticsManager.incrementNewFillsCount();
 		saveState();
@@ -60,21 +63,16 @@ public class FillManager {
 					if (modification) {
 						bookkeepingClient.updateLhcFill(fill.getView());
 						saveState();
-						AliDip2BK.log(2, "ProcData.newFillNo", " * Update FILL no=" + fillNumber);
+						logger.info("Update FILL NO={}", fillNumber);
 					}
 				} else {
-					AliDip2BK.log(
-						4,
-						"ProcData.newFillNo",
-						" * FILL no=" + fillNumber + " AFS=" + activeInjectionScheme
-					);
+					logger.error("Error updating FILL NO={} AFS={}", fillNumber, activeInjectionScheme);
 				}
 			} else {
-				AliDip2BK.log(
-					3,
-					"ProcData.newFillNo",
-					" Received new FILL no=" + fillNumber + "  BUT is an active FILL =" + fill.fillNo + " Close the "
-						+ "old one and created the new one"
+				logger.warn(
+					"Received new FILL NO={} BUT is an active FILL={} Closed the old one and created a new one",
+					fillNumber,
+					fill.fillNo
 				);
 				fill.setEnd(new Date().getTime());
 				writeFillHistFile(fill);
@@ -106,12 +104,14 @@ public class FillManager {
 	}
 
 	public void setBeamMode(long date, String beamMode) {
-		currentFill.ifPresentOrElse(fill -> {
-			fill.setBeamMode(date, beamMode);
-			AliDip2BK.log(2, "ProcData.newBeamMode", "New beam mode=" + beamMode + "  for FILL_NO=" + fill.fillNo);
-			bookkeepingClient.updateLhcFill(fill.getView());
-			saveState();
-		}, () -> AliDip2BK.log(4, "ProcData.newBeamMode", " ERROR new beam mode=" + beamMode + " NO FILL NO for it"));
+		currentFill.ifPresentOrElse(
+			fill -> {
+				fill.setBeamMode(date, beamMode);
+				logger.info("New beam mode={} for FILL NO={}", beamMode, fill.fillNo);
+				bookkeepingClient.updateLhcFill(fill.getView());
+				saveState();
+			},
+			() -> logger.error("ERROR new beam mode={} NO FILL NO for it", beamMode));
 	}
 
 	public void setSafeMode(long time, boolean isBeam1, boolean isBeam2) {
@@ -121,16 +121,14 @@ public class FillManager {
 			if (currentBeamMode.contentEquals("STABLE BEAMS")) {
 				if (!isBeam1 || !isBeam2) {
 					fill.setBeamMode(time, "LOST BEAMS");
-					AliDip2BK.log(5, "ProcData.newSafeBeams", " CHANGE BEAM MODE TO LOST BEAMS !!! ");
+					logger.warn("CHANGE BEAM MODE TO LOST BEAMS !!!");
 				}
 				return;
 			}
 
-			if (currentBeamMode.contentEquals("LOST BEAMS")) {
-				if (isBeam1 && isBeam2) {
-					fill.setBeamMode(time, "STABLE BEAMS");
-					AliDip2BK.log(5, "ProcData.newSafeBeams", " RECOVER FROM BEAM LOST TO STABLE BEAMS ");
-				}
+			if (currentBeamMode.contentEquals("LOST BEAMS") && isBeam1 && isBeam2) {
+				fill.setBeamMode(time, "STABLE BEAMS");
+				logger.warn("RECOVER FROM BEAM LOST TO STABLE BEAMS");
 			}
 		});
 	}
@@ -152,7 +150,7 @@ public class FillManager {
 	public void loadState() {
 		var savedStatePath = persistenceConfiguration.applicationStatePath().resolve(SAVE_STATE_FILE);
 		if (!savedStatePath.toFile().exists()) {
-			AliDip2BK.log(2, "ProcData.loadState", " No Fill State file=" + savedStatePath);
+			logger.info("No Fill State file={}", savedStatePath);
 			return;
 		}
 
@@ -162,12 +160,11 @@ public class FillManager {
 			var savedStateObjectInputStream = new ObjectInputStream(savedStateInputStream);
 			savedLhcInfo = (LhcInfoObj) savedStateObjectInputStream.readObject();
 		} catch (Exception e) {
-			AliDip2BK.log(4, "ProcData.loadState", " ERROR loading sate from file=" + savedStatePath);
-			e.printStackTrace();
+			logger.error("ERROR loading sate from file={}", savedStatePath, e);
 		}
 
 		if (savedLhcInfo != null) {
-			AliDip2BK.log(3, "ProcData.loadState", " Loaded sate for Fill =" + savedLhcInfo.fillNo);
+			logger.info("Loaded sate for Fill ={}", savedLhcInfo.fillNo);
 			currentFill = Optional.of(savedLhcInfo);
 		}
 	}
@@ -186,8 +183,7 @@ public class FillManager {
 				savedStateObjectOutputStream.writeObject(fill);
 				savedStateObjectOutputStream.flush();
 			} catch (IOException e) {
-				AliDip2BK.log(4, "ProcData.saveState", " ERROR writing file=" + savedStatePath + "   ex=" + e);
-				e.printStackTrace();
+				logger.error("ERROR writing file={}", savedStatePath, e);
 			}
 
 			var textSavedStatePath = persistenceConfiguration.applicationStatePath().resolve(SAVE_TEXT_STATE_FILE);
@@ -199,9 +195,9 @@ public class FillManager {
 				)
 			) {
 				textSavedStateWriter.write(fill.history());
-				AliDip2BK.log(2, "ProcData.saveState", " saved state for fill=" + fill.fillNo);
+				logger.info("Saved state for fill={}", fill.fillNo);
 			} catch (IOException e) {
-				AliDip2BK.log(4, "ProcData.saveState", " ERROR writing file=" + textSavedStatePath + "   ex=" + e);
+				logger.error("ERROR writing file={}", textSavedStatePath, e);
 			}
 		});
 	}
@@ -218,11 +214,7 @@ public class FillManager {
 			) {
 				fillsHistoryWriter.write(lhc.history());
 			} catch (IOException e) {
-				AliDip2BK.log(
-					4,
-					"ProcData.writeFillHistFile",
-					" ERROR writing file=" + fillsHistoryPath + "   ex=" + e
-				);
+				logger.error(" ERROR writing file={}", fillsHistoryPath, e);
 			}
 		});
 	}
@@ -232,10 +224,11 @@ public class FillManager {
 		boolean update = false;
 
 		if (!fillingScheme.contentEquals(fill.lhcFillingSchemeName)) {
-			AliDip2BK.log(
-				4,
-				"LHCInfo.verify",
-				"FILL=" + fill.fillNo + "  Filling Scheme is different OLD=" + fill.lhcFillingSchemeName + " NEW=" + fillingScheme
+			logger.error(
+				"FILL={} Filling Scheme is different OLD={} NEW={}",
+				fill.fillNo,
+				fill.lhcFillingSchemeName,
+				fillingScheme
 			);
 
 			String beamMode = fill.getBeamMode();
@@ -246,12 +239,16 @@ public class FillManager {
 					fill.ip2CollisionsCount = ip2c;
 					fill.bunchesCount = nob;
 					update = true;
-					AliDip2BK.log(5, "LHCInfo.verify",
-						"FILL=" + fill.fillNo + " is IPB-> Changed Filling Scheme to :" + fill.lhcFillingSchemeName
+					logger.warn(
+						"FILL={} is IPB-> Changed Filling Scheme to {}",
+						fill.fillNo,
+						fill.lhcFillingSchemeName
 					);
 				} else {
-					AliDip2BK.log(4, "LHCInfo.verify",
-						"FILL=" + fill.fillNo + " is NOT in IPB keepFilling scheme to: " + fill.lhcFillingSchemeName
+					logger.warn(
+						"FILL={} is NOT in IPB keepFilling scheme to {}",
+						fill.fillNo,
+						fill.lhcFillingSchemeName
 					);
 				}
 			}
@@ -260,15 +257,21 @@ public class FillManager {
 		}
 
 		if (ip2c != fill.ip2CollisionsCount) {
-			AliDip2BK.log(4, "LHCInfo.verify",
-				" FILL=" + fill.fillNo + " IP2 COLLis different OLD=" + fill.ip2CollisionsCount + " new=" + ip2c
+			logger.warn(
+				"FILL={} IP2 COLLis different OLD={} new={}",
+				fill.fillNo,
+				fill.ip2CollisionsCount,
+				ip2c
 			);
 			fill.ip2CollisionsCount = ip2c;
 		}
 
 		if (nob != fill.bunchesCount) {
-			AliDip2BK.log(4, "LHCInfo.verify",
-				" FILL=" + fill.fillNo + " INO_BUNCHES is different OLD=" + fill.bunchesCount + " new=" + nob
+			logger.error(
+				"FILL={} INO_BUNCHES is different OLD={} new={}",
+				fill.fillNo,
+				fill.bunchesCount,
+				nob
 			);
 			fill.bunchesCount = nob;
 		}

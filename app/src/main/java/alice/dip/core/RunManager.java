@@ -2,6 +2,8 @@ package alice.dip.core;
 
 import alice.dip.application.AliDip2BK;
 import alice.dip.configuration.PersistenceConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,6 +16,8 @@ import java.util.stream.Collectors;
 public class RunManager {
 	private final PersistenceConfiguration persistenceConfiguration;
 	private final StatisticsManager statisticsManager;
+
+	private final Logger logger = LoggerFactory.getLogger(RunManager.class);
 
 	private OptionalInt lastRunNumber = OptionalInt.empty();
 	private final List<RunInfoObj> activeRuns = new ArrayList<>();
@@ -36,10 +40,10 @@ public class RunManager {
 			? " with FillNo=" + fillAtStart.fillNumber()
 			: " but currentFILL is NULL Perhaps Cosmics Run";
 
-		AliDip2BK.log(2, "ProcData.newRunSignal", " NEW RUN NO =" + runNumber + fillLogMessage);
+		logger.info("NEW RUN NO={}{}", runNumber, fillLogMessage);
 
 		if (this.hasRunByRunNumber(runNumber)) {
-			AliDip2BK.log(6, "ProcData.newRunSignal", " Duplicate new  RUN signal =" + runNumber + " IGNORE it");
+			logger.warn("Duplicate new RUN signal RUN_NUMBER={} IGNORE it", runNumber);
 			return null;
 		}
 
@@ -64,11 +68,11 @@ public class RunManager {
 				}
 				missingRunsList.append(">>");
 
-				AliDip2BK.log(
-					7,
-					"ProcData.newRunSignal",
-					" LOST RUN No Signal! " + missingRunsList + "  New RUN NO =" + runNumber
-						+ " Last Run No=" + lastRunNumber
+				logger.error(
+					"LOST RUN No Signal! {} New RUN NO={} Last Run No={}",
+					missingRunsList,
+					runNumber,
+					lastRunNumber
 				);
 			}
 
@@ -98,7 +102,7 @@ public class RunManager {
 			}
 		}
 
-		AliDip2BK.log(4, "ProcData.EndRun", " ERROR RunNo=" + runNumber + " is not in the ACTIVE LIST ");
+		logger.error("ERROR RunNo={} is not in the ACTIVE LIST", runNumber);
 		statisticsManager.incrementDuplicatedRunsEndCount();
 	}
 
@@ -157,17 +161,14 @@ public class RunManager {
 			.map(activeRun -> String.valueOf(activeRun.RunNo))
 			.collect(Collectors.joining(", "));
 
-		var logModule = "ProcData.EndRun";
-
-		AliDip2BK.log(2, logModule, " Correctly closed  runNo=" + run.RunNo
-			+ "  ActiveRuns size=" + activeRuns.size() + " " + activeRunsString);
+		logger.info("Correctly closed runNo={} ActiveRuns size={} {}", run.RunNo, activeRuns.size(), activeRunsString);
 
 		if (run.LHC_info_start.fillNumber() != run.LHC_info_stop.fillNumber()) {
-			AliDip2BK.log(
-				5,
-				logModule,
-				" !!!! RUN =" + run.RunNo + "  Statred FillNo=" + run.LHC_info_start.fillNumber()
-					+ " and STOPED with FillNo=" + run.LHC_info_stop.fillNumber()
+			logger.error(
+				"RUN={} Started FillNo={} and STOPPED with FillNo={}",
+				run.RunNo,
+				run.LHC_info_start.fillNumber(),
+				run.LHC_info_stop.fillNumber()
 			);
 		}
 	}
@@ -184,7 +185,7 @@ public class RunManager {
 			) {
 				writer.write(run.toString());
 			} catch (IOException e) {
-				AliDip2BK.log(4, "ProcData.writeRunHistFile", " ERROR writing file=" + runsHistoryPath + "   ex=" + e);
+				logger.error("ERROR writing file={}", runsHistoryPath, e);
 			}
 		});
 	}
@@ -202,7 +203,7 @@ public class RunManager {
 				writer.write(historyItem.time() + "," + historyItem.value() + "\n");
 			}
 		} catch (IOException e) {
-			AliDip2BK.log(4, "ProcData.writeHistFile", " ERROR writing file=" + filename + "   ex=" + e);
+			logger.error("ERROR writing file={}", filename, e);
 		}
 	}
 }
