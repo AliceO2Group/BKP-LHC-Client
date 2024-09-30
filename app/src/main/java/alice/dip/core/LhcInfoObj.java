@@ -25,6 +25,8 @@ public class LhcInfoObj implements Serializable {
     public int bunchesCount;
 
     private final long createdTime;
+    private Optional<Long> endedTime = Optional.empty();
+
     private final String beam1ParticleType;
     private final String beam2ParticleType;
     private final String beamType;
@@ -35,7 +37,6 @@ public class LhcInfoObj implements Serializable {
     private final HistorizedString beamModeHistory;
     private final List<TimestampedString> fillingSchemeHistory;
 
-    private long endedTime = -1;
 
     public LhcInfoObj(
         PersistenceConfiguration persistenceConfiguration,
@@ -69,10 +70,10 @@ public class LhcInfoObj implements Serializable {
     public LhcFillView getView() {
         return new LhcFillView(
             fillNo,
-            createdTime,
-            endedTime,
-            getStableBeamStart(),
-            getStableBeamStop(),
+            new SerializableDate(createdTime),
+            endedTime.map(SerializableDate::new),
+            getStableBeamStart().map(SerializableDate::new),
+            getStableBeamStop().map(SerializableDate::new),
             getStableBeamDuration(),
             getBeamMode(),
             beamType,
@@ -85,9 +86,9 @@ public class LhcInfoObj implements Serializable {
     }
 
     public String history() {
-        String ans = " FILL No=" + fillNo + " StartTime=" + AliDip2BK.PERSISTENCE_DATE_FORMAT.format(createdTime);
-        if (endedTime > 0) {
-            ans = ans + " EndTime=" + AliDip2BK.PERSISTENCE_DATE_FORMAT.format(endedTime) + "\n";
+        String ans = " FILL No=" + fillNo + " StartTime=" + new SerializableDate(createdTime);
+        if (endedTime.isPresent()) {
+            ans = ans + " EndTime=" + new SerializableDate(endedTime.get()) + "\n";
         }
         ans = ans + " Beam1_ParticleType=" + beam1ParticleType + " Beam2_ParticleType=" + beam2ParticleType;
         ans = ans + " Beam Type=" + beamType;
@@ -112,7 +113,7 @@ public class LhcInfoObj implements Serializable {
             ans = ans + " History:: Beam Mode\n";
 
             for (TimestampedString a1 : beamModeHistory) {
-                ans = ans + " - " + AliDip2BK.PERSISTENCE_DATE_FORMAT.format(a1.time()) + "  " + a1.value() + "\n";
+                ans = ans + " - " + new SerializableDate(a1.time()) + "  " + a1.value() + "\n";
             }
         }
 
@@ -120,14 +121,14 @@ public class LhcInfoObj implements Serializable {
             ans = ans + " History:: Filling Scheme \n";
 
             for (TimestampedString a1 : fillingSchemeHistory) {
-                ans = ans + " - " + AliDip2BK.PERSISTENCE_DATE_FORMAT.format(a1.time()) + "  " + a1.value() + "\n";
+                ans = ans + " - " + new SerializableDate(a1.time()) + "  " + a1.value() + "\n";
             }
         }
 
         if (!beamEnergyHistory.isEmpty()) {
             ans = ans + " History:: Beam Energy\n";
             for (TimestampedFloat a1 : beamEnergyHistory) {
-                ans = ans + " - " + AliDip2BK.PERSISTENCE_DATE_FORMAT.format(a1.time()) + "  " + a1.value() + "\n";
+                ans = ans + " - " + new SerializableDate(a1.time()) + "  " + a1.value() + "\n";
             }
         }
 
@@ -135,7 +136,7 @@ public class LhcInfoObj implements Serializable {
             ans = ans + " History:: LHC Beta Star\n";
 
             for (TimestampedFloat a1 : betaStarHistory) {
-                ans = ans + " - " + AliDip2BK.PERSISTENCE_DATE_FORMAT.format(a1.time()) + "  " + a1.value() + "\n";
+                ans = ans + " - " + new SerializableDate(a1.time()) + "  " + a1.value() + "\n";
             }
         }
 
@@ -197,7 +198,7 @@ public class LhcInfoObj implements Serializable {
                     return Optional.of(iterator.next().time());
                 } else {
                     // Currently in stable beams (case 2 or case 3)
-                    return Optional.of(endedTime >= 0 ? endedTime : 0);
+                    return endedTime;
                 }
             }
         }
@@ -227,7 +228,7 @@ public class LhcInfoObj implements Serializable {
                     duration += nextBeamMode.time() - beamMode.time();
                 } else {
                     // It is the current beam mode
-                    var end = endedTime >= 0 ? endedTime : new Date().getTime();
+                    var end = endedTime.orElse(new Date().getTime());
                     duration += end - beamMode.time();
                 }
             }
@@ -240,13 +241,13 @@ public class LhcInfoObj implements Serializable {
     }
 
     public void setEnd(long date) {
-        endedTime = date;
+        endedTime = Optional.of(date);
     }
 
     private String getStableBeamStartStr() {
         var stableBeamStart = getStableBeamStart();
 
-        return stableBeamStart.map(AliDip2BK.PERSISTENCE_DATE_FORMAT::format).orElse("No Stable Beam");
+        return stableBeamStart.map(time -> new SerializableDate(time).toString()).orElse("No Stable Beam");
     }
 
     private String getStableBeamStopStr() {
@@ -254,6 +255,6 @@ public class LhcInfoObj implements Serializable {
             return "No Stable Beam";
         }
 
-        return getStableBeamStop().map(AliDip2BK.PERSISTENCE_DATE_FORMAT::format).orElse("-");
+        return getStableBeamStop().map(time -> new SerializableDate(time).toString()).orElse("-");
     }
 }
