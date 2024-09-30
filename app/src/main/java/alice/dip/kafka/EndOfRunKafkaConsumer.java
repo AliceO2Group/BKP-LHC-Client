@@ -17,6 +17,8 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import alice.dip.kafka.AlicePB.NewStateNotification;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 
@@ -28,6 +30,8 @@ public class EndOfRunKafkaConsumer implements Runnable {
 	private final EndOfRunListener endOfRunListener;
 
 	private final Properties properties;
+
+	private final Logger logger = LoggerFactory.getLogger(EndOfRunKafkaConsumer.class);
 
 	public int NoMess = 0;
 
@@ -53,26 +57,28 @@ public class EndOfRunKafkaConsumer implements Runnable {
 	public void run() {
 
 		try (// creating consumer
-			KafkaConsumer<String, byte[]> consumer = new KafkaConsumer<>(properties)
+			 KafkaConsumer<String, byte[]> consumer = new KafkaConsumer<>(properties)
 		) {
 			// Subscribing
 			consumer.subscribe(List.of(configuration.topics().endOfRun()));
 
 			while (true) {
-				ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofMillis(100));
-				for (ConsumerRecord<String, byte[]> record : records) {
+				ConsumerRecords<String, byte[]> consumerRecords = consumer.poll(Duration.ofMillis(100));
+				for (ConsumerRecord<String, byte[]> consumerRecord : consumerRecords) {
 					NoMess = NoMess + 1;
 
-					byte[] cucu = record.value();
+					byte[] rawValue = consumerRecord.value();
 
 					try {
-						NewStateNotification info = NewStateNotification.parseFrom(cucu);
-						AliDip2BK.log(1, "KC_EOR.run",
-							"New Kafka mess; partition=" + record.partition() + " offset=" + record.offset() + " L="
-								+ cucu.length
-								+ " RUN=" + info.getEnvInfo().getRunNumber() + "  " + info.getEnvInfo().getState()
-								+ " ENVID = "
-								+ info.getEnvInfo().getEnvironmentId()
+						NewStateNotification info = NewStateNotification.parseFrom(rawValue);
+						logger.debug(
+							"New Kafka mess eor; partition={} offset={} L={} RUN={} {} ENVID={}",
+							consumerRecord.partition(),
+							consumerRecord.offset(),
+							rawValue.length,
+							info.getEnvInfo().getRunNumber(),
+							info.getEnvInfo().getState(),
+							info.getEnvInfo().getEnvironmentId()
 						);
 
 						long time = info.getTimestamp();
@@ -80,12 +86,9 @@ public class EndOfRunKafkaConsumer implements Runnable {
 
 						endOfRunListener.onEndOfRun(time, rno);
 					} catch (InvalidProtocolBufferException e) {
-						AliDip2BK.log(4, "KC_EOR.run", "ERROR pasing data into obj e=" + e);
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						logger.error("ERROR parsing data into obj", e);
 					}
 				}
-				// consumer.commitAsync();
 			}
 		}
 	}
