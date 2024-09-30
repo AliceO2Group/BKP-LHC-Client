@@ -5,13 +5,15 @@
  *  Utility methods to process DipData structures
  *
  */
-package alice.dip;
+package alice.dip.dipclient;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import alice.dip.core.TimestampedFloat;
+import alice.dip.application.AliDip2BK;
 import cern.dip.DipData;
 import cern.dip.DipTimestamp;
 import cern.dip.TypeMismatch;

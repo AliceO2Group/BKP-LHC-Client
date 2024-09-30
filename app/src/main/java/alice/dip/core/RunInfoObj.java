@@ -4,7 +4,9 @@
 /*
  *  Keeps the RUN Information
  */
-package alice.dip;
+package alice.dip.core;
+
+import alice.dip.application.AliDip2BK;
 
 import java.util.ArrayList;
 import java.util.List;

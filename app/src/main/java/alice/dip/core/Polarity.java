@@ -1,4 +1,4 @@
-package alice.dip;
+package alice.dip.core;
 
 public enum Polarity {
 	POSITIVE("Positive"),

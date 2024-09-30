@@ -1,5 +1,6 @@
-package alice.dip;
+package alice.dip.core;
 
+import alice.dip.application.AliDip2BK;
 import alice.dip.bookkeeping.BookkeepingClient;
 import alice.dip.configuration.PersistenceConfiguration;
 
@@ -19,7 +20,7 @@ public class FillManager {
 
 	private Optional<LhcInfoObj> currentFill = Optional.empty();
 
-	FillManager(
+	public FillManager(
 		PersistenceConfiguration persistenceConfiguration,
 		BookkeepingClient bookkeepingClient,
 		StatisticsManager statisticsManager

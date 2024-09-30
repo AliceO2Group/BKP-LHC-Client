@@ -1,4 +1,4 @@
-package alice.dip;
+package alice.dip.core;
 
 public class StatisticsManager {
 	private int dipMessagesCount = 0;

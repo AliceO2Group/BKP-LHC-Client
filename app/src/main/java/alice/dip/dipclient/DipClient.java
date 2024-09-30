@@ -7,15 +7,15 @@
 // Send the received information to ProcData for creating the Fill and Run data structures
 //
 
-package alice.dip;
+package alice.dip.dipclient;
 
 import java.io.*;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import alice.dip.configuration.DipClientConfiguration;
+import alice.dip.application.AliDip2BK;
 import cern.dip.*;
 //import cern.dip.dim.Dip;
 

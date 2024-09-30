@@ -9,9 +9,8 @@
 
 package alice.dip.bookkeeping;
 
-import alice.dip.AliDip2BK;
-import alice.dip.LhcFillView;
-import alice.dip.LhcInfoObj;
+import alice.dip.application.AliDip2BK;
+import alice.dip.core.LhcFillView;
 import alice.dip.configuration.BookkeepingClientConfiguration;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

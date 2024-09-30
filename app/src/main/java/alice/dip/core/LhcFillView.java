@@ -1,4 +1,6 @@
-package alice.dip;
+package alice.dip.core;
+
+import alice.dip.application.AliDip2BK;
 
 import java.util.Optional;
 

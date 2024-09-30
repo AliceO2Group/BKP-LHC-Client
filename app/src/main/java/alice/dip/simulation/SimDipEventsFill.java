@@ -6,7 +6,9 @@
  *  Simulates a set of DIP events for testing ONLY
  *
  */
-package alice.dip;
+package alice.dip.simulation;
+
+import alice.dip.core.FillManager;
 
 import java.util.Date;
 
