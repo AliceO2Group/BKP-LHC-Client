@@ -6,13 +6,17 @@ protobuf-core = "3.20.0"
 kafka-clients = "3.8.0"
 slf4j = "2.0.16"
 jackson = "2.17.2"
+junit = "5.11.1"
+mockito = "5.14.1"
 
 
 [libraries]
-protobuf-core = {module = "com.google.protobuf:protobuf-java", version.ref = "protobuf-core"}
-kafka-clients = {module = "org.apache.kafka:kafka-clients", version.ref = "kafka-clients"}
-slf4j-api = {module = "org.slf4j:slf4j-api", version.ref = "slf4j"}
-slf4j-jdk = {module = "org.slf4j:slf4j-jdk14", version.ref = "slf4j"}
-jackson-databind = {module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson"}
-jackson-annotations = {module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson"}
-jackson-jdk8 = {module = "com.fasterxml.jackson.datatype:jackson-datatype-jdk8", version.ref = "jackson"}
+protobuf-core = { module = "com.google.protobuf:protobuf-java", version.ref = "protobuf-core" }
+kafka-clients = { module = "org.apache.kafka:kafka-clients", version.ref = "kafka-clients" }
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+slf4j-jdk = { module = "org.slf4j:slf4j-jdk14", version.ref = "slf4j" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
+jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson" }
+jackson-jdk8 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jdk8", version.ref = "jackson" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
+mockito = { module = "org.mockito:mockito-core", version.ref = "mockito" }

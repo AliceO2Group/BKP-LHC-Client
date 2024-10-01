@@ -30,11 +30,8 @@ public class BookkeepingClient {
 
 	private final Logger logger = LoggerFactory.getLogger(BookkeepingClient.class);
 
-	public BookkeepingClient(BookkeepingClientConfiguration bookkeepingClientConfiguration) {
-		httpClient = HttpClient.newBuilder()
-			.version(HttpClient.Version.HTTP_2)
-			.connectTimeout(Duration.ofSeconds(10))
-			.build();
+	public BookkeepingClient(BookkeepingClientConfiguration bookkeepingClientConfiguration, HttpClient httpClient) {
+		this.httpClient = httpClient;
 
 		this.bookkeepingUrl = bookkeepingClientConfiguration.url();
 		this.bookkeepingToken = bookkeepingClientConfiguration.token();

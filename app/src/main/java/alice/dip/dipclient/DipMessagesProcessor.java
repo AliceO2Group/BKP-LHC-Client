@@ -10,7 +10,6 @@ import java.util.concurrent.BlockingQueue;
 
 import alice.dip.configuration.PersistenceConfiguration;
 import alice.dip.core.*;
-import alice.dip.application.AliDip2BK;
 import cern.dip.BadParameter;
 import cern.dip.DipData;
 import cern.dip.TypeMismatch;
@@ -60,13 +59,13 @@ public class DipMessagesProcessor implements Runnable {
 	/*
 	 * This method is used for receiving DipData messages from the Dip Client
 	 */
-	public synchronized void handleMessage(String parameter, String message, DipData data) {
+	public synchronized void handleMessage(String parameter, DipData data) {
 		if (!acceptData) {
 			logger.error(" Queue is closed ! Data from {} is NOT ACCEPTED", parameter);
 			return;
 		}
 
-		MessageItem messageItem = new MessageItem(parameter, message, data);
+		MessageItem messageItem = new MessageItem(parameter, data);
 		statisticsManager.incrementDipMessagesCount();
 
 		try {
@@ -103,45 +102,45 @@ public class DipMessagesProcessor implements Runnable {
 	 */
 	public void processNextInQueue(MessageItem messageItem) {
 		try {
-			switch ((messageItem.param_name)) {
+			switch ((messageItem.parameterName())) {
 				case "dip/acc/LHC/RunControl/RunConfiguration":
-					handleRunConfigurationMessage(messageItem.data);
+					handleRunConfigurationMessage(messageItem.dipData());
 					break;
 				case "dip/acc/LHC/RunControl/SafeBeam":
-					handleSafeBeamMessage(messageItem.data);
+					handleSafeBeamMessage(messageItem.dipData());
 					break;
 				case "dip/acc/LHC/Beam/Energy":
-					handleEnergyMessage(messageItem.data);
+					handleEnergyMessage(messageItem.dipData());
 					break;
 				case "dip/acc/LHC/RunControl/BeamMode":
-					handleBeamModeMessage(messageItem.data);
+					handleBeamModeMessage(messageItem.dipData());
 					break;
 				case "dip/acc/LHC/Beam/BetaStar/Bstar2":
-					handleBetaStarMessage(messageItem.data);
+					handleBetaStarMessage(messageItem.dipData());
 					break;
 				case "dip/ALICE/MCS/Solenoid/Current":
-					handleL3CurrentMessage(messageItem.data);
+					handleL3CurrentMessage(messageItem.dipData());
 					break;
 				case "dip/ALICE/MCS/Dipole/Current":
-					handleDipoleCurrentMessage(messageItem.data);
+					handleDipoleCurrentMessage(messageItem.dipData());
 					break;
 				case "dip/ALICE/MCS/Solenoid/Polarity":
-					handleL3PolarityMessage(messageItem.data);
+					handleL3PolarityMessage(messageItem.dipData());
 					break;
 				case "dip/ALICE/MCS/Dipole/Polarity":
-					handleDipolePolarityMessage(messageItem.data);
+					handleDipolePolarityMessage(messageItem.dipData());
 					break;
 				case "dip/ALICE/LHC/Bookkeeping/Source":
-					handleBookkeepingSourceMessage(messageItem.data);
+					handleBookkeepingSourceMessage(messageItem.dipData());
 					break;
 				case "dip/ALICE/LHC/Bookkeeping/CTPClock":
-					handleBookkeepingCtpClockMessage(messageItem.data);
+					handleBookkeepingCtpClockMessage(messageItem.dipData());
 					break;
 				default:
-					logger.error("!!!!!!!!!! Unimplemented Data Process for P={}", messageItem.param_name);
+					logger.error("!!!!!!!!!! Unimplemented Data Process for P={}", messageItem.parameterName());
 			}
 		} catch (Exception e) {
-			logger.error("ERROR processing DIP message P={}", messageItem.param_name, e);
+			logger.error("ERROR processing DIP message P={}", messageItem.parameterName(), e);
 		}
 	}
 
@@ -186,7 +185,7 @@ public class DipMessagesProcessor implements Runnable {
 			return;
 		}
 
-		fillManager.handleFillConfigurationChanged(
+		var isNewFill = fillManager.handleFillConfigurationChanged(
 			time,
 			fillNumber,
 			beam1ParticleType,
@@ -195,6 +194,8 @@ public class DipMessagesProcessor implements Runnable {
 			ip2CollisionsCount,
 			bunchesCount
 		);
+
+		if (isNewFill) statisticsManager.incrementNewFillsCount();
 	}
 
 	private void handleSafeBeamMessage(DipData dipData) throws BadParameter, TypeMismatch {

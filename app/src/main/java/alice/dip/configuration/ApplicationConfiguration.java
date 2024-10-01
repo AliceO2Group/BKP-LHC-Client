@@ -66,22 +66,10 @@ public record ApplicationConfiguration(
 		}
 
 		// Not overridable for now
-		var persistencePath = DEFAULT_PERSISTENCE_PATH;
-		var persistenceConfiguration = new PersistenceConfiguration(
-			persistencePath,
-
-			persistencePath.resolve(DEFAULT_APPLICATION_STATE_PERSISTENCE_DIRECTORY),
-
-			runsHistoryDirectory.map(persistencePath::resolve),
-
-			fillsHistoryDirectory.map(persistencePath::resolve),
-
-			saveParametersHistoryPerRun,
-			persistencePath.resolve(DEFAULT_HISTORY_PERSISTENCE_DIRECTORY),
-
-			DEFAULT_LOGGED_ENERGY_DELTA,
-			DEFAULT_LOGGED_BETA_DELTA,
-			DEFAULT_LOGGED_CURRENT_DELTA
+		var persistenceConfiguration = getPersistenceConfiguration(
+			runsHistoryDirectory,
+			fillsHistoryDirectory,
+			saveParametersHistoryPerRun
 		);
 
 		// DIP Client
@@ -141,6 +129,31 @@ public record ApplicationConfiguration(
 			bookkeepingClientConfiguration,
 			kafkaClientConfiguration,
 			simulationConfiguration
+		);
+	}
+
+	public static PersistenceConfiguration getPersistenceConfiguration(
+		Optional<String> runsHistoryDirectory,
+		Optional<String> fillsHistoryDirectory,
+		boolean saveParametersHistoryPerRun
+	) {
+		var persistencePath = DEFAULT_PERSISTENCE_PATH;
+
+		return new PersistenceConfiguration(
+			persistencePath,
+
+			persistencePath.resolve(DEFAULT_APPLICATION_STATE_PERSISTENCE_DIRECTORY),
+
+			runsHistoryDirectory.map(persistencePath::resolve),
+
+			fillsHistoryDirectory.map(persistencePath::resolve),
+
+			saveParametersHistoryPerRun,
+			persistencePath.resolve(DEFAULT_HISTORY_PERSISTENCE_DIRECTORY),
+
+			DEFAULT_LOGGED_ENERGY_DELTA,
+			DEFAULT_LOGGED_BETA_DELTA,
+			DEFAULT_LOGGED_CURRENT_DELTA
 		);
 	}
 }
