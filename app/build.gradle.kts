@@ -15,6 +15,10 @@ dependencies {
     implementation(libs.jackson.databind)
     implementation(libs.jackson.annotations)
     implementation(libs.jackson.jdk8)
+
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.mockito)
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 java {
@@ -28,6 +32,14 @@ application {
 }
 
 tasks.named<JavaExec>("run") {
+    doFirst {
+        environment("LD_LIBRARY_PATH", rootDir.path + "/libs")
+    }
+}
+
+tasks.named<Test>("test") {
+    useJUnitPlatform()
+
     doFirst {
         environment("LD_LIBRARY_PATH", rootDir.path + "/libs")
     }

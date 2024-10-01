@@ -22,8 +22,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.http.HttpClient;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
+import java.time.Duration;
 import java.util.Date;
 import java.util.Properties;
 
@@ -56,9 +58,13 @@ public class AliDip2BK implements Runnable {
 		verifyDirs();
 
 		statisticsManager = new StatisticsManager();
-		var bookkeepingClient = new BookkeepingClient(configuration.bookkeepingClient());
-		var runManager = new RunManager(configuration.persistence(), statisticsManager);
-		fillManager = new FillManager(configuration.persistence(), bookkeepingClient, statisticsManager);
+		var httpClient = HttpClient.newBuilder()
+			.version(HttpClient.Version.HTTP_2)
+			.connectTimeout(Duration.ofSeconds(10))
+			.build();
+		var bookkeepingClient = new BookkeepingClient(configuration.bookkeepingClient(), httpClient);
+		var runManager = new RunManager(configuration.persistence());
+		fillManager = new FillManager(configuration.persistence(), bookkeepingClient);
 		fillManager.loadState();
 		var aliceMagnetsManager = new AliceMagnetsManager();
 		var luminosityManager = new LuminosityManager();
@@ -87,6 +93,8 @@ public class AliDip2BK implements Runnable {
 			configuration.kafkaClient(),
 			(date, runNumber) -> {
 				statisticsManager.incrementKafkaMessagesCount();
+				statisticsManager.incrementNewRunsCount();
+
 				var newRun = runManager.handleNewRun(
 					date,
 					runNumber,
@@ -102,14 +110,23 @@ public class AliDip2BK implements Runnable {
 			configuration.kafkaClient(),
 			(date, runNumber) -> {
 				statisticsManager.incrementKafkaMessagesCount();
+
 				var luminosityAtEnd = luminosityManager.getView();
-				runManager.handleRunEnd(
-					date,
-					runNumber,
-					fillManager.getCurrentFill().map(LhcInfoObj::getView).orElse(null),
-					aliceMagnetsManager.getView(),
-					luminosityAtEnd
-				);
+
+				try {
+					runManager.handleRunEnd(
+						date,
+						runNumber,
+						fillManager.getCurrentFill().map(LhcInfoObj::getView).orElse(null),
+						aliceMagnetsManager.getView(),
+						luminosityAtEnd
+					);
+					statisticsManager.incrementEndedRunsCount();
+				} catch (RunNotFoundException e) {
+					logger.error("ERROR RunNo={} is not in the ACTIVE LIST", runNumber);
+					statisticsManager.incrementDuplicatedRunsEndCount();
+				}
+
 				var updateRunPayload = new BookkeepingRunUpdatePayload(runNumber);
 				if (luminosityAtEnd.phaseShift().isPresent()) {
 					updateRunPayload.setPhaseShiftAtEnd(luminosityAtEnd.phaseShift().get());
@@ -177,14 +194,14 @@ public class AliDip2BK implements Runnable {
 	public void showConfig() {
 		String con = "*************************************************\n";
 
-		con = con + "* \n";
-		con = con + "* AkiDip2BK Version =" + VERSION + "\n";
-		con = con + "* DIP/DIM =" + this.configuration.dipClient().dnsNode() + "\n";
-		con = con + "* KAFKA Server = " + this.configuration.kafkaClient().bootstrapServers() + "\n";
-		con = con + "* KAFKA Group ID=" + this.configuration.kafkaClient().groupId() + "\n";
-		con = con + "* Bookkeeping URL =" + this.configuration.bookkeepingClient().url() + "\n";
-		con = con + "* \n";
-		con = con + "*************************************************\n";
+		con += "* \n";
+		con += "* AkiDip2BK Version =" + VERSION + "\n";
+		con += "* DIP/DIM =" + this.configuration.dipClient().dnsNode() + "\n";
+		con += "* KAFKA Server = " + this.configuration.kafkaClient().bootstrapServers() + "\n";
+		con += "* KAFKA Group ID=" + this.configuration.kafkaClient().groupId() + "\n";
+		con += "* Bookkeeping URL =" + this.configuration.bookkeepingClient().url() + "\n";
+		con += "* \n";
+		con += "*************************************************\n";
 
 		System.out.println(con);
 	}
@@ -244,8 +261,8 @@ public class AliDip2BK implements Runnable {
 		mess = mess + " No of KAFKA  messages=" + statisticsManager.getKafkaMessagesCount() + "\n";
 		mess = mess + " No of KAFKA SOR messages=" + kcs.NoMess + "\n";
 		mess = mess + " No of KAFKA EOR messages=" + kce.NoMess + "\n";
-		mess = mess + " No of new Fill messgaes =" + statisticsManager.getNewFillsCount() + "\n";
-		mess = mess + " No of new Run messgaes =" + statisticsManager.getNewRunsCount() + "\n";
+		mess = mess + " No of new Fill messages =" + statisticsManager.getNewFillsCount() + "\n";
+		mess = mess + " No of new Run messages =" + statisticsManager.getNewRunsCount() + "\n";
 		mess = mess + " No of end Run messages =" + statisticsManager.getEndedRunsCount() + "\n";
 		mess = mess + " No of Duplicated end Run messages =" + statisticsManager.getDuplicatedRunsEndCount() + "\n";
 

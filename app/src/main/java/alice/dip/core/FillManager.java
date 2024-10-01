@@ -17,7 +17,6 @@ public class FillManager {
 
 	private final PersistenceConfiguration persistenceConfiguration;
 	private final BookkeepingClient bookkeepingClient;
-	private final StatisticsManager statisticsManager;
 
 	private final Logger logger = LoggerFactory.getLogger(FillManager.class);
 
@@ -25,12 +24,10 @@ public class FillManager {
 
 	public FillManager(
 		PersistenceConfiguration persistenceConfiguration,
-		BookkeepingClient bookkeepingClient,
-		StatisticsManager statisticsManager
+		BookkeepingClient bookkeepingClient
 	) {
 		this.persistenceConfiguration = persistenceConfiguration;
 		this.bookkeepingClient = bookkeepingClient;
-		this.statisticsManager = statisticsManager;
 	}
 
 	public Optional<LhcInfoObj> getCurrentFill() {
@@ -41,11 +38,10 @@ public class FillManager {
 		this.currentFill = Optional.of(currentFill);
 		logger.info("**CREATED new FILL NO={}", currentFill.fillNo);
 		bookkeepingClient.createLhcFill(currentFill.getView());
-		statisticsManager.incrementNewFillsCount();
 		saveState();
 	}
 
-	public void handleFillConfigurationChanged(
+	public boolean handleFillConfigurationChanged(
 		long date,
 		int fillNumber,
 		String beam1ParticleType,
@@ -57,7 +53,7 @@ public class FillManager {
 		if (currentFill.isPresent()) {
 			var fill = currentFill.get();
 
-			if (fill.fillNo == fillNumber) { // the same fill no ;
+			if (fill.fillNo == fillNumber) { // The same fill no
 				if (!activeInjectionScheme.contains("no_value")) {
 					boolean modification = verifyAndUpdate(fill, date, activeInjectionScheme, ip2CollisionsCount, bunchesCount);
 					if (modification) {
@@ -68,39 +64,32 @@ public class FillManager {
 				} else {
 					logger.error("Error updating FILL NO={} AFS={}", fillNumber, activeInjectionScheme);
 				}
-			} else {
-				logger.warn(
-					"Received new FILL NO={} BUT is an active FILL={} Closed the old one and created a new one",
-					fillNumber,
-					fill.fillNo
-				);
-				fill.setEnd(new Date().getTime());
-				writeFillHistFile(fill);
-				bookkeepingClient.updateLhcFill(fill.getView());
 
-				setCurrentFill(new LhcInfoObj(
-					persistenceConfiguration,
-					date,
-					fillNumber,
-					beam1ParticleType,
-					beam2ParticleType,
-					activeInjectionScheme,
-					ip2CollisionsCount,
-					bunchesCount
-				));
+				return false;
 			}
-		} else {
-			setCurrentFill(new LhcInfoObj(
-				persistenceConfiguration,
-				date,
+
+			logger.warn(
+				"Received new FILL NO={} BUT is an active FILL={} Closed the old one and created a new one",
 				fillNumber,
-				beam1ParticleType,
-				beam2ParticleType,
-				activeInjectionScheme,
-				ip2CollisionsCount,
-				bunchesCount
-			));
+				fill.fillNo
+			);
+			fill.setEnd(new Date().getTime());
+			writeFillHistFile(fill);
+			bookkeepingClient.updateLhcFill(fill.getView());
 		}
+
+		setCurrentFill(new LhcInfoObj(
+			persistenceConfiguration,
+			date,
+			fillNumber,
+			beam1ParticleType,
+			beam2ParticleType,
+			activeInjectionScheme,
+			ip2CollisionsCount,
+			bunchesCount
+		));
+
+		return true;
 	}
 
 	public void setBeamMode(long date, String beamMode) {

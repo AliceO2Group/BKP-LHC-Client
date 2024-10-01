@@ -15,16 +15,14 @@ import java.util.stream.Collectors;
 
 public class RunManager {
 	private final PersistenceConfiguration persistenceConfiguration;
-	private final StatisticsManager statisticsManager;
 
 	private final Logger logger = LoggerFactory.getLogger(RunManager.class);
 
 	private OptionalInt lastRunNumber = OptionalInt.empty();
 	private final List<RunInfoObj> activeRuns = new ArrayList<>();
 
-	public RunManager(PersistenceConfiguration persistenceConfiguration, StatisticsManager statisticsManager) {
+	public RunManager(PersistenceConfiguration persistenceConfiguration) {
 		this.persistenceConfiguration = persistenceConfiguration;
-		this.statisticsManager = statisticsManager;
 	}
 
 	public synchronized RunInfoObj handleNewRun(
@@ -34,7 +32,6 @@ public class RunManager {
 		LuminosityView luminosityAtStart,
 		AliceMagnetsConfigurationView magnetsConfigurationAtStart
 	) {
-		statisticsManager.incrementNewRunsCount();
 
 		var fillLogMessage = fillAtStart != null
 			? " with FillNo=" + fillAtStart.fillNumber()
@@ -90,7 +87,7 @@ public class RunManager {
 		LhcFillView fillAtEnd,
 		AliceMagnetsConfigurationView magnetsConfigurationAtEnd,
 		LuminosityView luminosityAtEnd
-	) {
+	) throws RunNotFoundException {
 		RunInfoObj activeRun;
 		for (var activeRunIndex = 0; activeRunIndex < activeRuns.size(); activeRunIndex++) {
 			activeRun = activeRuns.get(activeRunIndex);
@@ -102,8 +99,7 @@ public class RunManager {
 			}
 		}
 
-		logger.error("ERROR RunNo={} is not in the ACTIVE LIST", runNumber);
-		statisticsManager.incrementDuplicatedRunsEndCount();
+		throw new RunNotFoundException("Run is not in the active list");
 	}
 
 	public void registerNewEnergy(long time, float energy) {
@@ -136,8 +132,6 @@ public class RunManager {
 		AliceMagnetsConfigurationView magnetsConfigurationAtEnd,
 		LuminosityView luminosityAtEnd
 	) {
-		statisticsManager.incrementEndedRunsCount();
-
 		run.setEORTime(date);
 		run.LHC_info_stop = fillAtEnd;
 		run.magnetsConfigurationAtStop = magnetsConfigurationAtEnd;

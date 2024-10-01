@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import alice.dip.configuration.DipClientConfiguration;
-import alice.dip.application.AliDip2BK;
 import cern.dip.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -136,7 +135,7 @@ public class DipClient implements Runnable {
 
 			NoMess = NoMess + 1;
 
-			procData.handleMessage(p_name, ans, message);
+			procData.handleMessage(p_name, message);
 		}
 
 		/**
