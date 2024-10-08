@@ -142,6 +142,72 @@ public class DipMessagesProcessor implements Runnable {
 
 	}
 
+	public synchronized void newRunSignal(long date, int RunNo) {
+
+		RunInfoObj rio = getRunNo(RunNo);
+		statNoNewRuns = statNoNewRuns + 1;
+		statNoKafMess = statNoKafMess + 1;
+
+		if (rio == null) {
+			if (currentFill != null) {
+				RunInfoObj newrun = new RunInfoObj(date, RunNo, currentFill.clone(), currentAlice.clone());
+				ActiveRuns.add(newrun);
+				AliDip2BK.log(2, "ProcData.newRunSignal", " NEW RUN NO =" + RunNo + "  with FillNo=" + currentFill.fillNo);
+				BKDB.updateRun(newrun);
+
+				if (LastRunNumber == -1) {
+					LastRunNumber = RunNo;
+				} else {
+					int drun = RunNo - LastRunNumber;
+					if (drun == 1) {
+						LastRunNumber = RunNo;
+					} else {
+						String llist = "<<";
+						for (int ij = (LastRunNumber + 1); ij < RunNo; ij++) {
+							llist = llist + ij + " ";
+						}
+						llist = llist + ">>";
+
+						AliDip2BK.log(7, "ProcData.newRunSignal",
+							" LOST RUN No Signal! " + llist + "  New RUN NO =" + RunNo + " Last Run No=" + LastRunNumber);
+						LastRunNumber = RunNo;
+					}
+				}
+			} else {
+				RunInfoObj newrun = new RunInfoObj(date, RunNo, null, currentAlice.clone());
+				ActiveRuns.add(newrun);
+				AliDip2BK.log(2, "ProcData.newRunSignal", " NEW RUN NO =" + RunNo + " currentFILL is NULL Perhaps Cosmics Run");
+				BKDB.updateRun(newrun);
+			}
+
+		} else {
+			AliDip2BK.log(6, "ProcData.newRunSignal", " Duplicate new  RUN signal =" + RunNo + " IGNORE it");
+
+		}
+
+	}
+
+	public synchronized void stopRunSignal(long time, int RunNo) {
+
+		statNoKafMess = statNoKafMess + 1;
+
+		RunInfoObj rio = getRunNo(RunNo);
+
+		if (rio != null) {
+
+			rio.setEORtime(time);
+			if (currentFill != null)
+				rio.LHC_info_stop = currentFill.clone();
+			rio.alice_info_stop = currentAlice.clone();
+
+			EndRun(rio);
+		} else {
+			statNoDuplicateEndRuns = statNoDuplicateEndRuns + 1;
+			AliDip2BK.log(4, "ProcData.stopRunSignal", " NO ACTIVE RUN having runNo=" + RunNo);
+		}
+
+	}
+
 	/*
 	 * This method is used to take appropriate action based on the Dip Data messages
 	 */
@@ -418,72 +484,6 @@ public class DipMessagesProcessor implements Runnable {
 					+ " and STOPED with FillNo=" + r1.LHC_info_stop.fillNo);
 			}
 
-		}
-
-	}
-
-	public synchronized void newRunSignal(long date, int RunNo) {
-
-		RunInfoObj rio = getRunNo(RunNo);
-		statNoNewRuns = statNoNewRuns + 1;
-		statNoKafMess = statNoKafMess + 1;
-
-		if (rio == null) {
-			if (currentFill != null) {
-				RunInfoObj newrun = new RunInfoObj(date, RunNo, currentFill.clone(), currentAlice.clone());
-				ActiveRuns.add(newrun);
-				AliDip2BK.log(2, "ProcData.newRunSignal", " NEW RUN NO =" + RunNo + "  with FillNo=" + currentFill.fillNo);
-				BKDB.updateRun(newrun);
-
-				if (LastRunNumber == -1) {
-					LastRunNumber = RunNo;
-				} else {
-					int drun = RunNo - LastRunNumber;
-					if (drun == 1) {
-						LastRunNumber = RunNo;
-					} else {
-						String llist = "<<";
-						for (int ij = (LastRunNumber + 1); ij < RunNo; ij++) {
-							llist = llist + ij + " ";
-						}
-						llist = llist + ">>";
-
-						AliDip2BK.log(7, "ProcData.newRunSignal",
-							" LOST RUN No Signal! " + llist + "  New RUN NO =" + RunNo + " Last Run No=" + LastRunNumber);
-						LastRunNumber = RunNo;
-					}
-				}
-			} else {
-				RunInfoObj newrun = new RunInfoObj(date, RunNo, null, currentAlice.clone());
-				ActiveRuns.add(newrun);
-				AliDip2BK.log(2, "ProcData.newRunSignal", " NEW RUN NO =" + RunNo + " currentFILL is NULL Perhaps Cosmics Run");
-				BKDB.updateRun(newrun);
-			}
-
-		} else {
-			AliDip2BK.log(6, "ProcData.newRunSignal", " Duplicate new  RUN signal =" + RunNo + " IGNORE it");
-
-		}
-
-	}
-
-	public synchronized void stopRunSignal(long time, int RunNo) {
-
-		statNoKafMess = statNoKafMess + 1;
-
-		RunInfoObj rio = getRunNo(RunNo);
-
-		if (rio != null) {
-
-			rio.setEORtime(time);
-			if (currentFill != null)
-				rio.LHC_info_stop = currentFill.clone();
-			rio.alice_info_stop = currentAlice.clone();
-
-			EndRun(rio);
-		} else {
-			statNoDuplicateEndRuns = statNoDuplicateEndRuns + 1;
-			AliDip2BK.log(4, "ProcData.stopRunSignal", " NO ACTIVE RUN having runNo=" + RunNo);
 		}
 
 	}
