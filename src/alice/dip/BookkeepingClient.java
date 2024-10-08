@@ -116,6 +116,7 @@ public class BookkeepingClient {
 		}
 
 		String updateFillRequestBody = "{";
+		updateFillRequestBody += "\n\"fillingSchemeName\":\"" + lhcFill.LHCFillingSchemeName + "\",";
 
 		long stableBeamStart = lhcFill.getStableBeamStart();
 		if (stableBeamStart > 0) {
@@ -131,8 +132,6 @@ public class BookkeepingClient {
 		if (stableBeamDuration > 0) {
 			updateFillRequestBody += "\n\"stableBeamsDuration\":" + stableBeamDuration + ",";
 		}
-
-		updateFillRequestBody += "\n\"fillingSchemeName\":\"" + lhcFill.LHCFillingSchemeName + "\",";
 
 		if (updateFillRequestBody.endsWith(",")) {
 			updateFillRequestBody = updateFillRequestBody.substring(0, updateFillRequestBody.length() - 1);
