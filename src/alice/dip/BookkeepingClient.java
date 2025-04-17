@@ -272,6 +272,26 @@ public class BookkeepingClient {
 			hasModifications = true;
 		}
 
+		if (runObj.getTriggerEfficiency().isPresent()) {
+			requestBody += "\n\"triggerEfficiency\":" + runObj.getTriggerEfficiency().get() + ",";
+		}
+
+		if (runObj.getTriggerAcceptance().isPresent()) {
+			requestBody += "\n\"triggerAcceptance\":" + runObj.getTriggerAcceptance().get() + ",";
+		}
+
+		if (runObj.getCrossSection().isPresent()) {
+			requestBody += "\n\"crossSection\":" + runObj.getCrossSection().get() + ",";
+		}
+
+		if (runObj.getPhaseShiftAtStart().isPresent()) {
+			requestBody += "\n\"phaseShiftAtStart\":" + runObj.getPhaseShiftAtStart().get() + ",";
+		}
+
+		if (runObj.getPhaseShiftAtStop().isPresent()) {
+			requestBody += "\n\"phaseShiftAtEnd\":" + runObj.getPhaseShiftAtStop().get() + ",";
+		}
+
 		if (!hasModifications) {  // no updates to be done !
 			AliDip2BK.log(3, "BKwriter.UpdateRun", "No data to update for Run=" + runObj.RunNo);
 			return;

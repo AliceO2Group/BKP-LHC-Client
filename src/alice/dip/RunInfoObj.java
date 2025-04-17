@@ -7,6 +7,7 @@
 package alice.dip;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class RunInfoObj {
 
@@ -20,8 +21,16 @@ public class RunInfoObj {
 	public ArrayList<TimestampedFloat> DipoleMagnetHist;
 	public long SOR_time;
 	public long EOR_time;
+	public final LuminosityView luminosityAtStart;
+	public Optional<LuminosityView> luminosityAtStop = Optional.empty();
 
-	public RunInfoObj(long sor_time, int RunNo, LhcInfoObj start, AliceInfoObj alice_start) {
+	public RunInfoObj(
+			long sor_time,
+			int RunNo,
+			LhcInfoObj start,
+			AliceInfoObj alice_start,
+			LuminosityView luminosityAtStart
+	) {
 		this.RunNo = RunNo;
 		SOR_time = sor_time;
 		this.LHC_info_start = start;
@@ -29,6 +38,7 @@ public class RunInfoObj {
 		energyHist = new ArrayList<TimestampedFloat>();
 		l3_magnetHist = new ArrayList<TimestampedFloat>();
 		DipoleMagnetHist = new ArrayList<TimestampedFloat>();
+		this.luminosityAtStart = luminosityAtStart;
 	}
 
 	public String toString() {
@@ -235,5 +245,29 @@ public class RunInfoObj {
 
 	public float getDipole_magnetCurrent() {
 		return alice_info_start.Dipole_magnetCurrent;
+	}
+
+	public void setLuminosityAtStop(LuminosityView luminosityAtStop) {
+		this.luminosityAtStop = Optional.of(luminosityAtStop);
+	}
+
+	public Optional<Float> getTriggerEfficiency() {
+		return luminosityAtStart.triggerEfficiency();
+	}
+
+	public Optional<Float> getTriggerAcceptance() {
+		return luminosityAtStart.triggerAcceptance();
+	}
+
+	public Optional<Float> getCrossSection() {
+		return luminosityAtStart.crossSection();
+	}
+
+	public Optional<PhaseShift> getPhaseShiftAtStart() {
+		return this.luminosityAtStart.phaseShift();
+	}
+
+	public Optional<PhaseShift> getPhaseShiftAtStop() {
+		return this.luminosityAtStop.flatMap(LuminosityView::phaseShift);
 	}
 }
