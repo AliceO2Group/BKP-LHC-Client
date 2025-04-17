@@ -65,7 +65,8 @@ public class AliDip2BK implements Runnable {
 		verifyDirs();
 
 		bookkeepingClient = new BookkeepingClient(bookkeepingUrl, bookkeepingToken);
-		dipMessagesProcessor = new DipMessagesProcessor(bookkeepingClient);
+		var luminosityManager = new LuminosityManager();
+		dipMessagesProcessor = new DipMessagesProcessor(bookkeepingClient, luminosityManager);
 		if (AliDip2BK.simulateDipEvents) {
 			new SimDipEventsFill(dipMessagesProcessor);
 		}
