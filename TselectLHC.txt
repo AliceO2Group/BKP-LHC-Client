@@ -1,13 +1,19 @@
-#Data Provides we need
+#Data Provides we need - https://confluence.cern.ch/display/expcomm/DIP+LHC 
 dip/acc/LHC/RunControl/RunConfiguration
 dip/acc/LHC/RunControl/BeamMode
 dip/acc/LHC/Beam/BetaStar/Bstar2
 dip/acc/LHC/Beam/Energy
+dip/acc/LHC/RunControl/SafeBeam
+
+# LHC_IF data added specifically for Bookkeeping
+dip/ALICE/LHC/Bookkeeping/Source
+dip/ALICE/LHC/Bookkeeping/CTPClock
+
 dip/ALICE/MCS/Dipole/Current
 dip/ALICE/MCS/Solenoid/Current
 dip/ALICE/MCS/Dipole/Polarity
 dip/ALICE/MCS/Solenoid/Polarity
-dip/acc/LHC/RunControl/SafeBeam
+
 #
 #dip/ALICE/LHClogbook/RunControl/CirculatingBunchConfig/Beam2
 #dip/acc/LHC/Beam/Intensity/Beam2

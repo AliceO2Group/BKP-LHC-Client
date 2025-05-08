@@ -787,7 +787,12 @@ public class DipMessagesProcessor implements Runnable {
 		var acceptance = dipData.extractFloat("Acceptance");
 		var crossSection = dipData.extractFloat("CrossSection");
 		var efficiency = dipData.extractFloat("Efficiency");
-
+		AliDip2BK.log(
+						2,
+						"ProcData.dispach",
+						" Bookkeeping Source: Acceptance=" + acceptance + " CrossSection=" + crossSection
+								+ " Efficiency=" + efficiency
+				);
 		luminosityManager.setTriggerEfficiency(efficiency);
 		luminosityManager.setTriggerAcceptance(acceptance);
 		luminosityManager.setCrossSection(crossSection);
@@ -797,6 +802,11 @@ public class DipMessagesProcessor implements Runnable {
 		var phaseShiftBeam1 = dipData.extractFloat("PhaseShift_Beam1");
 		var phaseShiftBeam2 = dipData.extractFloat("PhaseShift_Beam2");
 
+		AliDip2BK.log(
+						2,
+						"ProcData.dispach",
+						" Bookkeeping CTP Clock: PhaseShift_Beam1=" + phaseShiftBeam1 + " PhaseShift_Beam2=" + phaseShiftBeam2
+				);
 		luminosityManager.setPhaseShift(new PhaseShift(phaseShiftBeam1, phaseShiftBeam2));
 	}
 }
