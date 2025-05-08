@@ -309,7 +309,7 @@ public class BookkeepingClient {
 		String patchRunRequest = bookkeepingUrl + "/api/runs?runNumber=" + runObj.RunNo;
 
 		if (bookkeepingToken != null) {
-			patchRunRequest += bookkeepingToken;
+			patchRunRequest += "&token=" + bookkeepingToken;
 		}
 
 		HttpRequest request = HttpRequest.newBuilder()
