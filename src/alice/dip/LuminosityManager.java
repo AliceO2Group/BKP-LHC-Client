@@ -3,10 +3,10 @@ package alice.dip;
 import java.util.Optional;
 
 public class LuminosityManager {
-    private Optional<Float> triggerAcceptance;
-    private Optional<Float> triggerEfficiency;
-    private Optional<Float> crossSection;
-    private Optional<PhaseShift> phaseShift;
+    private Optional<Float> triggerAcceptance = Optional.empty();
+    private Optional<Float> triggerEfficiency = Optional.empty();
+    private Optional<Float> crossSection = Optional.empty();
+    private Optional<PhaseShift> phaseShift = Optional.empty();;
 
     public LuminosityView getView() {
         return new LuminosityView(triggerAcceptance, triggerEfficiency, crossSection, phaseShift);
