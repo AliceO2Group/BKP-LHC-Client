@@ -270,4 +270,17 @@ public class RunInfoObj {
 	public Optional<PhaseShift> getPhaseShiftAtStop() {
 		return this.luminosityAtStop.flatMap(LuminosityView::phaseShift);
 	}
+
+	public String getPhaseShiftAtStartAsJson() {
+		return this.luminosityAtStart.phaseShift()
+			.map(phaseShift -> String.format("{\"beam1\":%f,\"beam2\":%f}", phaseShift.beam1(), phaseShift.beam2()))
+      .orElse("{}");
+	}
+
+	public String getPhaseShiftAtStopAsJson() {
+    return this.luminosityAtStop
+        .flatMap(LuminosityView::phaseShift)
+        .map(phaseShift -> String.format("{\"beam1\":%f,\"beam2\":%f}", phaseShift.beam1(), phaseShift.beam2()))
+        .orElse("{}");
+	}
 }
