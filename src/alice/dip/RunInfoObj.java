@@ -271,16 +271,20 @@ public class RunInfoObj {
 		return this.luminosityAtStop.flatMap(LuminosityView::phaseShift);
 	}
 
+	private String formatPhaseShiftAsJson(PhaseShift phaseShift) {
+		return String.format("{\"beam1\":%f,\"beam2\":%f}", phaseShift.beam1(), phaseShift.beam2());
+	}
+
 	public String getPhaseShiftAtStartAsJson() {
 		return this.luminosityAtStart.phaseShift()
-			.map(phaseShift -> String.format("{\"beam1\":%f,\"beam2\":%f}", phaseShift.beam1(), phaseShift.beam2()))
-      .orElse("{}");
+			.map(this::formatPhaseShiftAsJson)
+			.orElse("{}");
 	}
 
 	public String getPhaseShiftAtStopAsJson() {
 		return this.luminosityAtStop
 			.flatMap(LuminosityView::phaseShift)
-			.map(phaseShift -> String.format("{\"beam1\":%f,\"beam2\":%f}", phaseShift.beam1(), phaseShift.beam2()))
+			.map(this::formatPhaseShiftAsJson)
 			.orElse("{}");
 	}
 }
