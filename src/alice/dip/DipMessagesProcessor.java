@@ -804,7 +804,7 @@ public class DipMessagesProcessor implements Runnable {
 
 		AliDip2BK.log(
 						2,
-						"ProcData.dispach",
+						"ProcData.dispatch",
 						" Bookkeeping CTP Clock: PhaseShift_Beam1=" + phaseShiftBeam1 + " PhaseShift_Beam2=" + phaseShiftBeam2
 				);
 		luminosityManager.setPhaseShift(new PhaseShift(phaseShiftBeam1, phaseShiftBeam2));
