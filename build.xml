@@ -17,7 +17,7 @@
         </javac>
     </target>
     <target name="create_run_jar" depends="compile">
-        <jar destfile="${dir.jarfile}/AliDip2BK.jar">
+        <jar destfile="${dir.jarfile}/o2-bkp-lhc-client-v2.1.2.jar">
             <manifest>
                 <attribute name="Main-Class" value="alice.dip.Dip2BK"/>
             </manifest>
