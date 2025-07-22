@@ -789,7 +789,7 @@ public class DipMessagesProcessor implements Runnable {
 		var efficiency = dipData.extractFloat("Efficiency");
 		AliDip2BK.log(
 						2,
-						"ProcData.dispach",
+						"ProcData.dispatch",
 						" Bookkeeping Source: Acceptance=" + acceptance + " CrossSection=" + crossSection
 								+ " Efficiency=" + efficiency
 				);
