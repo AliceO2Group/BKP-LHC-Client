@@ -56,7 +56,7 @@ public class DipMessagesProcessor implements Runnable {
 	private BlockingQueue<MessageItem> outputQueue = new ArrayBlockingQueue<MessageItem>(100);
 
 	private final LuminosityManager luminosityManager;
-	private BeamModeEventsKafkaProducer beamModeEventsKafkaProducer;
+	private volatile BeamModeEventsKafkaProducer beamModeEventsKafkaProducer;
 
 	public DipMessagesProcessor(BookkeepingClient bookkeepingClient, LuminosityManager luminosityManager) {
 
