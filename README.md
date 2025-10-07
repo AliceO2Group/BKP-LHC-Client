@@ -1,26 +1,26 @@
-# AliDip2BK
+# BKP-LHC Client
 
 Initial Repository based on work from @iclegrand in repository: https://github.com/iclegrand/AliDip2BK 
 
-Collect selected Info from the CERN DIP system (LHC &amp; ALICE -DCS) and publish  them into the Bookkeeping/InfoLogger systems
+The BKP-LHC Client is a java based application which uses the CERN DIP `jar` dependency to consume events from desired tracks. These events are then either:
+- published on O2 Kafka Topics to be consumed further by O2 applications (e.g. ECS)
+- updates the O2 Bookkeeping application via their HTTP endpoints.
 
 A detailed description for this project is provided by Roberto in this document:
 https://codimd.web.cern.ch/G0TSXqA1R8iPqWw2w2wuew
  
-
-This program requires java 11 on a 64 bit system
-(this is a constrain from the DIP library)
-
-To test the java version run 
+### Requirements
+- java 11 on a 64 bit system (this is a constrain from the DIP library)
+- to test the java version run 
+```
 java -version 
+```
 
-The run configuration is defined in the AliDip2BK.properties file.
+### Configuration
+The run configuration is defined in the `AliDip2BK.properties` file.
 
-To run the program :
+### Published Events
+Currently the BKP-LHC-Client publishes on Kafka (topic: "dip.lhc.beam_mode") events for the start and end of stable beams in the format of `Ev_BeamModeEvent`. The proto file's source of truth is within the [Control Repository](https://github.com/AliceO2Group/Control/blob/master/common/protos/events.proto)
 
-sh runAliDip2BK.sh 
-
-When the the program is stopped, it  enters into the shutdown mode and it will 
-unsubscribe  to the DIP data providers will wait to process the DipData queue 
-and saves the state of the fills and runs. 
-
+### Bookkeeping Updates
+- TBC
