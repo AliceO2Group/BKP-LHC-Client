@@ -25,7 +25,7 @@ import alice.dip.kafka.dto.Events;
  * Kafka producer for LHC Beam Mode events, serialized using Protocol Buffers.
  */
 public class BeamModeEventsKafkaProducer extends KafkaProducerInterface<Integer, byte[]> {
-	public static String KAFKA_PRODUCER_TOPIC_DIP = "dip.lhc.beam_mode";
+	public static final String KAFKA_PRODUCER_TOPIC_DIP = "dip.lhc.beam_mode";
 
     /**
      * Constructor to create a BeamModeEventsKafkaProducer
