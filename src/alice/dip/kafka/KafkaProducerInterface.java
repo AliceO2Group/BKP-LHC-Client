@@ -49,9 +49,9 @@ public class KafkaProducerInterface<K, V> implements AutoCloseable {
      * @param key - message key for partitioning
      * @param value - message value (payload)
      */
-    public void send(K key, V value) {
+    public java.util.concurrent.Future<org.apache.kafka.clients.producer.RecordMetadata> send(K key, V value) {
         ProducerRecord<K, V> record = new ProducerRecord<>(topic, key, value);
-        producer.send(record);
+        return producer.send(record);
     }
 
     /**
