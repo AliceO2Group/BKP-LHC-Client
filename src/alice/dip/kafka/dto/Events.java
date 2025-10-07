@@ -3,7 +3,7 @@
 // source: events.proto
 // Protobuf Java Version: 4.32.1
 
-package alice.dip.kafka.events;
+package alice.dip.kafka.dto;
 
 @com.google.protobuf.Generated
 public final class Events extends com.google.protobuf.GeneratedFile {
@@ -153,7 +153,7 @@ public final class Events extends com.google.protobuf.GeneratedFile {
     }
     public static com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return alice.dip.kafka.events.Events.getDescriptor().getEnumTypes().get(0);
+      return alice.dip.kafka.dto.Events.getDescriptor().getEnumTypes().get(0);
     }
 
     private static final OpStatus[] VALUES = values();
@@ -209,15 +209,15 @@ public final class Events extends com.google.protobuf.GeneratedFile {
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return alice.dip.kafka.events.Events.internal_static_events_Ev_MetaEvent_MesosHeartbeat_descriptor;
+      return alice.dip.kafka.dto.Events.internal_static_events_Ev_MetaEvent_MesosHeartbeat_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return alice.dip.kafka.events.Events.internal_static_events_Ev_MetaEvent_MesosHeartbeat_fieldAccessorTable
+      return alice.dip.kafka.dto.Events.internal_static_events_Ev_MetaEvent_MesosHeartbeat_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat.class, alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat.Builder.class);
+              alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat.class, alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat.Builder.class);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -253,10 +253,10 @@ public final class Events extends com.google.protobuf.GeneratedFile {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat)) {
+      if (!(obj instanceof alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat)) {
         return super.equals(obj);
       }
-      alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat other = (alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat) obj;
+      alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat other = (alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat) obj;
 
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
@@ -274,44 +274,44 @@ public final class Events extends com.google.protobuf.GeneratedFile {
       return hash;
     }
 
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat parseFrom(byte[] data)
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat parseFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -319,26 +319,26 @@ public final class Events extends com.google.protobuf.GeneratedFile {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat parseDelimitedFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat parseDelimitedFrom(
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -351,7 +351,7 @@ public final class Events extends com.google.protobuf.GeneratedFile {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat prototype) {
+    public static Builder newBuilder(alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -372,18 +372,18 @@ public final class Events extends com.google.protobuf.GeneratedFile {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:events.Ev_MetaEvent_MesosHeartbeat)
-        alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeatOrBuilder {
+        alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeatOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_MetaEvent_MesosHeartbeat_descriptor;
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_MetaEvent_MesosHeartbeat_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_MetaEvent_MesosHeartbeat_fieldAccessorTable
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_MetaEvent_MesosHeartbeat_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat.class, alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat.Builder.class);
+                alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat.class, alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat.Builder.class);
       }
 
       // Construct using ch.cern.alice.o2.control.events.Events.Ev_MetaEvent_MesosHeartbeat.newBuilder()
@@ -405,17 +405,17 @@ public final class Events extends com.google.protobuf.GeneratedFile {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_MetaEvent_MesosHeartbeat_descriptor;
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_MetaEvent_MesosHeartbeat_descriptor;
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat getDefaultInstanceForType() {
-        return alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat.getDefaultInstance();
+      public alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat getDefaultInstanceForType() {
+        return alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat.getDefaultInstance();
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat build() {
-        alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat result = buildPartial();
+      public alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat build() {
+        alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -423,24 +423,24 @@ public final class Events extends com.google.protobuf.GeneratedFile {
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat buildPartial() {
-        alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat result = new alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat(this);
+      public alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat buildPartial() {
+        alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat result = new alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat(this);
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat) {
-          return mergeFrom((alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat)other);
+        if (other instanceof alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat) {
+          return mergeFrom((alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat other) {
-        if (other == alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat.getDefaultInstance()) return this;
+      public Builder mergeFrom(alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat other) {
+        if (other == alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat.getDefaultInstance()) return this;
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -487,12 +487,12 @@ public final class Events extends com.google.protobuf.GeneratedFile {
     }
 
     // @@protoc_insertion_point(class_scope:events.Ev_MetaEvent_MesosHeartbeat)
-    private static final alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat DEFAULT_INSTANCE;
+    private static final alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat();
+      DEFAULT_INSTANCE = new alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat();
     }
 
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat getDefaultInstance() {
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -528,7 +528,7 @@ public final class Events extends com.google.protobuf.GeneratedFile {
     }
 
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat getDefaultInstanceForType() {
+    public alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -577,15 +577,15 @@ public final class Events extends com.google.protobuf.GeneratedFile {
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return alice.dip.kafka.events.Events.internal_static_events_Ev_MetaEvent_CoreStart_descriptor;
+      return alice.dip.kafka.dto.Events.internal_static_events_Ev_MetaEvent_CoreStart_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return alice.dip.kafka.events.Events.internal_static_events_Ev_MetaEvent_CoreStart_fieldAccessorTable
+      return alice.dip.kafka.dto.Events.internal_static_events_Ev_MetaEvent_CoreStart_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart.class, alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart.Builder.class);
+              alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart.class, alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart.Builder.class);
     }
 
     public static final int FRAMEWORKID_FIELD_NUMBER = 1;
@@ -666,10 +666,10 @@ public final class Events extends com.google.protobuf.GeneratedFile {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart)) {
+      if (!(obj instanceof alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart)) {
         return super.equals(obj);
       }
-      alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart other = (alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart) obj;
+      alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart other = (alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart) obj;
 
       if (!getFrameworkId()
           .equals(other.getFrameworkId())) return false;
@@ -691,44 +691,44 @@ public final class Events extends com.google.protobuf.GeneratedFile {
       return hash;
     }
 
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart parseFrom(byte[] data)
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart parseFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -736,26 +736,26 @@ public final class Events extends com.google.protobuf.GeneratedFile {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart parseDelimitedFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart parseDelimitedFrom(
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -768,7 +768,7 @@ public final class Events extends com.google.protobuf.GeneratedFile {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart prototype) {
+    public static Builder newBuilder(alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -789,18 +789,18 @@ public final class Events extends com.google.protobuf.GeneratedFile {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:events.Ev_MetaEvent_CoreStart)
-        alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStartOrBuilder {
+        alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStartOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_MetaEvent_CoreStart_descriptor;
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_MetaEvent_CoreStart_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_MetaEvent_CoreStart_fieldAccessorTable
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_MetaEvent_CoreStart_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart.class, alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart.Builder.class);
+                alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart.class, alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart.Builder.class);
       }
 
       // Construct using ch.cern.alice.o2.control.events.Events.Ev_MetaEvent_CoreStart.newBuilder()
@@ -824,17 +824,17 @@ public final class Events extends com.google.protobuf.GeneratedFile {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_MetaEvent_CoreStart_descriptor;
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_MetaEvent_CoreStart_descriptor;
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart getDefaultInstanceForType() {
-        return alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart.getDefaultInstance();
+      public alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart getDefaultInstanceForType() {
+        return alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart.getDefaultInstance();
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart build() {
-        alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart result = buildPartial();
+      public alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart build() {
+        alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -842,14 +842,14 @@ public final class Events extends com.google.protobuf.GeneratedFile {
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart buildPartial() {
-        alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart result = new alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart(this);
+      public alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart buildPartial() {
+        alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart result = new alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart result) {
+      private void buildPartial0(alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.frameworkId_ = frameworkId_;
@@ -858,16 +858,16 @@ public final class Events extends com.google.protobuf.GeneratedFile {
 
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart) {
-          return mergeFrom((alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart)other);
+        if (other instanceof alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart) {
+          return mergeFrom((alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart other) {
-        if (other == alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart.getDefaultInstance()) return this;
+      public Builder mergeFrom(alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart other) {
+        if (other == alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart.getDefaultInstance()) return this;
         if (!other.getFrameworkId().isEmpty()) {
           frameworkId_ = other.frameworkId_;
           bitField0_ |= 0x00000001;
@@ -997,12 +997,12 @@ public final class Events extends com.google.protobuf.GeneratedFile {
     }
 
     // @@protoc_insertion_point(class_scope:events.Ev_MetaEvent_CoreStart)
-    private static final alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart DEFAULT_INSTANCE;
+    private static final alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart();
+      DEFAULT_INSTANCE = new alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart();
     }
 
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart getDefaultInstance() {
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1038,7 +1038,7 @@ public final class Events extends com.google.protobuf.GeneratedFile {
     }
 
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart getDefaultInstanceForType() {
+    public alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1100,15 +1100,15 @@ public final class Events extends com.google.protobuf.GeneratedFile {
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return alice.dip.kafka.events.Events.internal_static_events_Ev_MetaEvent_FrameworkEvent_descriptor;
+      return alice.dip.kafka.dto.Events.internal_static_events_Ev_MetaEvent_FrameworkEvent_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return alice.dip.kafka.events.Events.internal_static_events_Ev_MetaEvent_FrameworkEvent_fieldAccessorTable
+      return alice.dip.kafka.dto.Events.internal_static_events_Ev_MetaEvent_FrameworkEvent_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent.class, alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent.Builder.class);
+              alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent.class, alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent.Builder.class);
     }
 
     public static final int FRAMEWORKID_FIELD_NUMBER = 1;
@@ -1234,10 +1234,10 @@ public final class Events extends com.google.protobuf.GeneratedFile {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent)) {
+      if (!(obj instanceof alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent)) {
         return super.equals(obj);
       }
-      alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent other = (alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent) obj;
+      alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent other = (alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent) obj;
 
       if (!getFrameworkId()
           .equals(other.getFrameworkId())) return false;
@@ -1263,44 +1263,44 @@ public final class Events extends com.google.protobuf.GeneratedFile {
       return hash;
     }
 
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent parseFrom(byte[] data)
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent parseFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1308,26 +1308,26 @@ public final class Events extends com.google.protobuf.GeneratedFile {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent parseDelimitedFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent parseDelimitedFrom(
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1340,7 +1340,7 @@ public final class Events extends com.google.protobuf.GeneratedFile {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent prototype) {
+    public static Builder newBuilder(alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -1361,18 +1361,18 @@ public final class Events extends com.google.protobuf.GeneratedFile {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:events.Ev_MetaEvent_FrameworkEvent)
-        alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEventOrBuilder {
+        alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEventOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_MetaEvent_FrameworkEvent_descriptor;
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_MetaEvent_FrameworkEvent_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_MetaEvent_FrameworkEvent_fieldAccessorTable
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_MetaEvent_FrameworkEvent_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent.class, alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent.Builder.class);
+                alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent.class, alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent.Builder.class);
       }
 
       // Construct using ch.cern.alice.o2.control.events.Events.Ev_MetaEvent_FrameworkEvent.newBuilder()
@@ -1397,17 +1397,17 @@ public final class Events extends com.google.protobuf.GeneratedFile {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_MetaEvent_FrameworkEvent_descriptor;
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_MetaEvent_FrameworkEvent_descriptor;
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent getDefaultInstanceForType() {
-        return alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent.getDefaultInstance();
+      public alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent getDefaultInstanceForType() {
+        return alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent.getDefaultInstance();
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent build() {
-        alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent result = buildPartial();
+      public alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent build() {
+        alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -1415,14 +1415,14 @@ public final class Events extends com.google.protobuf.GeneratedFile {
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent buildPartial() {
-        alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent result = new alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent(this);
+      public alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent buildPartial() {
+        alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent result = new alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent result) {
+      private void buildPartial0(alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.frameworkId_ = frameworkId_;
@@ -1434,16 +1434,16 @@ public final class Events extends com.google.protobuf.GeneratedFile {
 
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent) {
-          return mergeFrom((alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent)other);
+        if (other instanceof alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent) {
+          return mergeFrom((alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent other) {
-        if (other == alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent.getDefaultInstance()) return this;
+      public Builder mergeFrom(alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent other) {
+        if (other == alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent.getDefaultInstance()) return this;
         if (!other.getFrameworkId().isEmpty()) {
           frameworkId_ = other.frameworkId_;
           bitField0_ |= 0x00000001;
@@ -1655,12 +1655,12 @@ public final class Events extends com.google.protobuf.GeneratedFile {
     }
 
     // @@protoc_insertion_point(class_scope:events.Ev_MetaEvent_FrameworkEvent)
-    private static final alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent DEFAULT_INSTANCE;
+    private static final alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent();
+      DEFAULT_INSTANCE = new alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent();
     }
 
-    public static alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent getDefaultInstance() {
+    public static alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1696,7 +1696,7 @@ public final class Events extends com.google.protobuf.GeneratedFile {
     }
 
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent getDefaultInstanceForType() {
+    public alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1805,7 +1805,7 @@ public final class Events extends com.google.protobuf.GeneratedFile {
      * <code>.events.OpStatus transitionStatus = 8;</code>
      * @return The transitionStatus.
      */
-    alice.dip.kafka.events.Events.OpStatus getTransitionStatus();
+    alice.dip.kafka.dto.Events.OpStatus getTransitionStatus();
 
     /**
      * <pre>
@@ -1870,11 +1870,11 @@ java.lang.String defaultValue);
      * <code>.common.User lastRequestUser = 10;</code>
      * @return The lastRequestUser.
      */
-    alice.dip.kafka.events.Common.User getLastRequestUser();
+    alice.dip.kafka.dto.Common.User getLastRequestUser();
     /**
      * <code>.common.User lastRequestUser = 10;</code>
      */
-    alice.dip.kafka.events.Common.UserOrBuilder getLastRequestUserOrBuilder();
+    alice.dip.kafka.dto.Common.UserOrBuilder getLastRequestUserOrBuilder();
 
     /**
      * <code>.common.WorkflowTemplateInfo workflowTemplateInfo = 11;</code>
@@ -1885,11 +1885,11 @@ java.lang.String defaultValue);
      * <code>.common.WorkflowTemplateInfo workflowTemplateInfo = 11;</code>
      * @return The workflowTemplateInfo.
      */
-    alice.dip.kafka.events.Common.WorkflowTemplateInfo getWorkflowTemplateInfo();
+    alice.dip.kafka.dto.Common.WorkflowTemplateInfo getWorkflowTemplateInfo();
     /**
      * <code>.common.WorkflowTemplateInfo workflowTemplateInfo = 11;</code>
      */
-    alice.dip.kafka.events.Common.WorkflowTemplateInfoOrBuilder getWorkflowTemplateInfoOrBuilder();
+    alice.dip.kafka.dto.Common.WorkflowTemplateInfoOrBuilder getWorkflowTemplateInfoOrBuilder();
   }
   /**
    * Protobuf type {@code events.Ev_EnvironmentEvent}
@@ -1924,7 +1924,7 @@ java.lang.String defaultValue);
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return alice.dip.kafka.events.Events.internal_static_events_Ev_EnvironmentEvent_descriptor;
+      return alice.dip.kafka.dto.Events.internal_static_events_Ev_EnvironmentEvent_descriptor;
     }
 
     @SuppressWarnings({"rawtypes"})
@@ -1942,9 +1942,9 @@ java.lang.String defaultValue);
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return alice.dip.kafka.events.Events.internal_static_events_Ev_EnvironmentEvent_fieldAccessorTable
+      return alice.dip.kafka.dto.Events.internal_static_events_Ev_EnvironmentEvent_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              alice.dip.kafka.events.Events.Ev_EnvironmentEvent.class, alice.dip.kafka.events.Events.Ev_EnvironmentEvent.Builder.class);
+              alice.dip.kafka.dto.Events.Ev_EnvironmentEvent.class, alice.dip.kafka.dto.Events.Ev_EnvironmentEvent.Builder.class);
     }
 
     private int bitField0_;
@@ -2218,9 +2218,9 @@ java.lang.String defaultValue);
      * <code>.events.OpStatus transitionStatus = 8;</code>
      * @return The transitionStatus.
      */
-    @java.lang.Override public alice.dip.kafka.events.Events.OpStatus getTransitionStatus() {
-      alice.dip.kafka.events.Events.OpStatus result = alice.dip.kafka.events.Events.OpStatus.forNumber(transitionStatus_);
-      return result == null ? alice.dip.kafka.events.Events.OpStatus.UNRECOGNIZED : result;
+    @java.lang.Override public alice.dip.kafka.dto.Events.OpStatus getTransitionStatus() {
+      alice.dip.kafka.dto.Events.OpStatus result = alice.dip.kafka.dto.Events.OpStatus.forNumber(transitionStatus_);
+      return result == null ? alice.dip.kafka.dto.Events.OpStatus.UNRECOGNIZED : result;
     }
 
     public static final int VARS_FIELD_NUMBER = 9;
@@ -2229,7 +2229,7 @@ java.lang.String defaultValue);
           java.lang.String, java.lang.String> defaultEntry =
               com.google.protobuf.MapEntry
               .<java.lang.String, java.lang.String>newDefaultInstance(
-                  alice.dip.kafka.events.Events.internal_static_events_Ev_EnvironmentEvent_VarsEntry_descriptor, 
+                  alice.dip.kafka.dto.Events.internal_static_events_Ev_EnvironmentEvent_VarsEntry_descriptor, 
                   com.google.protobuf.WireFormat.FieldType.STRING,
                   "",
                   com.google.protobuf.WireFormat.FieldType.STRING,
@@ -2319,7 +2319,7 @@ java.lang.String defaultValue) {
     }
 
     public static final int LASTREQUESTUSER_FIELD_NUMBER = 10;
-    private alice.dip.kafka.events.Common.User lastRequestUser_;
+    private alice.dip.kafka.dto.Common.User lastRequestUser_;
     /**
      * <code>.common.User lastRequestUser = 10;</code>
      * @return Whether the lastRequestUser field is set.
@@ -2333,19 +2333,19 @@ java.lang.String defaultValue) {
      * @return The lastRequestUser.
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Common.User getLastRequestUser() {
-      return lastRequestUser_ == null ? alice.dip.kafka.events.Common.User.getDefaultInstance() : lastRequestUser_;
+    public alice.dip.kafka.dto.Common.User getLastRequestUser() {
+      return lastRequestUser_ == null ? alice.dip.kafka.dto.Common.User.getDefaultInstance() : lastRequestUser_;
     }
     /**
      * <code>.common.User lastRequestUser = 10;</code>
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Common.UserOrBuilder getLastRequestUserOrBuilder() {
-      return lastRequestUser_ == null ? alice.dip.kafka.events.Common.User.getDefaultInstance() : lastRequestUser_;
+    public alice.dip.kafka.dto.Common.UserOrBuilder getLastRequestUserOrBuilder() {
+      return lastRequestUser_ == null ? alice.dip.kafka.dto.Common.User.getDefaultInstance() : lastRequestUser_;
     }
 
     public static final int WORKFLOWTEMPLATEINFO_FIELD_NUMBER = 11;
-    private alice.dip.kafka.events.Common.WorkflowTemplateInfo workflowTemplateInfo_;
+    private alice.dip.kafka.dto.Common.WorkflowTemplateInfo workflowTemplateInfo_;
     /**
      * <code>.common.WorkflowTemplateInfo workflowTemplateInfo = 11;</code>
      * @return Whether the workflowTemplateInfo field is set.
@@ -2359,15 +2359,15 @@ java.lang.String defaultValue) {
      * @return The workflowTemplateInfo.
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Common.WorkflowTemplateInfo getWorkflowTemplateInfo() {
-      return workflowTemplateInfo_ == null ? alice.dip.kafka.events.Common.WorkflowTemplateInfo.getDefaultInstance() : workflowTemplateInfo_;
+    public alice.dip.kafka.dto.Common.WorkflowTemplateInfo getWorkflowTemplateInfo() {
+      return workflowTemplateInfo_ == null ? alice.dip.kafka.dto.Common.WorkflowTemplateInfo.getDefaultInstance() : workflowTemplateInfo_;
     }
     /**
      * <code>.common.WorkflowTemplateInfo workflowTemplateInfo = 11;</code>
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Common.WorkflowTemplateInfoOrBuilder getWorkflowTemplateInfoOrBuilder() {
-      return workflowTemplateInfo_ == null ? alice.dip.kafka.events.Common.WorkflowTemplateInfo.getDefaultInstance() : workflowTemplateInfo_;
+    public alice.dip.kafka.dto.Common.WorkflowTemplateInfoOrBuilder getWorkflowTemplateInfoOrBuilder() {
+      return workflowTemplateInfo_ == null ? alice.dip.kafka.dto.Common.WorkflowTemplateInfo.getDefaultInstance() : workflowTemplateInfo_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -2405,7 +2405,7 @@ java.lang.String defaultValue) {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(transitionStep_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 7, transitionStep_);
       }
-      if (transitionStatus_ != alice.dip.kafka.events.Events.OpStatus.NULL.getNumber()) {
+      if (transitionStatus_ != alice.dip.kafka.dto.Events.OpStatus.NULL.getNumber()) {
         output.writeEnum(8, transitionStatus_);
       }
       com.google.protobuf.GeneratedMessage
@@ -2451,7 +2451,7 @@ java.lang.String defaultValue) {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(transitionStep_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(7, transitionStep_);
       }
-      if (transitionStatus_ != alice.dip.kafka.events.Events.OpStatus.NULL.getNumber()) {
+      if (transitionStatus_ != alice.dip.kafka.dto.Events.OpStatus.NULL.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(8, transitionStatus_);
       }
@@ -2483,10 +2483,10 @@ java.lang.String defaultValue) {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof alice.dip.kafka.events.Events.Ev_EnvironmentEvent)) {
+      if (!(obj instanceof alice.dip.kafka.dto.Events.Ev_EnvironmentEvent)) {
         return super.equals(obj);
       }
-      alice.dip.kafka.events.Events.Ev_EnvironmentEvent other = (alice.dip.kafka.events.Events.Ev_EnvironmentEvent) obj;
+      alice.dip.kafka.dto.Events.Ev_EnvironmentEvent other = (alice.dip.kafka.dto.Events.Ev_EnvironmentEvent) obj;
 
       if (!getEnvironmentId()
           .equals(other.getEnvironmentId())) return false;
@@ -2559,44 +2559,44 @@ java.lang.String defaultValue) {
       return hash;
     }
 
-    public static alice.dip.kafka.events.Events.Ev_EnvironmentEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_EnvironmentEvent parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_EnvironmentEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_EnvironmentEvent parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_EnvironmentEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_EnvironmentEvent parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_EnvironmentEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_EnvironmentEvent parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_EnvironmentEvent parseFrom(byte[] data)
+    public static alice.dip.kafka.dto.Events.Ev_EnvironmentEvent parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_EnvironmentEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_EnvironmentEvent parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_EnvironmentEvent parseFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Events.Ev_EnvironmentEvent parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Events.Ev_EnvironmentEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_EnvironmentEvent parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2604,26 +2604,26 @@ java.lang.String defaultValue) {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static alice.dip.kafka.events.Events.Ev_EnvironmentEvent parseDelimitedFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Events.Ev_EnvironmentEvent parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static alice.dip.kafka.events.Events.Ev_EnvironmentEvent parseDelimitedFrom(
+    public static alice.dip.kafka.dto.Events.Ev_EnvironmentEvent parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_EnvironmentEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_EnvironmentEvent parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Events.Ev_EnvironmentEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_EnvironmentEvent parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2636,7 +2636,7 @@ java.lang.String defaultValue) {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(alice.dip.kafka.events.Events.Ev_EnvironmentEvent prototype) {
+    public static Builder newBuilder(alice.dip.kafka.dto.Events.Ev_EnvironmentEvent prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -2657,10 +2657,10 @@ java.lang.String defaultValue) {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:events.Ev_EnvironmentEvent)
-        alice.dip.kafka.events.Events.Ev_EnvironmentEventOrBuilder {
+        alice.dip.kafka.dto.Events.Ev_EnvironmentEventOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_EnvironmentEvent_descriptor;
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_EnvironmentEvent_descriptor;
       }
 
       @SuppressWarnings({"rawtypes"})
@@ -2688,9 +2688,9 @@ java.lang.String defaultValue) {
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_EnvironmentEvent_fieldAccessorTable
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_EnvironmentEvent_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                alice.dip.kafka.events.Events.Ev_EnvironmentEvent.class, alice.dip.kafka.events.Events.Ev_EnvironmentEvent.Builder.class);
+                alice.dip.kafka.dto.Events.Ev_EnvironmentEvent.class, alice.dip.kafka.dto.Events.Ev_EnvironmentEvent.Builder.class);
       }
 
       // Construct using ch.cern.alice.o2.control.events.Events.Ev_EnvironmentEvent.newBuilder()
@@ -2739,17 +2739,17 @@ java.lang.String defaultValue) {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_EnvironmentEvent_descriptor;
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_EnvironmentEvent_descriptor;
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_EnvironmentEvent getDefaultInstanceForType() {
-        return alice.dip.kafka.events.Events.Ev_EnvironmentEvent.getDefaultInstance();
+      public alice.dip.kafka.dto.Events.Ev_EnvironmentEvent getDefaultInstanceForType() {
+        return alice.dip.kafka.dto.Events.Ev_EnvironmentEvent.getDefaultInstance();
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_EnvironmentEvent build() {
-        alice.dip.kafka.events.Events.Ev_EnvironmentEvent result = buildPartial();
+      public alice.dip.kafka.dto.Events.Ev_EnvironmentEvent build() {
+        alice.dip.kafka.dto.Events.Ev_EnvironmentEvent result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -2757,14 +2757,14 @@ java.lang.String defaultValue) {
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_EnvironmentEvent buildPartial() {
-        alice.dip.kafka.events.Events.Ev_EnvironmentEvent result = new alice.dip.kafka.events.Events.Ev_EnvironmentEvent(this);
+      public alice.dip.kafka.dto.Events.Ev_EnvironmentEvent buildPartial() {
+        alice.dip.kafka.dto.Events.Ev_EnvironmentEvent result = new alice.dip.kafka.dto.Events.Ev_EnvironmentEvent(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(alice.dip.kafka.events.Events.Ev_EnvironmentEvent result) {
+      private void buildPartial0(alice.dip.kafka.dto.Events.Ev_EnvironmentEvent result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.environmentId_ = environmentId_;
@@ -2812,16 +2812,16 @@ java.lang.String defaultValue) {
 
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof alice.dip.kafka.events.Events.Ev_EnvironmentEvent) {
-          return mergeFrom((alice.dip.kafka.events.Events.Ev_EnvironmentEvent)other);
+        if (other instanceof alice.dip.kafka.dto.Events.Ev_EnvironmentEvent) {
+          return mergeFrom((alice.dip.kafka.dto.Events.Ev_EnvironmentEvent)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(alice.dip.kafka.events.Events.Ev_EnvironmentEvent other) {
-        if (other == alice.dip.kafka.events.Events.Ev_EnvironmentEvent.getDefaultInstance()) return this;
+      public Builder mergeFrom(alice.dip.kafka.dto.Events.Ev_EnvironmentEvent other) {
+        if (other == alice.dip.kafka.dto.Events.Ev_EnvironmentEvent.getDefaultInstance()) return this;
         if (!other.getEnvironmentId().isEmpty()) {
           environmentId_ = other.environmentId_;
           bitField0_ |= 0x00000001;
@@ -3493,16 +3493,16 @@ java.lang.String defaultValue) {
        * @return The transitionStatus.
        */
       @java.lang.Override
-      public alice.dip.kafka.events.Events.OpStatus getTransitionStatus() {
-        alice.dip.kafka.events.Events.OpStatus result = alice.dip.kafka.events.Events.OpStatus.forNumber(transitionStatus_);
-        return result == null ? alice.dip.kafka.events.Events.OpStatus.UNRECOGNIZED : result;
+      public alice.dip.kafka.dto.Events.OpStatus getTransitionStatus() {
+        alice.dip.kafka.dto.Events.OpStatus result = alice.dip.kafka.dto.Events.OpStatus.forNumber(transitionStatus_);
+        return result == null ? alice.dip.kafka.dto.Events.OpStatus.UNRECOGNIZED : result;
       }
       /**
        * <code>.events.OpStatus transitionStatus = 8;</code>
        * @param value The transitionStatus to set.
        * @return This builder for chaining.
        */
-      public Builder setTransitionStatus(alice.dip.kafka.events.Events.OpStatus value) {
+      public Builder setTransitionStatus(alice.dip.kafka.dto.Events.OpStatus value) {
         if (value == null) { throw new NullPointerException(); }
         bitField0_ |= 0x00000080;
         transitionStatus_ = value.getNumber();
@@ -3675,9 +3675,9 @@ java.lang.String defaultValue) {
         return this;
       }
 
-      private alice.dip.kafka.events.Common.User lastRequestUser_;
+      private alice.dip.kafka.dto.Common.User lastRequestUser_;
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Common.User, alice.dip.kafka.events.Common.User.Builder, alice.dip.kafka.events.Common.UserOrBuilder> lastRequestUserBuilder_;
+          alice.dip.kafka.dto.Common.User, alice.dip.kafka.dto.Common.User.Builder, alice.dip.kafka.dto.Common.UserOrBuilder> lastRequestUserBuilder_;
       /**
        * <code>.common.User lastRequestUser = 10;</code>
        * @return Whether the lastRequestUser field is set.
@@ -3689,9 +3689,9 @@ java.lang.String defaultValue) {
        * <code>.common.User lastRequestUser = 10;</code>
        * @return The lastRequestUser.
        */
-      public alice.dip.kafka.events.Common.User getLastRequestUser() {
+      public alice.dip.kafka.dto.Common.User getLastRequestUser() {
         if (lastRequestUserBuilder_ == null) {
-          return lastRequestUser_ == null ? alice.dip.kafka.events.Common.User.getDefaultInstance() : lastRequestUser_;
+          return lastRequestUser_ == null ? alice.dip.kafka.dto.Common.User.getDefaultInstance() : lastRequestUser_;
         } else {
           return lastRequestUserBuilder_.getMessage();
         }
@@ -3699,7 +3699,7 @@ java.lang.String defaultValue) {
       /**
        * <code>.common.User lastRequestUser = 10;</code>
        */
-      public Builder setLastRequestUser(alice.dip.kafka.events.Common.User value) {
+      public Builder setLastRequestUser(alice.dip.kafka.dto.Common.User value) {
         if (lastRequestUserBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3716,7 +3716,7 @@ java.lang.String defaultValue) {
        * <code>.common.User lastRequestUser = 10;</code>
        */
       public Builder setLastRequestUser(
-          alice.dip.kafka.events.Common.User.Builder builderForValue) {
+          alice.dip.kafka.dto.Common.User.Builder builderForValue) {
         if (lastRequestUserBuilder_ == null) {
           lastRequestUser_ = builderForValue.build();
         } else {
@@ -3729,11 +3729,11 @@ java.lang.String defaultValue) {
       /**
        * <code>.common.User lastRequestUser = 10;</code>
        */
-      public Builder mergeLastRequestUser(alice.dip.kafka.events.Common.User value) {
+      public Builder mergeLastRequestUser(alice.dip.kafka.dto.Common.User value) {
         if (lastRequestUserBuilder_ == null) {
           if (((bitField0_ & 0x00000200) != 0) &&
             lastRequestUser_ != null &&
-            lastRequestUser_ != alice.dip.kafka.events.Common.User.getDefaultInstance()) {
+            lastRequestUser_ != alice.dip.kafka.dto.Common.User.getDefaultInstance()) {
             getLastRequestUserBuilder().mergeFrom(value);
           } else {
             lastRequestUser_ = value;
@@ -3763,7 +3763,7 @@ java.lang.String defaultValue) {
       /**
        * <code>.common.User lastRequestUser = 10;</code>
        */
-      public alice.dip.kafka.events.Common.User.Builder getLastRequestUserBuilder() {
+      public alice.dip.kafka.dto.Common.User.Builder getLastRequestUserBuilder() {
         bitField0_ |= 0x00000200;
         onChanged();
         return internalGetLastRequestUserFieldBuilder().getBuilder();
@@ -3771,23 +3771,23 @@ java.lang.String defaultValue) {
       /**
        * <code>.common.User lastRequestUser = 10;</code>
        */
-      public alice.dip.kafka.events.Common.UserOrBuilder getLastRequestUserOrBuilder() {
+      public alice.dip.kafka.dto.Common.UserOrBuilder getLastRequestUserOrBuilder() {
         if (lastRequestUserBuilder_ != null) {
           return lastRequestUserBuilder_.getMessageOrBuilder();
         } else {
           return lastRequestUser_ == null ?
-              alice.dip.kafka.events.Common.User.getDefaultInstance() : lastRequestUser_;
+              alice.dip.kafka.dto.Common.User.getDefaultInstance() : lastRequestUser_;
         }
       }
       /**
        * <code>.common.User lastRequestUser = 10;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Common.User, alice.dip.kafka.events.Common.User.Builder, alice.dip.kafka.events.Common.UserOrBuilder> 
+          alice.dip.kafka.dto.Common.User, alice.dip.kafka.dto.Common.User.Builder, alice.dip.kafka.dto.Common.UserOrBuilder> 
           internalGetLastRequestUserFieldBuilder() {
         if (lastRequestUserBuilder_ == null) {
           lastRequestUserBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              alice.dip.kafka.events.Common.User, alice.dip.kafka.events.Common.User.Builder, alice.dip.kafka.events.Common.UserOrBuilder>(
+              alice.dip.kafka.dto.Common.User, alice.dip.kafka.dto.Common.User.Builder, alice.dip.kafka.dto.Common.UserOrBuilder>(
                   getLastRequestUser(),
                   getParentForChildren(),
                   isClean());
@@ -3796,9 +3796,9 @@ java.lang.String defaultValue) {
         return lastRequestUserBuilder_;
       }
 
-      private alice.dip.kafka.events.Common.WorkflowTemplateInfo workflowTemplateInfo_;
+      private alice.dip.kafka.dto.Common.WorkflowTemplateInfo workflowTemplateInfo_;
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Common.WorkflowTemplateInfo, alice.dip.kafka.events.Common.WorkflowTemplateInfo.Builder, alice.dip.kafka.events.Common.WorkflowTemplateInfoOrBuilder> workflowTemplateInfoBuilder_;
+          alice.dip.kafka.dto.Common.WorkflowTemplateInfo, alice.dip.kafka.dto.Common.WorkflowTemplateInfo.Builder, alice.dip.kafka.dto.Common.WorkflowTemplateInfoOrBuilder> workflowTemplateInfoBuilder_;
       /**
        * <code>.common.WorkflowTemplateInfo workflowTemplateInfo = 11;</code>
        * @return Whether the workflowTemplateInfo field is set.
@@ -3810,9 +3810,9 @@ java.lang.String defaultValue) {
        * <code>.common.WorkflowTemplateInfo workflowTemplateInfo = 11;</code>
        * @return The workflowTemplateInfo.
        */
-      public alice.dip.kafka.events.Common.WorkflowTemplateInfo getWorkflowTemplateInfo() {
+      public alice.dip.kafka.dto.Common.WorkflowTemplateInfo getWorkflowTemplateInfo() {
         if (workflowTemplateInfoBuilder_ == null) {
-          return workflowTemplateInfo_ == null ? alice.dip.kafka.events.Common.WorkflowTemplateInfo.getDefaultInstance() : workflowTemplateInfo_;
+          return workflowTemplateInfo_ == null ? alice.dip.kafka.dto.Common.WorkflowTemplateInfo.getDefaultInstance() : workflowTemplateInfo_;
         } else {
           return workflowTemplateInfoBuilder_.getMessage();
         }
@@ -3820,7 +3820,7 @@ java.lang.String defaultValue) {
       /**
        * <code>.common.WorkflowTemplateInfo workflowTemplateInfo = 11;</code>
        */
-      public Builder setWorkflowTemplateInfo(alice.dip.kafka.events.Common.WorkflowTemplateInfo value) {
+      public Builder setWorkflowTemplateInfo(alice.dip.kafka.dto.Common.WorkflowTemplateInfo value) {
         if (workflowTemplateInfoBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3837,7 +3837,7 @@ java.lang.String defaultValue) {
        * <code>.common.WorkflowTemplateInfo workflowTemplateInfo = 11;</code>
        */
       public Builder setWorkflowTemplateInfo(
-          alice.dip.kafka.events.Common.WorkflowTemplateInfo.Builder builderForValue) {
+          alice.dip.kafka.dto.Common.WorkflowTemplateInfo.Builder builderForValue) {
         if (workflowTemplateInfoBuilder_ == null) {
           workflowTemplateInfo_ = builderForValue.build();
         } else {
@@ -3850,11 +3850,11 @@ java.lang.String defaultValue) {
       /**
        * <code>.common.WorkflowTemplateInfo workflowTemplateInfo = 11;</code>
        */
-      public Builder mergeWorkflowTemplateInfo(alice.dip.kafka.events.Common.WorkflowTemplateInfo value) {
+      public Builder mergeWorkflowTemplateInfo(alice.dip.kafka.dto.Common.WorkflowTemplateInfo value) {
         if (workflowTemplateInfoBuilder_ == null) {
           if (((bitField0_ & 0x00000400) != 0) &&
             workflowTemplateInfo_ != null &&
-            workflowTemplateInfo_ != alice.dip.kafka.events.Common.WorkflowTemplateInfo.getDefaultInstance()) {
+            workflowTemplateInfo_ != alice.dip.kafka.dto.Common.WorkflowTemplateInfo.getDefaultInstance()) {
             getWorkflowTemplateInfoBuilder().mergeFrom(value);
           } else {
             workflowTemplateInfo_ = value;
@@ -3884,7 +3884,7 @@ java.lang.String defaultValue) {
       /**
        * <code>.common.WorkflowTemplateInfo workflowTemplateInfo = 11;</code>
        */
-      public alice.dip.kafka.events.Common.WorkflowTemplateInfo.Builder getWorkflowTemplateInfoBuilder() {
+      public alice.dip.kafka.dto.Common.WorkflowTemplateInfo.Builder getWorkflowTemplateInfoBuilder() {
         bitField0_ |= 0x00000400;
         onChanged();
         return internalGetWorkflowTemplateInfoFieldBuilder().getBuilder();
@@ -3892,23 +3892,23 @@ java.lang.String defaultValue) {
       /**
        * <code>.common.WorkflowTemplateInfo workflowTemplateInfo = 11;</code>
        */
-      public alice.dip.kafka.events.Common.WorkflowTemplateInfoOrBuilder getWorkflowTemplateInfoOrBuilder() {
+      public alice.dip.kafka.dto.Common.WorkflowTemplateInfoOrBuilder getWorkflowTemplateInfoOrBuilder() {
         if (workflowTemplateInfoBuilder_ != null) {
           return workflowTemplateInfoBuilder_.getMessageOrBuilder();
         } else {
           return workflowTemplateInfo_ == null ?
-              alice.dip.kafka.events.Common.WorkflowTemplateInfo.getDefaultInstance() : workflowTemplateInfo_;
+              alice.dip.kafka.dto.Common.WorkflowTemplateInfo.getDefaultInstance() : workflowTemplateInfo_;
         }
       }
       /**
        * <code>.common.WorkflowTemplateInfo workflowTemplateInfo = 11;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Common.WorkflowTemplateInfo, alice.dip.kafka.events.Common.WorkflowTemplateInfo.Builder, alice.dip.kafka.events.Common.WorkflowTemplateInfoOrBuilder> 
+          alice.dip.kafka.dto.Common.WorkflowTemplateInfo, alice.dip.kafka.dto.Common.WorkflowTemplateInfo.Builder, alice.dip.kafka.dto.Common.WorkflowTemplateInfoOrBuilder> 
           internalGetWorkflowTemplateInfoFieldBuilder() {
         if (workflowTemplateInfoBuilder_ == null) {
           workflowTemplateInfoBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              alice.dip.kafka.events.Common.WorkflowTemplateInfo, alice.dip.kafka.events.Common.WorkflowTemplateInfo.Builder, alice.dip.kafka.events.Common.WorkflowTemplateInfoOrBuilder>(
+              alice.dip.kafka.dto.Common.WorkflowTemplateInfo, alice.dip.kafka.dto.Common.WorkflowTemplateInfo.Builder, alice.dip.kafka.dto.Common.WorkflowTemplateInfoOrBuilder>(
                   getWorkflowTemplateInfo(),
                   getParentForChildren(),
                   isClean());
@@ -3921,12 +3921,12 @@ java.lang.String defaultValue) {
     }
 
     // @@protoc_insertion_point(class_scope:events.Ev_EnvironmentEvent)
-    private static final alice.dip.kafka.events.Events.Ev_EnvironmentEvent DEFAULT_INSTANCE;
+    private static final alice.dip.kafka.dto.Events.Ev_EnvironmentEvent DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new alice.dip.kafka.events.Events.Ev_EnvironmentEvent();
+      DEFAULT_INSTANCE = new alice.dip.kafka.dto.Events.Ev_EnvironmentEvent();
     }
 
-    public static alice.dip.kafka.events.Events.Ev_EnvironmentEvent getDefaultInstance() {
+    public static alice.dip.kafka.dto.Events.Ev_EnvironmentEvent getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -3962,7 +3962,7 @@ java.lang.String defaultValue) {
     }
 
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_EnvironmentEvent getDefaultInstanceForType() {
+    public alice.dip.kafka.dto.Events.Ev_EnvironmentEvent getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -4043,15 +4043,15 @@ java.lang.String defaultValue) {
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return alice.dip.kafka.events.Events.internal_static_events_Traits_descriptor;
+      return alice.dip.kafka.dto.Events.internal_static_events_Traits_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return alice.dip.kafka.events.Events.internal_static_events_Traits_fieldAccessorTable
+      return alice.dip.kafka.dto.Events.internal_static_events_Traits_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              alice.dip.kafka.events.Events.Traits.class, alice.dip.kafka.events.Events.Traits.Builder.class);
+              alice.dip.kafka.dto.Events.Traits.class, alice.dip.kafka.dto.Events.Traits.Builder.class);
     }
 
     public static final int TRIGGER_FIELD_NUMBER = 1;
@@ -4240,10 +4240,10 @@ java.lang.String defaultValue) {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof alice.dip.kafka.events.Events.Traits)) {
+      if (!(obj instanceof alice.dip.kafka.dto.Events.Traits)) {
         return super.equals(obj);
       }
-      alice.dip.kafka.events.Events.Traits other = (alice.dip.kafka.events.Events.Traits) obj;
+      alice.dip.kafka.dto.Events.Traits other = (alice.dip.kafka.dto.Events.Traits) obj;
 
       if (!getTrigger()
           .equals(other.getTrigger())) return false;
@@ -4278,44 +4278,44 @@ java.lang.String defaultValue) {
       return hash;
     }
 
-    public static alice.dip.kafka.events.Events.Traits parseFrom(
+    public static alice.dip.kafka.dto.Events.Traits parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Traits parseFrom(
+    public static alice.dip.kafka.dto.Events.Traits parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Traits parseFrom(
+    public static alice.dip.kafka.dto.Events.Traits parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Traits parseFrom(
+    public static alice.dip.kafka.dto.Events.Traits parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Traits parseFrom(byte[] data)
+    public static alice.dip.kafka.dto.Events.Traits parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Traits parseFrom(
+    public static alice.dip.kafka.dto.Events.Traits parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Traits parseFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Events.Traits parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Events.Traits parseFrom(
+    public static alice.dip.kafka.dto.Events.Traits parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -4323,26 +4323,26 @@ java.lang.String defaultValue) {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static alice.dip.kafka.events.Events.Traits parseDelimitedFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Events.Traits parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static alice.dip.kafka.events.Events.Traits parseDelimitedFrom(
+    public static alice.dip.kafka.dto.Events.Traits parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Traits parseFrom(
+    public static alice.dip.kafka.dto.Events.Traits parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Events.Traits parseFrom(
+    public static alice.dip.kafka.dto.Events.Traits parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -4355,7 +4355,7 @@ java.lang.String defaultValue) {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(alice.dip.kafka.events.Events.Traits prototype) {
+    public static Builder newBuilder(alice.dip.kafka.dto.Events.Traits prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -4376,18 +4376,18 @@ java.lang.String defaultValue) {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:events.Traits)
-        alice.dip.kafka.events.Events.TraitsOrBuilder {
+        alice.dip.kafka.dto.Events.TraitsOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return alice.dip.kafka.events.Events.internal_static_events_Traits_descriptor;
+        return alice.dip.kafka.dto.Events.internal_static_events_Traits_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return alice.dip.kafka.events.Events.internal_static_events_Traits_fieldAccessorTable
+        return alice.dip.kafka.dto.Events.internal_static_events_Traits_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                alice.dip.kafka.events.Events.Traits.class, alice.dip.kafka.events.Events.Traits.Builder.class);
+                alice.dip.kafka.dto.Events.Traits.class, alice.dip.kafka.dto.Events.Traits.Builder.class);
       }
 
       // Construct using ch.cern.alice.o2.control.events.Events.Traits.newBuilder()
@@ -4414,17 +4414,17 @@ java.lang.String defaultValue) {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return alice.dip.kafka.events.Events.internal_static_events_Traits_descriptor;
+        return alice.dip.kafka.dto.Events.internal_static_events_Traits_descriptor;
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Traits getDefaultInstanceForType() {
-        return alice.dip.kafka.events.Events.Traits.getDefaultInstance();
+      public alice.dip.kafka.dto.Events.Traits getDefaultInstanceForType() {
+        return alice.dip.kafka.dto.Events.Traits.getDefaultInstance();
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Traits build() {
-        alice.dip.kafka.events.Events.Traits result = buildPartial();
+      public alice.dip.kafka.dto.Events.Traits build() {
+        alice.dip.kafka.dto.Events.Traits result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -4432,14 +4432,14 @@ java.lang.String defaultValue) {
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Traits buildPartial() {
-        alice.dip.kafka.events.Events.Traits result = new alice.dip.kafka.events.Events.Traits(this);
+      public alice.dip.kafka.dto.Events.Traits buildPartial() {
+        alice.dip.kafka.dto.Events.Traits result = new alice.dip.kafka.dto.Events.Traits(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(alice.dip.kafka.events.Events.Traits result) {
+      private void buildPartial0(alice.dip.kafka.dto.Events.Traits result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.trigger_ = trigger_;
@@ -4457,16 +4457,16 @@ java.lang.String defaultValue) {
 
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof alice.dip.kafka.events.Events.Traits) {
-          return mergeFrom((alice.dip.kafka.events.Events.Traits)other);
+        if (other instanceof alice.dip.kafka.dto.Events.Traits) {
+          return mergeFrom((alice.dip.kafka.dto.Events.Traits)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(alice.dip.kafka.events.Events.Traits other) {
-        if (other == alice.dip.kafka.events.Events.Traits.getDefaultInstance()) return this;
+      public Builder mergeFrom(alice.dip.kafka.dto.Events.Traits other) {
+        if (other == alice.dip.kafka.dto.Events.Traits.getDefaultInstance()) return this;
         if (!other.getTrigger().isEmpty()) {
           trigger_ = other.trigger_;
           bitField0_ |= 0x00000001;
@@ -4800,12 +4800,12 @@ java.lang.String defaultValue) {
     }
 
     // @@protoc_insertion_point(class_scope:events.Traits)
-    private static final alice.dip.kafka.events.Events.Traits DEFAULT_INSTANCE;
+    private static final alice.dip.kafka.dto.Events.Traits DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new alice.dip.kafka.events.Events.Traits();
+      DEFAULT_INSTANCE = new alice.dip.kafka.dto.Events.Traits();
     }
 
-    public static alice.dip.kafka.events.Events.Traits getDefaultInstance() {
+    public static alice.dip.kafka.dto.Events.Traits getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -4841,7 +4841,7 @@ java.lang.String defaultValue) {
     }
 
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Traits getDefaultInstanceForType() {
+    public alice.dip.kafka.dto.Events.Traits getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -4972,11 +4972,11 @@ java.lang.String defaultValue) {
      * <code>.events.Traits traits = 7;</code>
      * @return The traits.
      */
-    alice.dip.kafka.events.Events.Traits getTraits();
+    alice.dip.kafka.dto.Events.Traits getTraits();
     /**
      * <code>.events.Traits traits = 7;</code>
      */
-    alice.dip.kafka.events.Events.TraitsOrBuilder getTraitsOrBuilder();
+    alice.dip.kafka.dto.Events.TraitsOrBuilder getTraitsOrBuilder();
 
     /**
      * <code>string environmentId = 8;</code>
@@ -5044,15 +5044,15 @@ java.lang.String defaultValue) {
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return alice.dip.kafka.events.Events.internal_static_events_Ev_TaskEvent_descriptor;
+      return alice.dip.kafka.dto.Events.internal_static_events_Ev_TaskEvent_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return alice.dip.kafka.events.Events.internal_static_events_Ev_TaskEvent_fieldAccessorTable
+      return alice.dip.kafka.dto.Events.internal_static_events_Ev_TaskEvent_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              alice.dip.kafka.events.Events.Ev_TaskEvent.class, alice.dip.kafka.events.Events.Ev_TaskEvent.Builder.class);
+              alice.dip.kafka.dto.Events.Ev_TaskEvent.class, alice.dip.kafka.dto.Events.Ev_TaskEvent.Builder.class);
     }
 
     private int bitField0_;
@@ -5331,7 +5331,7 @@ java.lang.String defaultValue) {
     }
 
     public static final int TRAITS_FIELD_NUMBER = 7;
-    private alice.dip.kafka.events.Events.Traits traits_;
+    private alice.dip.kafka.dto.Events.Traits traits_;
     /**
      * <code>.events.Traits traits = 7;</code>
      * @return Whether the traits field is set.
@@ -5345,15 +5345,15 @@ java.lang.String defaultValue) {
      * @return The traits.
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Traits getTraits() {
-      return traits_ == null ? alice.dip.kafka.events.Events.Traits.getDefaultInstance() : traits_;
+    public alice.dip.kafka.dto.Events.Traits getTraits() {
+      return traits_ == null ? alice.dip.kafka.dto.Events.Traits.getDefaultInstance() : traits_;
     }
     /**
      * <code>.events.Traits traits = 7;</code>
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Events.TraitsOrBuilder getTraitsOrBuilder() {
-      return traits_ == null ? alice.dip.kafka.events.Events.Traits.getDefaultInstance() : traits_;
+    public alice.dip.kafka.dto.Events.TraitsOrBuilder getTraitsOrBuilder() {
+      return traits_ == null ? alice.dip.kafka.dto.Events.Traits.getDefaultInstance() : traits_;
     }
 
     public static final int ENVIRONMENTID_FIELD_NUMBER = 8;
@@ -5530,10 +5530,10 @@ java.lang.String defaultValue) {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof alice.dip.kafka.events.Events.Ev_TaskEvent)) {
+      if (!(obj instanceof alice.dip.kafka.dto.Events.Ev_TaskEvent)) {
         return super.equals(obj);
       }
-      alice.dip.kafka.events.Events.Ev_TaskEvent other = (alice.dip.kafka.events.Events.Ev_TaskEvent) obj;
+      alice.dip.kafka.dto.Events.Ev_TaskEvent other = (alice.dip.kafka.dto.Events.Ev_TaskEvent) obj;
 
       if (!getName()
           .equals(other.getName())) return false;
@@ -5592,44 +5592,44 @@ java.lang.String defaultValue) {
       return hash;
     }
 
-    public static alice.dip.kafka.events.Events.Ev_TaskEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_TaskEvent parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_TaskEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_TaskEvent parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_TaskEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_TaskEvent parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_TaskEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_TaskEvent parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_TaskEvent parseFrom(byte[] data)
+    public static alice.dip.kafka.dto.Events.Ev_TaskEvent parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_TaskEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_TaskEvent parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_TaskEvent parseFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Events.Ev_TaskEvent parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Events.Ev_TaskEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_TaskEvent parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -5637,26 +5637,26 @@ java.lang.String defaultValue) {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static alice.dip.kafka.events.Events.Ev_TaskEvent parseDelimitedFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Events.Ev_TaskEvent parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static alice.dip.kafka.events.Events.Ev_TaskEvent parseDelimitedFrom(
+    public static alice.dip.kafka.dto.Events.Ev_TaskEvent parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_TaskEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_TaskEvent parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Events.Ev_TaskEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_TaskEvent parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -5669,7 +5669,7 @@ java.lang.String defaultValue) {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(alice.dip.kafka.events.Events.Ev_TaskEvent prototype) {
+    public static Builder newBuilder(alice.dip.kafka.dto.Events.Ev_TaskEvent prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -5690,18 +5690,18 @@ java.lang.String defaultValue) {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:events.Ev_TaskEvent)
-        alice.dip.kafka.events.Events.Ev_TaskEventOrBuilder {
+        alice.dip.kafka.dto.Events.Ev_TaskEventOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_TaskEvent_descriptor;
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_TaskEvent_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_TaskEvent_fieldAccessorTable
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_TaskEvent_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                alice.dip.kafka.events.Events.Ev_TaskEvent.class, alice.dip.kafka.events.Events.Ev_TaskEvent.Builder.class);
+                alice.dip.kafka.dto.Events.Ev_TaskEvent.class, alice.dip.kafka.dto.Events.Ev_TaskEvent.Builder.class);
       }
 
       // Construct using ch.cern.alice.o2.control.events.Events.Ev_TaskEvent.newBuilder()
@@ -5743,17 +5743,17 @@ java.lang.String defaultValue) {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_TaskEvent_descriptor;
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_TaskEvent_descriptor;
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_TaskEvent getDefaultInstanceForType() {
-        return alice.dip.kafka.events.Events.Ev_TaskEvent.getDefaultInstance();
+      public alice.dip.kafka.dto.Events.Ev_TaskEvent getDefaultInstanceForType() {
+        return alice.dip.kafka.dto.Events.Ev_TaskEvent.getDefaultInstance();
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_TaskEvent build() {
-        alice.dip.kafka.events.Events.Ev_TaskEvent result = buildPartial();
+      public alice.dip.kafka.dto.Events.Ev_TaskEvent build() {
+        alice.dip.kafka.dto.Events.Ev_TaskEvent result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -5761,14 +5761,14 @@ java.lang.String defaultValue) {
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_TaskEvent buildPartial() {
-        alice.dip.kafka.events.Events.Ev_TaskEvent result = new alice.dip.kafka.events.Events.Ev_TaskEvent(this);
+      public alice.dip.kafka.dto.Events.Ev_TaskEvent buildPartial() {
+        alice.dip.kafka.dto.Events.Ev_TaskEvent result = new alice.dip.kafka.dto.Events.Ev_TaskEvent(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(alice.dip.kafka.events.Events.Ev_TaskEvent result) {
+      private void buildPartial0(alice.dip.kafka.dto.Events.Ev_TaskEvent result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.name_ = name_;
@@ -5806,16 +5806,16 @@ java.lang.String defaultValue) {
 
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof alice.dip.kafka.events.Events.Ev_TaskEvent) {
-          return mergeFrom((alice.dip.kafka.events.Events.Ev_TaskEvent)other);
+        if (other instanceof alice.dip.kafka.dto.Events.Ev_TaskEvent) {
+          return mergeFrom((alice.dip.kafka.dto.Events.Ev_TaskEvent)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(alice.dip.kafka.events.Events.Ev_TaskEvent other) {
-        if (other == alice.dip.kafka.events.Events.Ev_TaskEvent.getDefaultInstance()) return this;
+      public Builder mergeFrom(alice.dip.kafka.dto.Events.Ev_TaskEvent other) {
+        if (other == alice.dip.kafka.dto.Events.Ev_TaskEvent.getDefaultInstance()) return this;
         if (!other.getName().isEmpty()) {
           name_ = other.name_;
           bitField0_ |= 0x00000001;
@@ -6481,9 +6481,9 @@ java.lang.String defaultValue) {
         return this;
       }
 
-      private alice.dip.kafka.events.Events.Traits traits_;
+      private alice.dip.kafka.dto.Events.Traits traits_;
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Events.Traits, alice.dip.kafka.events.Events.Traits.Builder, alice.dip.kafka.events.Events.TraitsOrBuilder> traitsBuilder_;
+          alice.dip.kafka.dto.Events.Traits, alice.dip.kafka.dto.Events.Traits.Builder, alice.dip.kafka.dto.Events.TraitsOrBuilder> traitsBuilder_;
       /**
        * <code>.events.Traits traits = 7;</code>
        * @return Whether the traits field is set.
@@ -6495,9 +6495,9 @@ java.lang.String defaultValue) {
        * <code>.events.Traits traits = 7;</code>
        * @return The traits.
        */
-      public alice.dip.kafka.events.Events.Traits getTraits() {
+      public alice.dip.kafka.dto.Events.Traits getTraits() {
         if (traitsBuilder_ == null) {
-          return traits_ == null ? alice.dip.kafka.events.Events.Traits.getDefaultInstance() : traits_;
+          return traits_ == null ? alice.dip.kafka.dto.Events.Traits.getDefaultInstance() : traits_;
         } else {
           return traitsBuilder_.getMessage();
         }
@@ -6505,7 +6505,7 @@ java.lang.String defaultValue) {
       /**
        * <code>.events.Traits traits = 7;</code>
        */
-      public Builder setTraits(alice.dip.kafka.events.Events.Traits value) {
+      public Builder setTraits(alice.dip.kafka.dto.Events.Traits value) {
         if (traitsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -6522,7 +6522,7 @@ java.lang.String defaultValue) {
        * <code>.events.Traits traits = 7;</code>
        */
       public Builder setTraits(
-          alice.dip.kafka.events.Events.Traits.Builder builderForValue) {
+          alice.dip.kafka.dto.Events.Traits.Builder builderForValue) {
         if (traitsBuilder_ == null) {
           traits_ = builderForValue.build();
         } else {
@@ -6535,11 +6535,11 @@ java.lang.String defaultValue) {
       /**
        * <code>.events.Traits traits = 7;</code>
        */
-      public Builder mergeTraits(alice.dip.kafka.events.Events.Traits value) {
+      public Builder mergeTraits(alice.dip.kafka.dto.Events.Traits value) {
         if (traitsBuilder_ == null) {
           if (((bitField0_ & 0x00000040) != 0) &&
             traits_ != null &&
-            traits_ != alice.dip.kafka.events.Events.Traits.getDefaultInstance()) {
+            traits_ != alice.dip.kafka.dto.Events.Traits.getDefaultInstance()) {
             getTraitsBuilder().mergeFrom(value);
           } else {
             traits_ = value;
@@ -6569,7 +6569,7 @@ java.lang.String defaultValue) {
       /**
        * <code>.events.Traits traits = 7;</code>
        */
-      public alice.dip.kafka.events.Events.Traits.Builder getTraitsBuilder() {
+      public alice.dip.kafka.dto.Events.Traits.Builder getTraitsBuilder() {
         bitField0_ |= 0x00000040;
         onChanged();
         return internalGetTraitsFieldBuilder().getBuilder();
@@ -6577,23 +6577,23 @@ java.lang.String defaultValue) {
       /**
        * <code>.events.Traits traits = 7;</code>
        */
-      public alice.dip.kafka.events.Events.TraitsOrBuilder getTraitsOrBuilder() {
+      public alice.dip.kafka.dto.Events.TraitsOrBuilder getTraitsOrBuilder() {
         if (traitsBuilder_ != null) {
           return traitsBuilder_.getMessageOrBuilder();
         } else {
           return traits_ == null ?
-              alice.dip.kafka.events.Events.Traits.getDefaultInstance() : traits_;
+              alice.dip.kafka.dto.Events.Traits.getDefaultInstance() : traits_;
         }
       }
       /**
        * <code>.events.Traits traits = 7;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Events.Traits, alice.dip.kafka.events.Events.Traits.Builder, alice.dip.kafka.events.Events.TraitsOrBuilder> 
+          alice.dip.kafka.dto.Events.Traits, alice.dip.kafka.dto.Events.Traits.Builder, alice.dip.kafka.dto.Events.TraitsOrBuilder> 
           internalGetTraitsFieldBuilder() {
         if (traitsBuilder_ == null) {
           traitsBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              alice.dip.kafka.events.Events.Traits, alice.dip.kafka.events.Events.Traits.Builder, alice.dip.kafka.events.Events.TraitsOrBuilder>(
+              alice.dip.kafka.dto.Events.Traits, alice.dip.kafka.dto.Events.Traits.Builder, alice.dip.kafka.dto.Events.TraitsOrBuilder>(
                   getTraits(),
                   getParentForChildren(),
                   isClean());
@@ -6770,12 +6770,12 @@ java.lang.String defaultValue) {
     }
 
     // @@protoc_insertion_point(class_scope:events.Ev_TaskEvent)
-    private static final alice.dip.kafka.events.Events.Ev_TaskEvent DEFAULT_INSTANCE;
+    private static final alice.dip.kafka.dto.Events.Ev_TaskEvent DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new alice.dip.kafka.events.Events.Ev_TaskEvent();
+      DEFAULT_INSTANCE = new alice.dip.kafka.dto.Events.Ev_TaskEvent();
     }
 
-    public static alice.dip.kafka.events.Events.Ev_TaskEvent getDefaultInstance() {
+    public static alice.dip.kafka.dto.Events.Ev_TaskEvent getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -6811,7 +6811,7 @@ java.lang.String defaultValue) {
     }
 
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_TaskEvent getDefaultInstanceForType() {
+    public alice.dip.kafka.dto.Events.Ev_TaskEvent getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -6858,7 +6858,7 @@ java.lang.String defaultValue) {
      * <code>.events.OpStatus callStatus = 2;</code>
      * @return The callStatus.
      */
-    alice.dip.kafka.events.Events.OpStatus getCallStatus();
+    alice.dip.kafka.dto.Events.OpStatus getCallStatus();
 
     /**
      * <pre>
@@ -6889,11 +6889,11 @@ java.lang.String defaultValue) {
      * <code>.events.Traits traits = 4;</code>
      * @return The traits.
      */
-    alice.dip.kafka.events.Events.Traits getTraits();
+    alice.dip.kafka.dto.Events.Traits getTraits();
     /**
      * <code>.events.Traits traits = 4;</code>
      */
-    alice.dip.kafka.events.Events.TraitsOrBuilder getTraitsOrBuilder();
+    alice.dip.kafka.dto.Events.TraitsOrBuilder getTraitsOrBuilder();
 
     /**
      * <pre>
@@ -7000,15 +7000,15 @@ java.lang.String defaultValue) {
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return alice.dip.kafka.events.Events.internal_static_events_Ev_CallEvent_descriptor;
+      return alice.dip.kafka.dto.Events.internal_static_events_Ev_CallEvent_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return alice.dip.kafka.events.Events.internal_static_events_Ev_CallEvent_fieldAccessorTable
+      return alice.dip.kafka.dto.Events.internal_static_events_Ev_CallEvent_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              alice.dip.kafka.events.Events.Ev_CallEvent.class, alice.dip.kafka.events.Events.Ev_CallEvent.Builder.class);
+              alice.dip.kafka.dto.Events.Ev_CallEvent.class, alice.dip.kafka.dto.Events.Ev_CallEvent.Builder.class);
     }
 
     private int bitField0_;
@@ -7080,9 +7080,9 @@ java.lang.String defaultValue) {
      * <code>.events.OpStatus callStatus = 2;</code>
      * @return The callStatus.
      */
-    @java.lang.Override public alice.dip.kafka.events.Events.OpStatus getCallStatus() {
-      alice.dip.kafka.events.Events.OpStatus result = alice.dip.kafka.events.Events.OpStatus.forNumber(callStatus_);
-      return result == null ? alice.dip.kafka.events.Events.OpStatus.UNRECOGNIZED : result;
+    @java.lang.Override public alice.dip.kafka.dto.Events.OpStatus getCallStatus() {
+      alice.dip.kafka.dto.Events.OpStatus result = alice.dip.kafka.dto.Events.OpStatus.forNumber(callStatus_);
+      return result == null ? alice.dip.kafka.dto.Events.OpStatus.UNRECOGNIZED : result;
     }
 
     public static final int RETURN_FIELD_NUMBER = 3;
@@ -7133,7 +7133,7 @@ java.lang.String defaultValue) {
     }
 
     public static final int TRAITS_FIELD_NUMBER = 4;
-    private alice.dip.kafka.events.Events.Traits traits_;
+    private alice.dip.kafka.dto.Events.Traits traits_;
     /**
      * <code>.events.Traits traits = 4;</code>
      * @return Whether the traits field is set.
@@ -7147,15 +7147,15 @@ java.lang.String defaultValue) {
      * @return The traits.
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Traits getTraits() {
-      return traits_ == null ? alice.dip.kafka.events.Events.Traits.getDefaultInstance() : traits_;
+    public alice.dip.kafka.dto.Events.Traits getTraits() {
+      return traits_ == null ? alice.dip.kafka.dto.Events.Traits.getDefaultInstance() : traits_;
     }
     /**
      * <code>.events.Traits traits = 4;</code>
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Events.TraitsOrBuilder getTraitsOrBuilder() {
-      return traits_ == null ? alice.dip.kafka.events.Events.Traits.getDefaultInstance() : traits_;
+    public alice.dip.kafka.dto.Events.TraitsOrBuilder getTraitsOrBuilder() {
+      return traits_ == null ? alice.dip.kafka.dto.Events.Traits.getDefaultInstance() : traits_;
     }
 
     public static final int OUTPUT_FIELD_NUMBER = 5;
@@ -7355,7 +7355,7 @@ java.lang.String defaultValue) {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(func_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 1, func_);
       }
-      if (callStatus_ != alice.dip.kafka.events.Events.OpStatus.NULL.getNumber()) {
+      if (callStatus_ != alice.dip.kafka.dto.Events.OpStatus.NULL.getNumber()) {
         output.writeEnum(2, callStatus_);
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(return_)) {
@@ -7388,7 +7388,7 @@ java.lang.String defaultValue) {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(func_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(1, func_);
       }
-      if (callStatus_ != alice.dip.kafka.events.Events.OpStatus.NULL.getNumber()) {
+      if (callStatus_ != alice.dip.kafka.dto.Events.OpStatus.NULL.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(2, callStatus_);
       }
@@ -7421,10 +7421,10 @@ java.lang.String defaultValue) {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof alice.dip.kafka.events.Events.Ev_CallEvent)) {
+      if (!(obj instanceof alice.dip.kafka.dto.Events.Ev_CallEvent)) {
         return super.equals(obj);
       }
-      alice.dip.kafka.events.Events.Ev_CallEvent other = (alice.dip.kafka.events.Events.Ev_CallEvent) obj;
+      alice.dip.kafka.dto.Events.Ev_CallEvent other = (alice.dip.kafka.dto.Events.Ev_CallEvent) obj;
 
       if (!getFunc()
           .equals(other.getFunc())) return false;
@@ -7478,44 +7478,44 @@ java.lang.String defaultValue) {
       return hash;
     }
 
-    public static alice.dip.kafka.events.Events.Ev_CallEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_CallEvent parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_CallEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_CallEvent parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_CallEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_CallEvent parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_CallEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_CallEvent parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_CallEvent parseFrom(byte[] data)
+    public static alice.dip.kafka.dto.Events.Ev_CallEvent parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_CallEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_CallEvent parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_CallEvent parseFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Events.Ev_CallEvent parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Events.Ev_CallEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_CallEvent parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -7523,26 +7523,26 @@ java.lang.String defaultValue) {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static alice.dip.kafka.events.Events.Ev_CallEvent parseDelimitedFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Events.Ev_CallEvent parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static alice.dip.kafka.events.Events.Ev_CallEvent parseDelimitedFrom(
+    public static alice.dip.kafka.dto.Events.Ev_CallEvent parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_CallEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_CallEvent parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Events.Ev_CallEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_CallEvent parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -7555,7 +7555,7 @@ java.lang.String defaultValue) {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(alice.dip.kafka.events.Events.Ev_CallEvent prototype) {
+    public static Builder newBuilder(alice.dip.kafka.dto.Events.Ev_CallEvent prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -7576,18 +7576,18 @@ java.lang.String defaultValue) {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:events.Ev_CallEvent)
-        alice.dip.kafka.events.Events.Ev_CallEventOrBuilder {
+        alice.dip.kafka.dto.Events.Ev_CallEventOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_CallEvent_descriptor;
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_CallEvent_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_CallEvent_fieldAccessorTable
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_CallEvent_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                alice.dip.kafka.events.Events.Ev_CallEvent.class, alice.dip.kafka.events.Events.Ev_CallEvent.Builder.class);
+                alice.dip.kafka.dto.Events.Ev_CallEvent.class, alice.dip.kafka.dto.Events.Ev_CallEvent.Builder.class);
       }
 
       // Construct using ch.cern.alice.o2.control.events.Events.Ev_CallEvent.newBuilder()
@@ -7628,17 +7628,17 @@ java.lang.String defaultValue) {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_CallEvent_descriptor;
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_CallEvent_descriptor;
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_CallEvent getDefaultInstanceForType() {
-        return alice.dip.kafka.events.Events.Ev_CallEvent.getDefaultInstance();
+      public alice.dip.kafka.dto.Events.Ev_CallEvent getDefaultInstanceForType() {
+        return alice.dip.kafka.dto.Events.Ev_CallEvent.getDefaultInstance();
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_CallEvent build() {
-        alice.dip.kafka.events.Events.Ev_CallEvent result = buildPartial();
+      public alice.dip.kafka.dto.Events.Ev_CallEvent build() {
+        alice.dip.kafka.dto.Events.Ev_CallEvent result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -7646,14 +7646,14 @@ java.lang.String defaultValue) {
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_CallEvent buildPartial() {
-        alice.dip.kafka.events.Events.Ev_CallEvent result = new alice.dip.kafka.events.Events.Ev_CallEvent(this);
+      public alice.dip.kafka.dto.Events.Ev_CallEvent buildPartial() {
+        alice.dip.kafka.dto.Events.Ev_CallEvent result = new alice.dip.kafka.dto.Events.Ev_CallEvent(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(alice.dip.kafka.events.Events.Ev_CallEvent result) {
+      private void buildPartial0(alice.dip.kafka.dto.Events.Ev_CallEvent result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.func_ = func_;
@@ -7688,16 +7688,16 @@ java.lang.String defaultValue) {
 
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof alice.dip.kafka.events.Events.Ev_CallEvent) {
-          return mergeFrom((alice.dip.kafka.events.Events.Ev_CallEvent)other);
+        if (other instanceof alice.dip.kafka.dto.Events.Ev_CallEvent) {
+          return mergeFrom((alice.dip.kafka.dto.Events.Ev_CallEvent)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(alice.dip.kafka.events.Events.Ev_CallEvent other) {
-        if (other == alice.dip.kafka.events.Events.Ev_CallEvent.getDefaultInstance()) return this;
+      public Builder mergeFrom(alice.dip.kafka.dto.Events.Ev_CallEvent other) {
+        if (other == alice.dip.kafka.dto.Events.Ev_CallEvent.getDefaultInstance()) return this;
         if (!other.getFunc().isEmpty()) {
           func_ = other.func_;
           bitField0_ |= 0x00000001;
@@ -7947,9 +7947,9 @@ java.lang.String defaultValue) {
        * @return The callStatus.
        */
       @java.lang.Override
-      public alice.dip.kafka.events.Events.OpStatus getCallStatus() {
-        alice.dip.kafka.events.Events.OpStatus result = alice.dip.kafka.events.Events.OpStatus.forNumber(callStatus_);
-        return result == null ? alice.dip.kafka.events.Events.OpStatus.UNRECOGNIZED : result;
+      public alice.dip.kafka.dto.Events.OpStatus getCallStatus() {
+        alice.dip.kafka.dto.Events.OpStatus result = alice.dip.kafka.dto.Events.OpStatus.forNumber(callStatus_);
+        return result == null ? alice.dip.kafka.dto.Events.OpStatus.UNRECOGNIZED : result;
       }
       /**
        * <pre>
@@ -7960,7 +7960,7 @@ java.lang.String defaultValue) {
        * @param value The callStatus to set.
        * @return This builder for chaining.
        */
-      public Builder setCallStatus(alice.dip.kafka.events.Events.OpStatus value) {
+      public Builder setCallStatus(alice.dip.kafka.dto.Events.OpStatus value) {
         if (value == null) { throw new NullPointerException(); }
         bitField0_ |= 0x00000002;
         callStatus_ = value.getNumber();
@@ -8074,9 +8074,9 @@ java.lang.String defaultValue) {
         return this;
       }
 
-      private alice.dip.kafka.events.Events.Traits traits_;
+      private alice.dip.kafka.dto.Events.Traits traits_;
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Events.Traits, alice.dip.kafka.events.Events.Traits.Builder, alice.dip.kafka.events.Events.TraitsOrBuilder> traitsBuilder_;
+          alice.dip.kafka.dto.Events.Traits, alice.dip.kafka.dto.Events.Traits.Builder, alice.dip.kafka.dto.Events.TraitsOrBuilder> traitsBuilder_;
       /**
        * <code>.events.Traits traits = 4;</code>
        * @return Whether the traits field is set.
@@ -8088,9 +8088,9 @@ java.lang.String defaultValue) {
        * <code>.events.Traits traits = 4;</code>
        * @return The traits.
        */
-      public alice.dip.kafka.events.Events.Traits getTraits() {
+      public alice.dip.kafka.dto.Events.Traits getTraits() {
         if (traitsBuilder_ == null) {
-          return traits_ == null ? alice.dip.kafka.events.Events.Traits.getDefaultInstance() : traits_;
+          return traits_ == null ? alice.dip.kafka.dto.Events.Traits.getDefaultInstance() : traits_;
         } else {
           return traitsBuilder_.getMessage();
         }
@@ -8098,7 +8098,7 @@ java.lang.String defaultValue) {
       /**
        * <code>.events.Traits traits = 4;</code>
        */
-      public Builder setTraits(alice.dip.kafka.events.Events.Traits value) {
+      public Builder setTraits(alice.dip.kafka.dto.Events.Traits value) {
         if (traitsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -8115,7 +8115,7 @@ java.lang.String defaultValue) {
        * <code>.events.Traits traits = 4;</code>
        */
       public Builder setTraits(
-          alice.dip.kafka.events.Events.Traits.Builder builderForValue) {
+          alice.dip.kafka.dto.Events.Traits.Builder builderForValue) {
         if (traitsBuilder_ == null) {
           traits_ = builderForValue.build();
         } else {
@@ -8128,11 +8128,11 @@ java.lang.String defaultValue) {
       /**
        * <code>.events.Traits traits = 4;</code>
        */
-      public Builder mergeTraits(alice.dip.kafka.events.Events.Traits value) {
+      public Builder mergeTraits(alice.dip.kafka.dto.Events.Traits value) {
         if (traitsBuilder_ == null) {
           if (((bitField0_ & 0x00000008) != 0) &&
             traits_ != null &&
-            traits_ != alice.dip.kafka.events.Events.Traits.getDefaultInstance()) {
+            traits_ != alice.dip.kafka.dto.Events.Traits.getDefaultInstance()) {
             getTraitsBuilder().mergeFrom(value);
           } else {
             traits_ = value;
@@ -8162,7 +8162,7 @@ java.lang.String defaultValue) {
       /**
        * <code>.events.Traits traits = 4;</code>
        */
-      public alice.dip.kafka.events.Events.Traits.Builder getTraitsBuilder() {
+      public alice.dip.kafka.dto.Events.Traits.Builder getTraitsBuilder() {
         bitField0_ |= 0x00000008;
         onChanged();
         return internalGetTraitsFieldBuilder().getBuilder();
@@ -8170,23 +8170,23 @@ java.lang.String defaultValue) {
       /**
        * <code>.events.Traits traits = 4;</code>
        */
-      public alice.dip.kafka.events.Events.TraitsOrBuilder getTraitsOrBuilder() {
+      public alice.dip.kafka.dto.Events.TraitsOrBuilder getTraitsOrBuilder() {
         if (traitsBuilder_ != null) {
           return traitsBuilder_.getMessageOrBuilder();
         } else {
           return traits_ == null ?
-              alice.dip.kafka.events.Events.Traits.getDefaultInstance() : traits_;
+              alice.dip.kafka.dto.Events.Traits.getDefaultInstance() : traits_;
         }
       }
       /**
        * <code>.events.Traits traits = 4;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Events.Traits, alice.dip.kafka.events.Events.Traits.Builder, alice.dip.kafka.events.Events.TraitsOrBuilder> 
+          alice.dip.kafka.dto.Events.Traits, alice.dip.kafka.dto.Events.Traits.Builder, alice.dip.kafka.dto.Events.TraitsOrBuilder> 
           internalGetTraitsFieldBuilder() {
         if (traitsBuilder_ == null) {
           traitsBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              alice.dip.kafka.events.Events.Traits, alice.dip.kafka.events.Events.Traits.Builder, alice.dip.kafka.events.Events.TraitsOrBuilder>(
+              alice.dip.kafka.dto.Events.Traits, alice.dip.kafka.dto.Events.Traits.Builder, alice.dip.kafka.dto.Events.TraitsOrBuilder>(
                   getTraits(),
                   getParentForChildren(),
                   isClean());
@@ -8547,12 +8547,12 @@ java.lang.String defaultValue) {
     }
 
     // @@protoc_insertion_point(class_scope:events.Ev_CallEvent)
-    private static final alice.dip.kafka.events.Events.Ev_CallEvent DEFAULT_INSTANCE;
+    private static final alice.dip.kafka.dto.Events.Ev_CallEvent DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new alice.dip.kafka.events.Events.Ev_CallEvent();
+      DEFAULT_INSTANCE = new alice.dip.kafka.dto.Events.Ev_CallEvent();
     }
 
-    public static alice.dip.kafka.events.Events.Ev_CallEvent getDefaultInstance() {
+    public static alice.dip.kafka.dto.Events.Ev_CallEvent getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -8588,7 +8588,7 @@ java.lang.String defaultValue) {
     }
 
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_CallEvent getDefaultInstanceForType() {
+    public alice.dip.kafka.dto.Events.Ev_CallEvent getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -8721,15 +8721,15 @@ java.lang.String defaultValue) {
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return alice.dip.kafka.events.Events.internal_static_events_Ev_RoleEvent_descriptor;
+      return alice.dip.kafka.dto.Events.internal_static_events_Ev_RoleEvent_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return alice.dip.kafka.events.Events.internal_static_events_Ev_RoleEvent_fieldAccessorTable
+      return alice.dip.kafka.dto.Events.internal_static_events_Ev_RoleEvent_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              alice.dip.kafka.events.Events.Ev_RoleEvent.class, alice.dip.kafka.events.Events.Ev_RoleEvent.Builder.class);
+              alice.dip.kafka.dto.Events.Ev_RoleEvent.class, alice.dip.kafka.dto.Events.Ev_RoleEvent.Builder.class);
     }
 
     public static final int NAME_FIELD_NUMBER = 1;
@@ -9022,10 +9022,10 @@ java.lang.String defaultValue) {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof alice.dip.kafka.events.Events.Ev_RoleEvent)) {
+      if (!(obj instanceof alice.dip.kafka.dto.Events.Ev_RoleEvent)) {
         return super.equals(obj);
       }
-      alice.dip.kafka.events.Events.Ev_RoleEvent other = (alice.dip.kafka.events.Events.Ev_RoleEvent) obj;
+      alice.dip.kafka.dto.Events.Ev_RoleEvent other = (alice.dip.kafka.dto.Events.Ev_RoleEvent) obj;
 
       if (!getName()
           .equals(other.getName())) return false;
@@ -9063,44 +9063,44 @@ java.lang.String defaultValue) {
       return hash;
     }
 
-    public static alice.dip.kafka.events.Events.Ev_RoleEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_RoleEvent parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_RoleEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_RoleEvent parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_RoleEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_RoleEvent parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_RoleEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_RoleEvent parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_RoleEvent parseFrom(byte[] data)
+    public static alice.dip.kafka.dto.Events.Ev_RoleEvent parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_RoleEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_RoleEvent parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_RoleEvent parseFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Events.Ev_RoleEvent parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Events.Ev_RoleEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_RoleEvent parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -9108,26 +9108,26 @@ java.lang.String defaultValue) {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static alice.dip.kafka.events.Events.Ev_RoleEvent parseDelimitedFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Events.Ev_RoleEvent parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static alice.dip.kafka.events.Events.Ev_RoleEvent parseDelimitedFrom(
+    public static alice.dip.kafka.dto.Events.Ev_RoleEvent parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_RoleEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_RoleEvent parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Events.Ev_RoleEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_RoleEvent parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -9140,7 +9140,7 @@ java.lang.String defaultValue) {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(alice.dip.kafka.events.Events.Ev_RoleEvent prototype) {
+    public static Builder newBuilder(alice.dip.kafka.dto.Events.Ev_RoleEvent prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -9161,18 +9161,18 @@ java.lang.String defaultValue) {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:events.Ev_RoleEvent)
-        alice.dip.kafka.events.Events.Ev_RoleEventOrBuilder {
+        alice.dip.kafka.dto.Events.Ev_RoleEventOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_RoleEvent_descriptor;
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_RoleEvent_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_RoleEvent_fieldAccessorTable
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_RoleEvent_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                alice.dip.kafka.events.Events.Ev_RoleEvent.class, alice.dip.kafka.events.Events.Ev_RoleEvent.Builder.class);
+                alice.dip.kafka.dto.Events.Ev_RoleEvent.class, alice.dip.kafka.dto.Events.Ev_RoleEvent.Builder.class);
       }
 
       // Construct using ch.cern.alice.o2.control.events.Events.Ev_RoleEvent.newBuilder()
@@ -9200,17 +9200,17 @@ java.lang.String defaultValue) {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_RoleEvent_descriptor;
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_RoleEvent_descriptor;
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_RoleEvent getDefaultInstanceForType() {
-        return alice.dip.kafka.events.Events.Ev_RoleEvent.getDefaultInstance();
+      public alice.dip.kafka.dto.Events.Ev_RoleEvent getDefaultInstanceForType() {
+        return alice.dip.kafka.dto.Events.Ev_RoleEvent.getDefaultInstance();
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_RoleEvent build() {
-        alice.dip.kafka.events.Events.Ev_RoleEvent result = buildPartial();
+      public alice.dip.kafka.dto.Events.Ev_RoleEvent build() {
+        alice.dip.kafka.dto.Events.Ev_RoleEvent result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -9218,14 +9218,14 @@ java.lang.String defaultValue) {
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_RoleEvent buildPartial() {
-        alice.dip.kafka.events.Events.Ev_RoleEvent result = new alice.dip.kafka.events.Events.Ev_RoleEvent(this);
+      public alice.dip.kafka.dto.Events.Ev_RoleEvent buildPartial() {
+        alice.dip.kafka.dto.Events.Ev_RoleEvent result = new alice.dip.kafka.dto.Events.Ev_RoleEvent(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(alice.dip.kafka.events.Events.Ev_RoleEvent result) {
+      private void buildPartial0(alice.dip.kafka.dto.Events.Ev_RoleEvent result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.name_ = name_;
@@ -9246,16 +9246,16 @@ java.lang.String defaultValue) {
 
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof alice.dip.kafka.events.Events.Ev_RoleEvent) {
-          return mergeFrom((alice.dip.kafka.events.Events.Ev_RoleEvent)other);
+        if (other instanceof alice.dip.kafka.dto.Events.Ev_RoleEvent) {
+          return mergeFrom((alice.dip.kafka.dto.Events.Ev_RoleEvent)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(alice.dip.kafka.events.Events.Ev_RoleEvent other) {
-        if (other == alice.dip.kafka.events.Events.Ev_RoleEvent.getDefaultInstance()) return this;
+      public Builder mergeFrom(alice.dip.kafka.dto.Events.Ev_RoleEvent other) {
+        if (other == alice.dip.kafka.dto.Events.Ev_RoleEvent.getDefaultInstance()) return this;
         if (!other.getName().isEmpty()) {
           name_ = other.name_;
           bitField0_ |= 0x00000001;
@@ -9793,12 +9793,12 @@ java.lang.String defaultValue) {
     }
 
     // @@protoc_insertion_point(class_scope:events.Ev_RoleEvent)
-    private static final alice.dip.kafka.events.Events.Ev_RoleEvent DEFAULT_INSTANCE;
+    private static final alice.dip.kafka.dto.Events.Ev_RoleEvent DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new alice.dip.kafka.events.Events.Ev_RoleEvent();
+      DEFAULT_INSTANCE = new alice.dip.kafka.dto.Events.Ev_RoleEvent();
     }
 
-    public static alice.dip.kafka.events.Events.Ev_RoleEvent getDefaultInstance() {
+    public static alice.dip.kafka.dto.Events.Ev_RoleEvent getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -9834,7 +9834,7 @@ java.lang.String defaultValue) {
     }
 
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_RoleEvent getDefaultInstanceForType() {
+    public alice.dip.kafka.dto.Events.Ev_RoleEvent getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -9921,7 +9921,7 @@ java.lang.String defaultValue) {
      * <code>.events.OpStatus operationStatus = 4;</code>
      * @return The operationStatus.
      */
-    alice.dip.kafka.events.Events.OpStatus getOperationStatus();
+    alice.dip.kafka.dto.Events.OpStatus getOperationStatus();
 
     /**
      * <pre>
@@ -9960,7 +9960,7 @@ java.lang.String defaultValue) {
      * <code>.events.OpStatus operationStepStatus = 6;</code>
      * @return The operationStepStatus.
      */
-    alice.dip.kafka.events.Events.OpStatus getOperationStepStatus();
+    alice.dip.kafka.dto.Events.OpStatus getOperationStepStatus();
 
     /**
      * <code>string environmentId = 7;</code>
@@ -10028,15 +10028,15 @@ java.lang.String defaultValue) {
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return alice.dip.kafka.events.Events.internal_static_events_Ev_IntegratedServiceEvent_descriptor;
+      return alice.dip.kafka.dto.Events.internal_static_events_Ev_IntegratedServiceEvent_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return alice.dip.kafka.events.Events.internal_static_events_Ev_IntegratedServiceEvent_fieldAccessorTable
+      return alice.dip.kafka.dto.Events.internal_static_events_Ev_IntegratedServiceEvent_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent.class, alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent.Builder.class);
+              alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent.class, alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent.Builder.class);
     }
 
     public static final int NAME_FIELD_NUMBER = 1;
@@ -10201,9 +10201,9 @@ java.lang.String defaultValue) {
      * <code>.events.OpStatus operationStatus = 4;</code>
      * @return The operationStatus.
      */
-    @java.lang.Override public alice.dip.kafka.events.Events.OpStatus getOperationStatus() {
-      alice.dip.kafka.events.Events.OpStatus result = alice.dip.kafka.events.Events.OpStatus.forNumber(operationStatus_);
-      return result == null ? alice.dip.kafka.events.Events.OpStatus.UNRECOGNIZED : result;
+    @java.lang.Override public alice.dip.kafka.dto.Events.OpStatus getOperationStatus() {
+      alice.dip.kafka.dto.Events.OpStatus result = alice.dip.kafka.dto.Events.OpStatus.forNumber(operationStatus_);
+      return result == null ? alice.dip.kafka.dto.Events.OpStatus.UNRECOGNIZED : result;
     }
 
     public static final int OPERATIONSTEP_FIELD_NUMBER = 5;
@@ -10274,9 +10274,9 @@ java.lang.String defaultValue) {
      * <code>.events.OpStatus operationStepStatus = 6;</code>
      * @return The operationStepStatus.
      */
-    @java.lang.Override public alice.dip.kafka.events.Events.OpStatus getOperationStepStatus() {
-      alice.dip.kafka.events.Events.OpStatus result = alice.dip.kafka.events.Events.OpStatus.forNumber(operationStepStatus_);
-      return result == null ? alice.dip.kafka.events.Events.OpStatus.UNRECOGNIZED : result;
+    @java.lang.Override public alice.dip.kafka.dto.Events.OpStatus getOperationStepStatus() {
+      alice.dip.kafka.dto.Events.OpStatus result = alice.dip.kafka.dto.Events.OpStatus.forNumber(operationStepStatus_);
+      return result == null ? alice.dip.kafka.dto.Events.OpStatus.UNRECOGNIZED : result;
     }
 
     public static final int ENVIRONMENTID_FIELD_NUMBER = 7;
@@ -10388,13 +10388,13 @@ java.lang.String defaultValue) {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(operationName_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 3, operationName_);
       }
-      if (operationStatus_ != alice.dip.kafka.events.Events.OpStatus.NULL.getNumber()) {
+      if (operationStatus_ != alice.dip.kafka.dto.Events.OpStatus.NULL.getNumber()) {
         output.writeEnum(4, operationStatus_);
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(operationStep_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 5, operationStep_);
       }
-      if (operationStepStatus_ != alice.dip.kafka.events.Events.OpStatus.NULL.getNumber()) {
+      if (operationStepStatus_ != alice.dip.kafka.dto.Events.OpStatus.NULL.getNumber()) {
         output.writeEnum(6, operationStepStatus_);
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(environmentId_)) {
@@ -10421,14 +10421,14 @@ java.lang.String defaultValue) {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(operationName_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(3, operationName_);
       }
-      if (operationStatus_ != alice.dip.kafka.events.Events.OpStatus.NULL.getNumber()) {
+      if (operationStatus_ != alice.dip.kafka.dto.Events.OpStatus.NULL.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(4, operationStatus_);
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(operationStep_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(5, operationStep_);
       }
-      if (operationStepStatus_ != alice.dip.kafka.events.Events.OpStatus.NULL.getNumber()) {
+      if (operationStepStatus_ != alice.dip.kafka.dto.Events.OpStatus.NULL.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(6, operationStepStatus_);
       }
@@ -10448,10 +10448,10 @@ java.lang.String defaultValue) {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent)) {
+      if (!(obj instanceof alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent)) {
         return super.equals(obj);
       }
-      alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent other = (alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent) obj;
+      alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent other = (alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent) obj;
 
       if (!getName()
           .equals(other.getName())) return false;
@@ -10499,44 +10499,44 @@ java.lang.String defaultValue) {
       return hash;
     }
 
-    public static alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent parseFrom(byte[] data)
+    public static alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent parseFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -10544,26 +10544,26 @@ java.lang.String defaultValue) {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent parseDelimitedFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent parseDelimitedFrom(
+    public static alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -10576,7 +10576,7 @@ java.lang.String defaultValue) {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent prototype) {
+    public static Builder newBuilder(alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -10597,18 +10597,18 @@ java.lang.String defaultValue) {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:events.Ev_IntegratedServiceEvent)
-        alice.dip.kafka.events.Events.Ev_IntegratedServiceEventOrBuilder {
+        alice.dip.kafka.dto.Events.Ev_IntegratedServiceEventOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_IntegratedServiceEvent_descriptor;
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_IntegratedServiceEvent_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_IntegratedServiceEvent_fieldAccessorTable
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_IntegratedServiceEvent_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent.class, alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent.Builder.class);
+                alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent.class, alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent.Builder.class);
       }
 
       // Construct using ch.cern.alice.o2.control.events.Events.Ev_IntegratedServiceEvent.newBuilder()
@@ -10639,17 +10639,17 @@ java.lang.String defaultValue) {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_IntegratedServiceEvent_descriptor;
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_IntegratedServiceEvent_descriptor;
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent getDefaultInstanceForType() {
-        return alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent.getDefaultInstance();
+      public alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent getDefaultInstanceForType() {
+        return alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent.getDefaultInstance();
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent build() {
-        alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent result = buildPartial();
+      public alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent build() {
+        alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -10657,14 +10657,14 @@ java.lang.String defaultValue) {
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent buildPartial() {
-        alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent result = new alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent(this);
+      public alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent buildPartial() {
+        alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent result = new alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent result) {
+      private void buildPartial0(alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.name_ = name_;
@@ -10694,16 +10694,16 @@ java.lang.String defaultValue) {
 
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent) {
-          return mergeFrom((alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent)other);
+        if (other instanceof alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent) {
+          return mergeFrom((alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent other) {
-        if (other == alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent.getDefaultInstance()) return this;
+      public Builder mergeFrom(alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent other) {
+        if (other == alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent.getDefaultInstance()) return this;
         if (!other.getName().isEmpty()) {
           name_ = other.name_;
           bitField0_ |= 0x00000001;
@@ -11135,9 +11135,9 @@ java.lang.String defaultValue) {
        * @return The operationStatus.
        */
       @java.lang.Override
-      public alice.dip.kafka.events.Events.OpStatus getOperationStatus() {
-        alice.dip.kafka.events.Events.OpStatus result = alice.dip.kafka.events.Events.OpStatus.forNumber(operationStatus_);
-        return result == null ? alice.dip.kafka.events.Events.OpStatus.UNRECOGNIZED : result;
+      public alice.dip.kafka.dto.Events.OpStatus getOperationStatus() {
+        alice.dip.kafka.dto.Events.OpStatus result = alice.dip.kafka.dto.Events.OpStatus.forNumber(operationStatus_);
+        return result == null ? alice.dip.kafka.dto.Events.OpStatus.UNRECOGNIZED : result;
       }
       /**
        * <pre>
@@ -11148,7 +11148,7 @@ java.lang.String defaultValue) {
        * @param value The operationStatus to set.
        * @return This builder for chaining.
        */
-      public Builder setOperationStatus(alice.dip.kafka.events.Events.OpStatus value) {
+      public Builder setOperationStatus(alice.dip.kafka.dto.Events.OpStatus value) {
         if (value == null) { throw new NullPointerException(); }
         bitField0_ |= 0x00000008;
         operationStatus_ = value.getNumber();
@@ -11298,9 +11298,9 @@ java.lang.String defaultValue) {
        * @return The operationStepStatus.
        */
       @java.lang.Override
-      public alice.dip.kafka.events.Events.OpStatus getOperationStepStatus() {
-        alice.dip.kafka.events.Events.OpStatus result = alice.dip.kafka.events.Events.OpStatus.forNumber(operationStepStatus_);
-        return result == null ? alice.dip.kafka.events.Events.OpStatus.UNRECOGNIZED : result;
+      public alice.dip.kafka.dto.Events.OpStatus getOperationStepStatus() {
+        alice.dip.kafka.dto.Events.OpStatus result = alice.dip.kafka.dto.Events.OpStatus.forNumber(operationStepStatus_);
+        return result == null ? alice.dip.kafka.dto.Events.OpStatus.UNRECOGNIZED : result;
       }
       /**
        * <pre>
@@ -11311,7 +11311,7 @@ java.lang.String defaultValue) {
        * @param value The operationStepStatus to set.
        * @return This builder for chaining.
        */
-      public Builder setOperationStepStatus(alice.dip.kafka.events.Events.OpStatus value) {
+      public Builder setOperationStepStatus(alice.dip.kafka.dto.Events.OpStatus value) {
         if (value == null) { throw new NullPointerException(); }
         bitField0_ |= 0x00000020;
         operationStepStatus_ = value.getNumber();
@@ -11501,12 +11501,12 @@ java.lang.String defaultValue) {
     }
 
     // @@protoc_insertion_point(class_scope:events.Ev_IntegratedServiceEvent)
-    private static final alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent DEFAULT_INSTANCE;
+    private static final alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent();
+      DEFAULT_INSTANCE = new alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent();
     }
 
-    public static alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent getDefaultInstance() {
+    public static alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -11542,7 +11542,7 @@ java.lang.String defaultValue) {
     }
 
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent getDefaultInstanceForType() {
+    public alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -11615,7 +11615,7 @@ java.lang.String defaultValue) {
      * <code>.events.OpStatus transitionStatus = 6;</code>
      * @return The transitionStatus.
      */
-    alice.dip.kafka.events.Events.OpStatus getTransitionStatus();
+    alice.dip.kafka.dto.Events.OpStatus getTransitionStatus();
 
     /**
      * <code>.common.User lastRequestUser = 8;</code>
@@ -11626,11 +11626,11 @@ java.lang.String defaultValue) {
      * <code>.common.User lastRequestUser = 8;</code>
      * @return The lastRequestUser.
      */
-    alice.dip.kafka.events.Common.User getLastRequestUser();
+    alice.dip.kafka.dto.Common.User getLastRequestUser();
     /**
      * <code>.common.User lastRequestUser = 8;</code>
      */
-    alice.dip.kafka.events.Common.UserOrBuilder getLastRequestUserOrBuilder();
+    alice.dip.kafka.dto.Common.UserOrBuilder getLastRequestUserOrBuilder();
   }
   /**
    * Protobuf type {@code events.Ev_RunEvent}
@@ -11663,15 +11663,15 @@ java.lang.String defaultValue) {
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return alice.dip.kafka.events.Events.internal_static_events_Ev_RunEvent_descriptor;
+      return alice.dip.kafka.dto.Events.internal_static_events_Ev_RunEvent_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return alice.dip.kafka.events.Events.internal_static_events_Ev_RunEvent_fieldAccessorTable
+      return alice.dip.kafka.dto.Events.internal_static_events_Ev_RunEvent_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              alice.dip.kafka.events.Events.Ev_RunEvent.class, alice.dip.kafka.events.Events.Ev_RunEvent.Builder.class);
+              alice.dip.kafka.dto.Events.Ev_RunEvent.class, alice.dip.kafka.dto.Events.Ev_RunEvent.Builder.class);
     }
 
     private int bitField0_;
@@ -11855,13 +11855,13 @@ java.lang.String defaultValue) {
      * <code>.events.OpStatus transitionStatus = 6;</code>
      * @return The transitionStatus.
      */
-    @java.lang.Override public alice.dip.kafka.events.Events.OpStatus getTransitionStatus() {
-      alice.dip.kafka.events.Events.OpStatus result = alice.dip.kafka.events.Events.OpStatus.forNumber(transitionStatus_);
-      return result == null ? alice.dip.kafka.events.Events.OpStatus.UNRECOGNIZED : result;
+    @java.lang.Override public alice.dip.kafka.dto.Events.OpStatus getTransitionStatus() {
+      alice.dip.kafka.dto.Events.OpStatus result = alice.dip.kafka.dto.Events.OpStatus.forNumber(transitionStatus_);
+      return result == null ? alice.dip.kafka.dto.Events.OpStatus.UNRECOGNIZED : result;
     }
 
     public static final int LASTREQUESTUSER_FIELD_NUMBER = 8;
-    private alice.dip.kafka.events.Common.User lastRequestUser_;
+    private alice.dip.kafka.dto.Common.User lastRequestUser_;
     /**
      * <code>.common.User lastRequestUser = 8;</code>
      * @return Whether the lastRequestUser field is set.
@@ -11875,15 +11875,15 @@ java.lang.String defaultValue) {
      * @return The lastRequestUser.
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Common.User getLastRequestUser() {
-      return lastRequestUser_ == null ? alice.dip.kafka.events.Common.User.getDefaultInstance() : lastRequestUser_;
+    public alice.dip.kafka.dto.Common.User getLastRequestUser() {
+      return lastRequestUser_ == null ? alice.dip.kafka.dto.Common.User.getDefaultInstance() : lastRequestUser_;
     }
     /**
      * <code>.common.User lastRequestUser = 8;</code>
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Common.UserOrBuilder getLastRequestUserOrBuilder() {
-      return lastRequestUser_ == null ? alice.dip.kafka.events.Common.User.getDefaultInstance() : lastRequestUser_;
+    public alice.dip.kafka.dto.Common.UserOrBuilder getLastRequestUserOrBuilder() {
+      return lastRequestUser_ == null ? alice.dip.kafka.dto.Common.User.getDefaultInstance() : lastRequestUser_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -11915,7 +11915,7 @@ java.lang.String defaultValue) {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(transition_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 5, transition_);
       }
-      if (transitionStatus_ != alice.dip.kafka.events.Events.OpStatus.NULL.getNumber()) {
+      if (transitionStatus_ != alice.dip.kafka.dto.Events.OpStatus.NULL.getNumber()) {
         output.writeEnum(6, transitionStatus_);
       }
       if (((bitField0_ & 0x00000001) != 0)) {
@@ -11946,7 +11946,7 @@ java.lang.String defaultValue) {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(transition_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(5, transition_);
       }
-      if (transitionStatus_ != alice.dip.kafka.events.Events.OpStatus.NULL.getNumber()) {
+      if (transitionStatus_ != alice.dip.kafka.dto.Events.OpStatus.NULL.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(6, transitionStatus_);
       }
@@ -11964,10 +11964,10 @@ java.lang.String defaultValue) {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof alice.dip.kafka.events.Events.Ev_RunEvent)) {
+      if (!(obj instanceof alice.dip.kafka.dto.Events.Ev_RunEvent)) {
         return super.equals(obj);
       }
-      alice.dip.kafka.events.Events.Ev_RunEvent other = (alice.dip.kafka.events.Events.Ev_RunEvent) obj;
+      alice.dip.kafka.dto.Events.Ev_RunEvent other = (alice.dip.kafka.dto.Events.Ev_RunEvent) obj;
 
       if (!getEnvironmentId()
           .equals(other.getEnvironmentId())) return false;
@@ -12017,44 +12017,44 @@ java.lang.String defaultValue) {
       return hash;
     }
 
-    public static alice.dip.kafka.events.Events.Ev_RunEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_RunEvent parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_RunEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_RunEvent parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_RunEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_RunEvent parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_RunEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_RunEvent parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_RunEvent parseFrom(byte[] data)
+    public static alice.dip.kafka.dto.Events.Ev_RunEvent parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_RunEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_RunEvent parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_RunEvent parseFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Events.Ev_RunEvent parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Events.Ev_RunEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_RunEvent parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -12062,26 +12062,26 @@ java.lang.String defaultValue) {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static alice.dip.kafka.events.Events.Ev_RunEvent parseDelimitedFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Events.Ev_RunEvent parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static alice.dip.kafka.events.Events.Ev_RunEvent parseDelimitedFrom(
+    public static alice.dip.kafka.dto.Events.Ev_RunEvent parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_RunEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_RunEvent parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Events.Ev_RunEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_RunEvent parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -12094,7 +12094,7 @@ java.lang.String defaultValue) {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(alice.dip.kafka.events.Events.Ev_RunEvent prototype) {
+    public static Builder newBuilder(alice.dip.kafka.dto.Events.Ev_RunEvent prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -12115,18 +12115,18 @@ java.lang.String defaultValue) {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:events.Ev_RunEvent)
-        alice.dip.kafka.events.Events.Ev_RunEventOrBuilder {
+        alice.dip.kafka.dto.Events.Ev_RunEventOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_RunEvent_descriptor;
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_RunEvent_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_RunEvent_fieldAccessorTable
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_RunEvent_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                alice.dip.kafka.events.Events.Ev_RunEvent.class, alice.dip.kafka.events.Events.Ev_RunEvent.Builder.class);
+                alice.dip.kafka.dto.Events.Ev_RunEvent.class, alice.dip.kafka.dto.Events.Ev_RunEvent.Builder.class);
       }
 
       // Construct using ch.cern.alice.o2.control.events.Events.Ev_RunEvent.newBuilder()
@@ -12166,17 +12166,17 @@ java.lang.String defaultValue) {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_RunEvent_descriptor;
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_RunEvent_descriptor;
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_RunEvent getDefaultInstanceForType() {
-        return alice.dip.kafka.events.Events.Ev_RunEvent.getDefaultInstance();
+      public alice.dip.kafka.dto.Events.Ev_RunEvent getDefaultInstanceForType() {
+        return alice.dip.kafka.dto.Events.Ev_RunEvent.getDefaultInstance();
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_RunEvent build() {
-        alice.dip.kafka.events.Events.Ev_RunEvent result = buildPartial();
+      public alice.dip.kafka.dto.Events.Ev_RunEvent build() {
+        alice.dip.kafka.dto.Events.Ev_RunEvent result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -12184,14 +12184,14 @@ java.lang.String defaultValue) {
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_RunEvent buildPartial() {
-        alice.dip.kafka.events.Events.Ev_RunEvent result = new alice.dip.kafka.events.Events.Ev_RunEvent(this);
+      public alice.dip.kafka.dto.Events.Ev_RunEvent buildPartial() {
+        alice.dip.kafka.dto.Events.Ev_RunEvent result = new alice.dip.kafka.dto.Events.Ev_RunEvent(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(alice.dip.kafka.events.Events.Ev_RunEvent result) {
+      private void buildPartial0(alice.dip.kafka.dto.Events.Ev_RunEvent result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.environmentId_ = environmentId_;
@@ -12223,16 +12223,16 @@ java.lang.String defaultValue) {
 
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof alice.dip.kafka.events.Events.Ev_RunEvent) {
-          return mergeFrom((alice.dip.kafka.events.Events.Ev_RunEvent)other);
+        if (other instanceof alice.dip.kafka.dto.Events.Ev_RunEvent) {
+          return mergeFrom((alice.dip.kafka.dto.Events.Ev_RunEvent)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(alice.dip.kafka.events.Events.Ev_RunEvent other) {
-        if (other == alice.dip.kafka.events.Events.Ev_RunEvent.getDefaultInstance()) return this;
+      public Builder mergeFrom(alice.dip.kafka.dto.Events.Ev_RunEvent other) {
+        if (other == alice.dip.kafka.dto.Events.Ev_RunEvent.getDefaultInstance()) return this;
         if (!other.getEnvironmentId().isEmpty()) {
           environmentId_ = other.environmentId_;
           bitField0_ |= 0x00000001;
@@ -12686,16 +12686,16 @@ java.lang.String defaultValue) {
        * @return The transitionStatus.
        */
       @java.lang.Override
-      public alice.dip.kafka.events.Events.OpStatus getTransitionStatus() {
-        alice.dip.kafka.events.Events.OpStatus result = alice.dip.kafka.events.Events.OpStatus.forNumber(transitionStatus_);
-        return result == null ? alice.dip.kafka.events.Events.OpStatus.UNRECOGNIZED : result;
+      public alice.dip.kafka.dto.Events.OpStatus getTransitionStatus() {
+        alice.dip.kafka.dto.Events.OpStatus result = alice.dip.kafka.dto.Events.OpStatus.forNumber(transitionStatus_);
+        return result == null ? alice.dip.kafka.dto.Events.OpStatus.UNRECOGNIZED : result;
       }
       /**
        * <code>.events.OpStatus transitionStatus = 6;</code>
        * @param value The transitionStatus to set.
        * @return This builder for chaining.
        */
-      public Builder setTransitionStatus(alice.dip.kafka.events.Events.OpStatus value) {
+      public Builder setTransitionStatus(alice.dip.kafka.dto.Events.OpStatus value) {
         if (value == null) { throw new NullPointerException(); }
         bitField0_ |= 0x00000020;
         transitionStatus_ = value.getNumber();
@@ -12713,9 +12713,9 @@ java.lang.String defaultValue) {
         return this;
       }
 
-      private alice.dip.kafka.events.Common.User lastRequestUser_;
+      private alice.dip.kafka.dto.Common.User lastRequestUser_;
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Common.User, alice.dip.kafka.events.Common.User.Builder, alice.dip.kafka.events.Common.UserOrBuilder> lastRequestUserBuilder_;
+          alice.dip.kafka.dto.Common.User, alice.dip.kafka.dto.Common.User.Builder, alice.dip.kafka.dto.Common.UserOrBuilder> lastRequestUserBuilder_;
       /**
        * <code>.common.User lastRequestUser = 8;</code>
        * @return Whether the lastRequestUser field is set.
@@ -12727,9 +12727,9 @@ java.lang.String defaultValue) {
        * <code>.common.User lastRequestUser = 8;</code>
        * @return The lastRequestUser.
        */
-      public alice.dip.kafka.events.Common.User getLastRequestUser() {
+      public alice.dip.kafka.dto.Common.User getLastRequestUser() {
         if (lastRequestUserBuilder_ == null) {
-          return lastRequestUser_ == null ? alice.dip.kafka.events.Common.User.getDefaultInstance() : lastRequestUser_;
+          return lastRequestUser_ == null ? alice.dip.kafka.dto.Common.User.getDefaultInstance() : lastRequestUser_;
         } else {
           return lastRequestUserBuilder_.getMessage();
         }
@@ -12737,7 +12737,7 @@ java.lang.String defaultValue) {
       /**
        * <code>.common.User lastRequestUser = 8;</code>
        */
-      public Builder setLastRequestUser(alice.dip.kafka.events.Common.User value) {
+      public Builder setLastRequestUser(alice.dip.kafka.dto.Common.User value) {
         if (lastRequestUserBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -12754,7 +12754,7 @@ java.lang.String defaultValue) {
        * <code>.common.User lastRequestUser = 8;</code>
        */
       public Builder setLastRequestUser(
-          alice.dip.kafka.events.Common.User.Builder builderForValue) {
+          alice.dip.kafka.dto.Common.User.Builder builderForValue) {
         if (lastRequestUserBuilder_ == null) {
           lastRequestUser_ = builderForValue.build();
         } else {
@@ -12767,11 +12767,11 @@ java.lang.String defaultValue) {
       /**
        * <code>.common.User lastRequestUser = 8;</code>
        */
-      public Builder mergeLastRequestUser(alice.dip.kafka.events.Common.User value) {
+      public Builder mergeLastRequestUser(alice.dip.kafka.dto.Common.User value) {
         if (lastRequestUserBuilder_ == null) {
           if (((bitField0_ & 0x00000040) != 0) &&
             lastRequestUser_ != null &&
-            lastRequestUser_ != alice.dip.kafka.events.Common.User.getDefaultInstance()) {
+            lastRequestUser_ != alice.dip.kafka.dto.Common.User.getDefaultInstance()) {
             getLastRequestUserBuilder().mergeFrom(value);
           } else {
             lastRequestUser_ = value;
@@ -12801,7 +12801,7 @@ java.lang.String defaultValue) {
       /**
        * <code>.common.User lastRequestUser = 8;</code>
        */
-      public alice.dip.kafka.events.Common.User.Builder getLastRequestUserBuilder() {
+      public alice.dip.kafka.dto.Common.User.Builder getLastRequestUserBuilder() {
         bitField0_ |= 0x00000040;
         onChanged();
         return internalGetLastRequestUserFieldBuilder().getBuilder();
@@ -12809,23 +12809,23 @@ java.lang.String defaultValue) {
       /**
        * <code>.common.User lastRequestUser = 8;</code>
        */
-      public alice.dip.kafka.events.Common.UserOrBuilder getLastRequestUserOrBuilder() {
+      public alice.dip.kafka.dto.Common.UserOrBuilder getLastRequestUserOrBuilder() {
         if (lastRequestUserBuilder_ != null) {
           return lastRequestUserBuilder_.getMessageOrBuilder();
         } else {
           return lastRequestUser_ == null ?
-              alice.dip.kafka.events.Common.User.getDefaultInstance() : lastRequestUser_;
+              alice.dip.kafka.dto.Common.User.getDefaultInstance() : lastRequestUser_;
         }
       }
       /**
        * <code>.common.User lastRequestUser = 8;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Common.User, alice.dip.kafka.events.Common.User.Builder, alice.dip.kafka.events.Common.UserOrBuilder> 
+          alice.dip.kafka.dto.Common.User, alice.dip.kafka.dto.Common.User.Builder, alice.dip.kafka.dto.Common.UserOrBuilder> 
           internalGetLastRequestUserFieldBuilder() {
         if (lastRequestUserBuilder_ == null) {
           lastRequestUserBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              alice.dip.kafka.events.Common.User, alice.dip.kafka.events.Common.User.Builder, alice.dip.kafka.events.Common.UserOrBuilder>(
+              alice.dip.kafka.dto.Common.User, alice.dip.kafka.dto.Common.User.Builder, alice.dip.kafka.dto.Common.UserOrBuilder>(
                   getLastRequestUser(),
                   getParentForChildren(),
                   isClean());
@@ -12838,12 +12838,12 @@ java.lang.String defaultValue) {
     }
 
     // @@protoc_insertion_point(class_scope:events.Ev_RunEvent)
-    private static final alice.dip.kafka.events.Events.Ev_RunEvent DEFAULT_INSTANCE;
+    private static final alice.dip.kafka.dto.Events.Ev_RunEvent DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new alice.dip.kafka.events.Events.Ev_RunEvent();
+      DEFAULT_INSTANCE = new alice.dip.kafka.dto.Events.Ev_RunEvent();
     }
 
-    public static alice.dip.kafka.events.Events.Ev_RunEvent getDefaultInstance() {
+    public static alice.dip.kafka.dto.Events.Ev_RunEvent getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -12879,7 +12879,7 @@ java.lang.String defaultValue) {
     }
 
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_RunEvent getDefaultInstanceForType() {
+    public alice.dip.kafka.dto.Events.Ev_RunEvent getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -12908,11 +12908,11 @@ java.lang.String defaultValue) {
      * <code>.common.BeamInfo beamInfo = 2;</code>
      * @return The beamInfo.
      */
-    alice.dip.kafka.events.Common.BeamInfo getBeamInfo();
+    alice.dip.kafka.dto.Common.BeamInfo getBeamInfo();
     /**
      * <code>.common.BeamInfo beamInfo = 2;</code>
      */
-    alice.dip.kafka.events.Common.BeamInfoOrBuilder getBeamInfoOrBuilder();
+    alice.dip.kafka.dto.Common.BeamInfoOrBuilder getBeamInfoOrBuilder();
   }
   /**
    * <pre>
@@ -12946,15 +12946,15 @@ java.lang.String defaultValue) {
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return alice.dip.kafka.events.Events.internal_static_events_Ev_BeamModeEvent_descriptor;
+      return alice.dip.kafka.dto.Events.internal_static_events_Ev_BeamModeEvent_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return alice.dip.kafka.events.Events.internal_static_events_Ev_BeamModeEvent_fieldAccessorTable
+      return alice.dip.kafka.dto.Events.internal_static_events_Ev_BeamModeEvent_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              alice.dip.kafka.events.Events.Ev_BeamModeEvent.class, alice.dip.kafka.events.Events.Ev_BeamModeEvent.Builder.class);
+              alice.dip.kafka.dto.Events.Ev_BeamModeEvent.class, alice.dip.kafka.dto.Events.Ev_BeamModeEvent.Builder.class);
     }
 
     private int bitField0_;
@@ -12974,7 +12974,7 @@ java.lang.String defaultValue) {
     }
 
     public static final int BEAMINFO_FIELD_NUMBER = 2;
-    private alice.dip.kafka.events.Common.BeamInfo beamInfo_;
+    private alice.dip.kafka.dto.Common.BeamInfo beamInfo_;
     /**
      * <code>.common.BeamInfo beamInfo = 2;</code>
      * @return Whether the beamInfo field is set.
@@ -12988,15 +12988,15 @@ java.lang.String defaultValue) {
      * @return The beamInfo.
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Common.BeamInfo getBeamInfo() {
-      return beamInfo_ == null ? alice.dip.kafka.events.Common.BeamInfo.getDefaultInstance() : beamInfo_;
+    public alice.dip.kafka.dto.Common.BeamInfo getBeamInfo() {
+      return beamInfo_ == null ? alice.dip.kafka.dto.Common.BeamInfo.getDefaultInstance() : beamInfo_;
     }
     /**
      * <code>.common.BeamInfo beamInfo = 2;</code>
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Common.BeamInfoOrBuilder getBeamInfoOrBuilder() {
-      return beamInfo_ == null ? alice.dip.kafka.events.Common.BeamInfo.getDefaultInstance() : beamInfo_;
+    public alice.dip.kafka.dto.Common.BeamInfoOrBuilder getBeamInfoOrBuilder() {
+      return beamInfo_ == null ? alice.dip.kafka.dto.Common.BeamInfo.getDefaultInstance() : beamInfo_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -13046,10 +13046,10 @@ java.lang.String defaultValue) {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof alice.dip.kafka.events.Events.Ev_BeamModeEvent)) {
+      if (!(obj instanceof alice.dip.kafka.dto.Events.Ev_BeamModeEvent)) {
         return super.equals(obj);
       }
-      alice.dip.kafka.events.Events.Ev_BeamModeEvent other = (alice.dip.kafka.events.Events.Ev_BeamModeEvent) obj;
+      alice.dip.kafka.dto.Events.Ev_BeamModeEvent other = (alice.dip.kafka.dto.Events.Ev_BeamModeEvent) obj;
 
       if (getTimestamp()
           != other.getTimestamp()) return false;
@@ -13081,44 +13081,44 @@ java.lang.String defaultValue) {
       return hash;
     }
 
-    public static alice.dip.kafka.events.Events.Ev_BeamModeEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_BeamModeEvent parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_BeamModeEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_BeamModeEvent parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_BeamModeEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_BeamModeEvent parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_BeamModeEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_BeamModeEvent parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_BeamModeEvent parseFrom(byte[] data)
+    public static alice.dip.kafka.dto.Events.Ev_BeamModeEvent parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Ev_BeamModeEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_BeamModeEvent parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_BeamModeEvent parseFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Events.Ev_BeamModeEvent parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Events.Ev_BeamModeEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_BeamModeEvent parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -13126,26 +13126,26 @@ java.lang.String defaultValue) {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static alice.dip.kafka.events.Events.Ev_BeamModeEvent parseDelimitedFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Events.Ev_BeamModeEvent parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static alice.dip.kafka.events.Events.Ev_BeamModeEvent parseDelimitedFrom(
+    public static alice.dip.kafka.dto.Events.Ev_BeamModeEvent parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Ev_BeamModeEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_BeamModeEvent parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Events.Ev_BeamModeEvent parseFrom(
+    public static alice.dip.kafka.dto.Events.Ev_BeamModeEvent parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -13158,7 +13158,7 @@ java.lang.String defaultValue) {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(alice.dip.kafka.events.Events.Ev_BeamModeEvent prototype) {
+    public static Builder newBuilder(alice.dip.kafka.dto.Events.Ev_BeamModeEvent prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -13185,18 +13185,18 @@ java.lang.String defaultValue) {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:events.Ev_BeamModeEvent)
-        alice.dip.kafka.events.Events.Ev_BeamModeEventOrBuilder {
+        alice.dip.kafka.dto.Events.Ev_BeamModeEventOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_BeamModeEvent_descriptor;
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_BeamModeEvent_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_BeamModeEvent_fieldAccessorTable
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_BeamModeEvent_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                alice.dip.kafka.events.Events.Ev_BeamModeEvent.class, alice.dip.kafka.events.Events.Ev_BeamModeEvent.Builder.class);
+                alice.dip.kafka.dto.Events.Ev_BeamModeEvent.class, alice.dip.kafka.dto.Events.Ev_BeamModeEvent.Builder.class);
       }
 
       // Construct using ch.cern.alice.o2.control.events.Events.Ev_BeamModeEvent.newBuilder()
@@ -13231,17 +13231,17 @@ java.lang.String defaultValue) {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return alice.dip.kafka.events.Events.internal_static_events_Ev_BeamModeEvent_descriptor;
+        return alice.dip.kafka.dto.Events.internal_static_events_Ev_BeamModeEvent_descriptor;
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_BeamModeEvent getDefaultInstanceForType() {
-        return alice.dip.kafka.events.Events.Ev_BeamModeEvent.getDefaultInstance();
+      public alice.dip.kafka.dto.Events.Ev_BeamModeEvent getDefaultInstanceForType() {
+        return alice.dip.kafka.dto.Events.Ev_BeamModeEvent.getDefaultInstance();
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_BeamModeEvent build() {
-        alice.dip.kafka.events.Events.Ev_BeamModeEvent result = buildPartial();
+      public alice.dip.kafka.dto.Events.Ev_BeamModeEvent build() {
+        alice.dip.kafka.dto.Events.Ev_BeamModeEvent result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -13249,14 +13249,14 @@ java.lang.String defaultValue) {
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_BeamModeEvent buildPartial() {
-        alice.dip.kafka.events.Events.Ev_BeamModeEvent result = new alice.dip.kafka.events.Events.Ev_BeamModeEvent(this);
+      public alice.dip.kafka.dto.Events.Ev_BeamModeEvent buildPartial() {
+        alice.dip.kafka.dto.Events.Ev_BeamModeEvent result = new alice.dip.kafka.dto.Events.Ev_BeamModeEvent(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(alice.dip.kafka.events.Events.Ev_BeamModeEvent result) {
+      private void buildPartial0(alice.dip.kafka.dto.Events.Ev_BeamModeEvent result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.timestamp_ = timestamp_;
@@ -13273,16 +13273,16 @@ java.lang.String defaultValue) {
 
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof alice.dip.kafka.events.Events.Ev_BeamModeEvent) {
-          return mergeFrom((alice.dip.kafka.events.Events.Ev_BeamModeEvent)other);
+        if (other instanceof alice.dip.kafka.dto.Events.Ev_BeamModeEvent) {
+          return mergeFrom((alice.dip.kafka.dto.Events.Ev_BeamModeEvent)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(alice.dip.kafka.events.Events.Ev_BeamModeEvent other) {
-        if (other == alice.dip.kafka.events.Events.Ev_BeamModeEvent.getDefaultInstance()) return this;
+      public Builder mergeFrom(alice.dip.kafka.dto.Events.Ev_BeamModeEvent other) {
+        if (other == alice.dip.kafka.dto.Events.Ev_BeamModeEvent.getDefaultInstance()) return this;
         if (other.getTimestamp() != 0L) {
           setTimestamp(other.getTimestamp());
         }
@@ -13388,9 +13388,9 @@ java.lang.String defaultValue) {
         return this;
       }
 
-      private alice.dip.kafka.events.Common.BeamInfo beamInfo_;
+      private alice.dip.kafka.dto.Common.BeamInfo beamInfo_;
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Common.BeamInfo, alice.dip.kafka.events.Common.BeamInfo.Builder, alice.dip.kafka.events.Common.BeamInfoOrBuilder> beamInfoBuilder_;
+          alice.dip.kafka.dto.Common.BeamInfo, alice.dip.kafka.dto.Common.BeamInfo.Builder, alice.dip.kafka.dto.Common.BeamInfoOrBuilder> beamInfoBuilder_;
       /**
        * <code>.common.BeamInfo beamInfo = 2;</code>
        * @return Whether the beamInfo field is set.
@@ -13402,9 +13402,9 @@ java.lang.String defaultValue) {
        * <code>.common.BeamInfo beamInfo = 2;</code>
        * @return The beamInfo.
        */
-      public alice.dip.kafka.events.Common.BeamInfo getBeamInfo() {
+      public alice.dip.kafka.dto.Common.BeamInfo getBeamInfo() {
         if (beamInfoBuilder_ == null) {
-          return beamInfo_ == null ? alice.dip.kafka.events.Common.BeamInfo.getDefaultInstance() : beamInfo_;
+          return beamInfo_ == null ? alice.dip.kafka.dto.Common.BeamInfo.getDefaultInstance() : beamInfo_;
         } else {
           return beamInfoBuilder_.getMessage();
         }
@@ -13412,7 +13412,7 @@ java.lang.String defaultValue) {
       /**
        * <code>.common.BeamInfo beamInfo = 2;</code>
        */
-      public Builder setBeamInfo(alice.dip.kafka.events.Common.BeamInfo value) {
+      public Builder setBeamInfo(alice.dip.kafka.dto.Common.BeamInfo value) {
         if (beamInfoBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -13429,7 +13429,7 @@ java.lang.String defaultValue) {
        * <code>.common.BeamInfo beamInfo = 2;</code>
        */
       public Builder setBeamInfo(
-          alice.dip.kafka.events.Common.BeamInfo.Builder builderForValue) {
+          alice.dip.kafka.dto.Common.BeamInfo.Builder builderForValue) {
         if (beamInfoBuilder_ == null) {
           beamInfo_ = builderForValue.build();
         } else {
@@ -13442,11 +13442,11 @@ java.lang.String defaultValue) {
       /**
        * <code>.common.BeamInfo beamInfo = 2;</code>
        */
-      public Builder mergeBeamInfo(alice.dip.kafka.events.Common.BeamInfo value) {
+      public Builder mergeBeamInfo(alice.dip.kafka.dto.Common.BeamInfo value) {
         if (beamInfoBuilder_ == null) {
           if (((bitField0_ & 0x00000002) != 0) &&
             beamInfo_ != null &&
-            beamInfo_ != alice.dip.kafka.events.Common.BeamInfo.getDefaultInstance()) {
+            beamInfo_ != alice.dip.kafka.dto.Common.BeamInfo.getDefaultInstance()) {
             getBeamInfoBuilder().mergeFrom(value);
           } else {
             beamInfo_ = value;
@@ -13476,7 +13476,7 @@ java.lang.String defaultValue) {
       /**
        * <code>.common.BeamInfo beamInfo = 2;</code>
        */
-      public alice.dip.kafka.events.Common.BeamInfo.Builder getBeamInfoBuilder() {
+      public alice.dip.kafka.dto.Common.BeamInfo.Builder getBeamInfoBuilder() {
         bitField0_ |= 0x00000002;
         onChanged();
         return internalGetBeamInfoFieldBuilder().getBuilder();
@@ -13484,23 +13484,23 @@ java.lang.String defaultValue) {
       /**
        * <code>.common.BeamInfo beamInfo = 2;</code>
        */
-      public alice.dip.kafka.events.Common.BeamInfoOrBuilder getBeamInfoOrBuilder() {
+      public alice.dip.kafka.dto.Common.BeamInfoOrBuilder getBeamInfoOrBuilder() {
         if (beamInfoBuilder_ != null) {
           return beamInfoBuilder_.getMessageOrBuilder();
         } else {
           return beamInfo_ == null ?
-              alice.dip.kafka.events.Common.BeamInfo.getDefaultInstance() : beamInfo_;
+              alice.dip.kafka.dto.Common.BeamInfo.getDefaultInstance() : beamInfo_;
         }
       }
       /**
        * <code>.common.BeamInfo beamInfo = 2;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Common.BeamInfo, alice.dip.kafka.events.Common.BeamInfo.Builder, alice.dip.kafka.events.Common.BeamInfoOrBuilder> 
+          alice.dip.kafka.dto.Common.BeamInfo, alice.dip.kafka.dto.Common.BeamInfo.Builder, alice.dip.kafka.dto.Common.BeamInfoOrBuilder> 
           internalGetBeamInfoFieldBuilder() {
         if (beamInfoBuilder_ == null) {
           beamInfoBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              alice.dip.kafka.events.Common.BeamInfo, alice.dip.kafka.events.Common.BeamInfo.Builder, alice.dip.kafka.events.Common.BeamInfoOrBuilder>(
+              alice.dip.kafka.dto.Common.BeamInfo, alice.dip.kafka.dto.Common.BeamInfo.Builder, alice.dip.kafka.dto.Common.BeamInfoOrBuilder>(
                   getBeamInfo(),
                   getParentForChildren(),
                   isClean());
@@ -13513,12 +13513,12 @@ java.lang.String defaultValue) {
     }
 
     // @@protoc_insertion_point(class_scope:events.Ev_BeamModeEvent)
-    private static final alice.dip.kafka.events.Events.Ev_BeamModeEvent DEFAULT_INSTANCE;
+    private static final alice.dip.kafka.dto.Events.Ev_BeamModeEvent DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new alice.dip.kafka.events.Events.Ev_BeamModeEvent();
+      DEFAULT_INSTANCE = new alice.dip.kafka.dto.Events.Ev_BeamModeEvent();
     }
 
-    public static alice.dip.kafka.events.Events.Ev_BeamModeEvent getDefaultInstance() {
+    public static alice.dip.kafka.dto.Events.Ev_BeamModeEvent getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -13554,7 +13554,7 @@ java.lang.String defaultValue) {
     }
 
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_BeamModeEvent getDefaultInstanceForType() {
+    public alice.dip.kafka.dto.Events.Ev_BeamModeEvent getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -13585,11 +13585,11 @@ java.lang.String defaultValue) {
      * <code>.events.Ev_EnvironmentEvent environmentEvent = 11;</code>
      * @return The environmentEvent.
      */
-    alice.dip.kafka.events.Events.Ev_EnvironmentEvent getEnvironmentEvent();
+    alice.dip.kafka.dto.Events.Ev_EnvironmentEvent getEnvironmentEvent();
     /**
      * <code>.events.Ev_EnvironmentEvent environmentEvent = 11;</code>
      */
-    alice.dip.kafka.events.Events.Ev_EnvironmentEventOrBuilder getEnvironmentEventOrBuilder();
+    alice.dip.kafka.dto.Events.Ev_EnvironmentEventOrBuilder getEnvironmentEventOrBuilder();
 
     /**
      * <code>.events.Ev_TaskEvent taskEvent = 12;</code>
@@ -13600,11 +13600,11 @@ java.lang.String defaultValue) {
      * <code>.events.Ev_TaskEvent taskEvent = 12;</code>
      * @return The taskEvent.
      */
-    alice.dip.kafka.events.Events.Ev_TaskEvent getTaskEvent();
+    alice.dip.kafka.dto.Events.Ev_TaskEvent getTaskEvent();
     /**
      * <code>.events.Ev_TaskEvent taskEvent = 12;</code>
      */
-    alice.dip.kafka.events.Events.Ev_TaskEventOrBuilder getTaskEventOrBuilder();
+    alice.dip.kafka.dto.Events.Ev_TaskEventOrBuilder getTaskEventOrBuilder();
 
     /**
      * <code>.events.Ev_RoleEvent roleEvent = 13;</code>
@@ -13615,11 +13615,11 @@ java.lang.String defaultValue) {
      * <code>.events.Ev_RoleEvent roleEvent = 13;</code>
      * @return The roleEvent.
      */
-    alice.dip.kafka.events.Events.Ev_RoleEvent getRoleEvent();
+    alice.dip.kafka.dto.Events.Ev_RoleEvent getRoleEvent();
     /**
      * <code>.events.Ev_RoleEvent roleEvent = 13;</code>
      */
-    alice.dip.kafka.events.Events.Ev_RoleEventOrBuilder getRoleEventOrBuilder();
+    alice.dip.kafka.dto.Events.Ev_RoleEventOrBuilder getRoleEventOrBuilder();
 
     /**
      * <code>.events.Ev_CallEvent callEvent = 14;</code>
@@ -13630,11 +13630,11 @@ java.lang.String defaultValue) {
      * <code>.events.Ev_CallEvent callEvent = 14;</code>
      * @return The callEvent.
      */
-    alice.dip.kafka.events.Events.Ev_CallEvent getCallEvent();
+    alice.dip.kafka.dto.Events.Ev_CallEvent getCallEvent();
     /**
      * <code>.events.Ev_CallEvent callEvent = 14;</code>
      */
-    alice.dip.kafka.events.Events.Ev_CallEventOrBuilder getCallEventOrBuilder();
+    alice.dip.kafka.dto.Events.Ev_CallEventOrBuilder getCallEventOrBuilder();
 
     /**
      * <code>.events.Ev_IntegratedServiceEvent integratedServiceEvent = 15;</code>
@@ -13645,11 +13645,11 @@ java.lang.String defaultValue) {
      * <code>.events.Ev_IntegratedServiceEvent integratedServiceEvent = 15;</code>
      * @return The integratedServiceEvent.
      */
-    alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent getIntegratedServiceEvent();
+    alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent getIntegratedServiceEvent();
     /**
      * <code>.events.Ev_IntegratedServiceEvent integratedServiceEvent = 15;</code>
      */
-    alice.dip.kafka.events.Events.Ev_IntegratedServiceEventOrBuilder getIntegratedServiceEventOrBuilder();
+    alice.dip.kafka.dto.Events.Ev_IntegratedServiceEventOrBuilder getIntegratedServiceEventOrBuilder();
 
     /**
      * <code>.events.Ev_RunEvent runEvent = 16;</code>
@@ -13660,11 +13660,11 @@ java.lang.String defaultValue) {
      * <code>.events.Ev_RunEvent runEvent = 16;</code>
      * @return The runEvent.
      */
-    alice.dip.kafka.events.Events.Ev_RunEvent getRunEvent();
+    alice.dip.kafka.dto.Events.Ev_RunEvent getRunEvent();
     /**
      * <code>.events.Ev_RunEvent runEvent = 16;</code>
      */
-    alice.dip.kafka.events.Events.Ev_RunEventOrBuilder getRunEventOrBuilder();
+    alice.dip.kafka.dto.Events.Ev_RunEventOrBuilder getRunEventOrBuilder();
 
     /**
      * <code>.events.Ev_MetaEvent_FrameworkEvent frameworkEvent = 101;</code>
@@ -13675,11 +13675,11 @@ java.lang.String defaultValue) {
      * <code>.events.Ev_MetaEvent_FrameworkEvent frameworkEvent = 101;</code>
      * @return The frameworkEvent.
      */
-    alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent getFrameworkEvent();
+    alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent getFrameworkEvent();
     /**
      * <code>.events.Ev_MetaEvent_FrameworkEvent frameworkEvent = 101;</code>
      */
-    alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEventOrBuilder getFrameworkEventOrBuilder();
+    alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEventOrBuilder getFrameworkEventOrBuilder();
 
     /**
      * <code>.events.Ev_MetaEvent_MesosHeartbeat mesosHeartbeatEvent = 102;</code>
@@ -13690,11 +13690,11 @@ java.lang.String defaultValue) {
      * <code>.events.Ev_MetaEvent_MesosHeartbeat mesosHeartbeatEvent = 102;</code>
      * @return The mesosHeartbeatEvent.
      */
-    alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat getMesosHeartbeatEvent();
+    alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat getMesosHeartbeatEvent();
     /**
      * <code>.events.Ev_MetaEvent_MesosHeartbeat mesosHeartbeatEvent = 102;</code>
      */
-    alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeatOrBuilder getMesosHeartbeatEventOrBuilder();
+    alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeatOrBuilder getMesosHeartbeatEventOrBuilder();
 
     /**
      * <code>.events.Ev_MetaEvent_CoreStart coreStartEvent = 103;</code>
@@ -13705,11 +13705,11 @@ java.lang.String defaultValue) {
      * <code>.events.Ev_MetaEvent_CoreStart coreStartEvent = 103;</code>
      * @return The coreStartEvent.
      */
-    alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart getCoreStartEvent();
+    alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart getCoreStartEvent();
     /**
      * <code>.events.Ev_MetaEvent_CoreStart coreStartEvent = 103;</code>
      */
-    alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStartOrBuilder getCoreStartEventOrBuilder();
+    alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStartOrBuilder getCoreStartEventOrBuilder();
 
     /**
      * <code>.events.Ev_BeamModeEvent beamModeEvent = 110;</code>
@@ -13720,13 +13720,13 @@ java.lang.String defaultValue) {
      * <code>.events.Ev_BeamModeEvent beamModeEvent = 110;</code>
      * @return The beamModeEvent.
      */
-    alice.dip.kafka.events.Events.Ev_BeamModeEvent getBeamModeEvent();
+    alice.dip.kafka.dto.Events.Ev_BeamModeEvent getBeamModeEvent();
     /**
      * <code>.events.Ev_BeamModeEvent beamModeEvent = 110;</code>
      */
-    alice.dip.kafka.events.Events.Ev_BeamModeEventOrBuilder getBeamModeEventOrBuilder();
+    alice.dip.kafka.dto.Events.Ev_BeamModeEventOrBuilder getBeamModeEventOrBuilder();
 
-    alice.dip.kafka.events.Events.Event.PayloadCase getPayloadCase();
+    alice.dip.kafka.dto.Events.Event.PayloadCase getPayloadCase();
   }
   /**
    * Protobuf type {@code events.Event}
@@ -13754,15 +13754,15 @@ java.lang.String defaultValue) {
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return alice.dip.kafka.events.Events.internal_static_events_Event_descriptor;
+      return alice.dip.kafka.dto.Events.internal_static_events_Event_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return alice.dip.kafka.events.Events.internal_static_events_Event_fieldAccessorTable
+      return alice.dip.kafka.dto.Events.internal_static_events_Event_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              alice.dip.kafka.events.Events.Event.class, alice.dip.kafka.events.Events.Event.Builder.class);
+              alice.dip.kafka.dto.Events.Event.class, alice.dip.kafka.dto.Events.Event.Builder.class);
     }
 
     private int payloadCase_ = 0;
@@ -13859,21 +13859,21 @@ java.lang.String defaultValue) {
      * @return The environmentEvent.
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_EnvironmentEvent getEnvironmentEvent() {
+    public alice.dip.kafka.dto.Events.Ev_EnvironmentEvent getEnvironmentEvent() {
       if (payloadCase_ == 11) {
-         return (alice.dip.kafka.events.Events.Ev_EnvironmentEvent) payload_;
+         return (alice.dip.kafka.dto.Events.Ev_EnvironmentEvent) payload_;
       }
-      return alice.dip.kafka.events.Events.Ev_EnvironmentEvent.getDefaultInstance();
+      return alice.dip.kafka.dto.Events.Ev_EnvironmentEvent.getDefaultInstance();
     }
     /**
      * <code>.events.Ev_EnvironmentEvent environmentEvent = 11;</code>
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_EnvironmentEventOrBuilder getEnvironmentEventOrBuilder() {
+    public alice.dip.kafka.dto.Events.Ev_EnvironmentEventOrBuilder getEnvironmentEventOrBuilder() {
       if (payloadCase_ == 11) {
-         return (alice.dip.kafka.events.Events.Ev_EnvironmentEvent) payload_;
+         return (alice.dip.kafka.dto.Events.Ev_EnvironmentEvent) payload_;
       }
-      return alice.dip.kafka.events.Events.Ev_EnvironmentEvent.getDefaultInstance();
+      return alice.dip.kafka.dto.Events.Ev_EnvironmentEvent.getDefaultInstance();
     }
 
     public static final int TASKEVENT_FIELD_NUMBER = 12;
@@ -13890,21 +13890,21 @@ java.lang.String defaultValue) {
      * @return The taskEvent.
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_TaskEvent getTaskEvent() {
+    public alice.dip.kafka.dto.Events.Ev_TaskEvent getTaskEvent() {
       if (payloadCase_ == 12) {
-         return (alice.dip.kafka.events.Events.Ev_TaskEvent) payload_;
+         return (alice.dip.kafka.dto.Events.Ev_TaskEvent) payload_;
       }
-      return alice.dip.kafka.events.Events.Ev_TaskEvent.getDefaultInstance();
+      return alice.dip.kafka.dto.Events.Ev_TaskEvent.getDefaultInstance();
     }
     /**
      * <code>.events.Ev_TaskEvent taskEvent = 12;</code>
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_TaskEventOrBuilder getTaskEventOrBuilder() {
+    public alice.dip.kafka.dto.Events.Ev_TaskEventOrBuilder getTaskEventOrBuilder() {
       if (payloadCase_ == 12) {
-         return (alice.dip.kafka.events.Events.Ev_TaskEvent) payload_;
+         return (alice.dip.kafka.dto.Events.Ev_TaskEvent) payload_;
       }
-      return alice.dip.kafka.events.Events.Ev_TaskEvent.getDefaultInstance();
+      return alice.dip.kafka.dto.Events.Ev_TaskEvent.getDefaultInstance();
     }
 
     public static final int ROLEEVENT_FIELD_NUMBER = 13;
@@ -13921,21 +13921,21 @@ java.lang.String defaultValue) {
      * @return The roleEvent.
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_RoleEvent getRoleEvent() {
+    public alice.dip.kafka.dto.Events.Ev_RoleEvent getRoleEvent() {
       if (payloadCase_ == 13) {
-         return (alice.dip.kafka.events.Events.Ev_RoleEvent) payload_;
+         return (alice.dip.kafka.dto.Events.Ev_RoleEvent) payload_;
       }
-      return alice.dip.kafka.events.Events.Ev_RoleEvent.getDefaultInstance();
+      return alice.dip.kafka.dto.Events.Ev_RoleEvent.getDefaultInstance();
     }
     /**
      * <code>.events.Ev_RoleEvent roleEvent = 13;</code>
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_RoleEventOrBuilder getRoleEventOrBuilder() {
+    public alice.dip.kafka.dto.Events.Ev_RoleEventOrBuilder getRoleEventOrBuilder() {
       if (payloadCase_ == 13) {
-         return (alice.dip.kafka.events.Events.Ev_RoleEvent) payload_;
+         return (alice.dip.kafka.dto.Events.Ev_RoleEvent) payload_;
       }
-      return alice.dip.kafka.events.Events.Ev_RoleEvent.getDefaultInstance();
+      return alice.dip.kafka.dto.Events.Ev_RoleEvent.getDefaultInstance();
     }
 
     public static final int CALLEVENT_FIELD_NUMBER = 14;
@@ -13952,21 +13952,21 @@ java.lang.String defaultValue) {
      * @return The callEvent.
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_CallEvent getCallEvent() {
+    public alice.dip.kafka.dto.Events.Ev_CallEvent getCallEvent() {
       if (payloadCase_ == 14) {
-         return (alice.dip.kafka.events.Events.Ev_CallEvent) payload_;
+         return (alice.dip.kafka.dto.Events.Ev_CallEvent) payload_;
       }
-      return alice.dip.kafka.events.Events.Ev_CallEvent.getDefaultInstance();
+      return alice.dip.kafka.dto.Events.Ev_CallEvent.getDefaultInstance();
     }
     /**
      * <code>.events.Ev_CallEvent callEvent = 14;</code>
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_CallEventOrBuilder getCallEventOrBuilder() {
+    public alice.dip.kafka.dto.Events.Ev_CallEventOrBuilder getCallEventOrBuilder() {
       if (payloadCase_ == 14) {
-         return (alice.dip.kafka.events.Events.Ev_CallEvent) payload_;
+         return (alice.dip.kafka.dto.Events.Ev_CallEvent) payload_;
       }
-      return alice.dip.kafka.events.Events.Ev_CallEvent.getDefaultInstance();
+      return alice.dip.kafka.dto.Events.Ev_CallEvent.getDefaultInstance();
     }
 
     public static final int INTEGRATEDSERVICEEVENT_FIELD_NUMBER = 15;
@@ -13983,21 +13983,21 @@ java.lang.String defaultValue) {
      * @return The integratedServiceEvent.
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent getIntegratedServiceEvent() {
+    public alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent getIntegratedServiceEvent() {
       if (payloadCase_ == 15) {
-         return (alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent) payload_;
+         return (alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent) payload_;
       }
-      return alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent.getDefaultInstance();
+      return alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent.getDefaultInstance();
     }
     /**
      * <code>.events.Ev_IntegratedServiceEvent integratedServiceEvent = 15;</code>
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_IntegratedServiceEventOrBuilder getIntegratedServiceEventOrBuilder() {
+    public alice.dip.kafka.dto.Events.Ev_IntegratedServiceEventOrBuilder getIntegratedServiceEventOrBuilder() {
       if (payloadCase_ == 15) {
-         return (alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent) payload_;
+         return (alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent) payload_;
       }
-      return alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent.getDefaultInstance();
+      return alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent.getDefaultInstance();
     }
 
     public static final int RUNEVENT_FIELD_NUMBER = 16;
@@ -14014,21 +14014,21 @@ java.lang.String defaultValue) {
      * @return The runEvent.
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_RunEvent getRunEvent() {
+    public alice.dip.kafka.dto.Events.Ev_RunEvent getRunEvent() {
       if (payloadCase_ == 16) {
-         return (alice.dip.kafka.events.Events.Ev_RunEvent) payload_;
+         return (alice.dip.kafka.dto.Events.Ev_RunEvent) payload_;
       }
-      return alice.dip.kafka.events.Events.Ev_RunEvent.getDefaultInstance();
+      return alice.dip.kafka.dto.Events.Ev_RunEvent.getDefaultInstance();
     }
     /**
      * <code>.events.Ev_RunEvent runEvent = 16;</code>
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_RunEventOrBuilder getRunEventOrBuilder() {
+    public alice.dip.kafka.dto.Events.Ev_RunEventOrBuilder getRunEventOrBuilder() {
       if (payloadCase_ == 16) {
-         return (alice.dip.kafka.events.Events.Ev_RunEvent) payload_;
+         return (alice.dip.kafka.dto.Events.Ev_RunEvent) payload_;
       }
-      return alice.dip.kafka.events.Events.Ev_RunEvent.getDefaultInstance();
+      return alice.dip.kafka.dto.Events.Ev_RunEvent.getDefaultInstance();
     }
 
     public static final int FRAMEWORKEVENT_FIELD_NUMBER = 101;
@@ -14045,21 +14045,21 @@ java.lang.String defaultValue) {
      * @return The frameworkEvent.
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent getFrameworkEvent() {
+    public alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent getFrameworkEvent() {
       if (payloadCase_ == 101) {
-         return (alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent) payload_;
+         return (alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent) payload_;
       }
-      return alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent.getDefaultInstance();
+      return alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent.getDefaultInstance();
     }
     /**
      * <code>.events.Ev_MetaEvent_FrameworkEvent frameworkEvent = 101;</code>
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEventOrBuilder getFrameworkEventOrBuilder() {
+    public alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEventOrBuilder getFrameworkEventOrBuilder() {
       if (payloadCase_ == 101) {
-         return (alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent) payload_;
+         return (alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent) payload_;
       }
-      return alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent.getDefaultInstance();
+      return alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent.getDefaultInstance();
     }
 
     public static final int MESOSHEARTBEATEVENT_FIELD_NUMBER = 102;
@@ -14076,21 +14076,21 @@ java.lang.String defaultValue) {
      * @return The mesosHeartbeatEvent.
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat getMesosHeartbeatEvent() {
+    public alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat getMesosHeartbeatEvent() {
       if (payloadCase_ == 102) {
-         return (alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat) payload_;
+         return (alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat) payload_;
       }
-      return alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat.getDefaultInstance();
+      return alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat.getDefaultInstance();
     }
     /**
      * <code>.events.Ev_MetaEvent_MesosHeartbeat mesosHeartbeatEvent = 102;</code>
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeatOrBuilder getMesosHeartbeatEventOrBuilder() {
+    public alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeatOrBuilder getMesosHeartbeatEventOrBuilder() {
       if (payloadCase_ == 102) {
-         return (alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat) payload_;
+         return (alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat) payload_;
       }
-      return alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat.getDefaultInstance();
+      return alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat.getDefaultInstance();
     }
 
     public static final int CORESTARTEVENT_FIELD_NUMBER = 103;
@@ -14107,21 +14107,21 @@ java.lang.String defaultValue) {
      * @return The coreStartEvent.
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart getCoreStartEvent() {
+    public alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart getCoreStartEvent() {
       if (payloadCase_ == 103) {
-         return (alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart) payload_;
+         return (alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart) payload_;
       }
-      return alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart.getDefaultInstance();
+      return alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart.getDefaultInstance();
     }
     /**
      * <code>.events.Ev_MetaEvent_CoreStart coreStartEvent = 103;</code>
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStartOrBuilder getCoreStartEventOrBuilder() {
+    public alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStartOrBuilder getCoreStartEventOrBuilder() {
       if (payloadCase_ == 103) {
-         return (alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart) payload_;
+         return (alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart) payload_;
       }
-      return alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart.getDefaultInstance();
+      return alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart.getDefaultInstance();
     }
 
     public static final int BEAMMODEEVENT_FIELD_NUMBER = 110;
@@ -14138,21 +14138,21 @@ java.lang.String defaultValue) {
      * @return The beamModeEvent.
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_BeamModeEvent getBeamModeEvent() {
+    public alice.dip.kafka.dto.Events.Ev_BeamModeEvent getBeamModeEvent() {
       if (payloadCase_ == 110) {
-         return (alice.dip.kafka.events.Events.Ev_BeamModeEvent) payload_;
+         return (alice.dip.kafka.dto.Events.Ev_BeamModeEvent) payload_;
       }
-      return alice.dip.kafka.events.Events.Ev_BeamModeEvent.getDefaultInstance();
+      return alice.dip.kafka.dto.Events.Ev_BeamModeEvent.getDefaultInstance();
     }
     /**
      * <code>.events.Ev_BeamModeEvent beamModeEvent = 110;</code>
      */
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Ev_BeamModeEventOrBuilder getBeamModeEventOrBuilder() {
+    public alice.dip.kafka.dto.Events.Ev_BeamModeEventOrBuilder getBeamModeEventOrBuilder() {
       if (payloadCase_ == 110) {
-         return (alice.dip.kafka.events.Events.Ev_BeamModeEvent) payload_;
+         return (alice.dip.kafka.dto.Events.Ev_BeamModeEvent) payload_;
       }
-      return alice.dip.kafka.events.Events.Ev_BeamModeEvent.getDefaultInstance();
+      return alice.dip.kafka.dto.Events.Ev_BeamModeEvent.getDefaultInstance();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -14176,34 +14176,34 @@ java.lang.String defaultValue) {
         output.writeInt64(2, timestampNano_);
       }
       if (payloadCase_ == 11) {
-        output.writeMessage(11, (alice.dip.kafka.events.Events.Ev_EnvironmentEvent) payload_);
+        output.writeMessage(11, (alice.dip.kafka.dto.Events.Ev_EnvironmentEvent) payload_);
       }
       if (payloadCase_ == 12) {
-        output.writeMessage(12, (alice.dip.kafka.events.Events.Ev_TaskEvent) payload_);
+        output.writeMessage(12, (alice.dip.kafka.dto.Events.Ev_TaskEvent) payload_);
       }
       if (payloadCase_ == 13) {
-        output.writeMessage(13, (alice.dip.kafka.events.Events.Ev_RoleEvent) payload_);
+        output.writeMessage(13, (alice.dip.kafka.dto.Events.Ev_RoleEvent) payload_);
       }
       if (payloadCase_ == 14) {
-        output.writeMessage(14, (alice.dip.kafka.events.Events.Ev_CallEvent) payload_);
+        output.writeMessage(14, (alice.dip.kafka.dto.Events.Ev_CallEvent) payload_);
       }
       if (payloadCase_ == 15) {
-        output.writeMessage(15, (alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent) payload_);
+        output.writeMessage(15, (alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent) payload_);
       }
       if (payloadCase_ == 16) {
-        output.writeMessage(16, (alice.dip.kafka.events.Events.Ev_RunEvent) payload_);
+        output.writeMessage(16, (alice.dip.kafka.dto.Events.Ev_RunEvent) payload_);
       }
       if (payloadCase_ == 101) {
-        output.writeMessage(101, (alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent) payload_);
+        output.writeMessage(101, (alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent) payload_);
       }
       if (payloadCase_ == 102) {
-        output.writeMessage(102, (alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat) payload_);
+        output.writeMessage(102, (alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat) payload_);
       }
       if (payloadCase_ == 103) {
-        output.writeMessage(103, (alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart) payload_);
+        output.writeMessage(103, (alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart) payload_);
       }
       if (payloadCase_ == 110) {
-        output.writeMessage(110, (alice.dip.kafka.events.Events.Ev_BeamModeEvent) payload_);
+        output.writeMessage(110, (alice.dip.kafka.dto.Events.Ev_BeamModeEvent) payload_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -14224,43 +14224,43 @@ java.lang.String defaultValue) {
       }
       if (payloadCase_ == 11) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(11, (alice.dip.kafka.events.Events.Ev_EnvironmentEvent) payload_);
+          .computeMessageSize(11, (alice.dip.kafka.dto.Events.Ev_EnvironmentEvent) payload_);
       }
       if (payloadCase_ == 12) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(12, (alice.dip.kafka.events.Events.Ev_TaskEvent) payload_);
+          .computeMessageSize(12, (alice.dip.kafka.dto.Events.Ev_TaskEvent) payload_);
       }
       if (payloadCase_ == 13) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(13, (alice.dip.kafka.events.Events.Ev_RoleEvent) payload_);
+          .computeMessageSize(13, (alice.dip.kafka.dto.Events.Ev_RoleEvent) payload_);
       }
       if (payloadCase_ == 14) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(14, (alice.dip.kafka.events.Events.Ev_CallEvent) payload_);
+          .computeMessageSize(14, (alice.dip.kafka.dto.Events.Ev_CallEvent) payload_);
       }
       if (payloadCase_ == 15) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(15, (alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent) payload_);
+          .computeMessageSize(15, (alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent) payload_);
       }
       if (payloadCase_ == 16) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(16, (alice.dip.kafka.events.Events.Ev_RunEvent) payload_);
+          .computeMessageSize(16, (alice.dip.kafka.dto.Events.Ev_RunEvent) payload_);
       }
       if (payloadCase_ == 101) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(101, (alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent) payload_);
+          .computeMessageSize(101, (alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent) payload_);
       }
       if (payloadCase_ == 102) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(102, (alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat) payload_);
+          .computeMessageSize(102, (alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat) payload_);
       }
       if (payloadCase_ == 103) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(103, (alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart) payload_);
+          .computeMessageSize(103, (alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart) payload_);
       }
       if (payloadCase_ == 110) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(110, (alice.dip.kafka.events.Events.Ev_BeamModeEvent) payload_);
+          .computeMessageSize(110, (alice.dip.kafka.dto.Events.Ev_BeamModeEvent) payload_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -14272,10 +14272,10 @@ java.lang.String defaultValue) {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof alice.dip.kafka.events.Events.Event)) {
+      if (!(obj instanceof alice.dip.kafka.dto.Events.Event)) {
         return super.equals(obj);
       }
-      alice.dip.kafka.events.Events.Event other = (alice.dip.kafka.events.Events.Event) obj;
+      alice.dip.kafka.dto.Events.Event other = (alice.dip.kafka.dto.Events.Event) obj;
 
       if (getTimestamp()
           != other.getTimestamp()) return false;
@@ -14392,44 +14392,44 @@ java.lang.String defaultValue) {
       return hash;
     }
 
-    public static alice.dip.kafka.events.Events.Event parseFrom(
+    public static alice.dip.kafka.dto.Events.Event parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Event parseFrom(
+    public static alice.dip.kafka.dto.Events.Event parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Event parseFrom(
+    public static alice.dip.kafka.dto.Events.Event parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Event parseFrom(
+    public static alice.dip.kafka.dto.Events.Event parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Event parseFrom(byte[] data)
+    public static alice.dip.kafka.dto.Events.Event parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Events.Event parseFrom(
+    public static alice.dip.kafka.dto.Events.Event parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Event parseFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Events.Event parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Events.Event parseFrom(
+    public static alice.dip.kafka.dto.Events.Event parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -14437,26 +14437,26 @@ java.lang.String defaultValue) {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static alice.dip.kafka.events.Events.Event parseDelimitedFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Events.Event parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static alice.dip.kafka.events.Events.Event parseDelimitedFrom(
+    public static alice.dip.kafka.dto.Events.Event parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Events.Event parseFrom(
+    public static alice.dip.kafka.dto.Events.Event parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Events.Event parseFrom(
+    public static alice.dip.kafka.dto.Events.Event parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -14469,7 +14469,7 @@ java.lang.String defaultValue) {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(alice.dip.kafka.events.Events.Event prototype) {
+    public static Builder newBuilder(alice.dip.kafka.dto.Events.Event prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -14490,18 +14490,18 @@ java.lang.String defaultValue) {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:events.Event)
-        alice.dip.kafka.events.Events.EventOrBuilder {
+        alice.dip.kafka.dto.Events.EventOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return alice.dip.kafka.events.Events.internal_static_events_Event_descriptor;
+        return alice.dip.kafka.dto.Events.internal_static_events_Event_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return alice.dip.kafka.events.Events.internal_static_events_Event_fieldAccessorTable
+        return alice.dip.kafka.dto.Events.internal_static_events_Event_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                alice.dip.kafka.events.Events.Event.class, alice.dip.kafka.events.Events.Event.Builder.class);
+                alice.dip.kafka.dto.Events.Event.class, alice.dip.kafka.dto.Events.Event.Builder.class);
       }
 
       // Construct using ch.cern.alice.o2.control.events.Events.Event.newBuilder()
@@ -14558,17 +14558,17 @@ java.lang.String defaultValue) {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return alice.dip.kafka.events.Events.internal_static_events_Event_descriptor;
+        return alice.dip.kafka.dto.Events.internal_static_events_Event_descriptor;
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Event getDefaultInstanceForType() {
-        return alice.dip.kafka.events.Events.Event.getDefaultInstance();
+      public alice.dip.kafka.dto.Events.Event getDefaultInstanceForType() {
+        return alice.dip.kafka.dto.Events.Event.getDefaultInstance();
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Event build() {
-        alice.dip.kafka.events.Events.Event result = buildPartial();
+      public alice.dip.kafka.dto.Events.Event build() {
+        alice.dip.kafka.dto.Events.Event result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -14576,15 +14576,15 @@ java.lang.String defaultValue) {
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Event buildPartial() {
-        alice.dip.kafka.events.Events.Event result = new alice.dip.kafka.events.Events.Event(this);
+      public alice.dip.kafka.dto.Events.Event buildPartial() {
+        alice.dip.kafka.dto.Events.Event result = new alice.dip.kafka.dto.Events.Event(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         buildPartialOneofs(result);
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(alice.dip.kafka.events.Events.Event result) {
+      private void buildPartial0(alice.dip.kafka.dto.Events.Event result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.timestamp_ = timestamp_;
@@ -14594,7 +14594,7 @@ java.lang.String defaultValue) {
         }
       }
 
-      private void buildPartialOneofs(alice.dip.kafka.events.Events.Event result) {
+      private void buildPartialOneofs(alice.dip.kafka.dto.Events.Event result) {
         result.payloadCase_ = payloadCase_;
         result.payload_ = this.payload_;
         if (payloadCase_ == 11 &&
@@ -14641,16 +14641,16 @@ java.lang.String defaultValue) {
 
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof alice.dip.kafka.events.Events.Event) {
-          return mergeFrom((alice.dip.kafka.events.Events.Event)other);
+        if (other instanceof alice.dip.kafka.dto.Events.Event) {
+          return mergeFrom((alice.dip.kafka.dto.Events.Event)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(alice.dip.kafka.events.Events.Event other) {
-        if (other == alice.dip.kafka.events.Events.Event.getDefaultInstance()) return this;
+      public Builder mergeFrom(alice.dip.kafka.dto.Events.Event other) {
+        if (other == alice.dip.kafka.dto.Events.Event.getDefaultInstance()) return this;
         if (other.getTimestamp() != 0L) {
           setTimestamp(other.getTimestamp());
         }
@@ -14905,7 +14905,7 @@ java.lang.String defaultValue) {
       }
 
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Events.Ev_EnvironmentEvent, alice.dip.kafka.events.Events.Ev_EnvironmentEvent.Builder, alice.dip.kafka.events.Events.Ev_EnvironmentEventOrBuilder> environmentEventBuilder_;
+          alice.dip.kafka.dto.Events.Ev_EnvironmentEvent, alice.dip.kafka.dto.Events.Ev_EnvironmentEvent.Builder, alice.dip.kafka.dto.Events.Ev_EnvironmentEventOrBuilder> environmentEventBuilder_;
       /**
        * <code>.events.Ev_EnvironmentEvent environmentEvent = 11;</code>
        * @return Whether the environmentEvent field is set.
@@ -14919,23 +14919,23 @@ java.lang.String defaultValue) {
        * @return The environmentEvent.
        */
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_EnvironmentEvent getEnvironmentEvent() {
+      public alice.dip.kafka.dto.Events.Ev_EnvironmentEvent getEnvironmentEvent() {
         if (environmentEventBuilder_ == null) {
           if (payloadCase_ == 11) {
-            return (alice.dip.kafka.events.Events.Ev_EnvironmentEvent) payload_;
+            return (alice.dip.kafka.dto.Events.Ev_EnvironmentEvent) payload_;
           }
-          return alice.dip.kafka.events.Events.Ev_EnvironmentEvent.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_EnvironmentEvent.getDefaultInstance();
         } else {
           if (payloadCase_ == 11) {
             return environmentEventBuilder_.getMessage();
           }
-          return alice.dip.kafka.events.Events.Ev_EnvironmentEvent.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_EnvironmentEvent.getDefaultInstance();
         }
       }
       /**
        * <code>.events.Ev_EnvironmentEvent environmentEvent = 11;</code>
        */
-      public Builder setEnvironmentEvent(alice.dip.kafka.events.Events.Ev_EnvironmentEvent value) {
+      public Builder setEnvironmentEvent(alice.dip.kafka.dto.Events.Ev_EnvironmentEvent value) {
         if (environmentEventBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -14952,7 +14952,7 @@ java.lang.String defaultValue) {
        * <code>.events.Ev_EnvironmentEvent environmentEvent = 11;</code>
        */
       public Builder setEnvironmentEvent(
-          alice.dip.kafka.events.Events.Ev_EnvironmentEvent.Builder builderForValue) {
+          alice.dip.kafka.dto.Events.Ev_EnvironmentEvent.Builder builderForValue) {
         if (environmentEventBuilder_ == null) {
           payload_ = builderForValue.build();
           onChanged();
@@ -14965,11 +14965,11 @@ java.lang.String defaultValue) {
       /**
        * <code>.events.Ev_EnvironmentEvent environmentEvent = 11;</code>
        */
-      public Builder mergeEnvironmentEvent(alice.dip.kafka.events.Events.Ev_EnvironmentEvent value) {
+      public Builder mergeEnvironmentEvent(alice.dip.kafka.dto.Events.Ev_EnvironmentEvent value) {
         if (environmentEventBuilder_ == null) {
           if (payloadCase_ == 11 &&
-              payload_ != alice.dip.kafka.events.Events.Ev_EnvironmentEvent.getDefaultInstance()) {
-            payload_ = alice.dip.kafka.events.Events.Ev_EnvironmentEvent.newBuilder((alice.dip.kafka.events.Events.Ev_EnvironmentEvent) payload_)
+              payload_ != alice.dip.kafka.dto.Events.Ev_EnvironmentEvent.getDefaultInstance()) {
+            payload_ = alice.dip.kafka.dto.Events.Ev_EnvironmentEvent.newBuilder((alice.dip.kafka.dto.Events.Ev_EnvironmentEvent) payload_)
                 .mergeFrom(value).buildPartial();
           } else {
             payload_ = value;
@@ -15007,36 +15007,36 @@ java.lang.String defaultValue) {
       /**
        * <code>.events.Ev_EnvironmentEvent environmentEvent = 11;</code>
        */
-      public alice.dip.kafka.events.Events.Ev_EnvironmentEvent.Builder getEnvironmentEventBuilder() {
+      public alice.dip.kafka.dto.Events.Ev_EnvironmentEvent.Builder getEnvironmentEventBuilder() {
         return internalGetEnvironmentEventFieldBuilder().getBuilder();
       }
       /**
        * <code>.events.Ev_EnvironmentEvent environmentEvent = 11;</code>
        */
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_EnvironmentEventOrBuilder getEnvironmentEventOrBuilder() {
+      public alice.dip.kafka.dto.Events.Ev_EnvironmentEventOrBuilder getEnvironmentEventOrBuilder() {
         if ((payloadCase_ == 11) && (environmentEventBuilder_ != null)) {
           return environmentEventBuilder_.getMessageOrBuilder();
         } else {
           if (payloadCase_ == 11) {
-            return (alice.dip.kafka.events.Events.Ev_EnvironmentEvent) payload_;
+            return (alice.dip.kafka.dto.Events.Ev_EnvironmentEvent) payload_;
           }
-          return alice.dip.kafka.events.Events.Ev_EnvironmentEvent.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_EnvironmentEvent.getDefaultInstance();
         }
       }
       /**
        * <code>.events.Ev_EnvironmentEvent environmentEvent = 11;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Events.Ev_EnvironmentEvent, alice.dip.kafka.events.Events.Ev_EnvironmentEvent.Builder, alice.dip.kafka.events.Events.Ev_EnvironmentEventOrBuilder> 
+          alice.dip.kafka.dto.Events.Ev_EnvironmentEvent, alice.dip.kafka.dto.Events.Ev_EnvironmentEvent.Builder, alice.dip.kafka.dto.Events.Ev_EnvironmentEventOrBuilder> 
           internalGetEnvironmentEventFieldBuilder() {
         if (environmentEventBuilder_ == null) {
           if (!(payloadCase_ == 11)) {
-            payload_ = alice.dip.kafka.events.Events.Ev_EnvironmentEvent.getDefaultInstance();
+            payload_ = alice.dip.kafka.dto.Events.Ev_EnvironmentEvent.getDefaultInstance();
           }
           environmentEventBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              alice.dip.kafka.events.Events.Ev_EnvironmentEvent, alice.dip.kafka.events.Events.Ev_EnvironmentEvent.Builder, alice.dip.kafka.events.Events.Ev_EnvironmentEventOrBuilder>(
-                  (alice.dip.kafka.events.Events.Ev_EnvironmentEvent) payload_,
+              alice.dip.kafka.dto.Events.Ev_EnvironmentEvent, alice.dip.kafka.dto.Events.Ev_EnvironmentEvent.Builder, alice.dip.kafka.dto.Events.Ev_EnvironmentEventOrBuilder>(
+                  (alice.dip.kafka.dto.Events.Ev_EnvironmentEvent) payload_,
                   getParentForChildren(),
                   isClean());
           payload_ = null;
@@ -15047,7 +15047,7 @@ java.lang.String defaultValue) {
       }
 
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Events.Ev_TaskEvent, alice.dip.kafka.events.Events.Ev_TaskEvent.Builder, alice.dip.kafka.events.Events.Ev_TaskEventOrBuilder> taskEventBuilder_;
+          alice.dip.kafka.dto.Events.Ev_TaskEvent, alice.dip.kafka.dto.Events.Ev_TaskEvent.Builder, alice.dip.kafka.dto.Events.Ev_TaskEventOrBuilder> taskEventBuilder_;
       /**
        * <code>.events.Ev_TaskEvent taskEvent = 12;</code>
        * @return Whether the taskEvent field is set.
@@ -15061,23 +15061,23 @@ java.lang.String defaultValue) {
        * @return The taskEvent.
        */
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_TaskEvent getTaskEvent() {
+      public alice.dip.kafka.dto.Events.Ev_TaskEvent getTaskEvent() {
         if (taskEventBuilder_ == null) {
           if (payloadCase_ == 12) {
-            return (alice.dip.kafka.events.Events.Ev_TaskEvent) payload_;
+            return (alice.dip.kafka.dto.Events.Ev_TaskEvent) payload_;
           }
-          return alice.dip.kafka.events.Events.Ev_TaskEvent.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_TaskEvent.getDefaultInstance();
         } else {
           if (payloadCase_ == 12) {
             return taskEventBuilder_.getMessage();
           }
-          return alice.dip.kafka.events.Events.Ev_TaskEvent.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_TaskEvent.getDefaultInstance();
         }
       }
       /**
        * <code>.events.Ev_TaskEvent taskEvent = 12;</code>
        */
-      public Builder setTaskEvent(alice.dip.kafka.events.Events.Ev_TaskEvent value) {
+      public Builder setTaskEvent(alice.dip.kafka.dto.Events.Ev_TaskEvent value) {
         if (taskEventBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -15094,7 +15094,7 @@ java.lang.String defaultValue) {
        * <code>.events.Ev_TaskEvent taskEvent = 12;</code>
        */
       public Builder setTaskEvent(
-          alice.dip.kafka.events.Events.Ev_TaskEvent.Builder builderForValue) {
+          alice.dip.kafka.dto.Events.Ev_TaskEvent.Builder builderForValue) {
         if (taskEventBuilder_ == null) {
           payload_ = builderForValue.build();
           onChanged();
@@ -15107,11 +15107,11 @@ java.lang.String defaultValue) {
       /**
        * <code>.events.Ev_TaskEvent taskEvent = 12;</code>
        */
-      public Builder mergeTaskEvent(alice.dip.kafka.events.Events.Ev_TaskEvent value) {
+      public Builder mergeTaskEvent(alice.dip.kafka.dto.Events.Ev_TaskEvent value) {
         if (taskEventBuilder_ == null) {
           if (payloadCase_ == 12 &&
-              payload_ != alice.dip.kafka.events.Events.Ev_TaskEvent.getDefaultInstance()) {
-            payload_ = alice.dip.kafka.events.Events.Ev_TaskEvent.newBuilder((alice.dip.kafka.events.Events.Ev_TaskEvent) payload_)
+              payload_ != alice.dip.kafka.dto.Events.Ev_TaskEvent.getDefaultInstance()) {
+            payload_ = alice.dip.kafka.dto.Events.Ev_TaskEvent.newBuilder((alice.dip.kafka.dto.Events.Ev_TaskEvent) payload_)
                 .mergeFrom(value).buildPartial();
           } else {
             payload_ = value;
@@ -15149,36 +15149,36 @@ java.lang.String defaultValue) {
       /**
        * <code>.events.Ev_TaskEvent taskEvent = 12;</code>
        */
-      public alice.dip.kafka.events.Events.Ev_TaskEvent.Builder getTaskEventBuilder() {
+      public alice.dip.kafka.dto.Events.Ev_TaskEvent.Builder getTaskEventBuilder() {
         return internalGetTaskEventFieldBuilder().getBuilder();
       }
       /**
        * <code>.events.Ev_TaskEvent taskEvent = 12;</code>
        */
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_TaskEventOrBuilder getTaskEventOrBuilder() {
+      public alice.dip.kafka.dto.Events.Ev_TaskEventOrBuilder getTaskEventOrBuilder() {
         if ((payloadCase_ == 12) && (taskEventBuilder_ != null)) {
           return taskEventBuilder_.getMessageOrBuilder();
         } else {
           if (payloadCase_ == 12) {
-            return (alice.dip.kafka.events.Events.Ev_TaskEvent) payload_;
+            return (alice.dip.kafka.dto.Events.Ev_TaskEvent) payload_;
           }
-          return alice.dip.kafka.events.Events.Ev_TaskEvent.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_TaskEvent.getDefaultInstance();
         }
       }
       /**
        * <code>.events.Ev_TaskEvent taskEvent = 12;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Events.Ev_TaskEvent, alice.dip.kafka.events.Events.Ev_TaskEvent.Builder, alice.dip.kafka.events.Events.Ev_TaskEventOrBuilder> 
+          alice.dip.kafka.dto.Events.Ev_TaskEvent, alice.dip.kafka.dto.Events.Ev_TaskEvent.Builder, alice.dip.kafka.dto.Events.Ev_TaskEventOrBuilder> 
           internalGetTaskEventFieldBuilder() {
         if (taskEventBuilder_ == null) {
           if (!(payloadCase_ == 12)) {
-            payload_ = alice.dip.kafka.events.Events.Ev_TaskEvent.getDefaultInstance();
+            payload_ = alice.dip.kafka.dto.Events.Ev_TaskEvent.getDefaultInstance();
           }
           taskEventBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              alice.dip.kafka.events.Events.Ev_TaskEvent, alice.dip.kafka.events.Events.Ev_TaskEvent.Builder, alice.dip.kafka.events.Events.Ev_TaskEventOrBuilder>(
-                  (alice.dip.kafka.events.Events.Ev_TaskEvent) payload_,
+              alice.dip.kafka.dto.Events.Ev_TaskEvent, alice.dip.kafka.dto.Events.Ev_TaskEvent.Builder, alice.dip.kafka.dto.Events.Ev_TaskEventOrBuilder>(
+                  (alice.dip.kafka.dto.Events.Ev_TaskEvent) payload_,
                   getParentForChildren(),
                   isClean());
           payload_ = null;
@@ -15189,7 +15189,7 @@ java.lang.String defaultValue) {
       }
 
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Events.Ev_RoleEvent, alice.dip.kafka.events.Events.Ev_RoleEvent.Builder, alice.dip.kafka.events.Events.Ev_RoleEventOrBuilder> roleEventBuilder_;
+          alice.dip.kafka.dto.Events.Ev_RoleEvent, alice.dip.kafka.dto.Events.Ev_RoleEvent.Builder, alice.dip.kafka.dto.Events.Ev_RoleEventOrBuilder> roleEventBuilder_;
       /**
        * <code>.events.Ev_RoleEvent roleEvent = 13;</code>
        * @return Whether the roleEvent field is set.
@@ -15203,23 +15203,23 @@ java.lang.String defaultValue) {
        * @return The roleEvent.
        */
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_RoleEvent getRoleEvent() {
+      public alice.dip.kafka.dto.Events.Ev_RoleEvent getRoleEvent() {
         if (roleEventBuilder_ == null) {
           if (payloadCase_ == 13) {
-            return (alice.dip.kafka.events.Events.Ev_RoleEvent) payload_;
+            return (alice.dip.kafka.dto.Events.Ev_RoleEvent) payload_;
           }
-          return alice.dip.kafka.events.Events.Ev_RoleEvent.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_RoleEvent.getDefaultInstance();
         } else {
           if (payloadCase_ == 13) {
             return roleEventBuilder_.getMessage();
           }
-          return alice.dip.kafka.events.Events.Ev_RoleEvent.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_RoleEvent.getDefaultInstance();
         }
       }
       /**
        * <code>.events.Ev_RoleEvent roleEvent = 13;</code>
        */
-      public Builder setRoleEvent(alice.dip.kafka.events.Events.Ev_RoleEvent value) {
+      public Builder setRoleEvent(alice.dip.kafka.dto.Events.Ev_RoleEvent value) {
         if (roleEventBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -15236,7 +15236,7 @@ java.lang.String defaultValue) {
        * <code>.events.Ev_RoleEvent roleEvent = 13;</code>
        */
       public Builder setRoleEvent(
-          alice.dip.kafka.events.Events.Ev_RoleEvent.Builder builderForValue) {
+          alice.dip.kafka.dto.Events.Ev_RoleEvent.Builder builderForValue) {
         if (roleEventBuilder_ == null) {
           payload_ = builderForValue.build();
           onChanged();
@@ -15249,11 +15249,11 @@ java.lang.String defaultValue) {
       /**
        * <code>.events.Ev_RoleEvent roleEvent = 13;</code>
        */
-      public Builder mergeRoleEvent(alice.dip.kafka.events.Events.Ev_RoleEvent value) {
+      public Builder mergeRoleEvent(alice.dip.kafka.dto.Events.Ev_RoleEvent value) {
         if (roleEventBuilder_ == null) {
           if (payloadCase_ == 13 &&
-              payload_ != alice.dip.kafka.events.Events.Ev_RoleEvent.getDefaultInstance()) {
-            payload_ = alice.dip.kafka.events.Events.Ev_RoleEvent.newBuilder((alice.dip.kafka.events.Events.Ev_RoleEvent) payload_)
+              payload_ != alice.dip.kafka.dto.Events.Ev_RoleEvent.getDefaultInstance()) {
+            payload_ = alice.dip.kafka.dto.Events.Ev_RoleEvent.newBuilder((alice.dip.kafka.dto.Events.Ev_RoleEvent) payload_)
                 .mergeFrom(value).buildPartial();
           } else {
             payload_ = value;
@@ -15291,36 +15291,36 @@ java.lang.String defaultValue) {
       /**
        * <code>.events.Ev_RoleEvent roleEvent = 13;</code>
        */
-      public alice.dip.kafka.events.Events.Ev_RoleEvent.Builder getRoleEventBuilder() {
+      public alice.dip.kafka.dto.Events.Ev_RoleEvent.Builder getRoleEventBuilder() {
         return internalGetRoleEventFieldBuilder().getBuilder();
       }
       /**
        * <code>.events.Ev_RoleEvent roleEvent = 13;</code>
        */
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_RoleEventOrBuilder getRoleEventOrBuilder() {
+      public alice.dip.kafka.dto.Events.Ev_RoleEventOrBuilder getRoleEventOrBuilder() {
         if ((payloadCase_ == 13) && (roleEventBuilder_ != null)) {
           return roleEventBuilder_.getMessageOrBuilder();
         } else {
           if (payloadCase_ == 13) {
-            return (alice.dip.kafka.events.Events.Ev_RoleEvent) payload_;
+            return (alice.dip.kafka.dto.Events.Ev_RoleEvent) payload_;
           }
-          return alice.dip.kafka.events.Events.Ev_RoleEvent.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_RoleEvent.getDefaultInstance();
         }
       }
       /**
        * <code>.events.Ev_RoleEvent roleEvent = 13;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Events.Ev_RoleEvent, alice.dip.kafka.events.Events.Ev_RoleEvent.Builder, alice.dip.kafka.events.Events.Ev_RoleEventOrBuilder> 
+          alice.dip.kafka.dto.Events.Ev_RoleEvent, alice.dip.kafka.dto.Events.Ev_RoleEvent.Builder, alice.dip.kafka.dto.Events.Ev_RoleEventOrBuilder> 
           internalGetRoleEventFieldBuilder() {
         if (roleEventBuilder_ == null) {
           if (!(payloadCase_ == 13)) {
-            payload_ = alice.dip.kafka.events.Events.Ev_RoleEvent.getDefaultInstance();
+            payload_ = alice.dip.kafka.dto.Events.Ev_RoleEvent.getDefaultInstance();
           }
           roleEventBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              alice.dip.kafka.events.Events.Ev_RoleEvent, alice.dip.kafka.events.Events.Ev_RoleEvent.Builder, alice.dip.kafka.events.Events.Ev_RoleEventOrBuilder>(
-                  (alice.dip.kafka.events.Events.Ev_RoleEvent) payload_,
+              alice.dip.kafka.dto.Events.Ev_RoleEvent, alice.dip.kafka.dto.Events.Ev_RoleEvent.Builder, alice.dip.kafka.dto.Events.Ev_RoleEventOrBuilder>(
+                  (alice.dip.kafka.dto.Events.Ev_RoleEvent) payload_,
                   getParentForChildren(),
                   isClean());
           payload_ = null;
@@ -15331,7 +15331,7 @@ java.lang.String defaultValue) {
       }
 
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Events.Ev_CallEvent, alice.dip.kafka.events.Events.Ev_CallEvent.Builder, alice.dip.kafka.events.Events.Ev_CallEventOrBuilder> callEventBuilder_;
+          alice.dip.kafka.dto.Events.Ev_CallEvent, alice.dip.kafka.dto.Events.Ev_CallEvent.Builder, alice.dip.kafka.dto.Events.Ev_CallEventOrBuilder> callEventBuilder_;
       /**
        * <code>.events.Ev_CallEvent callEvent = 14;</code>
        * @return Whether the callEvent field is set.
@@ -15345,23 +15345,23 @@ java.lang.String defaultValue) {
        * @return The callEvent.
        */
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_CallEvent getCallEvent() {
+      public alice.dip.kafka.dto.Events.Ev_CallEvent getCallEvent() {
         if (callEventBuilder_ == null) {
           if (payloadCase_ == 14) {
-            return (alice.dip.kafka.events.Events.Ev_CallEvent) payload_;
+            return (alice.dip.kafka.dto.Events.Ev_CallEvent) payload_;
           }
-          return alice.dip.kafka.events.Events.Ev_CallEvent.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_CallEvent.getDefaultInstance();
         } else {
           if (payloadCase_ == 14) {
             return callEventBuilder_.getMessage();
           }
-          return alice.dip.kafka.events.Events.Ev_CallEvent.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_CallEvent.getDefaultInstance();
         }
       }
       /**
        * <code>.events.Ev_CallEvent callEvent = 14;</code>
        */
-      public Builder setCallEvent(alice.dip.kafka.events.Events.Ev_CallEvent value) {
+      public Builder setCallEvent(alice.dip.kafka.dto.Events.Ev_CallEvent value) {
         if (callEventBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -15378,7 +15378,7 @@ java.lang.String defaultValue) {
        * <code>.events.Ev_CallEvent callEvent = 14;</code>
        */
       public Builder setCallEvent(
-          alice.dip.kafka.events.Events.Ev_CallEvent.Builder builderForValue) {
+          alice.dip.kafka.dto.Events.Ev_CallEvent.Builder builderForValue) {
         if (callEventBuilder_ == null) {
           payload_ = builderForValue.build();
           onChanged();
@@ -15391,11 +15391,11 @@ java.lang.String defaultValue) {
       /**
        * <code>.events.Ev_CallEvent callEvent = 14;</code>
        */
-      public Builder mergeCallEvent(alice.dip.kafka.events.Events.Ev_CallEvent value) {
+      public Builder mergeCallEvent(alice.dip.kafka.dto.Events.Ev_CallEvent value) {
         if (callEventBuilder_ == null) {
           if (payloadCase_ == 14 &&
-              payload_ != alice.dip.kafka.events.Events.Ev_CallEvent.getDefaultInstance()) {
-            payload_ = alice.dip.kafka.events.Events.Ev_CallEvent.newBuilder((alice.dip.kafka.events.Events.Ev_CallEvent) payload_)
+              payload_ != alice.dip.kafka.dto.Events.Ev_CallEvent.getDefaultInstance()) {
+            payload_ = alice.dip.kafka.dto.Events.Ev_CallEvent.newBuilder((alice.dip.kafka.dto.Events.Ev_CallEvent) payload_)
                 .mergeFrom(value).buildPartial();
           } else {
             payload_ = value;
@@ -15433,36 +15433,36 @@ java.lang.String defaultValue) {
       /**
        * <code>.events.Ev_CallEvent callEvent = 14;</code>
        */
-      public alice.dip.kafka.events.Events.Ev_CallEvent.Builder getCallEventBuilder() {
+      public alice.dip.kafka.dto.Events.Ev_CallEvent.Builder getCallEventBuilder() {
         return internalGetCallEventFieldBuilder().getBuilder();
       }
       /**
        * <code>.events.Ev_CallEvent callEvent = 14;</code>
        */
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_CallEventOrBuilder getCallEventOrBuilder() {
+      public alice.dip.kafka.dto.Events.Ev_CallEventOrBuilder getCallEventOrBuilder() {
         if ((payloadCase_ == 14) && (callEventBuilder_ != null)) {
           return callEventBuilder_.getMessageOrBuilder();
         } else {
           if (payloadCase_ == 14) {
-            return (alice.dip.kafka.events.Events.Ev_CallEvent) payload_;
+            return (alice.dip.kafka.dto.Events.Ev_CallEvent) payload_;
           }
-          return alice.dip.kafka.events.Events.Ev_CallEvent.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_CallEvent.getDefaultInstance();
         }
       }
       /**
        * <code>.events.Ev_CallEvent callEvent = 14;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Events.Ev_CallEvent, alice.dip.kafka.events.Events.Ev_CallEvent.Builder, alice.dip.kafka.events.Events.Ev_CallEventOrBuilder> 
+          alice.dip.kafka.dto.Events.Ev_CallEvent, alice.dip.kafka.dto.Events.Ev_CallEvent.Builder, alice.dip.kafka.dto.Events.Ev_CallEventOrBuilder> 
           internalGetCallEventFieldBuilder() {
         if (callEventBuilder_ == null) {
           if (!(payloadCase_ == 14)) {
-            payload_ = alice.dip.kafka.events.Events.Ev_CallEvent.getDefaultInstance();
+            payload_ = alice.dip.kafka.dto.Events.Ev_CallEvent.getDefaultInstance();
           }
           callEventBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              alice.dip.kafka.events.Events.Ev_CallEvent, alice.dip.kafka.events.Events.Ev_CallEvent.Builder, alice.dip.kafka.events.Events.Ev_CallEventOrBuilder>(
-                  (alice.dip.kafka.events.Events.Ev_CallEvent) payload_,
+              alice.dip.kafka.dto.Events.Ev_CallEvent, alice.dip.kafka.dto.Events.Ev_CallEvent.Builder, alice.dip.kafka.dto.Events.Ev_CallEventOrBuilder>(
+                  (alice.dip.kafka.dto.Events.Ev_CallEvent) payload_,
                   getParentForChildren(),
                   isClean());
           payload_ = null;
@@ -15473,7 +15473,7 @@ java.lang.String defaultValue) {
       }
 
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent, alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent.Builder, alice.dip.kafka.events.Events.Ev_IntegratedServiceEventOrBuilder> integratedServiceEventBuilder_;
+          alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent, alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent.Builder, alice.dip.kafka.dto.Events.Ev_IntegratedServiceEventOrBuilder> integratedServiceEventBuilder_;
       /**
        * <code>.events.Ev_IntegratedServiceEvent integratedServiceEvent = 15;</code>
        * @return Whether the integratedServiceEvent field is set.
@@ -15487,23 +15487,23 @@ java.lang.String defaultValue) {
        * @return The integratedServiceEvent.
        */
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent getIntegratedServiceEvent() {
+      public alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent getIntegratedServiceEvent() {
         if (integratedServiceEventBuilder_ == null) {
           if (payloadCase_ == 15) {
-            return (alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent) payload_;
+            return (alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent) payload_;
           }
-          return alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent.getDefaultInstance();
         } else {
           if (payloadCase_ == 15) {
             return integratedServiceEventBuilder_.getMessage();
           }
-          return alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent.getDefaultInstance();
         }
       }
       /**
        * <code>.events.Ev_IntegratedServiceEvent integratedServiceEvent = 15;</code>
        */
-      public Builder setIntegratedServiceEvent(alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent value) {
+      public Builder setIntegratedServiceEvent(alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent value) {
         if (integratedServiceEventBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -15520,7 +15520,7 @@ java.lang.String defaultValue) {
        * <code>.events.Ev_IntegratedServiceEvent integratedServiceEvent = 15;</code>
        */
       public Builder setIntegratedServiceEvent(
-          alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent.Builder builderForValue) {
+          alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent.Builder builderForValue) {
         if (integratedServiceEventBuilder_ == null) {
           payload_ = builderForValue.build();
           onChanged();
@@ -15533,11 +15533,11 @@ java.lang.String defaultValue) {
       /**
        * <code>.events.Ev_IntegratedServiceEvent integratedServiceEvent = 15;</code>
        */
-      public Builder mergeIntegratedServiceEvent(alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent value) {
+      public Builder mergeIntegratedServiceEvent(alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent value) {
         if (integratedServiceEventBuilder_ == null) {
           if (payloadCase_ == 15 &&
-              payload_ != alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent.getDefaultInstance()) {
-            payload_ = alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent.newBuilder((alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent) payload_)
+              payload_ != alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent.getDefaultInstance()) {
+            payload_ = alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent.newBuilder((alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent) payload_)
                 .mergeFrom(value).buildPartial();
           } else {
             payload_ = value;
@@ -15575,36 +15575,36 @@ java.lang.String defaultValue) {
       /**
        * <code>.events.Ev_IntegratedServiceEvent integratedServiceEvent = 15;</code>
        */
-      public alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent.Builder getIntegratedServiceEventBuilder() {
+      public alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent.Builder getIntegratedServiceEventBuilder() {
         return internalGetIntegratedServiceEventFieldBuilder().getBuilder();
       }
       /**
        * <code>.events.Ev_IntegratedServiceEvent integratedServiceEvent = 15;</code>
        */
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_IntegratedServiceEventOrBuilder getIntegratedServiceEventOrBuilder() {
+      public alice.dip.kafka.dto.Events.Ev_IntegratedServiceEventOrBuilder getIntegratedServiceEventOrBuilder() {
         if ((payloadCase_ == 15) && (integratedServiceEventBuilder_ != null)) {
           return integratedServiceEventBuilder_.getMessageOrBuilder();
         } else {
           if (payloadCase_ == 15) {
-            return (alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent) payload_;
+            return (alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent) payload_;
           }
-          return alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent.getDefaultInstance();
         }
       }
       /**
        * <code>.events.Ev_IntegratedServiceEvent integratedServiceEvent = 15;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent, alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent.Builder, alice.dip.kafka.events.Events.Ev_IntegratedServiceEventOrBuilder> 
+          alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent, alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent.Builder, alice.dip.kafka.dto.Events.Ev_IntegratedServiceEventOrBuilder> 
           internalGetIntegratedServiceEventFieldBuilder() {
         if (integratedServiceEventBuilder_ == null) {
           if (!(payloadCase_ == 15)) {
-            payload_ = alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent.getDefaultInstance();
+            payload_ = alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent.getDefaultInstance();
           }
           integratedServiceEventBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent, alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent.Builder, alice.dip.kafka.events.Events.Ev_IntegratedServiceEventOrBuilder>(
-                  (alice.dip.kafka.events.Events.Ev_IntegratedServiceEvent) payload_,
+              alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent, alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent.Builder, alice.dip.kafka.dto.Events.Ev_IntegratedServiceEventOrBuilder>(
+                  (alice.dip.kafka.dto.Events.Ev_IntegratedServiceEvent) payload_,
                   getParentForChildren(),
                   isClean());
           payload_ = null;
@@ -15615,7 +15615,7 @@ java.lang.String defaultValue) {
       }
 
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Events.Ev_RunEvent, alice.dip.kafka.events.Events.Ev_RunEvent.Builder, alice.dip.kafka.events.Events.Ev_RunEventOrBuilder> runEventBuilder_;
+          alice.dip.kafka.dto.Events.Ev_RunEvent, alice.dip.kafka.dto.Events.Ev_RunEvent.Builder, alice.dip.kafka.dto.Events.Ev_RunEventOrBuilder> runEventBuilder_;
       /**
        * <code>.events.Ev_RunEvent runEvent = 16;</code>
        * @return Whether the runEvent field is set.
@@ -15629,23 +15629,23 @@ java.lang.String defaultValue) {
        * @return The runEvent.
        */
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_RunEvent getRunEvent() {
+      public alice.dip.kafka.dto.Events.Ev_RunEvent getRunEvent() {
         if (runEventBuilder_ == null) {
           if (payloadCase_ == 16) {
-            return (alice.dip.kafka.events.Events.Ev_RunEvent) payload_;
+            return (alice.dip.kafka.dto.Events.Ev_RunEvent) payload_;
           }
-          return alice.dip.kafka.events.Events.Ev_RunEvent.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_RunEvent.getDefaultInstance();
         } else {
           if (payloadCase_ == 16) {
             return runEventBuilder_.getMessage();
           }
-          return alice.dip.kafka.events.Events.Ev_RunEvent.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_RunEvent.getDefaultInstance();
         }
       }
       /**
        * <code>.events.Ev_RunEvent runEvent = 16;</code>
        */
-      public Builder setRunEvent(alice.dip.kafka.events.Events.Ev_RunEvent value) {
+      public Builder setRunEvent(alice.dip.kafka.dto.Events.Ev_RunEvent value) {
         if (runEventBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -15662,7 +15662,7 @@ java.lang.String defaultValue) {
        * <code>.events.Ev_RunEvent runEvent = 16;</code>
        */
       public Builder setRunEvent(
-          alice.dip.kafka.events.Events.Ev_RunEvent.Builder builderForValue) {
+          alice.dip.kafka.dto.Events.Ev_RunEvent.Builder builderForValue) {
         if (runEventBuilder_ == null) {
           payload_ = builderForValue.build();
           onChanged();
@@ -15675,11 +15675,11 @@ java.lang.String defaultValue) {
       /**
        * <code>.events.Ev_RunEvent runEvent = 16;</code>
        */
-      public Builder mergeRunEvent(alice.dip.kafka.events.Events.Ev_RunEvent value) {
+      public Builder mergeRunEvent(alice.dip.kafka.dto.Events.Ev_RunEvent value) {
         if (runEventBuilder_ == null) {
           if (payloadCase_ == 16 &&
-              payload_ != alice.dip.kafka.events.Events.Ev_RunEvent.getDefaultInstance()) {
-            payload_ = alice.dip.kafka.events.Events.Ev_RunEvent.newBuilder((alice.dip.kafka.events.Events.Ev_RunEvent) payload_)
+              payload_ != alice.dip.kafka.dto.Events.Ev_RunEvent.getDefaultInstance()) {
+            payload_ = alice.dip.kafka.dto.Events.Ev_RunEvent.newBuilder((alice.dip.kafka.dto.Events.Ev_RunEvent) payload_)
                 .mergeFrom(value).buildPartial();
           } else {
             payload_ = value;
@@ -15717,36 +15717,36 @@ java.lang.String defaultValue) {
       /**
        * <code>.events.Ev_RunEvent runEvent = 16;</code>
        */
-      public alice.dip.kafka.events.Events.Ev_RunEvent.Builder getRunEventBuilder() {
+      public alice.dip.kafka.dto.Events.Ev_RunEvent.Builder getRunEventBuilder() {
         return internalGetRunEventFieldBuilder().getBuilder();
       }
       /**
        * <code>.events.Ev_RunEvent runEvent = 16;</code>
        */
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_RunEventOrBuilder getRunEventOrBuilder() {
+      public alice.dip.kafka.dto.Events.Ev_RunEventOrBuilder getRunEventOrBuilder() {
         if ((payloadCase_ == 16) && (runEventBuilder_ != null)) {
           return runEventBuilder_.getMessageOrBuilder();
         } else {
           if (payloadCase_ == 16) {
-            return (alice.dip.kafka.events.Events.Ev_RunEvent) payload_;
+            return (alice.dip.kafka.dto.Events.Ev_RunEvent) payload_;
           }
-          return alice.dip.kafka.events.Events.Ev_RunEvent.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_RunEvent.getDefaultInstance();
         }
       }
       /**
        * <code>.events.Ev_RunEvent runEvent = 16;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Events.Ev_RunEvent, alice.dip.kafka.events.Events.Ev_RunEvent.Builder, alice.dip.kafka.events.Events.Ev_RunEventOrBuilder> 
+          alice.dip.kafka.dto.Events.Ev_RunEvent, alice.dip.kafka.dto.Events.Ev_RunEvent.Builder, alice.dip.kafka.dto.Events.Ev_RunEventOrBuilder> 
           internalGetRunEventFieldBuilder() {
         if (runEventBuilder_ == null) {
           if (!(payloadCase_ == 16)) {
-            payload_ = alice.dip.kafka.events.Events.Ev_RunEvent.getDefaultInstance();
+            payload_ = alice.dip.kafka.dto.Events.Ev_RunEvent.getDefaultInstance();
           }
           runEventBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              alice.dip.kafka.events.Events.Ev_RunEvent, alice.dip.kafka.events.Events.Ev_RunEvent.Builder, alice.dip.kafka.events.Events.Ev_RunEventOrBuilder>(
-                  (alice.dip.kafka.events.Events.Ev_RunEvent) payload_,
+              alice.dip.kafka.dto.Events.Ev_RunEvent, alice.dip.kafka.dto.Events.Ev_RunEvent.Builder, alice.dip.kafka.dto.Events.Ev_RunEventOrBuilder>(
+                  (alice.dip.kafka.dto.Events.Ev_RunEvent) payload_,
                   getParentForChildren(),
                   isClean());
           payload_ = null;
@@ -15757,7 +15757,7 @@ java.lang.String defaultValue) {
       }
 
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent, alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent.Builder, alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEventOrBuilder> frameworkEventBuilder_;
+          alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent, alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent.Builder, alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEventOrBuilder> frameworkEventBuilder_;
       /**
        * <code>.events.Ev_MetaEvent_FrameworkEvent frameworkEvent = 101;</code>
        * @return Whether the frameworkEvent field is set.
@@ -15771,23 +15771,23 @@ java.lang.String defaultValue) {
        * @return The frameworkEvent.
        */
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent getFrameworkEvent() {
+      public alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent getFrameworkEvent() {
         if (frameworkEventBuilder_ == null) {
           if (payloadCase_ == 101) {
-            return (alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent) payload_;
+            return (alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent) payload_;
           }
-          return alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent.getDefaultInstance();
         } else {
           if (payloadCase_ == 101) {
             return frameworkEventBuilder_.getMessage();
           }
-          return alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent.getDefaultInstance();
         }
       }
       /**
        * <code>.events.Ev_MetaEvent_FrameworkEvent frameworkEvent = 101;</code>
        */
-      public Builder setFrameworkEvent(alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent value) {
+      public Builder setFrameworkEvent(alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent value) {
         if (frameworkEventBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -15804,7 +15804,7 @@ java.lang.String defaultValue) {
        * <code>.events.Ev_MetaEvent_FrameworkEvent frameworkEvent = 101;</code>
        */
       public Builder setFrameworkEvent(
-          alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent.Builder builderForValue) {
+          alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent.Builder builderForValue) {
         if (frameworkEventBuilder_ == null) {
           payload_ = builderForValue.build();
           onChanged();
@@ -15817,11 +15817,11 @@ java.lang.String defaultValue) {
       /**
        * <code>.events.Ev_MetaEvent_FrameworkEvent frameworkEvent = 101;</code>
        */
-      public Builder mergeFrameworkEvent(alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent value) {
+      public Builder mergeFrameworkEvent(alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent value) {
         if (frameworkEventBuilder_ == null) {
           if (payloadCase_ == 101 &&
-              payload_ != alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent.getDefaultInstance()) {
-            payload_ = alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent.newBuilder((alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent) payload_)
+              payload_ != alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent.getDefaultInstance()) {
+            payload_ = alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent.newBuilder((alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent) payload_)
                 .mergeFrom(value).buildPartial();
           } else {
             payload_ = value;
@@ -15859,36 +15859,36 @@ java.lang.String defaultValue) {
       /**
        * <code>.events.Ev_MetaEvent_FrameworkEvent frameworkEvent = 101;</code>
        */
-      public alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent.Builder getFrameworkEventBuilder() {
+      public alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent.Builder getFrameworkEventBuilder() {
         return internalGetFrameworkEventFieldBuilder().getBuilder();
       }
       /**
        * <code>.events.Ev_MetaEvent_FrameworkEvent frameworkEvent = 101;</code>
        */
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEventOrBuilder getFrameworkEventOrBuilder() {
+      public alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEventOrBuilder getFrameworkEventOrBuilder() {
         if ((payloadCase_ == 101) && (frameworkEventBuilder_ != null)) {
           return frameworkEventBuilder_.getMessageOrBuilder();
         } else {
           if (payloadCase_ == 101) {
-            return (alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent) payload_;
+            return (alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent) payload_;
           }
-          return alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent.getDefaultInstance();
         }
       }
       /**
        * <code>.events.Ev_MetaEvent_FrameworkEvent frameworkEvent = 101;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent, alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent.Builder, alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEventOrBuilder> 
+          alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent, alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent.Builder, alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEventOrBuilder> 
           internalGetFrameworkEventFieldBuilder() {
         if (frameworkEventBuilder_ == null) {
           if (!(payloadCase_ == 101)) {
-            payload_ = alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent.getDefaultInstance();
+            payload_ = alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent.getDefaultInstance();
           }
           frameworkEventBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent, alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent.Builder, alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEventOrBuilder>(
-                  (alice.dip.kafka.events.Events.Ev_MetaEvent_FrameworkEvent) payload_,
+              alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent, alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent.Builder, alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEventOrBuilder>(
+                  (alice.dip.kafka.dto.Events.Ev_MetaEvent_FrameworkEvent) payload_,
                   getParentForChildren(),
                   isClean());
           payload_ = null;
@@ -15899,7 +15899,7 @@ java.lang.String defaultValue) {
       }
 
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat, alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat.Builder, alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeatOrBuilder> mesosHeartbeatEventBuilder_;
+          alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat, alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat.Builder, alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeatOrBuilder> mesosHeartbeatEventBuilder_;
       /**
        * <code>.events.Ev_MetaEvent_MesosHeartbeat mesosHeartbeatEvent = 102;</code>
        * @return Whether the mesosHeartbeatEvent field is set.
@@ -15913,23 +15913,23 @@ java.lang.String defaultValue) {
        * @return The mesosHeartbeatEvent.
        */
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat getMesosHeartbeatEvent() {
+      public alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat getMesosHeartbeatEvent() {
         if (mesosHeartbeatEventBuilder_ == null) {
           if (payloadCase_ == 102) {
-            return (alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat) payload_;
+            return (alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat) payload_;
           }
-          return alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat.getDefaultInstance();
         } else {
           if (payloadCase_ == 102) {
             return mesosHeartbeatEventBuilder_.getMessage();
           }
-          return alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat.getDefaultInstance();
         }
       }
       /**
        * <code>.events.Ev_MetaEvent_MesosHeartbeat mesosHeartbeatEvent = 102;</code>
        */
-      public Builder setMesosHeartbeatEvent(alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat value) {
+      public Builder setMesosHeartbeatEvent(alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat value) {
         if (mesosHeartbeatEventBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -15946,7 +15946,7 @@ java.lang.String defaultValue) {
        * <code>.events.Ev_MetaEvent_MesosHeartbeat mesosHeartbeatEvent = 102;</code>
        */
       public Builder setMesosHeartbeatEvent(
-          alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat.Builder builderForValue) {
+          alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat.Builder builderForValue) {
         if (mesosHeartbeatEventBuilder_ == null) {
           payload_ = builderForValue.build();
           onChanged();
@@ -15959,11 +15959,11 @@ java.lang.String defaultValue) {
       /**
        * <code>.events.Ev_MetaEvent_MesosHeartbeat mesosHeartbeatEvent = 102;</code>
        */
-      public Builder mergeMesosHeartbeatEvent(alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat value) {
+      public Builder mergeMesosHeartbeatEvent(alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat value) {
         if (mesosHeartbeatEventBuilder_ == null) {
           if (payloadCase_ == 102 &&
-              payload_ != alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat.getDefaultInstance()) {
-            payload_ = alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat.newBuilder((alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat) payload_)
+              payload_ != alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat.getDefaultInstance()) {
+            payload_ = alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat.newBuilder((alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat) payload_)
                 .mergeFrom(value).buildPartial();
           } else {
             payload_ = value;
@@ -16001,36 +16001,36 @@ java.lang.String defaultValue) {
       /**
        * <code>.events.Ev_MetaEvent_MesosHeartbeat mesosHeartbeatEvent = 102;</code>
        */
-      public alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat.Builder getMesosHeartbeatEventBuilder() {
+      public alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat.Builder getMesosHeartbeatEventBuilder() {
         return internalGetMesosHeartbeatEventFieldBuilder().getBuilder();
       }
       /**
        * <code>.events.Ev_MetaEvent_MesosHeartbeat mesosHeartbeatEvent = 102;</code>
        */
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeatOrBuilder getMesosHeartbeatEventOrBuilder() {
+      public alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeatOrBuilder getMesosHeartbeatEventOrBuilder() {
         if ((payloadCase_ == 102) && (mesosHeartbeatEventBuilder_ != null)) {
           return mesosHeartbeatEventBuilder_.getMessageOrBuilder();
         } else {
           if (payloadCase_ == 102) {
-            return (alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat) payload_;
+            return (alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat) payload_;
           }
-          return alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat.getDefaultInstance();
         }
       }
       /**
        * <code>.events.Ev_MetaEvent_MesosHeartbeat mesosHeartbeatEvent = 102;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat, alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat.Builder, alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeatOrBuilder> 
+          alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat, alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat.Builder, alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeatOrBuilder> 
           internalGetMesosHeartbeatEventFieldBuilder() {
         if (mesosHeartbeatEventBuilder_ == null) {
           if (!(payloadCase_ == 102)) {
-            payload_ = alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat.getDefaultInstance();
+            payload_ = alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat.getDefaultInstance();
           }
           mesosHeartbeatEventBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat, alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat.Builder, alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeatOrBuilder>(
-                  (alice.dip.kafka.events.Events.Ev_MetaEvent_MesosHeartbeat) payload_,
+              alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat, alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat.Builder, alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeatOrBuilder>(
+                  (alice.dip.kafka.dto.Events.Ev_MetaEvent_MesosHeartbeat) payload_,
                   getParentForChildren(),
                   isClean());
           payload_ = null;
@@ -16041,7 +16041,7 @@ java.lang.String defaultValue) {
       }
 
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart, alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart.Builder, alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStartOrBuilder> coreStartEventBuilder_;
+          alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart, alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart.Builder, alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStartOrBuilder> coreStartEventBuilder_;
       /**
        * <code>.events.Ev_MetaEvent_CoreStart coreStartEvent = 103;</code>
        * @return Whether the coreStartEvent field is set.
@@ -16055,23 +16055,23 @@ java.lang.String defaultValue) {
        * @return The coreStartEvent.
        */
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart getCoreStartEvent() {
+      public alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart getCoreStartEvent() {
         if (coreStartEventBuilder_ == null) {
           if (payloadCase_ == 103) {
-            return (alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart) payload_;
+            return (alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart) payload_;
           }
-          return alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart.getDefaultInstance();
         } else {
           if (payloadCase_ == 103) {
             return coreStartEventBuilder_.getMessage();
           }
-          return alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart.getDefaultInstance();
         }
       }
       /**
        * <code>.events.Ev_MetaEvent_CoreStart coreStartEvent = 103;</code>
        */
-      public Builder setCoreStartEvent(alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart value) {
+      public Builder setCoreStartEvent(alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart value) {
         if (coreStartEventBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -16088,7 +16088,7 @@ java.lang.String defaultValue) {
        * <code>.events.Ev_MetaEvent_CoreStart coreStartEvent = 103;</code>
        */
       public Builder setCoreStartEvent(
-          alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart.Builder builderForValue) {
+          alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart.Builder builderForValue) {
         if (coreStartEventBuilder_ == null) {
           payload_ = builderForValue.build();
           onChanged();
@@ -16101,11 +16101,11 @@ java.lang.String defaultValue) {
       /**
        * <code>.events.Ev_MetaEvent_CoreStart coreStartEvent = 103;</code>
        */
-      public Builder mergeCoreStartEvent(alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart value) {
+      public Builder mergeCoreStartEvent(alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart value) {
         if (coreStartEventBuilder_ == null) {
           if (payloadCase_ == 103 &&
-              payload_ != alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart.getDefaultInstance()) {
-            payload_ = alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart.newBuilder((alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart) payload_)
+              payload_ != alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart.getDefaultInstance()) {
+            payload_ = alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart.newBuilder((alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart) payload_)
                 .mergeFrom(value).buildPartial();
           } else {
             payload_ = value;
@@ -16143,36 +16143,36 @@ java.lang.String defaultValue) {
       /**
        * <code>.events.Ev_MetaEvent_CoreStart coreStartEvent = 103;</code>
        */
-      public alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart.Builder getCoreStartEventBuilder() {
+      public alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart.Builder getCoreStartEventBuilder() {
         return internalGetCoreStartEventFieldBuilder().getBuilder();
       }
       /**
        * <code>.events.Ev_MetaEvent_CoreStart coreStartEvent = 103;</code>
        */
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStartOrBuilder getCoreStartEventOrBuilder() {
+      public alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStartOrBuilder getCoreStartEventOrBuilder() {
         if ((payloadCase_ == 103) && (coreStartEventBuilder_ != null)) {
           return coreStartEventBuilder_.getMessageOrBuilder();
         } else {
           if (payloadCase_ == 103) {
-            return (alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart) payload_;
+            return (alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart) payload_;
           }
-          return alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart.getDefaultInstance();
         }
       }
       /**
        * <code>.events.Ev_MetaEvent_CoreStart coreStartEvent = 103;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart, alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart.Builder, alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStartOrBuilder> 
+          alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart, alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart.Builder, alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStartOrBuilder> 
           internalGetCoreStartEventFieldBuilder() {
         if (coreStartEventBuilder_ == null) {
           if (!(payloadCase_ == 103)) {
-            payload_ = alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart.getDefaultInstance();
+            payload_ = alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart.getDefaultInstance();
           }
           coreStartEventBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart, alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart.Builder, alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStartOrBuilder>(
-                  (alice.dip.kafka.events.Events.Ev_MetaEvent_CoreStart) payload_,
+              alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart, alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart.Builder, alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStartOrBuilder>(
+                  (alice.dip.kafka.dto.Events.Ev_MetaEvent_CoreStart) payload_,
                   getParentForChildren(),
                   isClean());
           payload_ = null;
@@ -16183,7 +16183,7 @@ java.lang.String defaultValue) {
       }
 
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Events.Ev_BeamModeEvent, alice.dip.kafka.events.Events.Ev_BeamModeEvent.Builder, alice.dip.kafka.events.Events.Ev_BeamModeEventOrBuilder> beamModeEventBuilder_;
+          alice.dip.kafka.dto.Events.Ev_BeamModeEvent, alice.dip.kafka.dto.Events.Ev_BeamModeEvent.Builder, alice.dip.kafka.dto.Events.Ev_BeamModeEventOrBuilder> beamModeEventBuilder_;
       /**
        * <code>.events.Ev_BeamModeEvent beamModeEvent = 110;</code>
        * @return Whether the beamModeEvent field is set.
@@ -16197,23 +16197,23 @@ java.lang.String defaultValue) {
        * @return The beamModeEvent.
        */
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_BeamModeEvent getBeamModeEvent() {
+      public alice.dip.kafka.dto.Events.Ev_BeamModeEvent getBeamModeEvent() {
         if (beamModeEventBuilder_ == null) {
           if (payloadCase_ == 110) {
-            return (alice.dip.kafka.events.Events.Ev_BeamModeEvent) payload_;
+            return (alice.dip.kafka.dto.Events.Ev_BeamModeEvent) payload_;
           }
-          return alice.dip.kafka.events.Events.Ev_BeamModeEvent.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_BeamModeEvent.getDefaultInstance();
         } else {
           if (payloadCase_ == 110) {
             return beamModeEventBuilder_.getMessage();
           }
-          return alice.dip.kafka.events.Events.Ev_BeamModeEvent.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_BeamModeEvent.getDefaultInstance();
         }
       }
       /**
        * <code>.events.Ev_BeamModeEvent beamModeEvent = 110;</code>
        */
-      public Builder setBeamModeEvent(alice.dip.kafka.events.Events.Ev_BeamModeEvent value) {
+      public Builder setBeamModeEvent(alice.dip.kafka.dto.Events.Ev_BeamModeEvent value) {
         if (beamModeEventBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -16230,7 +16230,7 @@ java.lang.String defaultValue) {
        * <code>.events.Ev_BeamModeEvent beamModeEvent = 110;</code>
        */
       public Builder setBeamModeEvent(
-          alice.dip.kafka.events.Events.Ev_BeamModeEvent.Builder builderForValue) {
+          alice.dip.kafka.dto.Events.Ev_BeamModeEvent.Builder builderForValue) {
         if (beamModeEventBuilder_ == null) {
           payload_ = builderForValue.build();
           onChanged();
@@ -16243,11 +16243,11 @@ java.lang.String defaultValue) {
       /**
        * <code>.events.Ev_BeamModeEvent beamModeEvent = 110;</code>
        */
-      public Builder mergeBeamModeEvent(alice.dip.kafka.events.Events.Ev_BeamModeEvent value) {
+      public Builder mergeBeamModeEvent(alice.dip.kafka.dto.Events.Ev_BeamModeEvent value) {
         if (beamModeEventBuilder_ == null) {
           if (payloadCase_ == 110 &&
-              payload_ != alice.dip.kafka.events.Events.Ev_BeamModeEvent.getDefaultInstance()) {
-            payload_ = alice.dip.kafka.events.Events.Ev_BeamModeEvent.newBuilder((alice.dip.kafka.events.Events.Ev_BeamModeEvent) payload_)
+              payload_ != alice.dip.kafka.dto.Events.Ev_BeamModeEvent.getDefaultInstance()) {
+            payload_ = alice.dip.kafka.dto.Events.Ev_BeamModeEvent.newBuilder((alice.dip.kafka.dto.Events.Ev_BeamModeEvent) payload_)
                 .mergeFrom(value).buildPartial();
           } else {
             payload_ = value;
@@ -16285,36 +16285,36 @@ java.lang.String defaultValue) {
       /**
        * <code>.events.Ev_BeamModeEvent beamModeEvent = 110;</code>
        */
-      public alice.dip.kafka.events.Events.Ev_BeamModeEvent.Builder getBeamModeEventBuilder() {
+      public alice.dip.kafka.dto.Events.Ev_BeamModeEvent.Builder getBeamModeEventBuilder() {
         return internalGetBeamModeEventFieldBuilder().getBuilder();
       }
       /**
        * <code>.events.Ev_BeamModeEvent beamModeEvent = 110;</code>
        */
       @java.lang.Override
-      public alice.dip.kafka.events.Events.Ev_BeamModeEventOrBuilder getBeamModeEventOrBuilder() {
+      public alice.dip.kafka.dto.Events.Ev_BeamModeEventOrBuilder getBeamModeEventOrBuilder() {
         if ((payloadCase_ == 110) && (beamModeEventBuilder_ != null)) {
           return beamModeEventBuilder_.getMessageOrBuilder();
         } else {
           if (payloadCase_ == 110) {
-            return (alice.dip.kafka.events.Events.Ev_BeamModeEvent) payload_;
+            return (alice.dip.kafka.dto.Events.Ev_BeamModeEvent) payload_;
           }
-          return alice.dip.kafka.events.Events.Ev_BeamModeEvent.getDefaultInstance();
+          return alice.dip.kafka.dto.Events.Ev_BeamModeEvent.getDefaultInstance();
         }
       }
       /**
        * <code>.events.Ev_BeamModeEvent beamModeEvent = 110;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
-          alice.dip.kafka.events.Events.Ev_BeamModeEvent, alice.dip.kafka.events.Events.Ev_BeamModeEvent.Builder, alice.dip.kafka.events.Events.Ev_BeamModeEventOrBuilder> 
+          alice.dip.kafka.dto.Events.Ev_BeamModeEvent, alice.dip.kafka.dto.Events.Ev_BeamModeEvent.Builder, alice.dip.kafka.dto.Events.Ev_BeamModeEventOrBuilder> 
           internalGetBeamModeEventFieldBuilder() {
         if (beamModeEventBuilder_ == null) {
           if (!(payloadCase_ == 110)) {
-            payload_ = alice.dip.kafka.events.Events.Ev_BeamModeEvent.getDefaultInstance();
+            payload_ = alice.dip.kafka.dto.Events.Ev_BeamModeEvent.getDefaultInstance();
           }
           beamModeEventBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              alice.dip.kafka.events.Events.Ev_BeamModeEvent, alice.dip.kafka.events.Events.Ev_BeamModeEvent.Builder, alice.dip.kafka.events.Events.Ev_BeamModeEventOrBuilder>(
-                  (alice.dip.kafka.events.Events.Ev_BeamModeEvent) payload_,
+              alice.dip.kafka.dto.Events.Ev_BeamModeEvent, alice.dip.kafka.dto.Events.Ev_BeamModeEvent.Builder, alice.dip.kafka.dto.Events.Ev_BeamModeEventOrBuilder>(
+                  (alice.dip.kafka.dto.Events.Ev_BeamModeEvent) payload_,
                   getParentForChildren(),
                   isClean());
           payload_ = null;
@@ -16328,12 +16328,12 @@ java.lang.String defaultValue) {
     }
 
     // @@protoc_insertion_point(class_scope:events.Event)
-    private static final alice.dip.kafka.events.Events.Event DEFAULT_INSTANCE;
+    private static final alice.dip.kafka.dto.Events.Event DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new alice.dip.kafka.events.Events.Event();
+      DEFAULT_INSTANCE = new alice.dip.kafka.dto.Events.Event();
     }
 
-    public static alice.dip.kafka.events.Events.Event getDefaultInstance() {
+    public static alice.dip.kafka.dto.Events.Event getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -16369,7 +16369,7 @@ java.lang.String defaultValue) {
     }
 
     @java.lang.Override
-    public alice.dip.kafka.events.Events.Event getDefaultInstanceForType() {
+    public alice.dip.kafka.dto.Events.Event getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -16515,7 +16515,7 @@ java.lang.String defaultValue) {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          alice.dip.kafka.events.Common.getDescriptor(),
+          alice.dip.kafka.dto.Common.getDescriptor(),
         });
     internal_static_events_Ev_MetaEvent_MesosHeartbeat_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -16596,7 +16596,7 @@ java.lang.String defaultValue) {
         internal_static_events_Event_descriptor,
         new java.lang.String[] { "Timestamp", "TimestampNano", "EnvironmentEvent", "TaskEvent", "RoleEvent", "CallEvent", "IntegratedServiceEvent", "RunEvent", "FrameworkEvent", "MesosHeartbeatEvent", "CoreStartEvent", "BeamModeEvent", "Payload", });
     descriptor.resolveAllFeaturesImmutable();
-    alice.dip.kafka.events.Common.getDescriptor();
+    alice.dip.kafka.dto.Common.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

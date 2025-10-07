@@ -3,7 +3,7 @@
 // source: common.proto
 // Protobuf Java Version: 4.32.1
 
-package alice.dip.kafka.events;
+package alice.dip.kafka.dto;
 
 @com.google.protobuf.Generated
 public final class Common extends com.google.protobuf.GeneratedFile {
@@ -321,7 +321,7 @@ public final class Common extends com.google.protobuf.GeneratedFile {
     }
     public static com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return alice.dip.kafka.events.Common.getDescriptor().getEnumTypes().get(0);
+      return alice.dip.kafka.dto.Common.getDescriptor().getEnumTypes().get(0);
     }
 
     private static final BeamMode[] VALUES = values();
@@ -436,15 +436,15 @@ public final class Common extends com.google.protobuf.GeneratedFile {
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return alice.dip.kafka.events.Common.internal_static_common_User_descriptor;
+      return alice.dip.kafka.dto.Common.internal_static_common_User_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return alice.dip.kafka.events.Common.internal_static_common_User_fieldAccessorTable
+      return alice.dip.kafka.dto.Common.internal_static_common_User_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              alice.dip.kafka.events.Common.User.class, alice.dip.kafka.events.Common.User.Builder.class);
+              alice.dip.kafka.dto.Common.User.class, alice.dip.kafka.dto.Common.User.Builder.class);
     }
 
     private int bitField0_;
@@ -602,10 +602,10 @@ public final class Common extends com.google.protobuf.GeneratedFile {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof alice.dip.kafka.events.Common.User)) {
+      if (!(obj instanceof alice.dip.kafka.dto.Common.User)) {
         return super.equals(obj);
       }
-      alice.dip.kafka.events.Common.User other = (alice.dip.kafka.events.Common.User) obj;
+      alice.dip.kafka.dto.Common.User other = (alice.dip.kafka.dto.Common.User) obj;
 
       if (hasExternalId() != other.hasExternalId()) return false;
       if (hasExternalId()) {
@@ -645,44 +645,44 @@ public final class Common extends com.google.protobuf.GeneratedFile {
       return hash;
     }
 
-    public static alice.dip.kafka.events.Common.User parseFrom(
+    public static alice.dip.kafka.dto.Common.User parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Common.User parseFrom(
+    public static alice.dip.kafka.dto.Common.User parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Common.User parseFrom(
+    public static alice.dip.kafka.dto.Common.User parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Common.User parseFrom(
+    public static alice.dip.kafka.dto.Common.User parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Common.User parseFrom(byte[] data)
+    public static alice.dip.kafka.dto.Common.User parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Common.User parseFrom(
+    public static alice.dip.kafka.dto.Common.User parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Common.User parseFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Common.User parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Common.User parseFrom(
+    public static alice.dip.kafka.dto.Common.User parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -690,26 +690,26 @@ public final class Common extends com.google.protobuf.GeneratedFile {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static alice.dip.kafka.events.Common.User parseDelimitedFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Common.User parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static alice.dip.kafka.events.Common.User parseDelimitedFrom(
+    public static alice.dip.kafka.dto.Common.User parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Common.User parseFrom(
+    public static alice.dip.kafka.dto.Common.User parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Common.User parseFrom(
+    public static alice.dip.kafka.dto.Common.User parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -722,7 +722,7 @@ public final class Common extends com.google.protobuf.GeneratedFile {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(alice.dip.kafka.events.Common.User prototype) {
+    public static Builder newBuilder(alice.dip.kafka.dto.Common.User prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -743,18 +743,18 @@ public final class Common extends com.google.protobuf.GeneratedFile {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:common.User)
-        alice.dip.kafka.events.Common.UserOrBuilder {
+        alice.dip.kafka.dto.Common.UserOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return alice.dip.kafka.events.Common.internal_static_common_User_descriptor;
+        return alice.dip.kafka.dto.Common.internal_static_common_User_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return alice.dip.kafka.events.Common.internal_static_common_User_fieldAccessorTable
+        return alice.dip.kafka.dto.Common.internal_static_common_User_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                alice.dip.kafka.events.Common.User.class, alice.dip.kafka.events.Common.User.Builder.class);
+                alice.dip.kafka.dto.Common.User.class, alice.dip.kafka.dto.Common.User.Builder.class);
       }
 
       // Construct using ch.cern.alice.o2.control.common.Common.User.newBuilder()
@@ -780,17 +780,17 @@ public final class Common extends com.google.protobuf.GeneratedFile {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return alice.dip.kafka.events.Common.internal_static_common_User_descriptor;
+        return alice.dip.kafka.dto.Common.internal_static_common_User_descriptor;
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Common.User getDefaultInstanceForType() {
-        return alice.dip.kafka.events.Common.User.getDefaultInstance();
+      public alice.dip.kafka.dto.Common.User getDefaultInstanceForType() {
+        return alice.dip.kafka.dto.Common.User.getDefaultInstance();
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Common.User build() {
-        alice.dip.kafka.events.Common.User result = buildPartial();
+      public alice.dip.kafka.dto.Common.User build() {
+        alice.dip.kafka.dto.Common.User result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -798,14 +798,14 @@ public final class Common extends com.google.protobuf.GeneratedFile {
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Common.User buildPartial() {
-        alice.dip.kafka.events.Common.User result = new alice.dip.kafka.events.Common.User(this);
+      public alice.dip.kafka.dto.Common.User buildPartial() {
+        alice.dip.kafka.dto.Common.User result = new alice.dip.kafka.dto.Common.User(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(alice.dip.kafka.events.Common.User result) {
+      private void buildPartial0(alice.dip.kafka.dto.Common.User result) {
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
@@ -824,16 +824,16 @@ public final class Common extends com.google.protobuf.GeneratedFile {
 
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof alice.dip.kafka.events.Common.User) {
-          return mergeFrom((alice.dip.kafka.events.Common.User)other);
+        if (other instanceof alice.dip.kafka.dto.Common.User) {
+          return mergeFrom((alice.dip.kafka.dto.Common.User)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(alice.dip.kafka.events.Common.User other) {
-        if (other == alice.dip.kafka.events.Common.User.getDefaultInstance()) return this;
+      public Builder mergeFrom(alice.dip.kafka.dto.Common.User other) {
+        if (other == alice.dip.kafka.dto.Common.User.getDefaultInstance()) return this;
         if (other.hasExternalId()) {
           setExternalId(other.getExternalId());
         }
@@ -1111,12 +1111,12 @@ public final class Common extends com.google.protobuf.GeneratedFile {
     }
 
     // @@protoc_insertion_point(class_scope:common.User)
-    private static final alice.dip.kafka.events.Common.User DEFAULT_INSTANCE;
+    private static final alice.dip.kafka.dto.Common.User DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new alice.dip.kafka.events.Common.User();
+      DEFAULT_INSTANCE = new alice.dip.kafka.dto.Common.User();
     }
 
-    public static alice.dip.kafka.events.Common.User getDefaultInstance() {
+    public static alice.dip.kafka.dto.Common.User getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1152,7 +1152,7 @@ public final class Common extends com.google.protobuf.GeneratedFile {
     }
 
     @java.lang.Override
-    public alice.dip.kafka.events.Common.User getDefaultInstanceForType() {
+    public alice.dip.kafka.dto.Common.User getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1237,15 +1237,15 @@ public final class Common extends com.google.protobuf.GeneratedFile {
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return alice.dip.kafka.events.Common.internal_static_common_WorkflowTemplateInfo_descriptor;
+      return alice.dip.kafka.dto.Common.internal_static_common_WorkflowTemplateInfo_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return alice.dip.kafka.events.Common.internal_static_common_WorkflowTemplateInfo_fieldAccessorTable
+      return alice.dip.kafka.dto.Common.internal_static_common_WorkflowTemplateInfo_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              alice.dip.kafka.events.Common.WorkflowTemplateInfo.class, alice.dip.kafka.events.Common.WorkflowTemplateInfo.Builder.class);
+              alice.dip.kafka.dto.Common.WorkflowTemplateInfo.class, alice.dip.kafka.dto.Common.WorkflowTemplateInfo.Builder.class);
     }
 
     public static final int NAME_FIELD_NUMBER = 1;
@@ -1438,10 +1438,10 @@ public final class Common extends com.google.protobuf.GeneratedFile {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof alice.dip.kafka.events.Common.WorkflowTemplateInfo)) {
+      if (!(obj instanceof alice.dip.kafka.dto.Common.WorkflowTemplateInfo)) {
         return super.equals(obj);
       }
-      alice.dip.kafka.events.Common.WorkflowTemplateInfo other = (alice.dip.kafka.events.Common.WorkflowTemplateInfo) obj;
+      alice.dip.kafka.dto.Common.WorkflowTemplateInfo other = (alice.dip.kafka.dto.Common.WorkflowTemplateInfo) obj;
 
       if (!getName()
           .equals(other.getName())) return false;
@@ -1476,44 +1476,44 @@ public final class Common extends com.google.protobuf.GeneratedFile {
       return hash;
     }
 
-    public static alice.dip.kafka.events.Common.WorkflowTemplateInfo parseFrom(
+    public static alice.dip.kafka.dto.Common.WorkflowTemplateInfo parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Common.WorkflowTemplateInfo parseFrom(
+    public static alice.dip.kafka.dto.Common.WorkflowTemplateInfo parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Common.WorkflowTemplateInfo parseFrom(
+    public static alice.dip.kafka.dto.Common.WorkflowTemplateInfo parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Common.WorkflowTemplateInfo parseFrom(
+    public static alice.dip.kafka.dto.Common.WorkflowTemplateInfo parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Common.WorkflowTemplateInfo parseFrom(byte[] data)
+    public static alice.dip.kafka.dto.Common.WorkflowTemplateInfo parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Common.WorkflowTemplateInfo parseFrom(
+    public static alice.dip.kafka.dto.Common.WorkflowTemplateInfo parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Common.WorkflowTemplateInfo parseFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Common.WorkflowTemplateInfo parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Common.WorkflowTemplateInfo parseFrom(
+    public static alice.dip.kafka.dto.Common.WorkflowTemplateInfo parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1521,26 +1521,26 @@ public final class Common extends com.google.protobuf.GeneratedFile {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static alice.dip.kafka.events.Common.WorkflowTemplateInfo parseDelimitedFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Common.WorkflowTemplateInfo parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static alice.dip.kafka.events.Common.WorkflowTemplateInfo parseDelimitedFrom(
+    public static alice.dip.kafka.dto.Common.WorkflowTemplateInfo parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Common.WorkflowTemplateInfo parseFrom(
+    public static alice.dip.kafka.dto.Common.WorkflowTemplateInfo parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Common.WorkflowTemplateInfo parseFrom(
+    public static alice.dip.kafka.dto.Common.WorkflowTemplateInfo parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1553,7 +1553,7 @@ public final class Common extends com.google.protobuf.GeneratedFile {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(alice.dip.kafka.events.Common.WorkflowTemplateInfo prototype) {
+    public static Builder newBuilder(alice.dip.kafka.dto.Common.WorkflowTemplateInfo prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -1574,18 +1574,18 @@ public final class Common extends com.google.protobuf.GeneratedFile {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:common.WorkflowTemplateInfo)
-        alice.dip.kafka.events.Common.WorkflowTemplateInfoOrBuilder {
+        alice.dip.kafka.dto.Common.WorkflowTemplateInfoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return alice.dip.kafka.events.Common.internal_static_common_WorkflowTemplateInfo_descriptor;
+        return alice.dip.kafka.dto.Common.internal_static_common_WorkflowTemplateInfo_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return alice.dip.kafka.events.Common.internal_static_common_WorkflowTemplateInfo_fieldAccessorTable
+        return alice.dip.kafka.dto.Common.internal_static_common_WorkflowTemplateInfo_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                alice.dip.kafka.events.Common.WorkflowTemplateInfo.class, alice.dip.kafka.events.Common.WorkflowTemplateInfo.Builder.class);
+                alice.dip.kafka.dto.Common.WorkflowTemplateInfo.class, alice.dip.kafka.dto.Common.WorkflowTemplateInfo.Builder.class);
       }
 
       // Construct using ch.cern.alice.o2.control.common.Common.WorkflowTemplateInfo.newBuilder()
@@ -1612,17 +1612,17 @@ public final class Common extends com.google.protobuf.GeneratedFile {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return alice.dip.kafka.events.Common.internal_static_common_WorkflowTemplateInfo_descriptor;
+        return alice.dip.kafka.dto.Common.internal_static_common_WorkflowTemplateInfo_descriptor;
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Common.WorkflowTemplateInfo getDefaultInstanceForType() {
-        return alice.dip.kafka.events.Common.WorkflowTemplateInfo.getDefaultInstance();
+      public alice.dip.kafka.dto.Common.WorkflowTemplateInfo getDefaultInstanceForType() {
+        return alice.dip.kafka.dto.Common.WorkflowTemplateInfo.getDefaultInstance();
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Common.WorkflowTemplateInfo build() {
-        alice.dip.kafka.events.Common.WorkflowTemplateInfo result = buildPartial();
+      public alice.dip.kafka.dto.Common.WorkflowTemplateInfo build() {
+        alice.dip.kafka.dto.Common.WorkflowTemplateInfo result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -1630,14 +1630,14 @@ public final class Common extends com.google.protobuf.GeneratedFile {
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Common.WorkflowTemplateInfo buildPartial() {
-        alice.dip.kafka.events.Common.WorkflowTemplateInfo result = new alice.dip.kafka.events.Common.WorkflowTemplateInfo(this);
+      public alice.dip.kafka.dto.Common.WorkflowTemplateInfo buildPartial() {
+        alice.dip.kafka.dto.Common.WorkflowTemplateInfo result = new alice.dip.kafka.dto.Common.WorkflowTemplateInfo(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(alice.dip.kafka.events.Common.WorkflowTemplateInfo result) {
+      private void buildPartial0(alice.dip.kafka.dto.Common.WorkflowTemplateInfo result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.name_ = name_;
@@ -1655,16 +1655,16 @@ public final class Common extends com.google.protobuf.GeneratedFile {
 
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof alice.dip.kafka.events.Common.WorkflowTemplateInfo) {
-          return mergeFrom((alice.dip.kafka.events.Common.WorkflowTemplateInfo)other);
+        if (other instanceof alice.dip.kafka.dto.Common.WorkflowTemplateInfo) {
+          return mergeFrom((alice.dip.kafka.dto.Common.WorkflowTemplateInfo)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(alice.dip.kafka.events.Common.WorkflowTemplateInfo other) {
-        if (other == alice.dip.kafka.events.Common.WorkflowTemplateInfo.getDefaultInstance()) return this;
+      public Builder mergeFrom(alice.dip.kafka.dto.Common.WorkflowTemplateInfo other) {
+        if (other == alice.dip.kafka.dto.Common.WorkflowTemplateInfo.getDefaultInstance()) return this;
         if (!other.getName().isEmpty()) {
           name_ = other.name_;
           bitField0_ |= 0x00000001;
@@ -2010,12 +2010,12 @@ public final class Common extends com.google.protobuf.GeneratedFile {
     }
 
     // @@protoc_insertion_point(class_scope:common.WorkflowTemplateInfo)
-    private static final alice.dip.kafka.events.Common.WorkflowTemplateInfo DEFAULT_INSTANCE;
+    private static final alice.dip.kafka.dto.Common.WorkflowTemplateInfo DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new alice.dip.kafka.events.Common.WorkflowTemplateInfo();
+      DEFAULT_INSTANCE = new alice.dip.kafka.dto.Common.WorkflowTemplateInfo();
     }
 
-    public static alice.dip.kafka.events.Common.WorkflowTemplateInfo getDefaultInstance() {
+    public static alice.dip.kafka.dto.Common.WorkflowTemplateInfo getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -2051,7 +2051,7 @@ public final class Common extends com.google.protobuf.GeneratedFile {
     }
 
     @java.lang.Override
-    public alice.dip.kafka.events.Common.WorkflowTemplateInfo getDefaultInstanceForType() {
+    public alice.dip.kafka.dto.Common.WorkflowTemplateInfo getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -2160,7 +2160,7 @@ public final class Common extends com.google.protobuf.GeneratedFile {
      * <code>.common.BeamMode beamMode = 8;</code>
      * @return The beamMode.
      */
-    alice.dip.kafka.events.Common.BeamMode getBeamMode();
+    alice.dip.kafka.dto.Common.BeamMode getBeamMode();
   }
   /**
    * <pre>
@@ -2196,15 +2196,15 @@ public final class Common extends com.google.protobuf.GeneratedFile {
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return alice.dip.kafka.events.Common.internal_static_common_BeamInfo_descriptor;
+      return alice.dip.kafka.dto.Common.internal_static_common_BeamInfo_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return alice.dip.kafka.events.Common.internal_static_common_BeamInfo_fieldAccessorTable
+      return alice.dip.kafka.dto.Common.internal_static_common_BeamInfo_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              alice.dip.kafka.events.Common.BeamInfo.class, alice.dip.kafka.events.Common.BeamInfo.Builder.class);
+              alice.dip.kafka.dto.Common.BeamInfo.class, alice.dip.kafka.dto.Common.BeamInfo.Builder.class);
     }
 
     public static final int STABLEBEAMSSTART_FIELD_NUMBER = 1;
@@ -2389,9 +2389,9 @@ public final class Common extends com.google.protobuf.GeneratedFile {
      * <code>.common.BeamMode beamMode = 8;</code>
      * @return The beamMode.
      */
-    @java.lang.Override public alice.dip.kafka.events.Common.BeamMode getBeamMode() {
-      alice.dip.kafka.events.Common.BeamMode result = alice.dip.kafka.events.Common.BeamMode.forNumber(beamMode_);
-      return result == null ? alice.dip.kafka.events.Common.BeamMode.UNRECOGNIZED : result;
+    @java.lang.Override public alice.dip.kafka.dto.Common.BeamMode getBeamMode() {
+      alice.dip.kafka.dto.Common.BeamMode result = alice.dip.kafka.dto.Common.BeamMode.forNumber(beamMode_);
+      return result == null ? alice.dip.kafka.dto.Common.BeamMode.UNRECOGNIZED : result;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -2429,7 +2429,7 @@ public final class Common extends com.google.protobuf.GeneratedFile {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(beamType_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 7, beamType_);
       }
-      if (beamMode_ != alice.dip.kafka.events.Common.BeamMode.UNKNOWN.getNumber()) {
+      if (beamMode_ != alice.dip.kafka.dto.Common.BeamMode.UNKNOWN.getNumber()) {
         output.writeEnum(8, beamMode_);
       }
       getUnknownFields().writeTo(output);
@@ -2467,7 +2467,7 @@ public final class Common extends com.google.protobuf.GeneratedFile {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(beamType_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(7, beamType_);
       }
-      if (beamMode_ != alice.dip.kafka.events.Common.BeamMode.UNKNOWN.getNumber()) {
+      if (beamMode_ != alice.dip.kafka.dto.Common.BeamMode.UNKNOWN.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(8, beamMode_);
       }
@@ -2481,10 +2481,10 @@ public final class Common extends com.google.protobuf.GeneratedFile {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof alice.dip.kafka.events.Common.BeamInfo)) {
+      if (!(obj instanceof alice.dip.kafka.dto.Common.BeamInfo)) {
         return super.equals(obj);
       }
-      alice.dip.kafka.events.Common.BeamInfo other = (alice.dip.kafka.events.Common.BeamInfo) obj;
+      alice.dip.kafka.dto.Common.BeamInfo other = (alice.dip.kafka.dto.Common.BeamInfo) obj;
 
       if (getStableBeamsStart()
           != other.getStableBeamsStart()) return false;
@@ -2539,44 +2539,44 @@ public final class Common extends com.google.protobuf.GeneratedFile {
       return hash;
     }
 
-    public static alice.dip.kafka.events.Common.BeamInfo parseFrom(
+    public static alice.dip.kafka.dto.Common.BeamInfo parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Common.BeamInfo parseFrom(
+    public static alice.dip.kafka.dto.Common.BeamInfo parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Common.BeamInfo parseFrom(
+    public static alice.dip.kafka.dto.Common.BeamInfo parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Common.BeamInfo parseFrom(
+    public static alice.dip.kafka.dto.Common.BeamInfo parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Common.BeamInfo parseFrom(byte[] data)
+    public static alice.dip.kafka.dto.Common.BeamInfo parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static alice.dip.kafka.events.Common.BeamInfo parseFrom(
+    public static alice.dip.kafka.dto.Common.BeamInfo parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Common.BeamInfo parseFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Common.BeamInfo parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Common.BeamInfo parseFrom(
+    public static alice.dip.kafka.dto.Common.BeamInfo parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2584,26 +2584,26 @@ public final class Common extends com.google.protobuf.GeneratedFile {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static alice.dip.kafka.events.Common.BeamInfo parseDelimitedFrom(java.io.InputStream input)
+    public static alice.dip.kafka.dto.Common.BeamInfo parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static alice.dip.kafka.events.Common.BeamInfo parseDelimitedFrom(
+    public static alice.dip.kafka.dto.Common.BeamInfo parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static alice.dip.kafka.events.Common.BeamInfo parseFrom(
+    public static alice.dip.kafka.dto.Common.BeamInfo parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessage
           .parseWithIOException(PARSER, input);
     }
-    public static alice.dip.kafka.events.Common.BeamInfo parseFrom(
+    public static alice.dip.kafka.dto.Common.BeamInfo parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2616,7 +2616,7 @@ public final class Common extends com.google.protobuf.GeneratedFile {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(alice.dip.kafka.events.Common.BeamInfo prototype) {
+    public static Builder newBuilder(alice.dip.kafka.dto.Common.BeamInfo prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -2642,18 +2642,18 @@ public final class Common extends com.google.protobuf.GeneratedFile {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:common.BeamInfo)
-        alice.dip.kafka.events.Common.BeamInfoOrBuilder {
+        alice.dip.kafka.dto.Common.BeamInfoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return alice.dip.kafka.events.Common.internal_static_common_BeamInfo_descriptor;
+        return alice.dip.kafka.dto.Common.internal_static_common_BeamInfo_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return alice.dip.kafka.events.Common.internal_static_common_BeamInfo_fieldAccessorTable
+        return alice.dip.kafka.dto.Common.internal_static_common_BeamInfo_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                alice.dip.kafka.events.Common.BeamInfo.class, alice.dip.kafka.events.Common.BeamInfo.Builder.class);
+                alice.dip.kafka.dto.Common.BeamInfo.class, alice.dip.kafka.dto.Common.BeamInfo.Builder.class);
       }
 
       // Construct using ch.cern.alice.o2.control.common.Common.BeamInfo.newBuilder()
@@ -2684,17 +2684,17 @@ public final class Common extends com.google.protobuf.GeneratedFile {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return alice.dip.kafka.events.Common.internal_static_common_BeamInfo_descriptor;
+        return alice.dip.kafka.dto.Common.internal_static_common_BeamInfo_descriptor;
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Common.BeamInfo getDefaultInstanceForType() {
-        return alice.dip.kafka.events.Common.BeamInfo.getDefaultInstance();
+      public alice.dip.kafka.dto.Common.BeamInfo getDefaultInstanceForType() {
+        return alice.dip.kafka.dto.Common.BeamInfo.getDefaultInstance();
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Common.BeamInfo build() {
-        alice.dip.kafka.events.Common.BeamInfo result = buildPartial();
+      public alice.dip.kafka.dto.Common.BeamInfo build() {
+        alice.dip.kafka.dto.Common.BeamInfo result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -2702,14 +2702,14 @@ public final class Common extends com.google.protobuf.GeneratedFile {
       }
 
       @java.lang.Override
-      public alice.dip.kafka.events.Common.BeamInfo buildPartial() {
-        alice.dip.kafka.events.Common.BeamInfo result = new alice.dip.kafka.events.Common.BeamInfo(this);
+      public alice.dip.kafka.dto.Common.BeamInfo buildPartial() {
+        alice.dip.kafka.dto.Common.BeamInfo result = new alice.dip.kafka.dto.Common.BeamInfo(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(alice.dip.kafka.events.Common.BeamInfo result) {
+      private void buildPartial0(alice.dip.kafka.dto.Common.BeamInfo result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.stableBeamsStart_ = stableBeamsStart_;
@@ -2739,16 +2739,16 @@ public final class Common extends com.google.protobuf.GeneratedFile {
 
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof alice.dip.kafka.events.Common.BeamInfo) {
-          return mergeFrom((alice.dip.kafka.events.Common.BeamInfo)other);
+        if (other instanceof alice.dip.kafka.dto.Common.BeamInfo) {
+          return mergeFrom((alice.dip.kafka.dto.Common.BeamInfo)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(alice.dip.kafka.events.Common.BeamInfo other) {
-        if (other == alice.dip.kafka.events.Common.BeamInfo.getDefaultInstance()) return this;
+      public Builder mergeFrom(alice.dip.kafka.dto.Common.BeamInfo other) {
+        if (other == alice.dip.kafka.dto.Common.BeamInfo.getDefaultInstance()) return this;
         if (other.getStableBeamsStart() != 0L) {
           setStableBeamsStart(other.getStableBeamsStart());
         }
@@ -3288,16 +3288,16 @@ public final class Common extends com.google.protobuf.GeneratedFile {
        * @return The beamMode.
        */
       @java.lang.Override
-      public alice.dip.kafka.events.Common.BeamMode getBeamMode() {
-        alice.dip.kafka.events.Common.BeamMode result = alice.dip.kafka.events.Common.BeamMode.forNumber(beamMode_);
-        return result == null ? alice.dip.kafka.events.Common.BeamMode.UNRECOGNIZED : result;
+      public alice.dip.kafka.dto.Common.BeamMode getBeamMode() {
+        alice.dip.kafka.dto.Common.BeamMode result = alice.dip.kafka.dto.Common.BeamMode.forNumber(beamMode_);
+        return result == null ? alice.dip.kafka.dto.Common.BeamMode.UNRECOGNIZED : result;
       }
       /**
        * <code>.common.BeamMode beamMode = 8;</code>
        * @param value The beamMode to set.
        * @return This builder for chaining.
        */
-      public Builder setBeamMode(alice.dip.kafka.events.Common.BeamMode value) {
+      public Builder setBeamMode(alice.dip.kafka.dto.Common.BeamMode value) {
         if (value == null) { throw new NullPointerException(); }
         bitField0_ |= 0x00000080;
         beamMode_ = value.getNumber();
@@ -3319,12 +3319,12 @@ public final class Common extends com.google.protobuf.GeneratedFile {
     }
 
     // @@protoc_insertion_point(class_scope:common.BeamInfo)
-    private static final alice.dip.kafka.events.Common.BeamInfo DEFAULT_INSTANCE;
+    private static final alice.dip.kafka.dto.Common.BeamInfo DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new alice.dip.kafka.events.Common.BeamInfo();
+      DEFAULT_INSTANCE = new alice.dip.kafka.dto.Common.BeamInfo();
     }
 
-    public static alice.dip.kafka.events.Common.BeamInfo getDefaultInstance() {
+    public static alice.dip.kafka.dto.Common.BeamInfo getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -3360,7 +3360,7 @@ public final class Common extends com.google.protobuf.GeneratedFile {
     }
 
     @java.lang.Override
-    public alice.dip.kafka.events.Common.BeamInfo getDefaultInstanceForType() {
+    public alice.dip.kafka.dto.Common.BeamInfo getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
