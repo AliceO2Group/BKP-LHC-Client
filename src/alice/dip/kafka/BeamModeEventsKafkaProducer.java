@@ -18,8 +18,8 @@ import org.apache.kafka.common.serialization.IntegerSerializer;
 
 import alice.dip.AliDip2BK;
 import alice.dip.LhcInfoObj;
-import alice.dip.kafka.events.Events;
-import alice.dip.kafka.events.Common;
+import alice.dip.kafka.dto.Common;
+import alice.dip.kafka.dto.Events;
 
 /**
  * Kafka producer for LHC Beam Mode events, serialized using Protocol Buffers.
@@ -49,7 +49,7 @@ public class BeamModeEventsKafkaProducer extends KafkaProducerInterface<Integer,
             .setStableBeamsEnd(fill.getStableBeamStop())
             .setFillNumber(fill.fillNo)
             .setFillingSchemeName(fill.LHCFillingSchemeName)
-            .setBeamMode(Common.BeamMode.valueOf(fill.getBeamMode()))
+            .setBeamMode(Common.BeamMode.valueOf(fill.getBeamModeAsKey()))
             .setBeamType(fill.beamType)
             .build();
 

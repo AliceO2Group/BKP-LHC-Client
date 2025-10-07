@@ -317,6 +317,19 @@ public class LhcInfoObj implements Serializable {
 		return last.value;
 	}
 
+	/**
+	 * Get the beam mode as a key suitable for enum conversion usage in protobuf
+	 * @return Beam mode string with spaces replaced by underscores, or "UNKNOWN" if beam mode is null
+	 */
+	public String getBeamModeAsKey() {
+		String bm = getBeamMode();
+		if (bm == null) {
+			return "UNKNOWN";
+		}
+		bm = bm.replace(" ", "_");
+		return bm;
+	}
+
 	public String getStableBeamStartStr() {
 
 		long t = getStableBeamStart();
