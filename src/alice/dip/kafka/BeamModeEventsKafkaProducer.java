@@ -19,6 +19,7 @@ import org.apache.kafka.common.serialization.IntegerSerializer;
 import alice.dip.AliDip2BK;
 import alice.dip.LhcInfoObj;
 import alice.dip.kafka.events.Events;
+import alice.dip.kafka.events.Common;
 
 /**
  * Kafka producer for LHC Beam Mode events, serialized using Protocol Buffers.
@@ -43,16 +44,16 @@ public class BeamModeEventsKafkaProducer extends KafkaProducerInterface<Integer,
      * @param timestamp - event timestamp at which the beam mode change event was received from DIP
      */
     public void sendEvent(Integer fillNumber, LhcInfoObj fill, long timestamp) {
-        Events.BeamInfo beamInfo = Events.BeamInfo.newBuilder()
+        Common.BeamInfo beamInfo = Common.BeamInfo.newBuilder()
             .setStableBeamsStart(fill.getStableBeamStart())
             .setStableBeamsEnd(fill.getStableBeamStop())
             .setFillNumber(fill.fillNo)
             .setFillingSchemeName(fill.LHCFillingSchemeName)
-            .setBeamType(Events.BeamType.valueOf(fill.beamType))
+            .setBeamMode(Common.BeamMode.valueOf(fill.getBeamMode()))
+            .setBeamType(fill.beamType)
             .build();
 
         Events.Ev_BeamModeEvent event = Events.Ev_BeamModeEvent.newBuilder()
-            .setBeamMode(fill.getBeamMode())
             .setTimestamp(timestamp)
             .setBeamInfo(beamInfo)
             .build();
