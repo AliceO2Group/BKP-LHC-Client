@@ -1,6 +1,15 @@
-/*************
- * cil
- **************/
+/**
+ * @license
+ * Copyright CERN and copyright holders of ALICE O2. This software is
+ * distributed under the terms of the GNU General Public License v3 (GPL
+ * Version 3), copied verbatim in the file "COPYING".
+ *
+ * See http://alice-o2.web.cern.ch/license for full licensing information.
+ *
+ * In applying this license CERN does not waive the privileges and immunities
+ * granted to it by virtue of its status as an Intergovernmental Organization
+ * or submit itself to any jurisdiction.
+ */
 
 package alice.dip;
 
@@ -19,6 +28,7 @@ import java.util.Date;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+import alice.dip.kafka.BeamModeEventsKafkaProducer;
 import cern.dip.BadParameter;
 import cern.dip.DipData;
 import cern.dip.DipTimestamp;
@@ -46,17 +56,26 @@ public class DipMessagesProcessor implements Runnable {
 	private BlockingQueue<MessageItem> outputQueue = new ArrayBlockingQueue<MessageItem>(100);
 
 	private final LuminosityManager luminosityManager;
+	private BeamModeEventsKafkaProducer beamModeEventsKafkaProducer;
 
 	public DipMessagesProcessor(BookkeepingClient bookkeepingClient, LuminosityManager luminosityManager) {
 
 		this.bookkeepingClient = bookkeepingClient;
 		this.luminosityManager = luminosityManager;
-
+		this.beamModeEventsKafkaProducer = null;
 		Thread t = new Thread(this);
 		t.start();
 
 		currentAlice = new AliceInfoObj();
 		loadState();
+	}
+
+	/**
+	 * Setter of events producer
+	 * @param beamModeEventsKafkaProducer - instance of BeamModeEventsKafkaProducer to be used to send events
+	 */
+	public void setEventsProducer(BeamModeEventsKafkaProducer beamModeEventsKafkaProducer) {
+		this.beamModeEventsKafkaProducer = beamModeEventsKafkaProducer;
 	}
 
 	/*
@@ -399,6 +418,9 @@ public class DipMessagesProcessor implements Runnable {
 			} else {
 
 				currentFill.setBeamMode(time, "LOST BEAMS");
+				if (beamModeEventsKafkaProducer != null) {
+					beamModeEventsKafkaProducer.sendEvent(currentFill.fillNo, currentFill, time);
+				}
 				AliDip2BK.log(5, "ProcData.newSafeBeams", " CHANGE BEAM MODE TO LOST BEAMS !!! ");
 			}
 
@@ -580,6 +602,9 @@ public class DipMessagesProcessor implements Runnable {
 				);
 				bookkeepingClient.updateLhcFill(currentFill);
 				saveState();
+				if (beamModeEventsKafkaProducer != null) {
+					beamModeEventsKafkaProducer.sendEvent(currentFill.fillNo, currentFill, date);
+				}
 			} else {
 				currentFill.endedTime = date;
 				bookkeepingClient.updateLhcFill(currentFill);
