@@ -4913,7 +4913,7 @@ java.lang.String defaultValue) {
 
     /**
      * <pre>
-     * posible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go.
+     * possible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go.
      * </pre>
      *
      * <code>string status = 4;</code>
@@ -4922,7 +4922,7 @@ java.lang.String defaultValue) {
     java.lang.String getStatus();
     /**
      * <pre>
-     * posible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go.
+     * possible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go.
      * </pre>
      *
      * <code>string status = 4;</code>
@@ -5202,7 +5202,7 @@ java.lang.String defaultValue) {
     private volatile java.lang.Object status_ = "";
     /**
      * <pre>
-     * posible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go.
+     * possible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go.
      * </pre>
      *
      * <code>string status = 4;</code>
@@ -5223,7 +5223,7 @@ java.lang.String defaultValue) {
     }
     /**
      * <pre>
-     * posible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go.
+     * possible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go.
      * </pre>
      *
      * <code>string status = 4;</code>
@@ -6228,7 +6228,7 @@ java.lang.String defaultValue) {
       private java.lang.Object status_ = "";
       /**
        * <pre>
-       * posible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go.
+       * possible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go.
        * </pre>
        *
        * <code>string status = 4;</code>
@@ -6248,7 +6248,7 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * posible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go.
+       * possible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go.
        * </pre>
        *
        * <code>string status = 4;</code>
@@ -6269,7 +6269,7 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * posible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go.
+       * possible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go.
        * </pre>
        *
        * <code>string status = 4;</code>
@@ -6286,7 +6286,7 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * posible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go.
+       * possible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go.
        * </pre>
        *
        * <code>string status = 4;</code>
@@ -6300,7 +6300,7 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * posible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go.
+       * possible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go.
        * </pre>
        *
        * <code>string status = 4;</code>
@@ -8620,7 +8620,7 @@ java.lang.String defaultValue) {
 
     /**
      * <pre>
-     * posible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go. Derived from the state of child tasks, calls or other roles
+     * possible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go. Derived from the state of child tasks, calls or other roles
      * </pre>
      *
      * <code>string status = 2;</code>
@@ -8629,7 +8629,7 @@ java.lang.String defaultValue) {
     java.lang.String getStatus();
     /**
      * <pre>
-     * posible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go. Derived from the state of child tasks, calls or other roles
+     * possible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go. Derived from the state of child tasks, calls or other roles
      * </pre>
      *
      * <code>string status = 2;</code>
@@ -8784,7 +8784,7 @@ java.lang.String defaultValue) {
     private volatile java.lang.Object status_ = "";
     /**
      * <pre>
-     * posible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go. Derived from the state of child tasks, calls or other roles
+     * possible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go. Derived from the state of child tasks, calls or other roles
      * </pre>
      *
      * <code>string status = 2;</code>
@@ -8805,7 +8805,7 @@ java.lang.String defaultValue) {
     }
     /**
      * <pre>
-     * posible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go. Derived from the state of child tasks, calls or other roles
+     * possible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go. Derived from the state of child tasks, calls or other roles
      * </pre>
      *
      * <code>string status = 2;</code>
@@ -9444,7 +9444,7 @@ java.lang.String defaultValue) {
       private java.lang.Object status_ = "";
       /**
        * <pre>
-       * posible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go. Derived from the state of child tasks, calls or other roles
+       * possible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go. Derived from the state of child tasks, calls or other roles
        * </pre>
        *
        * <code>string status = 2;</code>
@@ -9464,7 +9464,7 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * posible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go. Derived from the state of child tasks, calls or other roles
+       * possible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go. Derived from the state of child tasks, calls or other roles
        * </pre>
        *
        * <code>string status = 2;</code>
@@ -9485,7 +9485,7 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * posible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go. Derived from the state of child tasks, calls or other roles
+       * possible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go. Derived from the state of child tasks, calls or other roles
        * </pre>
        *
        * <code>string status = 2;</code>
@@ -9502,7 +9502,7 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * posible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go. Derived from the state of child tasks, calls or other roles
+       * possible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go. Derived from the state of child tasks, calls or other roles
        * </pre>
        *
        * <code>string status = 2;</code>
@@ -9516,7 +9516,7 @@ java.lang.String defaultValue) {
       }
       /**
        * <pre>
-       * posible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go. Derived from the state of child tasks, calls or other roles
+       * possible values: ACTIVE/INACTIVE/PARTIAL/UNDEFINED/UNDEPLOYABLE as defined in status.go. Derived from the state of child tasks, calls or other roles
        * </pre>
        *
        * <code>string status = 2;</code>
