@@ -318,27 +318,22 @@ public class DipMessagesProcessor implements Runnable {
 		if (currentFill == null) return;
 
 		String bm = currentFill.getBeamMode();
-
-		if (bm.contentEquals("STABLE BEAMS")) {
-			AliDip2BK.log(
-				0,
-				"ProcData.newSafeBeams",
-				" VAL=" + safeBeamPayload + " isB1=" + isBeam1 + " isB2=" + isBeam2 + " isSB=" + isStableBeams
-			);
-
-			if (!isBeam1 || !isBeam2) {
+		AliDip2BK.log(
+			1,
+			"ProcData.newSafeBeams",
+			" VAL=" + safeBeamPayload + " isB1=" + isBeam1 + " isB2=" + isBeam2 + " isSB=" + isStableBeams
+		);
+		if ((bm.contentEquals("STABLE BEAMS") && (!isBeam1 || !isBeam2))) {
 				currentFill.setBeamMode(time, "LOST BEAMS");
-				if (beamModeEventsKafkaProducer != null) {
-					beamModeEventsKafkaProducer.sendEvent(currentFill.fillNo, currentFill, time);
+				if (this.beamModeEventsKafkaProducer != null) {
+					this.beamModeEventsKafkaProducer.sendEvent(currentFill.fillNo, currentFill, time);
 				}
 				AliDip2BK.log(5, "ProcData.newSafeBeams", " CHANGE BEAM MODE TO LOST BEAMS !!! ");
-			}
-
-			return;
-		}
-
-		if (bm.contentEquals("LOST BEAMS") && isBeam1 && isBeam2) {
+		} else if (bm.contentEquals("LOST BEAMS") && isBeam1 && isBeam2) {
 			currentFill.setBeamMode(time, "STABLE BEAMS");
+			if (this.beamModeEventsKafkaProducer != null) {
+					this.beamModeEventsKafkaProducer.sendEvent(currentFill.fillNo, currentFill, time);
+			}
 			AliDip2BK.log(5, "ProcData.newSafeBeams", " RECOVER FROM BEAM LOST TO STABLE BEAMS ");
 		}
 	}
