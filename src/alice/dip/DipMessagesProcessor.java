@@ -589,6 +589,9 @@ public class DipMessagesProcessor implements Runnable {
 
 		if (currentFill != null) {
 			currentFill.setBeamMode(date, BeamMode);
+			if (this.beamModeEventsKafkaProducer != null) {
+				this.beamModeEventsKafkaProducer.sendEvent(currentFill.fillNo, currentFill, date);
+			}
 
 			int mc = -1;
 			for (int i = 0; i < AliDip2BK.endFillCases.length; i++) {
