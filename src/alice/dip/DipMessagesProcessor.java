@@ -588,39 +588,17 @@ public class DipMessagesProcessor implements Runnable {
 	public void newBeamMode(long date, String BeamMode) {
 
 		if (currentFill != null) {
+			AliDip2BK.log(
+					2,
+					"ProcData.newBeamMode",
+					"New beam mode=" + BeamMode + "  for FILL_NO=" + currentFill.fillNo
+			);
 			currentFill.setBeamMode(date, BeamMode);
+			bookkeepingClient.updateLhcFill(currentFill);
+			saveState();
+
 			if (this.beamModeEventsKafkaProducer != null) {
 				this.beamModeEventsKafkaProducer.sendEvent(currentFill.fillNo, currentFill, date);
-			}
-
-			int mc = -1;
-			for (int i = 0; i < AliDip2BK.endFillCases.length; i++) {
-				if (AliDip2BK.endFillCases[i].equalsIgnoreCase(BeamMode)) mc = i;
-			}
-			if (mc < 0) {
-
-				AliDip2BK.log(
-						2,
-						"ProcData.newBeamMode",
-						"New beam mode=" + BeamMode + "  for FILL_NO=" + currentFill.fillNo
-				);
-				bookkeepingClient.updateLhcFill(currentFill);
-				saveState();
-				if (beamModeEventsKafkaProducer != null) {
-					beamModeEventsKafkaProducer.sendEvent(currentFill.fillNo, currentFill, date);
-				}
-			} else {
-				currentFill.endedTime = date;
-				bookkeepingClient.updateLhcFill(currentFill);
-				if (AliDip2BK.KEEP_FILLS_HISTORY_DIRECTORY != null) {
-					writeFillHistFile(currentFill);
-				}
-				AliDip2BK.log(
-						3,
-						"ProcData.newBeamMode",
-						"CLOSE Fill_NO=" + currentFill.fillNo + " Based on new  beam mode=" + BeamMode
-				);
-				currentFill = null;
 			}
 		} else {
 			AliDip2BK.log(4, "ProcData.newBeamMode", " ERROR new beam mode=" + BeamMode + " NO FILL NO for it");
