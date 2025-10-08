@@ -354,7 +354,7 @@ public class DipMessagesProcessor implements Runnable {
 	private void handleBetaStarMessage(DipData dipData) throws BadParameter, TypeMismatch {
 		var betaStarPayload = dipData.extractInt("payload");
 		// Per documentation, value is in cm, we convert it to m
-		var betaStar = betaStarPayload / 1000.f; // in m
+		var betaStar = betaStarPayload / 100.f; // in m
 
 		var time = dipData.extractDipTime().getAsMillis();
 
@@ -739,11 +739,10 @@ public class DipMessagesProcessor implements Runnable {
 		var crossSection = dipData.extractFloat("CrossSection");
 		var efficiency = dipData.extractFloat("Efficiency");
 		AliDip2BK.log(
-						2,
-						"ProcData.dispatch",
-						" Bookkeeping Source: Acceptance=" + acceptance + " CrossSection=" + crossSection
-								+ " Efficiency=" + efficiency
-				);
+			2,
+			"ProcData.dispatch",
+			" Bookkeeping Source: Acceptance=" + acceptance + " CrossSection=" + crossSection + " Efficiency=" + efficiency
+		);
 		luminosityManager.setTriggerEfficiency(efficiency);
 		luminosityManager.setTriggerAcceptance(acceptance);
 		luminosityManager.setCrossSection(crossSection);
@@ -754,10 +753,10 @@ public class DipMessagesProcessor implements Runnable {
 		var phaseShiftBeam2 = dipData.extractFloat("PhaseShift_Beam2");
 
 		AliDip2BK.log(
-						2,
-						"ProcData.dispatch",
-						" Bookkeeping CTP Clock: PhaseShift_Beam1=" + phaseShiftBeam1 + " PhaseShift_Beam2=" + phaseShiftBeam2
-				);
+			2,
+			"ProcData.dispatch",
+			" Bookkeeping CTP Clock: PhaseShift_Beam1=" + phaseShiftBeam1 + " PhaseShift_Beam2=" + phaseShiftBeam2
+		);
 		luminosityManager.setPhaseShift(new PhaseShift(phaseShiftBeam1, phaseShiftBeam2));
 	}
 }
