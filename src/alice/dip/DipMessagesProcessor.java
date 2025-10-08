@@ -44,9 +44,12 @@ public class DipMessagesProcessor implements Runnable {
 	ArrayList<RunInfoObj> ActiveRuns = new ArrayList<>();
 	private BlockingQueue<MessageItem> outputQueue = new ArrayBlockingQueue<>(100);
 
-	public DipMessagesProcessor(BookkeepingClient bookkeepingClient) {
+	private final LuminosityManager luminosityManager;
+
+	public DipMessagesProcessor(BookkeepingClient bookkeepingClient, LuminosityManager luminosityManager) {
 
 		this.bookkeepingClient = bookkeepingClient;
+		this.luminosityManager = luminosityManager;
 
 		Thread t = new Thread(this);
 		t.start();
@@ -122,7 +125,13 @@ public class DipMessagesProcessor implements Runnable {
 
 		if (rio == null) {
 			if (currentFill != null) {
-				RunInfoObj newrun = new RunInfoObj(date, runNumber, currentFill.clone(), currentAlice.clone());
+				RunInfoObj newrun = new RunInfoObj(
+						date,
+						runNumber,
+						currentFill.clone(),
+						currentAlice.clone(),
+						luminosityManager.getView()
+				);
 				ActiveRuns.add(newrun);
 				AliDip2BK.log(
 					2,
@@ -154,12 +163,18 @@ public class DipMessagesProcessor implements Runnable {
 					}
 				}
 			} else {
-				RunInfoObj newrun = new RunInfoObj(date, runNumber, null, currentAlice.clone());
+				RunInfoObj newrun = new RunInfoObj(
+						date,
+						runNumber,
+						null,
+						currentAlice.clone(),
+						luminosityManager.getView()
+				);
 				ActiveRuns.add(newrun);
 				AliDip2BK.log(
-					2,
-					"ProcData.newRunSignal",
-					" NEW RUN NO =" + runNumber + " currentFILL is NULL Perhaps Cosmics Run"
+						2,
+						"ProcData.newRunSignal",
+						" NEW RUN NO =" + runNumber + " currentFILL is NULL Perhaps Cosmics Run"
 				);
 				bookkeepingClient.updateRun(newrun);
 			}
@@ -179,6 +194,8 @@ public class DipMessagesProcessor implements Runnable {
 			rio.setEORtime(time);
 			if (currentFill != null) rio.LHC_info_stop = currentFill.clone();
 			rio.alice_info_stop = currentAlice.clone();
+			rio.setLuminosityAtStop(luminosityManager.getView());
+			bookkeepingClient.updateRun(rio);
 
 			EndRun(rio);
 		} else {
@@ -219,6 +236,12 @@ public class DipMessagesProcessor implements Runnable {
 					break;
 				case "dip/ALICE/MCS/Dipole/Polarity":
 					handleDipolePolarityMessage(messageItem.data);
+					break;
+				case "dip/ALICE/LHC/Bookkeeping/Source":
+					handleBookkeepingSourceMessage(messageItem.data);
+					break;
+				case "dip/ALICE/LHC/Bookkeeping/CTPClock":
+					handleBookkeepingCtpClockMessage(messageItem.data);
 					break;
 				default:
 					AliDip2BK.log(
@@ -464,18 +487,18 @@ public class DipMessagesProcessor implements Runnable {
 			}
 
 			AliDip2BK.log(
-				2,
-				"ProcData.EndRun",
-				" Correctly closed  runNo=" + r1.RunNo + "  ActiveRuns size=" + ActiveRuns.size() + " " + runList1
+					2,
+					"ProcData.EndRun",
+					" Correctly closed  runNo=" + r1.RunNo + "  ActiveRuns size=" + ActiveRuns.size() + " " + runList1
 			);
 
 			if (r1.LHC_info_start.fillNo != r1.LHC_info_stop.fillNo) {
 
 				AliDip2BK.log(
-					5,
-					"ProcData.EndRun",
-					" !!!! RUN =" + r1.RunNo + "  Statred FillNo=" + r1.LHC_info_start.fillNo
-						+ " and STOPED with FillNo=" + r1.LHC_info_stop.fillNo
+						5,
+						"ProcData.EndRun",
+						" !!!! RUN =" + r1.RunNo + "  Statred FillNo=" + r1.LHC_info_start.fillNo
+								+ " and STOPED with FillNo=" + r1.LHC_info_stop.fillNo
 				);
 			}
 		}
@@ -526,10 +549,10 @@ public class DipMessagesProcessor implements Runnable {
 			}
 		} else {
 			AliDip2BK.log(
-				3,
-				"ProcData.newFillNo",
-				" Received new FILL no=" + no + "  BUT is an active FILL =" + currentFill.fillNo
-					+ " Close the old one and created the new one"
+					3,
+					"ProcData.newFillNo",
+					" Received new FILL no=" + no + "  BUT is an active FILL =" + currentFill.fillNo
+							+ " Close the old one and created the new one"
 			);
 			currentFill.endedTime = (new Date()).getTime();
 			if (AliDip2BK.KEEP_FILLS_HISTORY_DIRECTORY != null) {
@@ -557,9 +580,9 @@ public class DipMessagesProcessor implements Runnable {
 			if (mc < 0) {
 
 				AliDip2BK.log(
-					2,
-					"ProcData.newBeamMode",
-					"New beam mode=" + BeamMode + "  for FILL_NO=" + currentFill.fillNo
+						2,
+						"ProcData.newBeamMode",
+						"New beam mode=" + BeamMode + "  for FILL_NO=" + currentFill.fillNo
 				);
 				bookkeepingClient.updateLhcFill(currentFill);
 				saveState();
@@ -570,9 +593,9 @@ public class DipMessagesProcessor implements Runnable {
 					writeFillHistFile(currentFill);
 				}
 				AliDip2BK.log(
-					3,
-					"ProcData.newBeamMode",
-					"CLOSE Fill_NO=" + currentFill.fillNo + " Based on new  beam mode=" + BeamMode
+						3,
+						"ProcData.newBeamMode",
+						"CLOSE Fill_NO=" + currentFill.fillNo + " Based on new  beam mode=" + BeamMode
 				);
 				currentFill = null;
 			}
@@ -709,5 +732,32 @@ public class DipMessagesProcessor implements Runnable {
 
 			AliDip2BK.log(4, "ProcData.writeHistFile", " ERROR writing file=" + filename + "   ex=" + e);
 		}
+	}
+
+	private void handleBookkeepingSourceMessage(DipData dipData) throws BadParameter, TypeMismatch {
+		var acceptance = dipData.extractFloat("Acceptance");
+		var crossSection = dipData.extractFloat("CrossSection");
+		var efficiency = dipData.extractFloat("Efficiency");
+		AliDip2BK.log(
+						2,
+						"ProcData.dispatch",
+						" Bookkeeping Source: Acceptance=" + acceptance + " CrossSection=" + crossSection
+								+ " Efficiency=" + efficiency
+				);
+		luminosityManager.setTriggerEfficiency(efficiency);
+		luminosityManager.setTriggerAcceptance(acceptance);
+		luminosityManager.setCrossSection(crossSection);
+	}
+
+	private void handleBookkeepingCtpClockMessage(DipData dipData) throws BadParameter, TypeMismatch {
+		var phaseShiftBeam1 = dipData.extractFloat("PhaseShift_Beam1");
+		var phaseShiftBeam2 = dipData.extractFloat("PhaseShift_Beam2");
+
+		AliDip2BK.log(
+						2,
+						"ProcData.dispatch",
+						" Bookkeeping CTP Clock: PhaseShift_Beam1=" + phaseShiftBeam1 + " PhaseShift_Beam2=" + phaseShiftBeam2
+				);
+		luminosityManager.setPhaseShift(new PhaseShift(phaseShiftBeam1, phaseShiftBeam2));
 	}
 }

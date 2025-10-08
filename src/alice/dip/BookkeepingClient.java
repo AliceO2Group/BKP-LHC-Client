@@ -272,6 +272,26 @@ public class BookkeepingClient {
 			hasModifications = true;
 		}
 
+		if (runObj.getTriggerEfficiency().isPresent()) {
+			requestBody += "\n\"triggerEfficiency\":" + runObj.getTriggerEfficiency().get() + ",";
+		}
+
+		if (runObj.getTriggerAcceptance().isPresent()) {
+			requestBody += "\n\"triggerAcceptance\":" + runObj.getTriggerAcceptance().get() + ",";
+		}
+
+		if (runObj.getCrossSection().isPresent()) {
+			requestBody += "\n\"crossSection\":" + runObj.getCrossSection().get() + ",";
+		}
+
+		if (runObj.getPhaseShiftAtStart().isPresent()) {
+			requestBody += "\n\"phaseShiftAtStart\":" + runObj.getPhaseShiftAtStartAsJson() + ",";
+		}
+
+		if (runObj.getPhaseShiftAtStop().isPresent()) {
+			requestBody += "\n\"phaseShiftAtEnd\":" + runObj.getPhaseShiftAtStopAsJson() + ",";
+		}
+
 		if (!hasModifications) {  // no updates to be done !
 			AliDip2BK.log(3, "BKwriter.UpdateRun", "No data to update for Run=" + runObj.RunNo);
 			return;
@@ -284,14 +304,14 @@ public class BookkeepingClient {
 
 		requestBody += "\n}";
 
-		AliDip2BK.log(1, "BKwriter.UpdateRun", "RUN =" + runObj.RunNo + " UPDATE JSON request=\n" + requestBody);
+		AliDip2BK.log(3, "BKwriter.UpdateRun", "RUN =" + runObj.RunNo + " UPDATE JSON request=\n" + requestBody);
 
 		String patchRunRequest = bookkeepingUrl + "/api/runs?runNumber=" + runObj.RunNo;
 
 		if (bookkeepingToken != null) {
-			patchRunRequest += bookkeepingToken;
+			patchRunRequest += "&token=" + bookkeepingToken;
 		}
-
+		AliDip2BK.log(2, "BKwriter.Format of Update", requestBody);
 		HttpRequest request = HttpRequest.newBuilder()
 			.uri(URI.create(patchRunRequest))
 			.header("Content-Type", "application/json")
@@ -303,7 +323,7 @@ public class BookkeepingClient {
 			response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
 			if (response.statusCode() == 200) {
-				AliDip2BK.log(2, "BKwriter.UpdateRun", "Succesful Update for RUN=" + runObj.RunNo);
+				AliDip2BK.log(2, "BKwriter.UpdateRun", "Successful Update for RUN=" + runObj.RunNo);
 			} else {
 				AliDip2BK.log(3, "BKwriter.UpdateRun", "ERROR for RUN=" + runObj.RunNo + " Code=" + +response.statusCode() + " Message=" + response.body());
 			}

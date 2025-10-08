@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.Properties;
 
 public class AliDip2BK implements Runnable {
-	public static String Version = "2.0  14-Nov-2023";
+	public static String Version = "2.1.2  22-Jul-2025";
 	public static String DNSnode = "dipnsdev.cern.ch";
 	public static String[] endFillCases = {"CUCU"};
 	public static boolean LIST_PARAM = false;
@@ -65,7 +65,8 @@ public class AliDip2BK implements Runnable {
 		verifyDirs();
 
 		bookkeepingClient = new BookkeepingClient(bookkeepingUrl, bookkeepingToken);
-		dipMessagesProcessor = new DipMessagesProcessor(bookkeepingClient);
+		var luminosityManager = new LuminosityManager();
+		dipMessagesProcessor = new DipMessagesProcessor(bookkeepingClient, luminosityManager);
 		if (AliDip2BK.simulateDipEvents) {
 			new SimDipEventsFill(dipMessagesProcessor);
 		}
