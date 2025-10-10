@@ -13,21 +13,20 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
-import alice.dip.AlicePB.NewStateNotification;
+import ch.cern.alice.o2.control.kafka.Kafka;
 
 import java.time.Duration;
 import java.util.Arrays;
 
 import java.util.Properties;
 
-public class StartOfRunKafkaConsumer implements Runnable {
+public class EndOfRunKafkaConsumer implements Runnable {
 	public int NoMess = 0;
-	public boolean status = true;
+	public boolean state = true;
 	Properties properties;
 	DipMessagesProcessor process;
 
-
-	public StartOfRunKafkaConsumer(DipMessagesProcessor process) {
+	public EndOfRunKafkaConsumer(DipMessagesProcessor process) {
 
 		String grp_id = AliDip2BK.KAFKA_group_id;
 		this.process = process;
@@ -56,19 +55,23 @@ public class StartOfRunKafkaConsumer implements Runnable {
 		try (// creating consumer
 			 KafkaConsumer<String, byte[]> consumer = new KafkaConsumer<String, byte[]>(properties)) {
 			// Subscribing
-			consumer.subscribe(Arrays.asList(AliDip2BK.KAFKAtopic_SOR));
+			consumer.subscribe(Arrays.asList(AliDip2BK.KAFKAtopic_EOR));
 
 			while (true) {
 				ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofMillis(100));
 				for (ConsumerRecord<String, byte[]> record : records) {
+					NoMess = NoMess + 1;
+
+					// System.out.printf("Received Message topic =%s, partition =%s, offset = %d,
+					// key = %s, value = %s\n", record.topic(), record.partition(), record.offset(),
+					// record.key(), java.util.Arrays.toString(record.value()));
+					// System.out.println("Key: "+ record.key() + ", Value:" +record.value());
 
 					byte[] cucu = record.value();
 
-					NoMess = NoMess + 1;
-
 					try {
-						NewStateNotification info = NewStateNotification.parseFrom(cucu);
-						AliDip2BK.log(1, "KC_SOR.run",
+						Kafka.NewStateNotification info = Kafka.NewStateNotification.parseFrom(cucu);
+						AliDip2BK.log(1, "KC_EOR.run",
 							"New Kafka mess; partition=" + record.partition() + " offset=" + record.offset() + " L=" + cucu.length
 								+ " RUN=" + info.getEnvInfo().getRunNumber() + "  " + info.getEnvInfo().getState() + " ENVID = "
 								+ info.getEnvInfo().getEnvironmentId());
@@ -76,10 +79,9 @@ public class StartOfRunKafkaConsumer implements Runnable {
 						long time = info.getTimestamp();
 						int rno = info.getEnvInfo().getRunNumber();
 
-						process.newRunSignal(time, rno);
+						process.stopRunSignal(time, rno);
 					} catch (InvalidProtocolBufferException e) {
-						AliDip2BK.log(4, "KC_SOR.run", "ERROR pasing data into obj e=" + e);
-						status = false;
+						AliDip2BK.log(4, "KC_EOR.run", "ERROR pasing data into obj e=" + e);
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}

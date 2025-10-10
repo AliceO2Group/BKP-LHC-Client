@@ -1,0 +1,43 @@
+/**
+ * @license
+ * Copyright 2019-2020 CERN and copyright holders of ALICE O2.
+ * See http://alice-o2.web.cern.ch/copyright for details of the copyright holders.
+ * All rights not expressly granted are reserved.
+ *
+ * This software is distributed under the terms of the GNU General Public
+ * License v3 (GPL Version 3), copied verbatim in the file "COPYING".
+ *
+ * In applying this license CERN does not waive the privileges and immunities
+ * granted to it by virtue of its status as an Intergovernmental Organization
+ * or submit itself to any jurisdiction.
+ */
+
+ /**
+ * @file kafka.proto - defined and maintained by Control System:
+ * https://github.com/AliceO2Group/Control/blob/cb4ebcbdd91ade13515865df03d75313100f0309/core/integration/kafka/protos/kafka.proto 
+ * Do not edit or copy this file to other locations!
+ */
+
+syntax = "proto3";
+package kafka;
+option go_package = "github.com/AliceO2Group/Control/core/integration/kafka/protos;kafka";
+option java_package = "ch.cern.alice.o2.control.kafka";
+
+message NewStateNotification {
+  EnvInfo envInfo = 1;
+  uint64 timestamp = 2; // ms since epoch
+}
+
+message ActiveRunsList {
+  repeated EnvInfo activeRuns = 1;
+  uint64 timestamp = 2; // ms since epoch
+}
+
+message EnvInfo {
+  string environmentId = 1;
+  optional uint32 runNumber = 2;
+  optional string runType = 3;
+  string state = 4;
+  repeated string detectors = 5;
+  uint64 enterStateTimestamp = 6; // ms since epoch.
+}
