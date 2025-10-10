@@ -13,7 +13,7 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
-import alice.dip.AlicePB.NewStateNotification;
+import ch.cern.alice.o2.control.kafka.Kafka;
 
 import java.time.Duration;
 import java.util.Arrays;
@@ -67,7 +67,7 @@ public class StartOfRunKafkaConsumer implements Runnable {
 					NoMess = NoMess + 1;
 
 					try {
-						NewStateNotification info = NewStateNotification.parseFrom(cucu);
+						Kafka.NewStateNotification info = Kafka.NewStateNotification.parseFrom(cucu);
 						AliDip2BK.log(1, "KC_SOR.run",
 							"New Kafka mess; partition=" + record.partition() + " offset=" + record.offset() + " L=" + cucu.length
 								+ " RUN=" + info.getEnvInfo().getRunNumber() + "  " + info.getEnvInfo().getState() + " ENVID = "
