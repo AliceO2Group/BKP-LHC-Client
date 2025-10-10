@@ -20,8 +20,23 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
       - name: Compile with Maven
-        run: mvn clean compile
+        run: |
+          if [[ "${{ runner.os }}" == "Linux" ]]; then
+            mvn clean compile -Dos.version=linux-x86_64
+          elif [[ "${{ runner.os }}" == "macOS" ]]; then
+            mvn clean compile -Dos.version=macosx-x86_64
+          fi
       - name: Validate Maven Project
-        run: mvn validate
+        run: |
+          if [[ "${{ runner.os }}" == "Linux" ]]; then
+            mvn validate -Dos.version=linux-x86_64
+          elif [[ "${{ runner.os }}" == "macOS" ]]; then
+            mvn validate -Dos.version=macosx-x86_64
+          fi
       - name: Package with Maven (Fat JAR)
-        run: mvn clean package
+        run: |
+          if [[ "${{ runner.os }}" == "Linux" ]]; then
+            mvn clean package -Dos.version=linux-x86_64
+          elif [[ "${{ runner.os }}" == "macOS" ]]; then
+            mvn clean package -Dos.version=macosx-x86_64
+          fi
