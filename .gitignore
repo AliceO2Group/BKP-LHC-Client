@@ -1,7 +1,17 @@
+## Maven build output
+target/
+
+## IDE files
+.idea/
+.vscode/
+*.iml
+.classpath
+.project
+.settings/
+
+## OS files
+.DS_Store
+Thumbs.db
+
+## Protobuf generated sources (if not needed in VCS)
 bin
-AliDip2BK.jar
-.idea
-STATE
-AliDip2BK.iml
-RunsHistory
-out/
