@@ -1,0 +1,27 @@
+name: Compile, Validate and Package BKP-LHC-Client on Multiple OS
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  compile:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+      - name: Set up JDK 16
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '16'
+      - name: Compile with Maven
+        run: mvn clean compile
+      - name: Validate Maven Project
+        run: mvn validate
+      - name: Package with Maven (Fat JAR)
+        run: mvn clean package
