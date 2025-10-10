@@ -24,19 +24,19 @@ jobs:
           if [[ "${{ runner.os }}" == "Linux" ]]; then
             mvn clean compile -Dos.version=linux-x86_64
           elif [[ "${{ runner.os }}" == "macOS" ]]; then
-            mvn clean compile -Dos.version=macosx-x86_64
+            mvn clean compile -Dos.version=osx-x86_64
           fi
       - name: Validate Maven Project
         run: |
           if [[ "${{ runner.os }}" == "Linux" ]]; then
             mvn validate -Dos.version=linux-x86_64
           elif [[ "${{ runner.os }}" == "macOS" ]]; then
-            mvn validate -Dos.version=macosx-x86_64
+            mvn validate -Dos.version=osx-x86_64
           fi
       - name: Package with Maven (Fat JAR)
         run: |
           if [[ "${{ runner.os }}" == "Linux" ]]; then
             mvn clean package -Dos.version=linux-x86_64
           elif [[ "${{ runner.os }}" == "macOS" ]]; then
-            mvn clean package -Dos.version=macosx-x86_64
+            mvn clean package -Dos.version=osx-x86_64
           fi
