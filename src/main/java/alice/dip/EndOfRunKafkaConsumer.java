@@ -13,7 +13,7 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
-import alice.dip.AlicePB.NewStateNotification;
+import main.java.alice.dip.AlicePB.NewStateNotification;
 
 import java.time.Duration;
 import java.util.Arrays;
