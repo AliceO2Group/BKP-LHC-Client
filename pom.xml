@@ -20,19 +20,13 @@
     <slf4j-simple.version>1.7.30</slf4j-simple.version>
   </properties>
 
-<repositories>
-  <repository>
-    <id>cern-dip-repo</id>
-    <url>https://nexus.web.cern.ch/nexus/content/repositories/public/</url>
-  </repository>
-</repositories>
-
   <dependencies>
     <dependency>
         <groupId>cern.dip</groupId>
         <artifactId>dip</artifactId>
         <version>${cern.dip.version}</version>
-        <type>pom</type>
+        <scope>system</scope>
+        <systemPath>${project.basedir}/lib/cern_dip.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>com.google.protobuf</groupId>
@@ -100,6 +94,7 @@
           </configuration>
         </plugin>
         <plugin>
+         <!-- Maven JAR Plugin to generate UBER JAR file -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
         <version>3.6.0</version>
