@@ -1,7 +1,15 @@
-/*************
- * cil
- **************/
-
+/**
+ * @license
+ * Copyright CERN and copyright holders of ALICE O2. This software is
+ * distributed under the terms of the GNU General Public License v3 (GPL
+ * Version 3), copied verbatim in the file "COPYING".
+ *
+ * See http://alice-o2.web.cern.ch/license for full licensing information.
+ *
+ * In applying this license CERN does not waive the privileges and immunities
+ * granted to it by virtue of its status as an Intergovernmental Organization
+ * or submit itself to any jurisdiction.
+ */
 package alice.dip;
 
 import java.io.BufferedWriter;
@@ -22,6 +30,8 @@ import java.util.concurrent.BlockingQueue;
 import cern.dip.BadParameter;
 import cern.dip.DipData;
 import cern.dip.TypeMismatch;
+
+import alice.dip.beam.mode.BeamModeEventsKafkaProducer;
 
 /*
  * Process dip messages received from the DipClient
@@ -45,17 +55,27 @@ public class DipMessagesProcessor implements Runnable {
 	private BlockingQueue<MessageItem> outputQueue = new ArrayBlockingQueue<>(100);
 
 	private final LuminosityManager luminosityManager;
+	private volatile BeamModeEventsKafkaProducer beamModeEventsKafkaProducer;
 
 	public DipMessagesProcessor(BookkeepingClient bookkeepingClient, LuminosityManager luminosityManager) {
 
 		this.bookkeepingClient = bookkeepingClient;
 		this.luminosityManager = luminosityManager;
+		this.beamModeEventsKafkaProducer = null;
 
 		Thread t = new Thread(this);
 		t.start();
 
 		currentAlice = new AliceInfoObj();
 		loadState();
+	}
+
+	/**
+	 * Setter of events producer
+	 * @param beamModeEventsKafkaProducer - instance of BeamModeEventsKafkaProducer to be used to send events
+	 */
+	public void setEventsProducer(BeamModeEventsKafkaProducer beamModeEventsKafkaProducer) {
+		this.beamModeEventsKafkaProducer = beamModeEventsKafkaProducer;
 	}
 
 	/*
@@ -299,25 +319,25 @@ public class DipMessagesProcessor implements Runnable {
 		if (currentFill == null) return;
 
 		String bm = currentFill.getBeamMode();
-
-		if (bm.contentEquals("STABLE BEAMS")) {
-			AliDip2BK.log(
-				0,
-				"ProcData.newSafeBeams",
-				" VAL=" + safeBeamPayload + " isB1=" + isBeam1 + " isB2=" + isBeam2 + " isSB=" + isStableBeams
-			);
-
-			if (!isBeam1 || !isBeam2) {
+		AliDip2BK.log(
+			1,
+			"ProcData.newSafeBeams",
+			" VAL=" + safeBeamPayload + " isB1=" + isBeam1 + " isB2=" + isBeam2 + " isSB=" + isStableBeams
+		);
+		if (bm != null) {
+			if ((bm.contentEquals("STABLE BEAMS") && (!isBeam1 || !isBeam2))) {
 				currentFill.setBeamMode(time, "LOST BEAMS");
+				if (this.beamModeEventsKafkaProducer != null) {
+					this.beamModeEventsKafkaProducer.sendEvent(currentFill.fillNo, currentFill, time);
+				}
 				AliDip2BK.log(5, "ProcData.newSafeBeams", " CHANGE BEAM MODE TO LOST BEAMS !!! ");
+			} else if (bm.contentEquals("LOST BEAMS") && isBeam1 && isBeam2) {
+				currentFill.setBeamMode(time, "STABLE BEAMS");
+				if (this.beamModeEventsKafkaProducer != null) {
+					this.beamModeEventsKafkaProducer.sendEvent(currentFill.fillNo, currentFill, time);
+				}
+				AliDip2BK.log(5, "ProcData.newSafeBeams", " RECOVER FROM BEAM LOST TO STABLE BEAMS ");
 			}
-
-			return;
-		}
-
-		if (bm.contentEquals("LOST BEAMS") && isBeam1 && isBeam2) {
-			currentFill.setBeamMode(time, "STABLE BEAMS");
-			AliDip2BK.log(5, "ProcData.newSafeBeams", " RECOVER FROM BEAM LOST TO STABLE BEAMS ");
 		}
 	}
 
@@ -569,35 +589,18 @@ public class DipMessagesProcessor implements Runnable {
 	}
 
 	public void newBeamMode(long date, String BeamMode) {
-
 		if (currentFill != null) {
+			AliDip2BK.log(
+					2,
+					"ProcData.newBeamMode",
+					"New beam mode=" + BeamMode + "  for FILL_NO=" + currentFill.fillNo
+			);
 			currentFill.setBeamMode(date, BeamMode);
+			bookkeepingClient.updateLhcFill(currentFill);
+			saveState();
 
-			int mc = -1;
-			for (int i = 0; i < AliDip2BK.endFillCases.length; i++) {
-				if (AliDip2BK.endFillCases[i].equalsIgnoreCase(BeamMode)) mc = i;
-			}
-			if (mc < 0) {
-
-				AliDip2BK.log(
-						2,
-						"ProcData.newBeamMode",
-						"New beam mode=" + BeamMode + "  for FILL_NO=" + currentFill.fillNo
-				);
-				bookkeepingClient.updateLhcFill(currentFill);
-				saveState();
-			} else {
-				currentFill.endedTime = date;
-				bookkeepingClient.updateLhcFill(currentFill);
-				if (AliDip2BK.KEEP_FILLS_HISTORY_DIRECTORY != null) {
-					writeFillHistFile(currentFill);
-				}
-				AliDip2BK.log(
-						3,
-						"ProcData.newBeamMode",
-						"CLOSE Fill_NO=" + currentFill.fillNo + " Based on new  beam mode=" + BeamMode
-				);
-				currentFill = null;
+			if (this.beamModeEventsKafkaProducer != null) {
+				this.beamModeEventsKafkaProducer.sendEvent(currentFill.fillNo, currentFill, date);
 			}
 		} else {
 			AliDip2BK.log(4, "ProcData.newBeamMode", " ERROR new beam mode=" + BeamMode + " NO FILL NO for it");
@@ -753,7 +756,7 @@ public class DipMessagesProcessor implements Runnable {
 		var phaseShiftBeam2 = dipData.extractFloat("PhaseShift_Beam2");
 
 		AliDip2BK.log(
-			2,
+			0,
 			"ProcData.dispatch",
 			" Bookkeeping CTP Clock: PhaseShift_Beam1=" + phaseShiftBeam1 + " PhaseShift_Beam2=" + phaseShiftBeam2
 		);
