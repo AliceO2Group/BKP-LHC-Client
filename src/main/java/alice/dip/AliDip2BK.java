@@ -1,12 +1,15 @@
-/*************
- * cil
- **************/
-
-/*
- *  Main Class
+/**
+ * @license
+ * Copyright CERN and copyright holders of ALICE O2. This software is
+ * distributed under the terms of the GNU General Public License v3 (GPL
+ * Version 3), copied verbatim in the file "COPYING".
  *
+ * See http://alice-o2.web.cern.ch/license for full licensing information.
+ *
+ * In applying this license CERN does not waive the privileges and immunities
+ * granted to it by virtue of its status as an Intergovernmental Organization
+ * or submit itself to any jurisdiction.
  */
-
 package alice.dip;
 
 import java.io.BufferedWriter;
@@ -18,8 +21,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 
+import alice.dip.beam.mode.BeamModeEventsKafkaProducer;
+
 public class AliDip2BK implements Runnable {
-	public static String Version = "2.1.2  22-Jul-2025";
+	public static String Version = "3.0.0  13-Oct-2025";
 	public static String DNSnode = "dipnsdev.cern.ch";
 	public static String[] endFillCases = {"CUCU"};
 	public static boolean LIST_PARAM = false;
@@ -52,6 +57,7 @@ public class AliDip2BK implements Runnable {
 	BookkeepingClient bookkeepingClient;
 	StartOfRunKafkaConsumer kcs;
 	EndOfRunKafkaConsumer kce;
+	BeamModeEventsKafkaProducer beamModeEventsKafkaProducer;
 
 	public AliDip2BK() {
 		startDate = (new Date()).getTime();
@@ -82,6 +88,8 @@ public class AliDip2BK implements Runnable {
 		kcs = new StartOfRunKafkaConsumer(dipMessagesProcessor);
 
 		kce = new EndOfRunKafkaConsumer(dipMessagesProcessor);
+		beamModeEventsKafkaProducer = new BeamModeEventsKafkaProducer(AliDip2BK.bootstrapServers);
+		dipMessagesProcessor.setEventsProducer(beamModeEventsKafkaProducer);
 
 		shutdownProc();
 
@@ -145,6 +153,8 @@ public class AliDip2BK implements Runnable {
 				}
 				dipMessagesProcessor.saveState();
 				writeStat("AliDip2BK.stat", true);
+				beamModeEventsKafkaProducer.close();
+				log(4, "AliDip2BK", "Beam Mode Events Kafka Producer closed");
 			}
 		});
 	}
