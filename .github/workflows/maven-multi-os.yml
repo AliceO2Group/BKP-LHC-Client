@@ -33,6 +33,13 @@ jobs:
           elif [[ "${{ runner.os }}" == "macOS" ]]; then
             mvn validate -Dos.version=osx-x86_64
           fi
+      - name: Run Tests with Maven
+        run: |
+          if [[ "${{ runner.os }}" == "Linux" ]]; then
+            mvn test -Dos.version=linux-x86_64
+          elif [[ "${{ runner.os }}" == "macOS" ]]; then
+            mvn test -Dos.version=osx-x86_64
+          fi
       - name: Package with Maven (Fat JAR)
         run: |
           if [[ "${{ runner.os }}" == "Linux" ]]; then
