@@ -13,7 +13,7 @@
     <maven.compiler.target>16</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <os.version>linux-x86_64</os.version>
-    <cern.dip.version>5.7.0</cern.dip.version>
+    <cern.dip.version>2.7.0</cern.dip.version>
     <protobuf.version>4.29.3</protobuf.version>
     <kafka.version>3.1.0</kafka.version>
     <slf4j-api.version>1.7.30</slf4j-api.version>
@@ -47,6 +47,13 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
       <version>${slf4j-simple.version}</version>
+    </dependency>
+        <!-- Test Dependencies -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>5.13.4</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
