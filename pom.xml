@@ -15,7 +15,7 @@
     <os.version>linux-x86_64</os.version>
     <cern.dip.version>2.7.0</cern.dip.version>
     <protobuf.version>4.29.3</protobuf.version>
-    <kafka.version>3.1.0</kafka.version>
+    <kafka.version>3.9.2</kafka.version>
     <slf4j-api.version>1.7.30</slf4j-api.version>
     <slf4j-simple.version>1.7.30</slf4j-simple.version>
   </properties>
