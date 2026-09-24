@@ -236,11 +236,11 @@ public class DipMessagesProcessor implements Runnable {
 				case "dip/acc/LHC/RunControl/SafeBeam":
 					handleSafeBeamMessage(messageItem.data);
 					break;
-				case "dip/acc/LHC/Beam/Energy":
-					handleEnergyMessage(messageItem.data);
-					break;
 				case "dip/acc/LHC/RunControl/BeamMode":
 					handleBeamModeMessage(messageItem.data);
+					break;
+				case "dip/acc/LHC/Beam/Energy":
+					handleEnergyMessage(messageItem.data);
 					break;
 				case "dip/acc/LHC/Beam/BetaStar/Bstar2":
 					handleBetaStarMessage(messageItem.data);
@@ -248,11 +248,11 @@ public class DipMessagesProcessor implements Runnable {
 				case "dip/ALICE/MCS/Solenoid/Current":
 					handleL3CurrentMessage(messageItem.data);
 					break;
-				case "dip/ALICE/MCS/Dipole/Current":
-					handleDipoleCurrentMessage(messageItem.data);
-					break;
 				case "dip/ALICE/MCS/Solenoid/Polarity":
 					handleL3PolarityMessage(messageItem.data);
+					break;
+				case "dip/ALICE/MCS/Dipole/Current":
+					handleDipoleCurrentMessage(messageItem.data);
 					break;
 				case "dip/ALICE/MCS/Dipole/Polarity":
 					handleDipolePolarityMessage(messageItem.data);
@@ -308,7 +308,7 @@ public class DipMessagesProcessor implements Runnable {
 	}
 
 	private void handleSafeBeamMessage(DipData dipData) throws BadParameter, TypeMismatch {
-		var safeBeamPayload = dipData.extractInt("payload");
+		var safeBeamPayload = dipData.extractInt("PAYLOAD");
 
 		var time = dipData.extractDipTime().getAsMillis();
 
@@ -342,11 +342,11 @@ public class DipMessagesProcessor implements Runnable {
 	}
 
 	private void handleEnergyMessage(DipData dipData) throws BadParameter, TypeMismatch {
-		var energyPayload = dipData.extractInt("payload");
+		var energyPayload = dipData.extractInt("PAYLOAD");
 		// Per documentation, value has to be multiplied by 120 go get MeV
 		// https://confluence.cern.ch/display/expcomm/Energy
 		var energy = 0.12f * energyPayload;
-
+		AliDip2BK.log(1, "ProcData.dispach", " New Energy = " + energy + " TeV");
 		var time = dipData.extractDipTime().getAsMillis();
 
 		if (currentFill != null) {
@@ -371,13 +371,18 @@ public class DipMessagesProcessor implements Runnable {
 		newBeamMode(time, beamMode);
 	}
 
+  /**
+	 * Handles the Beta Star message, extracts the value, converts it to meters and updates the current fill information accordingly.
+	 * Source: https://confluence.cern.ch/pages/viewpage.action?spaceKey=expcomm&title=BetaStar 
+	 * @param dipData - the DipData object containing the Beta Star information
+	 */
 	private void handleBetaStarMessage(DipData dipData) throws BadParameter, TypeMismatch {
-		var betaStarPayload = dipData.extractInt("payload");
+		var betaStarPayload = dipData.extractInt("PAYLOAD");
 		// Per documentation, value is in cm, we convert it to m
 		var betaStar = betaStarPayload / 100.f; // in m
 
 		var time = dipData.extractDipTime().getAsMillis();
-
+		AliDip2BK.log(1, "ProcData.dispach", " New Beta Star = " + betaStar);
 		if (currentFill != null) {
 			currentFill.setLHCBetaStar(time, betaStar);
 		}
